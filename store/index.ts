@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore, Middleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import { createWrapper } from "next-redux-wrapper";
+import { createWrapper, Context } from "next-redux-wrapper";
 
 import rootReducer from "../reducers";
-import rootSaga from "../sagas";
+import { rootSaga } from "../sagas";
 
 const bindMiddleware = (middleware: Middleware<any>[]) => {
   if (process.env.NODE_ENV !== "production") {
@@ -13,7 +13,7 @@ const bindMiddleware = (middleware: Middleware<any>[]) => {
   }
 };
 
-export const makeStore = context => {
+export const makeStore = (context: Context) => {
   const sagaMiddleware = createSagaMiddleware();
 
   const store: any = createStore(rootReducer, bindMiddleware([sagaMiddleware]));

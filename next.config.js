@@ -9,7 +9,6 @@ const nextConfig = {
 module.exports = {
   ...nextConfig,
   webpack: (config, { dev }) => {
-    console.log(dev);
     config.plugins.push(
       new Dotenv({
         path: `./.env.${dev ? "development" : "production"}`,
