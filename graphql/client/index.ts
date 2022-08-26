@@ -1,5 +1,5 @@
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient } from 'graphql-request';
 
-const GRAPHQL_ENDPOINT = process.env.BACKEND_GRAPHQL || "Failed to load .env";
+const GRAPHQL_ENDPOINT = `${process.env.BACKEND_ROOT}/graphql`;
 
 export const client = new GraphQLClient(GRAPHQL_ENDPOINT);

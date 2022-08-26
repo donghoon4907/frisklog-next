@@ -1,11 +1,10 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Cookies from "cookies";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { ServerResponse } from 'http';
+import Cookies from "cookies";
 
 import { wrapper } from "../store"
-import { STORAGE_TOKEN_KEY } from '../lib/cookie'
-import { ServerResponse } from 'http';
+import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key'
 import { client } from '../graphql/client';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -20,7 +19,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
   if(isServer) {
     const cookies = new Cookies(req, res as ServerResponse);
 
-    let token = cookies.get(STORAGE_TOKEN_KEY) || null;
+    let token = cookies.get(COOKIE_TOKEN_KEY) || null;
 
     if(token) {
       client.setHeader("authorization", `Bearer ${token}`)
@@ -38,12 +37,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
             ...state.user,
           };
         } catch {
-          console.error("Failed to verify token.");
-  
-          cookies.set(STORAGE_TOKEN_KEY)
+          console.error("[NEXT_APP] Failed to verify token.");
+          // delete cookie
+          cookies.set(COOKIE_TOKEN_KEY)
         }
       } else {
-        console.error("Failed to load jwt secret.");
+        console.error("[NEXT_APP] Failed to load jwt secret.");
       }
     }
   }

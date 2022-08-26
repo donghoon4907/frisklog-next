@@ -1,3 +1,3 @@
 export type CookieKey = string;
 
-export type StorageOutput = string | null;
+export type CookieOutput = string | null;

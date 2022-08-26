@@ -10,7 +10,7 @@ import {
   CreateUserPayload
 } from "../../actions/user/user.interface";
 import { client } from "../../graphql/client";
-import { MUTATION_CREATE_USER } from "../../graphql/mutation/user";
+import { MUTATION_CREATE_USER } from "../../graphql/mutation/user/create-user";
 
 function createUserAPI(payload: CreateUserPayload) {
   return client.request(MUTATION_CREATE_USER, payload);
