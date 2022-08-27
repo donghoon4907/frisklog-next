@@ -2,13 +2,36 @@ import type { AppProps } from 'next/app'
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { ServerResponse } from 'http';
 import Cookies from "cookies";
+import { ThemeProvider, DefaultTheme} from "styled-components"
 
 import { wrapper } from "../store"
 import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key'
 import { client } from '../graphql/client';
 
+const light = {
+  
+}
+
+const dark = {
+
+}
+
+const theme: DefaultTheme = {
+  colors: {
+    primary: "#111",
+    secondary: "#0070f3"
+  }
+}
+
+
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
+  )
 }
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, ctx }) => {
