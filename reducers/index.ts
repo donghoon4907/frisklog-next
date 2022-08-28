@@ -1,4 +1,5 @@
-import { combineReducers } from "redux";
-import user from "./user";
+import { combineReducers } from 'redux';
+import user from './user';
+import theme from './theme';
 
-export default combineReducers({ user });
+export default combineReducers({ user, theme });

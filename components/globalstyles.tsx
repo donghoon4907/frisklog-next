@@ -19,58 +19,6 @@ html {
     -o-tab-size: 4;
 }
 
-html[data-theme="dark"] {
-    --frisklog-bg-color: #{$dark-theme-background-color};
-    --frisklog-header-color: #{$dark-theme-header-color};
-    --frisklog-box-color: #{$dark-theme-box-color};
-    --frisklog-border-color: #{$dark-theme-border-color};
-    --frisklog-input-color: #{$dark-theme-input-color};
-    --frisklog-text-color: #{$dark-theme-text-color};
-    --frisklog-icon-color: #{$dark-theme-icon-color};
-    --frisklog-hover-color: #{$dark-theme-hover-color};
-    --frisklog-divider-color: #{$dark-theme-divider-color};
-    --frisklog-disabled-color: #{$dark-theme-disabled-color};
-    --frisklog-primary-color: #{$dark-theme-primary-color};
-    --frisklog-primary-text-color: #{$dark-theme-primary-text-color};
-    --frisklog-secondary-color: #{$dark-theme-secondary-color};
-    --frisklog-success-color: #{$dark-theme-success-color};
-    --frisklog-danger-color: #{$dark-theme-danger-color};
-    --frisklog-warning-color: #{$dark-theme-warning-color};
-    --frisklog-info-color: #{$dark-theme-info-color};
-    --frisklog-modal-color: #{$dark-theme-modal-color};
-    --frisklog-github-bg-color: #{$dark-github-background-color};
-    --frisklog-github-text-color: #{$dark-github-text-color};
-    --frisklog-category-bg-color: #{$dark-category-background-color};
-    --frisklog-category-text-color: #{$dark-category-text-color};
-    --frisklog-category-closeicon-color: #{$dark-category-closeicon-color};
-}
-
-html[data-theme="light"] {
-    --frisklog-bg-color: #{$light-theme-background-color};
-    --frisklog-header-color: #{$light-theme-header-color};
-    --frisklog-box-color: #{$light-theme-box-color};
-    --frisklog-border-color: #{$light-theme-border-color};
-    --frisklog-input-color: #{$light-theme-input-color};
-    --frisklog-text-color: #{$light-theme-text-color};
-    --frisklog-icon-color: #{$light-theme-icon-color};
-    --frisklog-hover-color: #{$light-theme-hover-color};
-    --frisklog-divider-color: #{$light-theme-divider-color};
-    --frisklog-disabled-color: #{$light-theme-disabled-color};
-    --frisklog-primary-color: #{$light-theme-primary-color};
-    --frisklog-primary-text-color: #{$light-theme-primary-text-color};
-    --frisklog-secondary-color: #{$light-theme-secondary-color};
-    --frisklog-success-color: #{$light-theme-success-color};
-    --frisklog-danger-color: #{$light-theme-danger-color};
-    --frisklog-warning-color: #{$light-theme-warning-color};
-    --frisklog-info-color: #{$light-theme-info-color};
-    --frisklog-modal-color: #{$light-theme-modal-color};
-    --frisklog-github-bg-color: #{$light-github-background-color};
-    --frisklog-github-text-color: #{$light-github-text-color};
-    --frisklog-category-bg-color: #{$light-category-background-color};
-    --frisklog-category-text-color: #{$light-category-text-color};
-    --frisklog-category-closeicon-color: #{$light-category-closeicon-color};
-}
-
 body {
     background: var(--frisklog-bg-color);
     color: var(--frisklog-text-color);
@@ -127,16 +75,11 @@ button {
     background: transparent;
     color: inherit;
 }
-
-// SETTING - 스크롤
 #main::-webkit-scrollbar {
     width: 8px;
 }
-
 #main::-webkit-scrollbar-thumb {
-    // height: 10%;
     background: var(--frisklog-icon-color);
-
     border-radius: 10px;
 }
 
@@ -197,24 +140,20 @@ button {
         color: $fr-black-color !important;
     }
 }
-// SETTING - 에디터
 .te-mode-switch-section {
     display: none !important;
 }
 .te-toolbar-section {
     border-color: var(--frisklog-border-color) !important;
 }
-
 .tui-editor-defaultUI {
     border-radius: $fr-border-radius;
     border-color: var(--frisklog-border-color) !important;
     background-color: var(--frisklog-input-color) !important;
 }
-
 .tui-editor-defaultUI-toolbar {
     background-color: inherit !important;
 }
-
 .tui-editor-defaultUI-toolbar button {
     border: none !important;
     background-color: inherit !important;
@@ -226,50 +165,34 @@ button {
 .tui-md-code {
     background: none !important;
 }
-
 .tui-md-code-block.CodeMirror-linebackground {
     background: none !important;
 }
-
 .te-editor *:not(code),
 .tui-editor-contents *:not(code) {
     color: var(--frisklog-text-color) !important;
 }
-
 .CodeMirror {
     background: inherit !important;
 }
-
 .CodeMirror-cursor {
     border-color: var(--frisklog-text-color) !important;
 }
-
 .tui-editor .te-md-splitter {
     border-color: var(--frisklog-border-color) !important;
 }
-
 .tui-toolbar-divider {
     background-color: var(--frisklog-border-color) !important;
 }
-
-// .tui-editor-contents pre[class*="lang"] {
-//     background: #202020 !important;
-//     color: white !important;
-// }
-
 .tui-editor-contents img {
     width: 100%;
 }
-
 .te-preview::-webkit-scrollbar {
     display: none;
 }
-
 .CodeMirror-vscrollbar {
     display: none !important;
 }
-// SETTING - 아이콘
-// .activeEscape 공통 스타일 비활성화
 svg:not(.activeEscape) {
     fill: var(--frisklog-icon-color);
 
@@ -277,11 +200,9 @@ svg:not(.activeEscape) {
         fill: var(--frisklog-hover-color);
     }
 }
-// SETTING - 마크다운
 .markdown-body * {
     color: var(--frisklog-text-color) !important;
 }
-
 .markdown-body .highlight pre,
 .markdown-body pre,
 .markdown-body code,
@@ -291,11 +212,9 @@ svg:not(.activeEscape) {
     background-color: var(--frisklog-bg-color) !important;
     overflow: hidden !important;
 }
-
 .markdown-body pre code {
     white-space: pre-wrap;
 }
-
 .markdown-body img {
     background-color: inherit !important;
 }

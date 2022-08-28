@@ -2,34 +2,19 @@ import type { AppProps } from 'next/app'
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { ServerResponse } from 'http';
 import Cookies from "cookies";
-import { ThemeProvider, DefaultTheme} from "styled-components"
 
 import { wrapper } from "../store"
-import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key'
+import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key'
 import { client } from '../graphql/client';
-
-const light = {
-  
-}
-
-const dark = {
-
-}
-
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#111",
-    secondary: "#0070f3"
-  }
-}
+import Provider from '../components/Provider';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <Provider>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </Provider>
     </>
   )
 }
@@ -40,8 +25,25 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
   const isServer = !!req;
 
   if(isServer) {
-    const cookies = new Cookies(req, res as ServerResponse);
+    const state = store.getState();
 
+    const cookies = new Cookies(req, res as ServerResponse);
+    // 테마 정보 불러오기
+    let mode = cookies.get(COOKIE_THEME_KEY) || null;
+
+    if(mode === null) {
+      mode = state.theme.mode;
+
+      cookies.set(COOKIE_THEME_KEY, JSON.stringify(mode));
+    } else {
+      mode = JSON.parse(mode);
+    }
+
+    state.theme = {
+      ...state.theme,
+      mode
+    };
+    // 토큰 정보 불러오기
     let token = cookies.get(COOKIE_TOKEN_KEY) || null;
 
     if(token) {
@@ -53,7 +55,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
         try {
           const { iat, ...other } = jwt.verify(token, jwtSecret) as JwtPayload;
   
-          const state = store.getState();
+          
   
           state.user = {
             ...other,
