@@ -1,25 +1,11 @@
-import {
-  UserAction,
-  UserActionTypes,
-  CreateUserPayload
-} from "./user.interface";
-
-export function requestCreateUser(payload: CreateUserPayload): UserAction {
-  return {
-    type: UserActionTypes.CREATE_REQUEST,
-    payload
-  };
+export enum CreateUserAction {
+    REQUEST = 'USER_CREATE_REQUEST',
+    SUCCESS = 'USER_CREATE_SUCCESS',
+    FAILURE = 'USER_CREATE_FAILURE',
 }
 
-export function sucessCreateUser(): UserAction {
-  return {
-    type: UserActionTypes.CREATE_SUCCESS
-  };
-}
-
-export function failureCreateUser(error: string): UserAction {
-  return {
-    type: UserActionTypes.CREATE_FAILURE,
-    error
-  };
+export interface CreateUserPayload {
+    email: string;
+    nickname: string;
+    avatar?: string;
 }

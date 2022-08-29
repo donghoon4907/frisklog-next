@@ -1,7 +1,21 @@
-import { all, fork } from "redux-saga/effects";
+import { all, fork } from 'redux-saga/effects';
 
-import { watchCreateUser } from "./create-user";
+import { watchCreateUser } from './create-user';
+import { watchFollowUser } from './follow-user';
+import { watchLoginGithub } from './login-github';
+import { watchLoginUser } from './login-user';
+import { watchUnfollowUser } from './unfollow-user';
+import { watchUpdateUser } from './update-user';
+import { watchVerifyUser } from './verify-user';
 
 export function* userSaga() {
-  yield all([fork(watchCreateUser)]);
+    yield all([
+        fork(watchCreateUser),
+        fork(watchUpdateUser),
+        fork(watchFollowUser),
+        fork(watchUnfollowUser),
+        fork(watchLoginUser),
+        fork(watchVerifyUser),
+        fork(watchLoginGithub),
+    ]);
 }

@@ -1,31 +1,32 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { client } from '../../graphql/client';
+import { UserAction } from '../../actions/user';
 import {
-  failureCreateUser,
-  sucessCreateUser
-} from "../../actions/user/create-user";
-import {
-  UserActionTypes,
-  UserAction,
-  CreateUserPayload
-} from "../../actions/user/user.interface";
-import { client } from "../../graphql/client";
-import { MUTATION_CREATE_USER } from "../../graphql/mutation/user/create-user";
+    CreateUserAction,
+    CreateUserPayload,
+} from '../../actions/user/create-user';
+import { MUTATION_CREATE_USER } from '../../graphql/mutation/user/create-user';
 
 function createUserAPI(payload: CreateUserPayload) {
-  return client.request(MUTATION_CREATE_USER, payload);
+    return client.request(MUTATION_CREATE_USER, payload);
 }
 
-function* createUserSaga(action: UserAction): any {
-  try {
-    yield call(createUserAPI, action.payload);
+function* createUserSaga(action: UserAction) {
+    try {
+        yield call(createUserAPI, action.payload);
 
-    yield put(sucessCreateUser());
-  } catch (e) {
-    yield put(failureCreateUser((e as Error).message));
-  }
+        yield put({
+            type: CreateUserAction.SUCCESS,
+        });
+    } catch (e) {
+        yield put({
+            type: CreateUserAction.FAILURE,
+            error: (e as Error).message,
+        });
+    }
 }
 // 사용자 생성
 export function* watchCreateUser() {
-  yield takeEvery(UserActionTypes.CREATE_REQUEST, createUserSaga);
+    yield takeEvery(CreateUserAction.REQUEST, createUserSaga);
 }
