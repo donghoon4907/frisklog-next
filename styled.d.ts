@@ -47,5 +47,16 @@ declare module 'styled-components' {
         margin: Margin;
         colors: Colors;
         breakPoints: BreakPoints;
+        bgColor: string;
+        headerBgColor: string;
+        boxBgColor: string;
+        borderColor: string;
+        inputBgColor: string;
+        iconColor: string;
+        hoverColor: string;
+        textColor: string;
+        dividerColor: string;
+        btnColor: string;
+        modalBgColor: string;
     }
 }

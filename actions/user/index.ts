@@ -1,4 +1,4 @@
-import { Action } from '..';
+import { PayloadAction } from '..';
 import { CreateUserAction } from './create-user';
 import { FollowUserAction } from './follow-user';
 import { LoginGithubAction } from './login-github';
@@ -16,4 +16,4 @@ export type UserActionTypes =
     | VerifyUserAction
     | LoginGithubAction;
 
-export type UserAction = Action<UserActionTypes>;
+export type UserAction = PayloadAction<UserActionTypes>;

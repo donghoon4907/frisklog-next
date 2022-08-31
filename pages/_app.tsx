@@ -6,15 +6,19 @@ import Cookies from "cookies";
 import { wrapper } from "../store"
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key'
 import { client } from '../graphql/client';
-import Provider from '../components/Provider';
+import { Providers } from '../components/Provider';
+import { Layout } from '../components/layout';
+import { ThemeModeAction } from '../actions/switch/theme-mode';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Provider>
-        <Component {...pageProps} />
-      </Provider>
+      <Providers>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Providers>
     </>
   )
 }
@@ -39,10 +43,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
       mode = JSON.parse(mode);
     }
 
-    state.theme = {
-      ...state.theme,
-      mode
-    };
+    if(mode === "dark") {
+      store.dispatch({
+        type: ThemeModeAction.DARK
+      })
+    }
+    
     // 토큰 정보 불러오기
     let token = cookies.get(COOKIE_TOKEN_KEY) || null;
 
@@ -54,8 +60,6 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
       if (jwtSecret) {
         try {
           const { iat, ...other } = jwt.verify(token, jwtSecret) as JwtPayload;
-  
-          
   
           state.user = {
             ...other,

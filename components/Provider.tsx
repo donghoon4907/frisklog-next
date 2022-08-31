@@ -3,14 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { darkTheme, lightTheme } from './theme';
-import { GlobalStyle } from './globalstyles';
+import { GlobalStyle } from './theme/globalstyles';
+import { DefaultProps } from '../interfaces/default';
 
-interface ProviderProps {
-    children: JSX.Element;
-}
+interface Props extends DefaultProps {}
 
-const Provider: FC<ProviderProps> = ({ children }) => {
-    const { mode } = useSelector((state: Record<string, any>) => state.theme);
+export const Providers: FC<Props> = ({ children }) => {
+    const { mode } = useSelector((state: Record<string, any>) => state.common);
 
     const theme = mode === 'light' ? lightTheme : darkTheme;
 
@@ -23,5 +22,3 @@ const Provider: FC<ProviderProps> = ({ children }) => {
         </>
     );
 };
-
-export default Provider;

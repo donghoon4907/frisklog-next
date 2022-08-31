@@ -193,11 +193,15 @@ button {
 .CodeMirror-vscrollbar {
     display: none !important;
 }
+svg {
+    width: 20px;
+    height: 20px;
+}
 svg:not(.activeEscape) {
-    fill: var(--frisklog-icon-color);
+    fill: ${({ theme }) => theme.iconColor};
 
     &:hover {
-        fill: var(--frisklog-hover-color);
+        fill: ${({ theme }) => theme.hoverColor};
     }
 }
 .markdown-body * {

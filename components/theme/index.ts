@@ -67,7 +67,7 @@ const colors: Colors = {
     blue: '#2e6bd8',
 };
 
-export const theme: DefaultTheme = {
+export const theme = {
     fontSize,
     padding,
     margin,
@@ -75,7 +75,7 @@ export const theme: DefaultTheme = {
     breakPoints,
 };
 
-export const lightTheme = {
+export const lightTheme: DefaultTheme = {
     ...theme,
     bgColor: colors.white_primary,
     headerBgColor: colors.white_base,
@@ -90,7 +90,7 @@ export const lightTheme = {
     modalBgColor: colors.white_base,
 };
 
-export const darkTheme = {
+export const darkTheme: DefaultTheme = {
     ...theme,
     bgColor: colors.black_primary,
     headerBgColor: colors.black_primary,

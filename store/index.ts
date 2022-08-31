@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore, Middleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { createWrapper, Context } from 'next-redux-wrapper';
+import { applyMiddleware, createStore, Middleware, Store } from 'redux';
+import createSagaMiddleware, { Task } from 'redux-saga';
+import { createWrapper, Context, MakeStore } from 'next-redux-wrapper';
 
-import rootReducer from '../reducers';
+import { rootReducer } from '../reducers';
 import { rootSaga } from '../sagas';
 
 const bindMiddleware = (middleware: Middleware<any>[]) => {
@@ -13,10 +13,14 @@ const bindMiddleware = (middleware: Middleware<any>[]) => {
     }
 };
 
-export const makeStore = (context: Context) => {
+interface SagaStore extends Store {
+    sagaTask: Task;
+}
+
+export const makeStore: MakeStore<SagaStore> = (context: Context) => {
     const sagaMiddleware = createSagaMiddleware();
 
-    const store: any = createStore(
+    const store: SagaStore = createStore(
         rootReducer,
         bindMiddleware([sagaMiddleware]),
     );
@@ -26,4 +30,4 @@ export const makeStore = (context: Context) => {
     return store;
 };
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper<SagaStore>(makeStore, { debug: true });
