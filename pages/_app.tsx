@@ -9,6 +9,7 @@ import { client } from '../graphql/client';
 import { Providers } from '../components/Provider';
 import { Layout } from '../components/layout';
 import { ThemeModeAction } from '../actions/switch/theme-mode';
+import { LoadUserAction } from '../actions/user/load-user';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -59,12 +60,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
 
       if (jwtSecret) {
         try {
-          const { iat, ...other } = jwt.verify(token, jwtSecret) as JwtPayload;
-  
-          state.user = {
-            ...other,
-            ...state.user,
-          };
+          const { iat, ...profile } = jwt.verify(token, jwtSecret) as JwtPayload;
+          
+          store.dispatch({
+            type: LoadUserAction.LOAD,
+            payload: profile
+          })
         } catch {
           console.error("[NEXT_APP] Failed to verify token.");
           // delete cookie

@@ -9,6 +9,7 @@ import {
 import { MUTATION_GITHUB_LOGIN } from '../../graphql/mutation/user/login-github';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { LoadUserAction } from '../../actions/user/load-user';
 
 function loginGithubAPI(payload: LoginGithubPayload) {
     return client.request(MUTATION_GITHUB_LOGIN, payload);
@@ -21,6 +22,10 @@ function* loginGithubSaga(action: UserAction): any {
         console.log(response);
         yield put({
             type: LoginGithubAction.SUCCESS,
+        });
+
+        yield put({
+            type: LoadUserAction.LOAD,
             payload: response,
         });
 

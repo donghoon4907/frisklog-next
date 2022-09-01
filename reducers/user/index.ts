@@ -8,8 +8,13 @@ import { UnfollowUserAction } from '../../actions/user/unfollow-user';
 import { LoginUserAction } from '../../actions/user/login-user';
 import { VerifyUserAction } from '../../actions/user/verify-user';
 import { LoginGithubAction } from '../../actions/user/login-github';
+import { LoadUserAction } from '../../actions/user/load-user';
 
 const initialState: Record<string, any> = {
+    id: null,
+    nickname: null,
+    avatar: null,
+    isMaster: null,
     isAddUserLoading: false,
     addUserErrorReason: '',
     isUpdateUserLoading: false,
@@ -111,14 +116,6 @@ export default (state = initialState, { type, payload, error }: UserAction) =>
             }
             case VerifyUserAction.SUCCESS: {
                 draft.isVerifyUserLoading = false;
-
-                draft.id = payload.id;
-
-                draft.nickname = payload.nickname;
-
-                draft.avatar = payload.avatar;
-
-                draft.isMaster = payload.isMaster;
                 break;
             }
             case VerifyUserAction.FAILURE: {
@@ -134,7 +131,16 @@ export default (state = initialState, { type, payload, error }: UserAction) =>
             }
             case LoginGithubAction.SUCCESS: {
                 draft.isGithubLoginLoading = false;
+                break;
+            }
+            case LoginGithubAction.FAILURE: {
+                draft.isGithubLoginLoading = false;
 
+                draft.githubLoginErrorReason = error;
+                break;
+            }
+            // Load
+            case LoadUserAction.LOAD: {
                 draft.id = payload.id;
 
                 draft.nickname = payload.nickname;
@@ -144,10 +150,14 @@ export default (state = initialState, { type, payload, error }: UserAction) =>
                 draft.isMaster = payload.isMaster;
                 break;
             }
-            case LoginGithubAction.FAILURE: {
-                draft.isGithubLoginLoading = false;
+            case LoadUserAction.INIT: {
+                draft.id = null;
 
-                draft.githubLoginErrorReason = error;
+                draft.nickname = null;
+
+                draft.avatar = null;
+
+                draft.isMaster = null;
                 break;
             }
             default: {

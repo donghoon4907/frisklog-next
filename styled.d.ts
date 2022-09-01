@@ -36,6 +36,10 @@ declare module 'styled-components' {
         blue: string;
     }
 
+    export interface StatusColors {
+        [statusCode: string]: string;
+    }
+
     export interface BreakPoints extends SizeRule {
         xs: string;
         wd: string;
@@ -46,6 +50,7 @@ declare module 'styled-components' {
         padding: Padding;
         margin: Margin;
         colors: Colors;
+        statusColors: StatusColors;
         breakPoints: BreakPoints;
         bgColor: string;
         headerBgColor: string;
@@ -58,5 +63,6 @@ declare module 'styled-components' {
         dividerColor: string;
         btnColor: string;
         modalBgColor: string;
+        borderRadius: string;
     }
 }

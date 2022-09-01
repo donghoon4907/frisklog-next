@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 import { HomeButton } from '../button/Home';
 import { ModeButton } from '../button/Mode';
 import { HeaderSearchBar } from './SearchBar';
+import { SearchButton } from '../button/Search';
+import { FavoriteButton } from '../button/Favorite';
+import { CreatePostButton } from '../button/CreatePost';
+import { ProfileButton } from '../button/Profile';
 
 const HeaderContainer = styled.div`
     height: 3rem;
@@ -24,7 +28,20 @@ const HeaderBody = styled.header`
     position: relative;
 `;
 
-const HeaderColumn = styled.div``;
+const HeaderColumn = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    & > * {
+        margin-right: 0.6rem;
+    }
+
+    & > *:nth-child(1) {
+        margin-left: 0.6rem;
+    }
+`;
 
 export const Header: FC = () => {
     const { isShowSearchBar } = useSelector(
@@ -40,6 +57,10 @@ export const Header: FC = () => {
                     </HeaderColumn>
                     <HeaderColumn>
                         <ModeButton />
+                        <SearchButton />
+                        <FavoriteButton />
+                        <CreatePostButton />
+                        <ProfileButton />
                     </HeaderColumn>
                 </HeaderBody>
                 {isShowSearchBar && <HeaderSearchBar />}

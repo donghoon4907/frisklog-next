@@ -5,6 +5,7 @@ import {
     Margin,
     BreakPoints,
     Colors,
+    StatusColors,
 } from 'styled-components';
 
 const DEFAULT_FONTSIZE = 16;
@@ -67,12 +68,21 @@ const colors: Colors = {
     blue: '#2e6bd8',
 };
 
+const statusColors: StatusColors = {
+    online: colors.success,
+    offline: colors.danger,
+    away: colors.disabled,
+    busy: colors.warning,
+};
+
 export const theme = {
     fontSize,
     padding,
     margin,
     colors,
+    statusColors,
     breakPoints,
+    borderRadius: '4px',
 };
 
 export const lightTheme: DefaultTheme = {
