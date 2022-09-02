@@ -96,8 +96,13 @@ export const lightTheme: DefaultTheme = {
     hoverColor: '#eee',
     textColor: colors.black_base,
     dividerColor: colors.divider,
-    btnColor: colors.blue,
+    primaryBtnColor: colors.blue,
+    primaryBtnTextColor: colors.white_base,
+    secondaryBtnColor: colors.white_base,
+    secondaryBtnTextColor: colors.black_base,
     modalBgColor: colors.white_base,
+    githubBgColor: colors.black_base,
+    githubTextColor: colors.white_base,
 };
 
 export const darkTheme: DefaultTheme = {
@@ -111,6 +116,11 @@ export const darkTheme: DefaultTheme = {
     hoverColor: '#f8f9fa',
     textColor: colors.white_base,
     dividerColor: colors.black_secondary,
-    btnColor: '#f8f9fa',
+    primaryBtnColor: '#f8f9fa',
+    primaryBtnTextColor: colors.black_base,
+    secondaryBtnColor: '3c3c3c',
+    secondaryBtnTextColor: colors.black_base,
     modalBgColor: colors.black_base,
+    githubBgColor: colors.white_base,
+    githubTextColor: colors.black_base,
 };

@@ -3,7 +3,7 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 
 import { PostModalAction } from '../../actions/switch/post-modal';
-import { useAuthenticate } from '../../hooks';
+import { useAuthenticate } from '../../hooks/use-authenticate';
 
 export const CreatePostButton: FC = () => {
     const dispatch = useDispatch();

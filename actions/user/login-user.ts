@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export enum LoginUserAction {
     REQUEST = 'USER_LOGIN_REQUEST',
     SUCCESS = 'USER_LOGIN_SUCCESS',
@@ -6,4 +8,5 @@ export enum LoginUserAction {
 
 export interface LoginUserPayload {
     email: string;
+    callbackFunc: () => Dispatch<SetStateAction<string>>;
 }

@@ -3,12 +3,14 @@ import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SearchBarAction } from '../../actions/switch/search-bar';
+import { IState } from '../../reducers';
+import { ICommonState } from '../../reducers/common';
 
 export const SearchButton: FC = () => {
     const dispatch = useDispatch();
 
-    const { isShowSearchBar } = useSelector(
-        (state: Record<string, any>) => state.common,
+    const { isShowSearchBar } = useSelector<IState, ICommonState>(
+        state => state.common,
     );
 
     const handleClick = () => {

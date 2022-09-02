@@ -6,8 +6,17 @@ import { PostModalAction } from '../../actions/switch/post-modal';
 import { SearchBarAction } from '../../actions/switch/search-bar';
 import { ThemeModeAction } from '../../actions/switch/theme-mode';
 import { UserModalAction } from '../../actions/switch/user-modal';
+import { ModeType } from '../../types/mode';
 
-const initialState: Record<string, any> = {
+export interface ICommonState {
+    isShowLoginModal: boolean;
+    isShowPostModal: boolean;
+    isShowUserModal: boolean;
+    isShowSearchBar: boolean;
+    mode: ModeType;
+}
+
+const initialState: ICommonState = {
     isShowLoginModal: false,
     isShowPostModal: false,
     isShowUserModal: false,

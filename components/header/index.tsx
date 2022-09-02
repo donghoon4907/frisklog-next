@@ -9,6 +9,8 @@ import { SearchButton } from '../button/Search';
 import { FavoriteButton } from '../button/Favorite';
 import { CreatePostButton } from '../button/CreatePost';
 import { ProfileButton } from '../button/Profile';
+import { IState } from '../../reducers';
+import { ICommonState } from '../../reducers/common';
 
 const HeaderContainer = styled.div`
     height: 3rem;
@@ -44,8 +46,8 @@ const HeaderColumn = styled.div`
 `;
 
 export const Header: FC = () => {
-    const { isShowSearchBar } = useSelector(
-        (state: Record<string, any>) => state.common,
+    const { isShowSearchBar } = useSelector<IState, ICommonState>(
+        state => state.common,
     );
 
     return (

@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeModeAction } from '../../actions/switch/theme-mode';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_THEME_KEY } from '../../lib/cookie/cookie.key';
+import { IState } from '../../reducers';
+import { ICommonState } from '../../reducers/common';
 
 export const ModeButton: FC = () => {
     const dispatch = useDispatch();
 
-    const { mode } = useSelector((state: Record<string, any>) => state.common);
+    const { mode } = useSelector<IState, ICommonState>(state => state.common);
 
     const handleClick = () => {
         if (mode === 'light') {

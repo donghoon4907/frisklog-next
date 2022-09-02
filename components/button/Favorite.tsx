@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { BsFillStarFill } from 'react-icons/bs';
 
-import { useAuthenticate } from '../../hooks';
+import { useAuthenticate } from '../../hooks/use-authenticate';
 
 export const FavoriteButton: FC = () => {
     const router = useRouter();

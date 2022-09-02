@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { TStatus } from '../types/status';
+import { StatusType } from '../types/status';
 
-export const BadgeBody = styled.span<{ statusCode: TStatus }>`
+export const BadgeBody = styled.span<{ statusCode: StatusType }>`
     display: inline-block;
     border-radius: 50%;
     width: 10px;
@@ -18,7 +18,7 @@ export const BadgeText = styled.span`
 `;
 
 interface Props {
-    statusCode: TStatus;
+    statusCode: StatusType;
     statusText?: string;
 }
 

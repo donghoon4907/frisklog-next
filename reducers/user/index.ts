@@ -10,7 +10,28 @@ import { VerifyUserAction } from '../../actions/user/verify-user';
 import { LoginGithubAction } from '../../actions/user/login-github';
 import { LoadUserAction } from '../../actions/user/load-user';
 
-const initialState: Record<string, any> = {
+export interface IUserState {
+    id: number | null;
+    nickname: string | null;
+    avatar: string | null;
+    isMaster: boolean | null;
+    isAddUserLoading: boolean;
+    addUserErrorReason: string;
+    isUpdateUserLoading: boolean;
+    updateUserErrorReason: string;
+    isFollowUserLoading: boolean;
+    followUserErrorReason: string;
+    isUnfollowUserLoading: boolean;
+    unfollowUserErrorReason: string;
+    isLoginUserLoading: boolean;
+    loginUserErrorReason: string;
+    isVerifyUserLoading: boolean;
+    verifyUserErrorReason: string;
+    isGithubLoginLoading: boolean;
+    githubLoginErrorReason: string;
+}
+
+const initialState: IUserState = {
     id: null,
     nickname: null,
     avatar: null,

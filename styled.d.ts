@@ -61,8 +61,13 @@ declare module 'styled-components' {
         hoverColor: string;
         textColor: string;
         dividerColor: string;
-        btnColor: string;
+        primaryBtnColor: string;
+        primaryBtnTextColor: string;
+        secondaryBtnColor: string;
+        secondaryBtnTextColor: string;
         modalBgColor: string;
+        githubBgColor: string;
+        githubTextColor: string;
         borderRadius: string;
     }
 }

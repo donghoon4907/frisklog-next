@@ -5,7 +5,16 @@ import { CreateCommentAction } from '../../actions/comment/create-comment';
 import { DeleteCommentAction } from '../../actions/comment/delete-comment';
 import { UpdateCommentAction } from '../../actions/comment/update-comment';
 
-const initialState: Record<string, any> = {
+export interface ICommentState {
+    isAddCommentLoading: boolean;
+    addCommentErrorReason: string;
+    isUpdateCommentLoading: boolean;
+    updateCommentErrorReason: string;
+    isDeleteCommentLoading: boolean;
+    deleteCommentErrorReason: string;
+}
+
+const initialState: ICommentState = {
     isAddCommentLoading: false,
     addCommentErrorReason: '',
     isUpdateCommentLoading: false,

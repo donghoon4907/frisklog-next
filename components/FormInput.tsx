@@ -24,7 +24,7 @@ interface Props extends DefaultProps, InputProps {
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
-    ({ children, expanded, ...props }, ref) => (
+    ({ children, expanded = false, ...props }, ref) => (
         <FormInputContainer>
             <FormInputBody expanded>
                 <Label {...props} />

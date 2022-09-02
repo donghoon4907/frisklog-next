@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Header } from '../header';
 import { DefaultProps } from '../../interfaces/default';
+import { AuthModal } from '../modal/Auth';
 
 const LayoutContainer = styled.div`
     display: flex;
@@ -24,6 +25,7 @@ export const Layout: FC<Props> = ({ children }) => {
         <LayoutContainer>
             <Header />
             {children}
+            <AuthModal />
         </LayoutContainer>
     );
 };

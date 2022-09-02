@@ -7,7 +7,20 @@ import { LikePostAction } from '../../actions/post/like-post';
 import { UnlikePostAction } from '../../actions/post/unlike-post';
 import { UpdatePostAction } from '../../actions/post/update-post';
 
-const initialState: Record<string, any> = {
+export interface IPostState {
+    isAddPostLoading: boolean;
+    addPostErrorReason: string;
+    isUpdatePostLoading: boolean;
+    updatePostErrorReason: string;
+    isDeletePostLoading: boolean;
+    deletePostErrorReason: string;
+    isLikePostLoading: boolean;
+    likePostErrorReason: string;
+    isUnlikePostLoading: boolean;
+    unlikePostErrorReason: string;
+}
+
+const initialState: IPostState = {
     isAddPostLoading: false,
     addPostErrorReason: '',
     isUpdatePostLoading: false,

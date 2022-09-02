@@ -21,3 +21,5 @@ export const useAuthenticate = () => {
 
     return { validateToken };
 };
+
+export type UseAuthenticateType = ReturnType<typeof useAuthenticate>;

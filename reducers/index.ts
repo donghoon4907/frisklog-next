@@ -1,12 +1,22 @@
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, CombinedState, combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import user from './user';
-import post from './post';
-import comment from './comment';
-import common from './common';
+import user, { IUserState } from './user';
+import post, { IPostState } from './post';
+import comment, { ICommentState } from './comment';
+import common, { ICommonState } from './common';
 
-export const rootReducer = (state: any, action: AnyAction) => {
+export interface IState {
+    user: IUserState;
+    post: IPostState;
+    comment: ICommentState;
+    common: ICommonState;
+}
+
+export const rootReducer = (
+    state: CombinedState<IState>,
+    action: AnyAction,
+) => {
     switch (action.type) {
         case HYDRATE: {
             return action.payload;
@@ -19,5 +29,9 @@ export const rootReducer = (state: any, action: AnyAction) => {
         }
     }
 };
+
+export interface AnyState {
+    [stateKey: string]: any;
+}
 
 export type ReducerType = ReturnType<typeof rootReducer>;

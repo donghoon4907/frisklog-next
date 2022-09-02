@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { TStatus } from '../types/status';
+import { StatusType } from '../types/status';
 import { Badge } from './Badge';
 
 const AvatarContainer = styled.div`
@@ -30,7 +30,7 @@ const BadgeWrapper = styled.div`
 interface Props {
     src: string; // 이미지 자원
     alt: string; // 이미지 대체자
-    statusCode?: TStatus; // 사용자 상태
+    statusCode?: StatusType; // 사용자 상태
 }
 
 export const Avatar: FC<Props> = ({ src, alt, statusCode }) => (

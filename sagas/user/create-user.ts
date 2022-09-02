@@ -12,13 +12,17 @@ function createUserAPI(payload: CreateUserPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
 }
 
-function* createUserSaga(action: UserAction) {
+function* createUserSaga({ payload }: UserAction) {
     try {
-        yield call(createUserAPI, action.payload);
+        yield call(createUserAPI, payload);
 
         yield put({
             type: CreateUserAction.SUCCESS,
         });
+
+        alert('회원가입이 정상처리되었습니다.');
+
+        payload.callbackFunc('로그인');
     } catch (e) {
         yield put({
             type: CreateUserAction.FAILURE,

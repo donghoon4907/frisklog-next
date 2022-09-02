@@ -1,3 +1,5 @@
+import "antd/dist/antd.css"
+
 import type { AppProps } from 'next/app'
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { ServerResponse } from 'http';
@@ -37,12 +39,10 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(store => async ({ Component, 
     let mode = cookies.get(COOKIE_THEME_KEY) || null;
 
     if(mode === null) {
-      mode = state.theme.mode;
+      mode = state.common.mode;
 
-      cookies.set(COOKIE_THEME_KEY, JSON.stringify(mode));
-    } else {
-      mode = JSON.parse(mode);
-    }
+      cookies.set(COOKIE_THEME_KEY, mode, { httpOnly: false });
+    } 
 
     if(mode === "dark") {
       store.dispatch({

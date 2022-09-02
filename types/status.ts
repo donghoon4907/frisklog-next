@@ -1,1 +1,1 @@
-export type TStatus = 'online' | 'offline' | 'away' | 'busy';
+export type StatusType = 'online' | 'offline' | 'away' | 'busy';
