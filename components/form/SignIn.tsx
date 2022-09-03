@@ -9,7 +9,7 @@ import { AuthModeType } from '../../types/mode';
 import { Button } from '../button';
 import { FormCheckbox } from '../FormCheckbox';
 import { FormInput } from '../FormInput';
-import { Form, FormColumn } from '.';
+import { Form, FormColumn } from './form.style';
 import { LoginUserAction } from '../../actions/user/login-user';
 import { VerifyUserAction } from '../../actions/user/verify-user';
 

@@ -1,16 +1,7 @@
 import { FC } from 'react';
-import styled from 'styled-components';
 
 import { InputProps } from '../interfaces/default';
-
-const FormCheckboxContainer = styled.div<{ isGap: boolean }>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.5;
-
-    ${props => (props.isGap ? 'gap: 5px;' : '')}
-`;
+import { FormCheckboxContainer } from './FormCheckbox.style';
 
 interface Props extends InputProps {
     label?: string;

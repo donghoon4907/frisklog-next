@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { BsFillStarFill } from 'react-icons/bs';
 
 import { useAuthenticate } from '../../hooks/use-authenticate';
+import { IconWrapper } from './IconWrapper';
 
 export const FavoriteButton: FC = () => {
     const router = useRouter();
@@ -18,10 +19,8 @@ export const FavoriteButton: FC = () => {
     };
 
     return (
-        <div title="팔로잉 버튼">
-            <button type="button" aria-label="팔로잉" onClick={handleClick}>
-                <BsFillStarFill />
-            </button>
-        </div>
+        <IconWrapper ariaLabel="팔로잉" onClick={handleClick}>
+            <BsFillStarFill />
+        </IconWrapper>
     );
 };

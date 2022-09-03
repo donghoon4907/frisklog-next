@@ -35,8 +35,9 @@ h6 {
 
 hr {
     width: 100%;
-    background-color: var(--frisklog-divider-color);
-    opacity: 1 !important;
+    background-color: ${({ theme }) => theme.dividerColor};
+    border: none;
+    height: 1px !important;
 }
 
 ol,
@@ -79,7 +80,7 @@ button {
     width: 8px;
 }
 #main::-webkit-scrollbar-thumb {
-    background: var(--frisklog-icon-color);
+    background: ${({ theme }) => theme.iconColor};
     border-radius: 10px;
 }
 
@@ -91,42 +92,12 @@ button {
     overflow: hidden;
     clip-path: polygon(0 0, 0 0, 0 0);
 }
-// SETTING - 부트스트랩
-.modal {
-    display: flex !important;
-}
-
-.modal-dialog {
-    flex: 1;
-    margin: 0 !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 100% !important;
-}
-
-.modal-content {
-    margin: 0 20px;
-    background-color: var(--frisklog-modal-color) !important;
-}
-
-.modal-header,
-.modal-footer {
-    border-color: var(--frisklog-border-color) !important;
-}
 
 .btn-close {
     color: var(--frisklog-icon-color) !important;
     opacity: 1 !important;
 }
 
-.popover-header {
-    padding: 0;
-}
-
-.dropdown-item {
-    padding: 0 !important;
-}
 .page-item.active {
     font-weight: bold;
 }
@@ -193,19 +164,28 @@ button {
 .CodeMirror-vscrollbar {
     display: none !important;
 }
-svg {
+.icon-button svg, .anticon-close svg {
     width: 20px;
     height: 20px;
-}
-svg:not(.activeEscape) {
+
     fill: ${({ theme }) => theme.iconColor};
 
     &:hover {
         fill: ${({ theme }) => theme.hoverColor};
     }
 }
+.ant-modal-header, .ant-modal-title, .ant-modal-body {
+    background: ${({ theme }) => theme.modalBgColor} !important;
+    color: ${({ theme }) => theme.textColor} !important;
+}
+.ant-modal-header {
+    border-bottom-color: ${({ theme }) => theme.dividerColor} !important;
+}
+
+
+
 .markdown-body * {
-    color: var(--frisklog-text-color) !important;
+    color: ${({ theme }) => theme.textColor} !important;
 }
 .markdown-body .highlight pre,
 .markdown-body pre,

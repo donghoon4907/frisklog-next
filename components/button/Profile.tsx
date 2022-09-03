@@ -7,6 +7,7 @@ import { useAuthenticate } from '../../hooks/use-authenticate';
 import { LinkAvatar } from '../LinkAvatar';
 import { IState } from '../../reducers';
 import { IUserState } from '../../reducers/user';
+import { IconWrapper } from './IconWrapper';
 
 const AvatarWrapper = styled.div`
     width: 28px;
@@ -32,10 +33,8 @@ export const ProfileButton: FC = () => {
             />
         </AvatarWrapper>
     ) : (
-        <div title="로그인 버튼">
-            <button type="button" onClick={handleClick} aria-label="로그인">
-                <FaUserCircle />
-            </button>
-        </div>
+        <IconWrapper ariaLabel="로그인" onClick={handleClick}>
+            <FaUserCircle />
+        </IconWrapper>
     );
 };

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { PostModalAction } from '../../actions/switch/post-modal';
 import { useAuthenticate } from '../../hooks/use-authenticate';
+import { IconWrapper } from './IconWrapper';
 
 export const CreatePostButton: FC = () => {
     const dispatch = useDispatch();
@@ -21,14 +22,8 @@ export const CreatePostButton: FC = () => {
     };
 
     return (
-        <div title="포스트 작성 버튼">
-            <button
-                type="button"
-                aria-label="포스트 작성"
-                onClick={handleClick}
-            >
-                <BsFillPencilFill />
-            </button>
-        </div>
+        <IconWrapper ariaLabel="포스트 작성" onClick={handleClick}>
+            <BsFillPencilFill />
+        </IconWrapper>
     );
 };

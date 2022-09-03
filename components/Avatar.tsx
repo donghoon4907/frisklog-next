@@ -1,31 +1,8 @@
 import { FC } from 'react';
-import styled from 'styled-components';
 
 import { StatusType } from '../types/status';
+import { AvatarBody, AvatarContainer, BadgeWrapper } from './Avatar.style';
 import { Badge } from './Badge';
-
-const AvatarContainer = styled.div`
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: ${({ theme }) => theme.borderRadius};
-`;
-
-const AvatarBody = styled.img`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
-
-const BadgeWrapper = styled.div`
-    position: absolute;
-    bottom: 0;
-    right: 0;
-`;
 
 interface Props {
     src: string; // 이미지 자원

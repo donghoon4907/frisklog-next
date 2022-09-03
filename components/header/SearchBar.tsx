@@ -1,28 +1,10 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef, FC, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
 import { FormInput } from '../FormInput';
 import { SearchBarAction } from '../../actions/switch/search-bar';
-
-const SearchBarContainer = styled.div`
-    background: inherit;
-    border: none;
-    border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-    padding: ${({ theme }) => theme.padding.md};
-
-    position: absolute;
-    top: calc(3rem - 3px);
-    left: 0;
-    width: 100%;
-`;
-
-const SearchBarForm = styled.form`
-    position: relative;
-    margin: 0 auto;
-    width: 33rem;
-`;
+import { SearchBarContainer, SearchBarForm } from './SearchBar.style';
 
 export const HeaderSearchBar: FC = () => {
     const router = useRouter();

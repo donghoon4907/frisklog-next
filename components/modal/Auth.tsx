@@ -1,5 +1,4 @@
 import { useState, FC } from 'react';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
@@ -10,22 +9,11 @@ import { SignUpForm } from '../form/SignUp';
 import { AuthModeType } from '../../types/mode';
 import { GithubLoginButton } from '../button/GithubLogin';
 import { SignInForm } from '../form/SignIn';
-
-const AnotherLoginContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-`;
-const StateChanger = styled.div`
-    text-align: center;
-    padding: ${({ theme }) => theme.padding.xxxlg} 0;
-`;
-
-const StateChangerLink = styled.span`
-    color: ${({ theme }) => theme.colors.blue};
-    cursor: pointer;
-`;
+import {
+    AnotherLoginContainer,
+    StateChanger,
+    StateChangerLink,
+} from './Auth.style';
 
 export const AuthModal: FC = () => {
     const dispatch = useDispatch();
@@ -49,6 +37,7 @@ export const AuthModal: FC = () => {
             visible={isShowLoginModal}
             onCancel={handleClose}
             destroyOnClose
+            centered
             footer={null}
         >
             {mode === '로그인' && <SignInForm />}

@@ -7,6 +7,7 @@ import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_THEME_KEY } from '../../lib/cookie/cookie.key';
 import { IState } from '../../reducers';
 import { ICommonState } from '../../reducers/common';
+import { IconWrapper } from './IconWrapper';
 
 export const ModeButton: FC = () => {
     const dispatch = useDispatch();
@@ -30,18 +31,13 @@ export const ModeButton: FC = () => {
     };
 
     return (
-        <div title="모드 버튼">
-            <button
-                type="button"
-                onClick={handleClick}
-                aria-label={
-                    mode === 'light'
-                        ? '어두운 화면으로 변경'
-                        : '밝은 화면으로 변경'
-                }
-            >
-                {mode === 'light' ? <BsFillSunFill /> : <BsMoonStarsFill />}
-            </button>
-        </div>
+        <IconWrapper
+            ariaLabel={
+                mode === 'light' ? '어두운 화면으로 변경' : '밝은 화면으로 변경'
+            }
+            onClick={handleClick}
+        >
+            {mode === 'light' ? <BsFillSunFill /> : <BsMoonStarsFill />}
+        </IconWrapper>
     );
 };

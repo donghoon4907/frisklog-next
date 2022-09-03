@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SearchBarAction } from '../../actions/switch/search-bar';
 import { IState } from '../../reducers';
 import { ICommonState } from '../../reducers/common';
+import { IconWrapper } from './IconWrapper';
 
 export const SearchButton: FC = () => {
     const dispatch = useDispatch();
@@ -20,14 +21,11 @@ export const SearchButton: FC = () => {
     };
 
     return (
-        <div title="검색 버튼">
-            <button
-                type="button"
-                onClick={handleClick}
-                aria-label={isShowSearchBar ? '검색바 닫기' : '검색바 열기'}
-            >
-                <BsSearch />
-            </button>
-        </div>
+        <IconWrapper
+            ariaLabel={isShowSearchBar ? '검색바 닫기' : '검색바 열기'}
+            onClick={handleClick}
+        >
+            <BsSearch />
+        </IconWrapper>
     );
 };

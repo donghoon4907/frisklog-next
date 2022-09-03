@@ -8,7 +8,7 @@ import { CreateUserAction } from '../../actions/user/create-user';
 import { AuthModeType } from '../../types/mode';
 import { FormInput } from '../FormInput';
 import { Button } from '../button';
-import { Form, FormColumn } from '.';
+import { Form, FormColumn } from './form.style';
 
 interface Props {
     setMode: Dispatch<SetStateAction<AuthModeType>>;
