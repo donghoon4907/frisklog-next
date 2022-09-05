@@ -18,7 +18,7 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
     const dispatch = useDispatch();
 
     const { isAddUserLoading } = useSelector<IState, IUserState>(
-        state => state.user,
+        (state) => state.user,
     );
 
     const nickname = useInput('');

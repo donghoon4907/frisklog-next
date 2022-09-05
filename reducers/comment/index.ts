@@ -27,7 +27,7 @@ export default (
     state = initialState,
     { type, payload, error }: CommentAction,
 ) =>
-    produce(state, draft => {
+    produce(state, (draft) => {
         switch (type) {
             // Create
             case CreateCommentAction.REQUEST: {

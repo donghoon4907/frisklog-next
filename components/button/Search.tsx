@@ -11,7 +11,7 @@ export const SearchButton: FC = () => {
     const dispatch = useDispatch();
 
     const { isShowSearchBar } = useSelector<IState, ICommonState>(
-        state => state.common,
+        (state) => state.common,
     );
 
     const handleClick = () => {

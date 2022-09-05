@@ -1,11 +1,13 @@
 import produce from 'immer';
 
+import { CommonAction } from '../../actions/common';
 import { SwitchAction } from '../../actions/switch';
 import { LoginModalAction } from '../../actions/switch/login-modal';
 import { PostModalAction } from '../../actions/switch/post-modal';
 import { SearchBarAction } from '../../actions/switch/search-bar';
 import { ThemeModeAction } from '../../actions/switch/theme-mode';
 import { UserModalAction } from '../../actions/switch/user-modal';
+import { UploadImageAction } from '../../actions/common/upload-image';
 import { ModeType } from '../../types/mode';
 
 export interface ICommonState {
@@ -14,6 +16,8 @@ export interface ICommonState {
     isShowUserModal: boolean;
     isShowSearchBar: boolean;
     mode: ModeType;
+    isUploadImageLoading: boolean;
+    uploadImageErrorReason: string;
 }
 
 const initialState: ICommonState = {
@@ -22,10 +26,15 @@ const initialState: ICommonState = {
     isShowUserModal: false,
     isShowSearchBar: false,
     mode: 'light',
+    isUploadImageLoading: false,
+    uploadImageErrorReason: '',
 };
 
-export default (state = initialState, { type }: SwitchAction) =>
-    produce(state, draft => {
+export default (
+    state = initialState,
+    { type, error }: SwitchAction | CommonAction,
+) =>
+    produce(state, (draft) => {
         switch (type) {
             // Login
             case LoginModalAction.SHOW: {
@@ -70,6 +79,21 @@ export default (state = initialState, { type }: SwitchAction) =>
             }
             case ThemeModeAction.DARK: {
                 draft.mode = 'dark';
+                break;
+            }
+            // Upload image
+            case UploadImageAction.REQUEST: {
+                draft.isUploadImageLoading = true;
+                break;
+            }
+            case UploadImageAction.SUCCESS: {
+                draft.isUploadImageLoading = false;
+                break;
+            }
+            case UploadImageAction.FAILURE: {
+                draft.isUploadImageLoading = false;
+
+                draft.uploadImageErrorReason = error;
                 break;
             }
             default: {

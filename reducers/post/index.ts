@@ -1,13 +1,22 @@
 import produce from 'immer';
 
 import { PostAction } from '../../actions/post';
+import { ActivePostAction } from '../../actions/post/active-post';
 import { CreatePostAction } from '../../actions/post/create-post';
 import { DeletePostAction } from '../../actions/post/delete-post';
 import { LikePostAction } from '../../actions/post/like-post';
+import { GetPostsAction } from '../../actions/post/get-posts';
 import { UnlikePostAction } from '../../actions/post/unlike-post';
 import { UpdatePostAction } from '../../actions/post/update-post';
 
 export interface IPostState {
+    activePost: {
+        id: string | null;
+        content: string | null;
+        categories: string[];
+    };
+    isHomePostsLoading: boolean;
+    homePosts: Record<string, any>[];
     isAddPostLoading: boolean;
     addPostErrorReason: string;
     isUpdatePostLoading: boolean;
@@ -21,6 +30,13 @@ export interface IPostState {
 }
 
 const initialState: IPostState = {
+    activePost: {
+        id: null,
+        content: null,
+        categories: [],
+    },
+    isHomePostsLoading: false,
+    homePosts: [],
     isAddPostLoading: false,
     addPostErrorReason: '',
     isUpdatePostLoading: false,
@@ -34,7 +50,7 @@ const initialState: IPostState = {
 };
 
 export default (state = initialState, { type, payload, error }: PostAction) =>
-    produce(state, draft => {
+    produce(state, (draft) => {
         switch (type) {
             // Create
             case CreatePostAction.REQUEST: {
@@ -107,6 +123,40 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
             }
             case UnlikePostAction.FAILURE: {
                 draft.isUnlikePostLoading = false;
+
+                draft.unlikePostErrorReason = error;
+                break;
+            }
+            // Active post
+            case ActivePostAction.SET: {
+                draft.activePost.id = payload.id;
+
+                draft.activePost.content = payload.content;
+
+                draft.activePost.categories = payload.categories;
+                break;
+            }
+            case ActivePostAction.INIT: {
+                draft.activePost.id = null;
+
+                draft.activePost.content = null;
+
+                draft.activePost.categories = [];
+                break;
+            }
+            // Get posts
+            case GetPostsAction.REQUEST: {
+                draft.isHomePostsLoading = true;
+                break;
+            }
+            case GetPostsAction.SUCCESS: {
+                draft.isHomePostsLoading = false;
+
+                draft.homePosts = [...draft.homePosts, ...payload.nodes];
+                break;
+            }
+            case GetPostsAction.FAILURE: {
+                draft.isHomePostsLoading = false;
 
                 draft.unlikePostErrorReason = error;
                 break;

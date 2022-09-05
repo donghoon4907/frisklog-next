@@ -10,5 +10,5 @@ export const FormInputContainer = styled.div`
 export const FormInputBody = styled.div<{ expanded: boolean }>`
     position: relative;
 
-    ${props => (props.expanded ? 'width: 100%;' : '')}
+    ${(props) => (props.expanded ? 'width: 100%;' : '')}
 `;

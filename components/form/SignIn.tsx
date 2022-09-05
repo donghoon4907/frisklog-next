@@ -23,7 +23,7 @@ export const SignInForm: FC = () => {
     const { isLoginUserLoading, isVerifyUserLoading } = useSelector<
         IState,
         IUserState
-    >(state => state.user);
+    >((state) => state.user);
 
     const [mode, setMode] = useState<AuthModeType>('로그인');
 

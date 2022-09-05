@@ -8,5 +8,5 @@ export const LabelBody = styled.label<{ isEmpty: boolean }>`
     font-size: 0.1rem;
     animation: opacity 2s slidein;
     z-index: 100;
-    opacity: ${props => (props.isEmpty ? 0 : 0.5)};
+    opacity: ${(props) => (props.isEmpty ? 0 : 0.5)};
 `;

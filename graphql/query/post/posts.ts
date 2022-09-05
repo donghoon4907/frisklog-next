@@ -15,15 +15,13 @@ export const GET_POSTS = gql`
         $offset: Int
         $limit: Int!
         $searchKeyword: String
-        $userId: ID
-        $order: [[String]]
+        $userId: ID # $order: [[String]]
     ) {
         posts(
             offset: $offset
             limit: $limit
             searchKeyword: $searchKeyword
-            userId: $userId
-            order: $order
+            userId: $userId # order: $order
         ) {
             nodes {
                 id
@@ -45,7 +43,7 @@ export const GET_POSTS = gql`
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }

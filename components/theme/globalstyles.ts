@@ -75,6 +75,7 @@ button {
     overflow: visible;
     background: transparent;
     color: inherit;
+    cursor: pointer;
 }
 #main::-webkit-scrollbar {
     width: 8px;

@@ -15,7 +15,9 @@ const AvatarWrapper = styled.div`
 `;
 
 export const ProfileButton: FC = () => {
-    const { id, avatar } = useSelector<IState, IUserState>(state => state.user);
+    const { id, avatar } = useSelector<IState, IUserState>(
+        (state) => state.user,
+    );
 
     const { validateToken } = useAuthenticate();
 

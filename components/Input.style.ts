@@ -11,7 +11,7 @@ export const InputBody = styled.input<{ expanded: boolean }>`
     font-size: ${({ theme }) => theme.fontSize.sm};
     line-height: 1.5;
 
-    ${props => (props.expanded ? 'width: 100%;' : '')}
+    ${(props) => (props.expanded ? 'width: 100%;' : '')}
 
     &:focus {
         outline: none;

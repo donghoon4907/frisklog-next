@@ -6,5 +6,5 @@ export const FormCheckboxContainer = styled.div<{ isGap: boolean }>`
     align-items: center;
     line-height: 1.5;
 
-    ${props => (props.isGap ? 'gap: 5px;' : '')}
+    ${(props) => (props.isGap ? 'gap: 5px;' : '')}
 `;

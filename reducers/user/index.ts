@@ -53,7 +53,7 @@ const initialState: IUserState = {
 };
 
 export default (state = initialState, { type, payload, error }: UserAction) =>
-    produce(state, draft => {
+    produce(state, (draft) => {
         switch (type) {
             // Create
             case CreateUserAction.REQUEST: {

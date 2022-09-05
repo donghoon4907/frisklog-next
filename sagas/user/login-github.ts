@@ -17,19 +17,18 @@ function loginGithubAPI(payload: LoginGithubPayload) {
 
 function* loginGithubSaga(action: UserAction): any {
     try {
-        const response = yield call(loginGithubAPI, action.payload);
+        const { githubLogIn } = yield call(loginGithubAPI, action.payload);
 
-        console.log(response);
         yield put({
             type: LoginGithubAction.SUCCESS,
         });
 
         yield put({
             type: LoadUserAction.LOAD,
-            payload: response,
+            payload: githubLogIn,
         });
 
-        setCookie(COOKIE_TOKEN_KEY, response.token);
+        setCookie(COOKIE_TOKEN_KEY, githubLogIn.token);
     } catch (e) {
         yield put({
             type: LoginGithubAction.FAILURE,

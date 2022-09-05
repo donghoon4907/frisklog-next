@@ -12,7 +12,7 @@ import { IconWrapper } from './IconWrapper';
 export const ModeButton: FC = () => {
     const dispatch = useDispatch();
 
-    const { mode } = useSelector<IState, ICommonState>(state => state.common);
+    const { mode } = useSelector<IState, ICommonState>((state) => state.common);
 
     const handleClick = () => {
         if (mode === 'light') {

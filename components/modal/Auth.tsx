@@ -19,7 +19,7 @@ export const AuthModal: FC = () => {
     const dispatch = useDispatch();
 
     const { isShowLoginModal } = useSelector<IState, ICommonState>(
-        state => state.common,
+        (state) => state.common,
     );
 
     const [mode, setMode] = useState<AuthModeType>('로그인');

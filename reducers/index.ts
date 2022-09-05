@@ -1,4 +1,4 @@
-import { AnyAction, CombinedState, combineReducers } from 'redux';
+import { AnyAction, CombinedState, combineReducers, Reducer } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
 import user, { IUserState } from './user';

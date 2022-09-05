@@ -3,12 +3,16 @@ import styled from 'styled-components';
 export const LayoutContainer = styled.div`
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
+    padding: 0 8px;
+    width: 100%;
+    overflow: auto;
+    position: relative;
+`;
 
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
+export const LayoutBody = styled.div`
+    display: flex;
+    margin: 0 auto;
+    max-width: 990px;
+    padding: 0 8px;
+    width: 100%;
 `;

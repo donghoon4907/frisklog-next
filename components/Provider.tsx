@@ -11,7 +11,7 @@ import { ICommonState } from '../reducers/common';
 interface Props extends DefaultProps {}
 
 export const Providers: FC<Props> = ({ children }) => {
-    const { mode } = useSelector<IState, ICommonState>(state => state.common);
+    const { mode } = useSelector<IState, ICommonState>((state) => state.common);
 
     const theme = mode === 'light' ? lightTheme : darkTheme;
 

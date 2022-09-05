@@ -14,8 +14,8 @@ import { ICommonState } from '../../reducers/common';
 
 const HeaderContainer = styled.div`
     height: 3rem;
-    background-color: ${props => props.theme.headerBgColor};
-    border-bottom: 1px solid ${props => props.theme.borderColor};
+    background-color: ${(props) => props.theme.headerBgColor};
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
     flex-shrink: 0;
     z-index: 1000;
 `;
@@ -47,7 +47,7 @@ const HeaderColumn = styled.div`
 
 export const Header: FC = () => {
     const { isShowSearchBar } = useSelector<IState, ICommonState>(
-        state => state.common,
+        (state) => state.common,
     );
 
     return (

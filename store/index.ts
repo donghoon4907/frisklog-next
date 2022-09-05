@@ -19,7 +19,7 @@ const bindMiddleware = (middleware: Middleware<any>[]) => {
     }
 };
 
-interface SagaStore extends Store<ReducerType, AnyAction> {
+export interface SagaStore extends Store<ReducerType, AnyAction> {
     sagaTask: Task;
 }
 
@@ -36,4 +36,4 @@ export const makeStore: MakeStore<SagaStore> = (context: Context) => {
     return store;
 };
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, { debug: false });

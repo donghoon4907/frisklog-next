@@ -10,7 +10,6 @@ export const ButtonBody = styled.button<{ disabled: boolean }>`
     text-align: center;
     font-size: 1rem;
     padding: 0 10px;
-    cursor: pointer;
 
     border-width: 1px;
     border-style: solid;
