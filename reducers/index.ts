@@ -1,37 +1,26 @@
-import { AnyAction, CombinedState, combineReducers, Reducer } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import user, { IUserState } from './user';
-import post, { IPostState } from './post';
-import comment, { ICommentState } from './comment';
-import common, { ICommonState } from './common';
+import user from './user';
+import post from './post';
+import comment from './comment';
+import common from './common';
 
-export interface IState {
-    user: IUserState;
-    post: IPostState;
-    comment: ICommentState;
-    common: ICommonState;
-}
+const combinedReducer = combineReducers({ user, post, comment, common });
 
-export const rootReducer = (
-    state: CombinedState<IState>,
-    action: AnyAction,
-) => {
-    switch (action.type) {
-        case HYDRATE: {
-            return action.payload;
-        }
-        default: {
-            return combineReducers({ user, post, comment, common })(
-                state,
-                action,
-            );
-        }
+export const rootReducer = (state: any, action: AnyAction) => {
+    let nextState;
+    if (action.type === HYDRATE) {
+        nextState = {
+            ...state,
+            ...action.payload,
+        };
+    } else {
+        nextState = combinedReducer(state, action);
     }
+
+    return nextState;
 };
 
-export interface AnyState {
-    [stateKey: string]: any;
-}
-
 export type ReducerType = ReturnType<typeof rootReducer>;
+

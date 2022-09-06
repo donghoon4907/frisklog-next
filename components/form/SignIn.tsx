@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useInput } from '../../hooks/use-input';
-import { IState } from '../../reducers';
 import { IUserState } from '../../reducers/user';
 import { AuthModeType } from '../../types/mode';
 import { Button } from '../button';
@@ -21,7 +20,7 @@ export const SignInForm: FC = () => {
     const dispatch = useDispatch();
 
     const { isLoginUserLoading, isVerifyUserLoading } = useSelector<
-        IState,
+        any,
         IUserState
     >((state) => state.user);
 

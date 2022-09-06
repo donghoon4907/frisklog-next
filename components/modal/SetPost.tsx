@@ -3,23 +3,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
 import { useInput, UseInputWhere } from '../../hooks/use-input';
-import { IState } from '../../reducers';
 import { ActivePostAction } from '../../actions/post/active-post';
 import { PostModalAction } from '../../actions/switch/post-modal';
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { PostEditor } from '../Editor';
 import { FormInput } from '../FormInput';
+import { Form, FormColumn } from '../form/form.style';
+import { FormInputWithLeftBox } from '../FormInput.style';
+import { DeleteableButton } from '../button/Deleteable';
 
 export const SetPostModal: FC = () => {
     const dispatch = useDispatch();
 
-    const { post, common } = useSelector<IState, IState>(state => state);
+    const { post, common } = useSelector<any, any>((state) => state);
 
     const { validateToken } = useAuthenticate();
 
     const category = useInput('', UseInputWhere.NO_SPACE);
 
-    const [categories, setCategories] = useState(post.activePost.categories);
+    const [categories, setCategories] = useState<string[]>(
+        post.activePost.categories,
+    );
 
     const [content, setContent] = useState(post.activePost.content);
 
@@ -45,18 +49,18 @@ export const SetPostModal: FC = () => {
             return alert('카테고리는 10자 미만으로 입력하세요.');
         }
 
-        const findIndex = categories.findIndex(cat => cat === category.value);
+        const findIndex = categories.findIndex((cat) => cat === category.value);
 
         if (findIndex !== -1) {
             return alert('이미 추가된 카테고리입니다.');
         }
 
-        setCategories(categories => [...categories, category.value]);
+        setCategories((categories) => [...categories, category.value]);
     };
 
     const handleRemoveCategory = (removeCategory: string) => {
-        setCategories(categories =>
-            categories.filter(category => category !== removeCategory),
+        setCategories((categories) =>
+            categories.filter((category) => category !== removeCategory),
         );
     };
     // 등록 및 수정 핸들러
@@ -93,30 +97,30 @@ export const SetPostModal: FC = () => {
         >
             <PostEditor
                 height="50vh"
-                onChange={content => setContent(content)}
+                onChange={(content) => setContent(content)}
             />
-            <form onSubmit={handleAddCategory}>
-                <div className="fr-form__column">
+            <Form onSubmit={handleAddCategory}>
+                <FormColumn>
                     <FormInput
                         id="category"
                         placeholder="카테고리를 입력하세요"
                         autoComplete="off"
                         label="카테고리"
                         {...category}
-                        expanded
                     >
-                        {/* <ul className="fr-category__container">
+                        <FormInputWithLeftBox>
                             {categories.map((category, index) => (
-                                <CategoryWithClose
+                                <DeleteableButton
                                     key={`setPostCategory${index}`}
                                     content={category}
-                                    onClick={onRemoveCategory}
+                                    ariaLabel="카테고리 삭제"
+                                    onClick={handleRemoveCategory}
                                 />
                             ))}
-                        </ul> */}
+                        </FormInputWithLeftBox>
                     </FormInput>
-                </div>
-            </form>
+                </FormColumn>
+            </Form>
         </Modal>
     );
 };

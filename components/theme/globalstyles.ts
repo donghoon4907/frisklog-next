@@ -20,8 +20,8 @@ html {
 }
 
 body {
-    background: var(--frisklog-bg-color);
-    color: var(--frisklog-text-color);
+    background: ${({ theme }) => theme.bgColor};
+    color: ${({ theme }) => theme.textColor};
 }
 
 h1,
@@ -112,59 +112,7 @@ button {
         color: $fr-black-color !important;
     }
 }
-.te-mode-switch-section {
-    display: none !important;
-}
-.te-toolbar-section {
-    border-color: var(--frisklog-border-color) !important;
-}
-.tui-editor-defaultUI {
-    border-radius: $fr-border-radius;
-    border-color: var(--frisklog-border-color) !important;
-    background-color: var(--frisklog-input-color) !important;
-}
-.tui-editor-defaultUI-toolbar {
-    background-color: inherit !important;
-}
-.tui-editor-defaultUI-toolbar button {
-    border: none !important;
-    background-color: inherit !important;
 
-    &:hover {
-        background-color: var(--frisklog-hover-color) !important;
-    }
-}
-.tui-md-code {
-    background: none !important;
-}
-.tui-md-code-block.CodeMirror-linebackground {
-    background: none !important;
-}
-.te-editor *:not(code),
-.tui-editor-contents *:not(code) {
-    color: var(--frisklog-text-color) !important;
-}
-.CodeMirror {
-    background: inherit !important;
-}
-.CodeMirror-cursor {
-    border-color: var(--frisklog-text-color) !important;
-}
-.tui-editor .te-md-splitter {
-    border-color: var(--frisklog-border-color) !important;
-}
-.tui-toolbar-divider {
-    background-color: var(--frisklog-border-color) !important;
-}
-.tui-editor-contents img {
-    width: 100%;
-}
-.te-preview::-webkit-scrollbar {
-    display: none;
-}
-.CodeMirror-vscrollbar {
-    display: none !important;
-}
 .icon-button svg, .anticon-close svg {
     width: 20px;
     height: 20px;
@@ -175,7 +123,10 @@ button {
         fill: ${({ theme }) => theme.hoverColor};
     }
 }
-.ant-modal-header, .ant-modal-title, .ant-modal-body {
+.ant-modal-body {
+    padding: ${({ theme }) => theme.padding.sm};
+}
+.ant-modal-header, .ant-modal-title, .ant-modal-body, .ant-modal-footer {
     background: ${({ theme }) => theme.modalBgColor} !important;
     color: ${({ theme }) => theme.textColor} !important;
 }
@@ -183,18 +134,19 @@ button {
     border-bottom-color: ${({ theme }) => theme.dividerColor} !important;
 }
 
-
+.ant-modal-footer {
+    border-top-color: ${({ theme }) => theme.dividerColor} !important;
+}
 
 .markdown-body * {
     color: ${({ theme }) => theme.textColor} !important;
 }
 .markdown-body .highlight pre,
 .markdown-body pre,
-.markdown-body code,
-.tui-editor-contents pre {
-    border: 1px solid var(--frisklog-bg-color) !important;
-    border-radius: $fr-border-radius !important;
-    background-color: var(--frisklog-bg-color) !important;
+.markdown-body code{
+    border: 1px solid ${({ theme }) => theme.bgColor} !important;
+    border-radius: ${({ theme }) => theme.borderRadius} !important;
+    background-color: ${({ theme }) => theme.bgColor} !important;
     overflow: hidden !important;
 }
 .markdown-body pre code {
@@ -239,9 +191,7 @@ button {
 }
 
 .markdown-body h1,
-.markdown-body h2,
-.tui-editor-contents h1,
-.tui-editor-contents h2 {
+.markdown-body h2{
     border-bottom: none !important;
 }
 

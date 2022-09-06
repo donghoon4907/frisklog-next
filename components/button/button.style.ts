@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { mixinCentered } from '../theme/mixins';
+
 export const ButtonBody = styled.button<{ disabled: boolean }>`
     display: block;
     width: 100%;
@@ -56,4 +58,8 @@ export const ButtonBody = styled.button<{ disabled: boolean }>`
             fill: ${({ theme }) => theme.githubTextColor};
         }
     }
+`;
+
+export const CenteredButton = styled.button`
+    ${mixinCentered}
 `;

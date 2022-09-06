@@ -69,5 +69,7 @@ declare module 'styled-components' {
         githubBgColor: string;
         githubTextColor: string;
         borderRadius: string;
+        readOnlyBtnColor: string;
+        readOnlyBtnTextColor: string;
     }
 }

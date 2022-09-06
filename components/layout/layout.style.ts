@@ -5,7 +5,8 @@ export const LayoutContainer = styled.div`
     flex-direction: column;
     padding: 0 8px;
     width: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 `;
 

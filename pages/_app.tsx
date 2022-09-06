@@ -1,9 +1,9 @@
 import 'antd/dist/antd.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 import type { AppProps } from 'next/app';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { ServerResponse } from 'http';
 import Cookies from 'cookies';
 import styled from 'styled-components';
 
@@ -16,6 +16,7 @@ import { ThemeModeAction } from '../actions/switch/theme-mode';
 import { LoadUserAction } from '../actions/user/load-user';
 import { Header } from '../components/header';
 import { AuthModal } from '../components/modal/Auth';
+import { SetPostModal } from '../components/modal/SetPost';
 
 const AppContainer = styled.div`
     display: flex;
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     <Component {...pageProps} />
                 </Layout>
                 <AuthModal />
+                <SetPostModal />
             </AppContainer>
         </Providers>
     );
@@ -49,12 +51,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
         async ({ Component, ctx }) => {
             const { req, res } = ctx;
 
-            const isServer = !!req;
+            const isServer = !!req && !!res;
 
             if (isServer) {
                 const state = store.getState();
 
-                const cookies = new Cookies(req, res as ServerResponse);
+                const cookies = new Cookies(req, res);
                 // 테마 정보 불러오기
                 let mode = cookies.get(COOKIE_THEME_KEY) || null;
 

@@ -7,15 +7,15 @@ import { FormInputBody, FormInputContainer } from './FormInput.style';
 
 interface Props extends DefaultProps, InputProps {
     label: string;
-    expanded: boolean;
+    expanded?: boolean;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
     ({ children, expanded = false, ...props }, ref) => (
         <FormInputContainer>
-            <FormInputBody expanded>
+            <FormInputBody expanded={expanded}>
                 <Label {...props} />
-                <Input ref={ref} expanded {...props} />
+                <Input ref={ref} expanded={expanded} {...props} />
             </FormInputBody>
 
             {children}

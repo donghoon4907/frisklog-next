@@ -103,6 +103,8 @@ export const lightTheme: DefaultTheme = {
     modalBgColor: colors.white_base,
     githubBgColor: colors.black_base,
     githubTextColor: colors.white_base,
+    readOnlyBtnColor: colors.blue,
+    readOnlyBtnTextColor: colors.white_base,
 };
 
 export const darkTheme: DefaultTheme = {
@@ -123,4 +125,6 @@ export const darkTheme: DefaultTheme = {
     modalBgColor: colors.black_base,
     githubBgColor: colors.white_base,
     githubTextColor: colors.black_base,
+    readOnlyBtnColor: colors.white_base,
+    readOnlyBtnTextColor: colors.black_base,
 };

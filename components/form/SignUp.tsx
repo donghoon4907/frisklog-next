@@ -2,7 +2,6 @@ import { FC, Dispatch, SetStateAction, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useInput } from '../../hooks/use-input';
-import { IState } from '../../reducers';
 import { IUserState } from '../../reducers/user';
 import { CreateUserAction } from '../../actions/user/create-user';
 import { AuthModeType } from '../../types/mode';
@@ -17,7 +16,7 @@ interface Props {
 export const SignUpForm: FC<Props> = ({ setMode }) => {
     const dispatch = useDispatch();
 
-    const { isAddUserLoading } = useSelector<IState, IUserState>(
+    const { isAddUserLoading } = useSelector<any, IUserState>(
         (state) => state.user,
     );
 

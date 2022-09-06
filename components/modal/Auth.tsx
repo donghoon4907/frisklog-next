@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
 import { LoginModalAction } from '../../actions/switch/login-modal';
-import { IState } from '../../reducers';
 import { ICommonState } from '../../reducers/common';
 import { SignUpForm } from '../form/SignUp';
 import { AuthModeType } from '../../types/mode';
@@ -18,14 +17,13 @@ import {
 export const AuthModal: FC = () => {
     const dispatch = useDispatch();
 
-    const { isShowLoginModal } = useSelector<IState, ICommonState>(
+    const { isShowLoginModal } = useSelector<any, ICommonState>(
         (state) => state.common,
     );
 
     const [mode, setMode] = useState<AuthModeType>('로그인');
 
     const handleClose = () => {
-        console.log('test');
         dispatch({
             type: LoginModalAction.HIDE,
         });

@@ -11,13 +11,10 @@ import { Aside } from '../components/layout/Aside';
 import { Main } from '../components/layout/Main';
 import { MainTitle } from '../components/layout/Main.style';
 import { useAuthenticate } from '../hooks/use-authenticate';
-import { IState } from '../reducers';
 import { wrapper } from '../store';
 import { GetPostsAction } from '../actions/post/get-posts';
 
-const Home: NextPage<IState> = ({ post }) => {
-    console.log(post);
-
+const Home: NextPage<any> = ({ post }) => {
     const dispatch = useDispatch();
 
     const { validateToken } = useAuthenticate();
@@ -79,4 +76,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 );
 
-export default connect((state: IState) => state)(Home);
+export default connect((state: any) => state)(Home);

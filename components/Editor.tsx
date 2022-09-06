@@ -1,10 +1,10 @@
-import { Dispatch, FC, SetStateAction, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '../reducers';
 import { ICommonState } from '../reducers/common';
 import { httpRequestingAlert } from '../lib/alert';
 import { UploadImageAction } from '../actions/common/upload-image';
+import { PostEditorContainer } from './Editor.style';
 // import codeSyntaxHightlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 // import hljs from "highlight.js";
 
@@ -21,13 +21,13 @@ export const PostEditor: FC<Props> = ({
     initialValue = '',
     previewStyle = 'vertical',
     height = '75vh',
-    initialEditType = 'markdown',
+    initialEditType,
     useCommandShortcut = true,
     onChange,
 }) => {
     const dispatch = useDispatch();
 
-    const { isUploadImageLoading } = useSelector<IState, ICommonState>(
+    const { isUploadImageLoading, mode } = useSelector<any, ICommonState>(
         (state) => state.common,
     );
 
@@ -47,7 +47,7 @@ export const PostEditor: FC<Props> = ({
     };
 
     return (
-        <div>
+        <PostEditorContainer>
             <Editor
                 plugins={
                     [
@@ -57,10 +57,11 @@ export const PostEditor: FC<Props> = ({
                 initialValue={initialValue}
                 previewStyle={previewStyle}
                 height={height}
-                initialEditType={initialEditType}
+                initialEditType={initialEditType || 'markdown'}
                 useCommandShortcut={useCommandShortcut}
                 ref={$editor}
                 onChange={handleChange}
+                theme={mode}
                 hooks={{
                     addImageBlobHook: async (blob: any, callback: any) => {
                         if (isUploadImageLoading) {
@@ -86,6 +87,6 @@ export const PostEditor: FC<Props> = ({
                     },
                 }}
             />
-        </div>
+        </PostEditorContainer>
     );
 };
