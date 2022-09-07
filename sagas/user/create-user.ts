@@ -1,36 +1,27 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
+import { CreateUserRequestAction } from '../../actions/user/create-user.interface';
 import {
-    CreateUserAction,
-    CreateUserPayload,
-} from '../../actions/user/create-user';
-import { MUTATION_CREATE_USER } from '../../graphql/mutation/user/create-user';
+    createUserActionTypes,
+    createUserFailure,
+    createUserSuccess,
+} from '../../actions/user/create-user.action';
+import { createUser } from '../../services/usersService';
 
-function createUserAPI(payload: CreateUserPayload) {
-    return client.request(MUTATION_CREATE_USER, payload);
-}
-
-function* createUserSaga({ payload }: UserAction) {
+function* createUserSaga({ payload }: CreateUserRequestAction) {
     try {
-        yield call(createUserAPI, payload);
+        yield call(createUser, payload);
 
-        yield put({
-            type: CreateUserAction.SUCCESS,
-        });
+        yield put(createUserSuccess());
 
         alert('회원가입이 정상처리되었습니다.');
 
-        payload.callbackFunc('로그인');
+        payload.callbackFunc?.();
     } catch (e) {
-        yield put({
-            type: CreateUserAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(createUserFailure((e as Error).message));
     }
 }
-// 사용자 생성
+
 export function* watchCreateUser() {
-    yield takeEvery(CreateUserAction.REQUEST, createUserSaga);
+    yield takeEvery(createUserActionTypes.REQUEST, createUserSaga);
 }

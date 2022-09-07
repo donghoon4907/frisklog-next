@@ -7,26 +7,17 @@ import { UpdateCommentAction } from '../../actions/comment/update-comment';
 
 export interface ICommentState {
     isAddCommentLoading: boolean;
-    addCommentErrorReason: string;
     isUpdateCommentLoading: boolean;
-    updateCommentErrorReason: string;
     isDeleteCommentLoading: boolean;
-    deleteCommentErrorReason: string;
 }
 
 const initialState: ICommentState = {
     isAddCommentLoading: false,
-    addCommentErrorReason: '',
     isUpdateCommentLoading: false,
-    updateCommentErrorReason: '',
     isDeleteCommentLoading: false,
-    deleteCommentErrorReason: '',
 };
 
-export default (
-    state = initialState,
-    { type, payload, error }: CommentAction,
-) =>
+export default (state = initialState, { type }: CommentAction) =>
     produce(state, (draft) => {
         switch (type) {
             // Create
@@ -38,12 +29,6 @@ export default (
                 draft.isAddCommentLoading = false;
                 break;
             }
-            case CreateCommentAction.FAILURE: {
-                draft.isAddCommentLoading = false;
-
-                draft.addCommentErrorReason = error;
-                break;
-            }
             // Update
             case UpdateCommentAction.REQUEST: {
                 draft.isUpdateCommentLoading = true;
@@ -53,12 +38,6 @@ export default (
                 draft.isUpdateCommentLoading = false;
                 break;
             }
-            case UpdateCommentAction.FAILURE: {
-                draft.isUpdateCommentLoading = false;
-
-                draft.updateCommentErrorReason = error;
-                break;
-            }
             // Delete
             case DeleteCommentAction.REQUEST: {
                 draft.isDeleteCommentLoading = true;
@@ -66,12 +45,6 @@ export default (
             }
             case DeleteCommentAction.SUCCESS: {
                 draft.isDeleteCommentLoading = false;
-                break;
-            }
-            case DeleteCommentAction.FAILURE: {
-                draft.isDeleteCommentLoading = false;
-
-                draft.deleteCommentErrorReason = error;
                 break;
             }
             default: {

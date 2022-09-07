@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, FC, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { FormInput } from '../FormInput';
-import { SearchBarAction } from '../../actions/switch/search-bar';
+import { hideSearchBar } from '../../actions/switch/search-bar.action';
 import { SearchBarContainer, SearchBarForm } from './SearchBar.style';
 
 export const HeaderSearchBar: FC = () => {
@@ -24,9 +24,7 @@ export const HeaderSearchBar: FC = () => {
 
         router.push(`/search/${searchKeyword}`);
 
-        dispatch({
-            type: SearchBarAction.HIDE,
-        });
+        dispatch(hideSearchBar());
     };
 
     useEffect(() => {

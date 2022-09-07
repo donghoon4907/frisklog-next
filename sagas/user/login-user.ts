@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
 import {
-    LoginUserAction,
-    LoginUserPayload,
-} from '../../actions/user/login-user';
-import { MUTATION_LOGIN_USER } from '../../graphql/mutation/user/login-user';
+    loginUserActionTypes,
+    loginUserFailure,
+    loginUserSuccess,
+} from '../../actions/user/login-user.action';
+import { LoginUserRequestAction } from '../../actions/user/login-user.interface';
+import { loginUser } from '../../services/usersService';
 
-function loginUserAPI(payload: LoginUserPayload) {
-    return client.request(MUTATION_LOGIN_USER, payload);
-}
-
-function* loginUserSaga(action: UserAction) {
+function* loginUserSaga(action: LoginUserRequestAction) {
     try {
-        yield call(loginUserAPI, action.payload);
+        yield call(loginUser, action.payload);
 
-        yield put({
-            type: LoginUserAction.SUCCESS,
-        });
+        yield put(loginUserSuccess());
     } catch (e) {
-        yield put({
-            type: LoginUserAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(loginUserFailure((e as Error).message));
     }
 }
-// 팔로우
+
 export function* watchLoginUser() {
-    yield takeEvery(LoginUserAction.REQUEST, loginUserSaga);
+    yield takeEvery(loginUserActionTypes.REQUEST, loginUserSaga);
 }

@@ -5,8 +5,17 @@ import user from './user';
 import post from './post';
 import comment from './comment';
 import common from './common';
+import error from './common/error';
+import loading from './common/loading';
 
-const combinedReducer = combineReducers({ user, post, comment, common });
+const combinedReducer = combineReducers({
+    user,
+    post,
+    comment,
+    common,
+    error,
+    loading,
+});
 
 export const rootReducer = (state: any, action: AnyAction) => {
     let nextState;
@@ -22,5 +31,4 @@ export const rootReducer = (state: any, action: AnyAction) => {
     return nextState;
 };
 
-export type ReducerType = ReturnType<typeof rootReducer>;
-
+export type AppState = ReturnType<typeof rootReducer>;

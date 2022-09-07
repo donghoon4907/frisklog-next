@@ -18,15 +18,10 @@ export interface IPostState {
     isHomePostsLoading: boolean;
     homePosts: Record<string, any>[];
     isAddPostLoading: boolean;
-    addPostErrorReason: string;
     isUpdatePostLoading: boolean;
-    updatePostErrorReason: string;
     isDeletePostLoading: boolean;
-    deletePostErrorReason: string;
     isLikePostLoading: boolean;
-    likePostErrorReason: string;
     isUnlikePostLoading: boolean;
-    unlikePostErrorReason: string;
 }
 
 const initialState: IPostState = {
@@ -38,15 +33,10 @@ const initialState: IPostState = {
     isHomePostsLoading: false,
     homePosts: [],
     isAddPostLoading: false,
-    addPostErrorReason: '',
     isUpdatePostLoading: false,
-    updatePostErrorReason: '',
     isDeletePostLoading: false,
-    deletePostErrorReason: '',
     isLikePostLoading: false,
-    likePostErrorReason: '',
     isUnlikePostLoading: false,
-    unlikePostErrorReason: '',
 };
 
 export default (state = initialState, { type, payload, error }: PostAction) =>
@@ -61,12 +51,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
                 draft.isAddPostLoading = false;
                 break;
             }
-            case CreatePostAction.FAILURE: {
-                draft.isAddPostLoading = false;
-
-                draft.addPostErrorReason = error;
-                break;
-            }
             // Update
             case UpdatePostAction.REQUEST: {
                 draft.isUpdatePostLoading = true;
@@ -74,12 +58,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
             }
             case UpdatePostAction.SUCCESS: {
                 draft.isUpdatePostLoading = false;
-                break;
-            }
-            case UpdatePostAction.FAILURE: {
-                draft.isUpdatePostLoading = false;
-
-                draft.updatePostErrorReason = error;
                 break;
             }
             // Delete
@@ -91,12 +69,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
                 draft.isDeletePostLoading = false;
                 break;
             }
-            case DeletePostAction.FAILURE: {
-                draft.isDeletePostLoading = false;
-
-                draft.deletePostErrorReason = error;
-                break;
-            }
             // Like
             case LikePostAction.REQUEST: {
                 draft.isLikePostLoading = true;
@@ -106,12 +78,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
                 draft.isLikePostLoading = false;
                 break;
             }
-            case LikePostAction.FAILURE: {
-                draft.isLikePostLoading = false;
-
-                draft.likePostErrorReason = error;
-                break;
-            }
             // Unlike
             case UnlikePostAction.REQUEST: {
                 draft.isUnlikePostLoading = true;
@@ -119,12 +85,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
             }
             case UnlikePostAction.SUCCESS: {
                 draft.isUnlikePostLoading = false;
-                break;
-            }
-            case UnlikePostAction.FAILURE: {
-                draft.isUnlikePostLoading = false;
-
-                draft.unlikePostErrorReason = error;
                 break;
             }
             // Active post
@@ -153,12 +113,6 @@ export default (state = initialState, { type, payload, error }: PostAction) =>
                 draft.isHomePostsLoading = false;
 
                 draft.homePosts = [...draft.homePosts, ...payload.nodes];
-                break;
-            }
-            case GetPostsAction.FAILURE: {
-                draft.isHomePostsLoading = false;
-
-                draft.unlikePostErrorReason = error;
                 break;
             }
             default: {

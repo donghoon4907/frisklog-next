@@ -12,11 +12,11 @@ import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { client } from '../graphql/client';
 import { Providers } from '../components/Provider';
 import { Layout } from '../components/layout';
-import { ThemeModeAction } from '../actions/switch/theme-mode';
-import { LoadUserAction } from '../actions/user/load-user';
+import { setDarkMode } from '../actions/switch/theme-mode.action';
 import { Header } from '../components/header';
 import { AuthModal } from '../components/modal/Auth';
 import { SetPostModal } from '../components/modal/SetPost';
+import { setUserRequest } from '../actions/user/set-user.action';
 
 const AppContainer = styled.div`
     display: flex;
@@ -67,9 +67,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 }
 
                 if (mode === 'dark') {
-                    store.dispatch({
-                        type: ThemeModeAction.DARK,
-                    });
+                    store.dispatch(setDarkMode());
                 }
 
                 // 토큰 정보 불러오기
@@ -82,15 +80,17 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                     if (jwtSecret) {
                         try {
-                            const { iat, ...profile } = jwt.verify(
-                                token,
-                                jwtSecret,
-                            ) as JwtPayload;
+                            const { id, nickname, avatar, isMaster } =
+                                jwt.verify(token, jwtSecret) as JwtPayload;
 
-                            store.dispatch({
-                                type: LoadUserAction.LOAD,
-                                payload: profile,
-                            });
+                            store.dispatch(
+                                setUserRequest({
+                                    id,
+                                    nickname,
+                                    avatar,
+                                    isMaster,
+                                }),
+                            );
                         } catch {
                             console.error('[NEXT_APP] Failed to verify token.');
                             // delete cookie

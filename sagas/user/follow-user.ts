@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
+import { FollowUserRequestAction } from '../../actions/user/follow-user.interface';
+import { followUser } from '../../services/usersService';
 import {
-    FollowUserAction,
-    FollowUserPayload,
-} from '../../actions/user/follow-user';
-import { MUTATION_FOLLOW_USER } from '../../graphql/mutation/user/follow-user';
+    followUserActionTypes,
+    followUserFailure,
+    followUserSuccess,
+} from '../../actions/user/follow-user.action';
 
-function followUserAPI(payload: FollowUserPayload) {
-    return client.request(MUTATION_FOLLOW_USER, payload);
-}
-
-function* followUserSaga(action: UserAction) {
+function* followUserSaga(action: FollowUserRequestAction) {
     try {
-        yield call(followUserAPI, action.payload);
+        yield call(followUser, action.payload);
 
-        yield put({
-            type: FollowUserAction.SUCCESS,
-        });
+        yield put(followUserSuccess());
     } catch (e) {
-        yield put({
-            type: FollowUserAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(followUserFailure((e as Error).message));
     }
 }
-// 팔로우
+
 export function* watchFollowUser() {
-    yield takeEvery(FollowUserAction.REQUEST, followUserSaga);
+    yield takeEvery(followUserActionTypes.REQUEST, followUserSaga);
 }

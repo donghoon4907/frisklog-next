@@ -2,41 +2,46 @@ import { FC } from 'react';
 import { BsFillSunFill, BsMoonStarsFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ThemeModeAction } from '../../actions/switch/theme-mode';
+import {
+    setDarkMode,
+    setLightMode,
+} from '../../actions/switch/theme-mode.action';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_THEME_KEY } from '../../lib/cookie/cookie.key';
-import { ICommonState } from '../../reducers/common';
+import { AppState } from '../../reducers';
+import { CommonState } from '../../reducers/common';
+import { ThemeMode } from '../../types/mode';
 import { IconWrapper } from './IconWrapper';
 
 export const ModeButton: FC = () => {
     const dispatch = useDispatch();
 
-    const { mode } = useSelector<any, ICommonState>((state) => state.common);
+    const { mode } = useSelector<AppState, CommonState>(
+        (state) => state.common,
+    );
 
     const handleClick = () => {
-        if (mode === 'light') {
-            dispatch({
-                type: ThemeModeAction.DARK,
-            });
+        if (mode === ThemeMode.LIGHT) {
+            dispatch(setDarkMode());
 
-            setCookie(COOKIE_THEME_KEY, 'dark');
+            setCookie(COOKIE_THEME_KEY, ThemeMode.DARK);
         } else {
-            dispatch({
-                type: ThemeModeAction.LIGHT,
-            });
+            dispatch(setLightMode());
 
-            setCookie(COOKIE_THEME_KEY, 'light');
+            setCookie(COOKIE_THEME_KEY, ThemeMode.LIGHT);
         }
     };
 
     return (
         <IconWrapper
             ariaLabel={
-                mode === 'light' ? '어두운 화면으로 변경' : '밝은 화면으로 변경'
+                mode === ThemeMode.LIGHT
+                    ? '어두운 화면으로 변경'
+                    : '밝은 화면으로 변경'
             }
             onClick={handleClick}
         >
-            {mode === 'light' ? <BsFillSunFill /> : <BsMoonStarsFill />}
+            {mode === ThemeMode.LIGHT ? <BsFillSunFill /> : <BsMoonStarsFill />}
         </IconWrapper>
     );
 };

@@ -2,12 +2,13 @@ import { FC, Dispatch, SetStateAction, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useInput } from '../../hooks/use-input';
-import { IUserState } from '../../reducers/user';
-import { CreateUserAction } from '../../actions/user/create-user';
-import { AuthModeType } from '../../types/mode';
+import { AuthMode, AuthModeType } from '../../types/mode';
 import { FormInput } from '../FormInput';
 import { Button } from '../button';
 import { Form, FormColumn } from './form.style';
+import { AppState } from '../../reducers';
+import { LoadingState } from '../../reducers/common/loading';
+import { createUserRequest } from '../../actions/user/create-user.action';
 
 interface Props {
     setMode: Dispatch<SetStateAction<AuthModeType>>;
@@ -16,8 +17,8 @@ interface Props {
 export const SignUpForm: FC<Props> = ({ setMode }) => {
     const dispatch = useDispatch();
 
-    const { isAddUserLoading } = useSelector<any, IUserState>(
-        (state) => state.user,
+    const { isAddUserLoading } = useSelector<AppState, LoadingState>(
+        (state) => state.loading,
     );
 
     const nickname = useInput('');
@@ -35,12 +36,6 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
             return alert('별명은 10자 미만으로 입력 해주세요.');
         }
 
-        const payload = {
-            email: email.value,
-            nickname: nickname.value,
-            callbackFunc: () => setMode('로그인'),
-        };
-
         // if (uploadedUrl) {
         //     variables.avatar = uploadedUrl;
         // }
@@ -48,10 +43,13 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
         const tf = confirm('입력한 내용으로 회원가입 하시겠어요?');
 
         if (tf) {
-            dispatch({
-                type: CreateUserAction.REQUEST,
-                payload,
-            });
+            dispatch(
+                createUserRequest({
+                    email: email.value,
+                    nickname: nickname.value,
+                    callbackFunc: () => setMode(AuthMode.LOGIN),
+                }),
+            );
         }
     };
 

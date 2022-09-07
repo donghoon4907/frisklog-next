@@ -1,21 +1,18 @@
-import { PayloadAction } from '..';
-import { CreateUserAction } from './create-user';
-import { FollowUserAction } from './follow-user';
-import { LoadUserAction } from './load-user';
-import { LoginGithubAction } from './login-github';
-import { LoginUserAction } from './login-user';
-import { UnfollowUserAction } from './unfollow-user';
-import { UpdateUserAction } from './update-user';
-import { VerifyUserAction } from './verify-user';
+import { CreateUserAction } from './create-user.interface';
+import { FollowUserAction } from './follow-user.interface';
+import { LoginGithubAction } from './login-github.interface';
+import { LoginUserAction } from './login-user.interface';
+import { SetUserAction } from './set-user.interface';
+import { UnfollowUserAction } from './unfollow-user.interface';
+import { UpdateUserAction } from './update-user.interface';
+import { VerifyUserAction } from './verify-user.interface';
 
-export type UserActionTypes =
+export type UserAction =
+    | SetUserAction
     | CreateUserAction
     | UpdateUserAction
     | FollowUserAction
     | UnfollowUserAction
     | LoginUserAction
     | VerifyUserAction
-    | LoginGithubAction
-    | LoadUserAction;
-
-export type UserAction = PayloadAction<UserActionTypes>;
+    | LoginGithubAction;

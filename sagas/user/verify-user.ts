@@ -1,43 +1,32 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
+import { setUserRequest } from '../../actions/user/set-user.action';
 import {
-    VerifyUserAction,
-    VerifyUserPayload,
-} from '../../actions/user/verify-user';
-import { MUTATION_VERIFY_USER } from '../../graphql/mutation/user/verify-user';
+    verifyUserActionTypes,
+    verifyUserFailure,
+    verifyUserSuccess,
+} from '../../actions/user/verify-user.action';
+import { VerifyUserRequestAction } from '../../actions/user/verify-user.interface';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
-import { LoadUserAction } from '../../actions/user/load-user';
+import { verifyUser } from '../../services/usersService';
 
-function verifyUserAPI(payload: VerifyUserPayload) {
-    return client.request(MUTATION_VERIFY_USER, payload);
-}
-
-function* verifyUserSaga(action: UserAction): any {
+function* verifyUserSaga(action: VerifyUserRequestAction): any {
     try {
-        const response = yield call(verifyUserAPI, action.payload);
+        const response = yield call(verifyUser, action.payload);
 
-        console.log(response);
-        yield put({
-            type: VerifyUserAction.SUCCESS,
-        });
+        yield put(verifyUserSuccess());
 
-        yield put({
-            type: LoadUserAction.LOAD,
-            payload: response,
-        });
+        const { token, ...userInfo } = response.verifyUser;
 
-        setCookie(COOKIE_TOKEN_KEY, response.token);
+        yield put(setUserRequest(userInfo));
+
+        setCookie(COOKIE_TOKEN_KEY, token);
     } catch (e) {
-        yield put({
-            type: VerifyUserAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(verifyUserFailure((e as Error).message));
     }
 }
-// 팔로우
+
 export function* watchVerifyUser() {
-    yield takeEvery(VerifyUserAction.REQUEST, verifyUserSaga);
+    yield takeEvery(verifyUserActionTypes.REQUEST, verifyUserSaga);
 }

@@ -1,10 +1,13 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICommonState } from '../reducers/common';
+import { CommonState } from '../reducers/common';
 import { httpRequestingAlert } from '../lib/alert';
-import { UploadImageAction } from '../actions/common/upload-image';
+import { UploadImageAction } from '../actions/upload/image.interface';
 import { PostEditorContainer } from './Editor.style';
+import { AppState } from '../reducers';
+import { LoadingState } from '../reducers/common/loading';
+import { uploadImageRequest } from '../actions/upload/image.action';
 // import codeSyntaxHightlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 // import hljs from "highlight.js";
 
@@ -27,8 +30,12 @@ export const PostEditor: FC<Props> = ({
 }) => {
     const dispatch = useDispatch();
 
-    const { isUploadImageLoading, mode } = useSelector<any, ICommonState>(
+    const { mode } = useSelector<AppState, CommonState>(
         (state) => state.common,
+    );
+
+    const { isUploadImageLoading } = useSelector<AppState, LoadingState>(
+        (state) => state.loading,
     );
 
     const $editor = useRef<EditorType>(null);
@@ -71,17 +78,16 @@ export const PostEditor: FC<Props> = ({
                         const formData = new FormData();
                         formData.append('file', blob);
 
-                        dispatch({
-                            type: UploadImageAction.REQUEST,
-                            payload: {
+                        dispatch(
+                            uploadImageRequest({
                                 formData,
                                 callbackFunc: (fileName: string) => {
                                     const path = `${process.env.BACKEND_ROOT}/${fileName}`;
 
                                     callback(path, '');
                                 },
-                            },
-                        });
+                            }),
+                        );
 
                         // return false;
                     },

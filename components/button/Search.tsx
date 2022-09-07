@@ -2,9 +2,12 @@ import { FC } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { SearchBarAction } from '../../actions/switch/search-bar';
 import { ICommonState } from '../../reducers/common';
 import { IconWrapper } from './IconWrapper';
+import {
+    hideSearchBar,
+    showSearchBar,
+} from '../../actions/switch/search-bar.action';
 
 export const SearchButton: FC = () => {
     const dispatch = useDispatch();
@@ -14,9 +17,9 @@ export const SearchButton: FC = () => {
     );
 
     const handleClick = () => {
-        dispatch({
-            type: isShowSearchBar ? SearchBarAction.HIDE : SearchBarAction.SHOW,
-        });
+        const actionCreator = isShowSearchBar ? hideSearchBar : showSearchBar;
+
+        dispatch(actionCreator());
     };
 
     return (

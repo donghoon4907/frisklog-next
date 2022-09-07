@@ -1,38 +1,27 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
 import {
-    UpdateUserAction,
-    UpdateUserPayload,
-} from '../../actions/user/update-user';
-import { MUTATION_UPDATE_USER } from '../../graphql/mutation/user/update-user';
+    updateUserActionTypes,
+    updateUserFailure,
+    updateUserSuccess,
+} from '../../actions/user/update-user.action';
+import { UpdateUserRequestAction } from '../../actions/user/update-user.interface';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { updateUser } from '../../services/usersService';
 
-function updateUserAPI(payload: UpdateUserPayload) {
-    return client.request(MUTATION_UPDATE_USER, payload);
-}
-
-function* updateUserSaga(action: UserAction): any {
+function* updateUserSaga(action: UpdateUserRequestAction): any {
     try {
-        const response = yield call(updateUserAPI, action.payload);
+        const response = yield call(updateUser, action.payload);
 
-        console.log(response);
-        yield put({
-            type: UpdateUserAction.SUCCESS,
-            payload: response,
-        });
+        yield put(updateUserSuccess());
 
-        setCookie(COOKIE_TOKEN_KEY, response.token);
+        setCookie(COOKIE_TOKEN_KEY, response.updateUser.token);
     } catch (e) {
-        yield put({
-            type: UpdateUserAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(updateUserFailure((e as Error).message));
     }
 }
-// 사용자 정보 수정
+
 export function* watchUpdateUser() {
-    yield takeEvery(UpdateUserAction.REQUEST, updateUserSaga);
+    yield takeEvery(updateUserActionTypes.REQUEST, updateUserSaga);
 }

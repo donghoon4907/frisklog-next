@@ -1,42 +1,31 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { client } from '../../graphql/client';
-import { UserAction } from '../../actions/user';
 import {
-    LoginGithubAction,
-    LoginGithubPayload,
-} from '../../actions/user/login-github';
-import { MUTATION_GITHUB_LOGIN } from '../../graphql/mutation/user/login-github';
+    loginGithubActionTypes,
+    loginGithubFailure,
+    loginGithubSuccess,
+} from '../../actions/user/login-github.action';
+import { LoginGithubRequestAction } from '../../actions/user/login-github.interface';
+import { setUserRequest } from '../../actions/user/set-user.action';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
-import { LoadUserAction } from '../../actions/user/load-user';
+import { loginGithub } from '../../services/usersService';
 
-function loginGithubAPI(payload: LoginGithubPayload) {
-    return client.request(MUTATION_GITHUB_LOGIN, payload);
-}
-
-function* loginGithubSaga(action: UserAction): any {
+function* loginGithubSaga(action: LoginGithubRequestAction): any {
     try {
-        const { githubLogIn } = yield call(loginGithubAPI, action.payload);
+        const response = yield call(loginGithub, action.payload);
 
-        yield put({
-            type: LoginGithubAction.SUCCESS,
-        });
+        yield put(loginGithubSuccess());
 
-        yield put({
-            type: LoadUserAction.LOAD,
-            payload: githubLogIn,
-        });
+        const { token, ...userInfo } = response.githubLogIn;
 
-        setCookie(COOKIE_TOKEN_KEY, githubLogIn.token);
+        yield put(setUserRequest(userInfo));
+
+        setCookie(COOKIE_TOKEN_KEY, token);
     } catch (e) {
-        yield put({
-            type: LoginGithubAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(loginGithubFailure((e as Error).message));
     }
 }
 
 export function* watchLoginGithub() {
-    yield takeEvery(LoginGithubAction.REQUEST, loginGithubSaga);
+    yield takeEvery(loginGithubActionTypes.REQUEST, loginGithubSaga);
 }

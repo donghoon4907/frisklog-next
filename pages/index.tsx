@@ -6,13 +6,12 @@ import { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 
-import { LoginGithubAction } from '../actions/user/login-github';
 import { Aside } from '../components/layout/Aside';
 import { Main } from '../components/layout/Main';
 import { MainTitle } from '../components/layout/Main.style';
 import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
-import { GetPostsAction } from '../actions/post/get-posts';
+import { loginGithubRequest } from '../actions/user/login-github.action';
 
 const Home: NextPage<any> = ({ post }) => {
     const dispatch = useDispatch();
@@ -27,12 +26,9 @@ const Home: NextPage<any> = ({ post }) => {
 
             const code = url.searchParams.get('code');
 
-            dispatch({
-                type: LoginGithubAction.REQUEST,
-                payload: {
-                    code,
-                },
-            });
+            if (code !== null) {
+                dispatch(loginGithubRequest({ code }));
+            }
         }
     }, []);
 
@@ -59,16 +55,16 @@ const Home: NextPage<any> = ({ post }) => {
 export const getServerSideProps = wrapper.getServerSideProps(
     (store) =>
         async ({ req, res, ...etc }) => {
-            store.dispatch({
-                type: GetPostsAction.REQUEST,
-                payload: {
-                    limit: 12,
-                },
-            });
+            // store.dispatch({
+            //     type: GetPostsAction.REQUEST,
+            //     payload: {
+            //         limit: 12,
+            //     },
+            // });
 
             store.dispatch(END);
 
-            await store.sagaTask.toPromise();
+            await store.sagaTask?.toPromise();
 
             return {
                 props: {},

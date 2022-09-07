@@ -1,4 +1,4 @@
-import { CreateUserPayload } from '../user/create-user';
+import { CreateUserPayload } from '../user/create-user.interface';
 
 export enum UpdatePostAction {
     REQUEST = 'POST_UPDATE_REQUEST',
