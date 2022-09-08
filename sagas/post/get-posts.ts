@@ -1,36 +1,28 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { PostAction } from '../../actions/post';
+import { GetPostsRequestAction } from '../../actions/post/get-posts.interface';
+import { getPosts } from '../../services/postsService';
 import {
-    GetPostsAction,
-    GetPostsArgsPayload,
-} from '../../actions/post/get-posts';
-import { GET_POSTS } from '../../graphql/query/post/posts';
+    getPostsActionTypes,
+    getPostsFailure,
+    getPostsSuccess,
+} from '../../actions/post/get-posts.action';
 
-function getPostsAPI(payload: GetPostsArgsPayload) {
-    return client.request(GET_POSTS, payload);
-}
-
-function* getPostsSaga(action: PostAction) {
+function* getPostsSaga(action: GetPostsRequestAction) {
     try {
-        const { posts } = yield call(getPostsAPI, action.payload);
+        const { posts } = yield call(getPosts, action.payload);
 
-        yield put({
-            type: GetPostsAction.SUCCESS,
-            payload: {
+        yield put(
+            getPostsSuccess({
                 nodes: posts.nodes,
                 pageInfo: posts.pageInfo,
-            },
-        });
+            }),
+        );
     } catch (e) {
-        yield put({
-            type: GetPostsAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(getPostsFailure((e as Error).message));
     }
 }
 
 export function* watchGetPosts() {
-    yield takeLatest(GetPostsAction.REQUEST, getPostsSaga);
+    yield takeLatest(getPostsActionTypes.REQUEST, getPostsSaga);
 }

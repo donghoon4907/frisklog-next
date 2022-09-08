@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { PostAction } from '../../actions/post';
+import { DeletePostRequestAction } from '../../actions/post/delete-post.interface';
+import { deletePost } from '../../services/postsService';
 import {
-    DeletePostAction,
-    DeletePostPayload,
-} from '../../actions/post/delete-post';
-import { MUTATION_DELETE_POST } from '../../graphql/mutation/post/delete-post';
+    deletePostActionTypes,
+    deletePostFailure,
+    deletePostSuccess,
+} from '../../actions/post/delete-post.action';
 
-function deletePostAPI(payload: DeletePostPayload) {
-    return client.request(MUTATION_DELETE_POST, payload);
-}
-
-function* deletePostSaga(action: PostAction) {
+function* deletePostSaga(action: DeletePostRequestAction) {
     try {
-        yield call(deletePostAPI, action.payload);
+        yield call(deletePost, action.payload);
 
-        yield put({
-            type: DeletePostAction.SUCCESS,
-        });
+        yield put(deletePostSuccess());
     } catch (e) {
-        yield put({
-            type: DeletePostAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(deletePostFailure((e as Error).message));
     }
 }
 
 export function* watchDeletePost() {
-    yield takeEvery(DeletePostAction.REQUEST, deletePostSaga);
+    yield takeEvery(deletePostActionTypes.REQUEST, deletePostSaga);
 }

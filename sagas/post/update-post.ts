@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { client } from '../../graphql/client';
-import { PostAction } from '../../actions/post';
 import {
-    UpdatePostAction,
-    UpdatePostPayload,
-} from '../../actions/post/update-post';
-import { MUTATION_UPDATE_POST } from '../../graphql/mutation/post/update-post';
+    updatePostActionTypes,
+    updatePostFailure,
+    updatePostSuccess,
+} from '../../actions/post/update-post.action';
 
-function updatePostAPI(payload: UpdatePostPayload) {
-    return client.request(MUTATION_UPDATE_POST, payload);
-}
+import { UpdatePostRequestAction } from '../../actions/post/update-post.interface';
+import { updatePost } from '../../services/postsService';
 
-function* updatePostSaga(action: PostAction) {
+function* updatePostSaga(action: UpdatePostRequestAction) {
     try {
-        yield call(updatePostAPI, action.payload);
+        yield call(updatePost, action.payload);
 
-        yield put({
-            type: UpdatePostAction.SUCCESS,
-        });
+        yield put(updatePostSuccess());
     } catch (e) {
-        yield put({
-            type: UpdatePostAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(updatePostFailure((e as Error).message));
     }
 }
 
 export function* watchUpdatePost() {
-    yield takeEvery(UpdatePostAction.REQUEST, updatePostSaga);
+    yield takeEvery(updatePostActionTypes.REQUEST, updatePostSaga);
 }

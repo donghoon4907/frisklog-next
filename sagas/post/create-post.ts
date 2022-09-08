@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { PostAction } from '../../actions/post';
+import { createPost } from '../../services/postsService';
+import { CreatePostRequestAction } from '../../actions/post/create-post.interface';
 import {
-    CreatePostAction,
-    CreatePostPayload,
-} from '../../actions/post/create-post';
-import { MUTATION_CREATE_POST } from '../../graphql/mutation/post/create-post';
+    createPostActionTypes,
+    createPostFailure,
+    createPostSuccess,
+} from '../../actions/post/create-post.action';
 
-function createPostAPI(payload: CreatePostPayload) {
-    return client.request(MUTATION_CREATE_POST, payload);
-}
-
-function* createPostSaga(action: PostAction) {
+function* createPostSaga(action: CreatePostRequestAction) {
     try {
-        yield call(createPostAPI, action.payload);
+        yield call(createPost, action.payload);
 
-        yield put({
-            type: CreatePostAction.SUCCESS,
-        });
+        yield put(createPostSuccess());
     } catch (e) {
-        yield put({
-            type: CreatePostAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(createPostFailure((e as Error).message));
     }
 }
 
 export function* watchCreatePost() {
-    yield takeEvery(CreatePostAction.REQUEST, createPostSaga);
+    yield takeEvery(createPostActionTypes.REQUEST, createPostSaga);
 }

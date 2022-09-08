@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { PostAction } from '../../actions/post';
+import { UnlikePostRequestAction } from '../../actions/post/unlike-post.interface';
+import { unlikePost } from '../../services/postsService';
 import {
-    UnlikePostAction,
-    UnlikePostPayload,
-} from '../../actions/post/unlike-post';
-import { MUTATION_UNLIKE_POST } from '../../graphql/mutation/post/unlike-post';
+    unlikePostActionTypes,
+    unlikePostFailure,
+    unlikePostSuccess,
+} from '../../actions/post/unlike-post.action';
 
-function unlikePostAPI(payload: UnlikePostPayload) {
-    return client.request(MUTATION_UNLIKE_POST, payload);
-}
-
-function* unlikePostSaga(action: PostAction) {
+function* unlikePostSaga(action: UnlikePostRequestAction) {
     try {
-        yield call(unlikePostAPI, action.payload);
+        yield call(unlikePost, action.payload);
 
-        yield put({
-            type: UnlikePostAction.SUCCESS,
-        });
+        yield put(unlikePostSuccess());
     } catch (e) {
-        yield put({
-            type: UnlikePostAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(unlikePostFailure((e as Error).message));
     }
 }
 
 export function* watchUnlikePost() {
-    yield takeEvery(UnlikePostAction.REQUEST, unlikePostSaga);
+    yield takeEvery(unlikePostActionTypes.REQUEST, unlikePostSaga);
 }

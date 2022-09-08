@@ -12,6 +12,8 @@ import { MainTitle } from '../components/layout/Main.style';
 import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
+import { getPostsActionTypes } from '../actions/post/get-posts.action';
+import { AppState } from '../reducers';
 
 const Home: NextPage<any> = ({ post }) => {
     const dispatch = useDispatch();
@@ -55,12 +57,12 @@ const Home: NextPage<any> = ({ post }) => {
 export const getServerSideProps = wrapper.getServerSideProps(
     (store) =>
         async ({ req, res, ...etc }) => {
-            // store.dispatch({
-            //     type: GetPostsAction.REQUEST,
-            //     payload: {
-            //         limit: 12,
-            //     },
-            // });
+            store.dispatch({
+                type: getPostsActionTypes.REQUEST,
+                payload: {
+                    limit: 12,
+                },
+            });
 
             store.dispatch(END);
 
@@ -72,4 +74,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 );
 
-export default connect((state: any) => state)(Home);
+export default connect((state: AppState) => state)(Home);
