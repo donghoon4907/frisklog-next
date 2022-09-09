@@ -5,8 +5,9 @@ import { useSelector } from 'react-redux';
 
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { LinkAvatar } from '../LinkAvatar';
-import { IUserState } from '../../reducers/user';
+import { UserState } from '../../reducers/user';
 import { IconWrapper } from './IconWrapper';
+import { AppState } from '../../reducers';
 
 const AvatarWrapper = styled.div`
     width: 28px;
@@ -14,7 +15,9 @@ const AvatarWrapper = styled.div`
 `;
 
 export const ProfileButton: FC = () => {
-    const { id, avatar } = useSelector<any, IUserState>((state) => state.user);
+    const { id, avatar } = useSelector<AppState, UserState>(
+        (state) => state.user,
+    );
 
     const { validateToken } = useAuthenticate();
 

@@ -1,11 +1,8 @@
-import { PayloadAction } from '..';
-import { CreateCommentAction } from './create-comment';
-import { DeleteCommentAction } from './delete-comment';
-import { UpdateCommentAction } from './update-comment';
+import { CreateCommentAction } from './create-comment.interface';
+import { DeleteCommentAction } from './delete-comment.interface';
+import { UpdateCommentAction } from './update-comment.interface';
 
-export type CommentActionTypes =
+export type CommentAction =
     | CreateCommentAction
     | UpdateCommentAction
     | DeleteCommentAction;
-
-export type CommentAction = PayloadAction<CommentActionTypes>;

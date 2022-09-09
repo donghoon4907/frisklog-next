@@ -2,10 +2,9 @@ import { useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
-import { LoginModalAction } from '../../actions/switch/login-modal';
-import { ICommonState } from '../../reducers/common';
+import { CommonState } from '../../reducers/common';
 import { SignUpForm } from '../form/SignUp';
-import { AuthModeType } from '../../types/mode';
+import { AuthMode, AuthModeType } from '../../types/mode';
 import { GithubLoginButton } from '../button/GithubLogin';
 import { SignInForm } from '../form/SignIn';
 import {
@@ -13,21 +12,25 @@ import {
     StateChanger,
     StateChangerLink,
 } from './Auth.style';
+import { AppState } from '../../reducers';
+import { hideLoginModal } from '../../actions/switch/login-modal.action';
 
 export const AuthModal: FC = () => {
     const dispatch = useDispatch();
 
-    const { isShowLoginModal } = useSelector<any, ICommonState>(
+    const { isShowLoginModal } = useSelector<AppState, CommonState>(
         (state) => state.common,
     );
 
-    const [mode, setMode] = useState<AuthModeType>('로그인');
+    const [mode, setMode] = useState<AuthModeType>(AuthMode.LOGIN);
 
     const handleClose = () => {
-        dispatch({
-            type: LoginModalAction.HIDE,
-        });
+        dispatch(hideLoginModal());
     };
+
+    const isLoginMode = mode === AuthMode.LOGIN;
+
+    const isSignUpMode = mode === AuthMode.SIGNUP;
 
     return (
         <Modal
@@ -38,10 +41,10 @@ export const AuthModal: FC = () => {
             centered
             footer={null}
         >
-            {mode === '로그인' && <SignInForm />}
-            {mode === '회원가입' && <SignUpForm setMode={setMode} />}
+            {isLoginMode && <SignInForm />}
+            {isSignUpMode && <SignUpForm setMode={setMode} />}
 
-            {mode === '로그인' && (
+            {isLoginMode && (
                 <AnotherLoginContainer>
                     <hr />
                     <GithubLoginButton />
@@ -50,13 +53,15 @@ export const AuthModal: FC = () => {
 
             <StateChanger>
                 <div>
-                    계정이 {mode === '로그인' ? '없다면' : '있다면'}&nbsp;
+                    계정이 {isLoginMode ? '없다면' : '있다면'}&nbsp;
                     <StateChangerLink
                         onClick={() =>
-                            setMode(mode === '로그인' ? '회원가입' : '로그인')
+                            setMode(
+                                isLoginMode ? AuthMode.SIGNUP : AuthMode.LOGIN,
+                            )
                         }
                     >
-                        {mode === '로그인' ? '회원가입' : '로그인'}
+                        {isLoginMode ? AuthMode.SIGNUP : AuthMode.LOGIN}
                     </StateChangerLink>
                 </div>
             </StateChanger>

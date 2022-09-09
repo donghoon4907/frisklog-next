@@ -4,14 +4,14 @@ import { UserAction } from '../../actions/user';
 import { setUserActionTypes } from '../../actions/user/set-user.action';
 import { SetUserRequestAction } from '../../actions/user/set-user.interface';
 
-export interface IUserState {
+export interface UserState {
     id: string | null;
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
 }
 
-const initialState: IUserState = {
+const initialState: UserState = {
     id: null,
     nickname: null,
     avatar: null,

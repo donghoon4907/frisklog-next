@@ -1,32 +1,22 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-import { client } from '../../graphql/client';
-import { CommentAction } from '../../actions/comment';
 import {
-    UpdateCommentAction,
-    UpdateCommentPayload,
-} from '../../actions/comment/update-comment';
-import { MUTATION_UPDATE_COMMENT } from '../../graphql/mutation/comment/update-comment';
+    updateCommentActionTypes,
+    updateCommentFailure,
+    updateCommentSuccess,
+} from '../../actions/comment/update-comment.action';
+import { UpdateCommentRequestAction } from '../../actions/comment/update-comment.interface';
+import { updateComment } from '../../services/commentsService';
 
-function updateCommentAPI(payload: UpdateCommentPayload) {
-    return client.request(MUTATION_UPDATE_COMMENT, payload);
-}
-
-function* updateCommentSaga(action: CommentAction) {
+function* updateCommentSaga(action: UpdateCommentRequestAction) {
     try {
-        yield call(updateCommentAPI, action.payload);
+        yield call(updateComment, action.payload);
 
-        yield put({
-            type: UpdateCommentAction.SUCCESS,
-        });
+        yield put(updateCommentSuccess());
     } catch (e) {
-        yield put({
-            type: UpdateCommentAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(updateCommentFailure((e as Error).message));
     }
 }
 
 export function* watchUpdateComment() {
-    yield takeEvery(UpdateCommentAction.REQUEST, updateCommentSaga);
+    yield takeEvery(updateCommentActionTypes.REQUEST, updateCommentSaga);
 }

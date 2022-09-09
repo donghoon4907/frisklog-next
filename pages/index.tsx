@@ -13,9 +13,8 @@ import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
 import { getPostsActionTypes } from '../actions/post/get-posts.action';
-import { AppState } from '../reducers';
 
-const Home: NextPage<any> = ({ post }) => {
+const Home: NextPage = () => {
     const dispatch = useDispatch();
 
     const { validateToken } = useAuthenticate();
@@ -74,4 +73,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 );
 
-export default connect((state: AppState) => state)(Home);
+export default Home;

@@ -1,32 +1,23 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { client } from '../../graphql/client';
-import { CommentAction } from '../../actions/comment';
+import { DeleteCommentRequestAction } from '../../actions/comment/delete-comment.interface';
+import { deleteComment } from '../../services/commentsService';
 import {
-    DeleteCommentAction,
-    DeleteCommentPayload,
-} from '../../actions/comment/delete-comment';
-import { MUTATION_DELETE_COMMENT } from '../../graphql/mutation/comment/delete-comment';
+    deleteCommentActionTypes,
+    deleteCommentFailure,
+    deleteCommentSuccess,
+} from '../../actions/comment/delete-comment.action';
 
-function deleteCommentAPI(payload: DeleteCommentPayload) {
-    return client.request(MUTATION_DELETE_COMMENT, payload);
-}
-
-function* deleteCommentSaga(action: CommentAction) {
+function* deleteCommentSaga(action: DeleteCommentRequestAction) {
     try {
-        yield call(deleteCommentAPI, action.payload);
+        yield call(deleteComment, action.payload);
 
-        yield put({
-            type: DeleteCommentAction.SUCCESS,
-        });
+        yield put(deleteCommentSuccess());
     } catch (e) {
-        yield put({
-            type: DeleteCommentAction.FAILURE,
-            error: (e as Error).message,
-        });
+        yield put(deleteCommentFailure((e as Error).message));
     }
 }
 
 export function* watchDeleteComment() {
-    yield takeEvery(DeleteCommentAction.REQUEST, deleteCommentSaga);
+    yield takeEvery(deleteCommentActionTypes.REQUEST, deleteCommentSaga);
 }

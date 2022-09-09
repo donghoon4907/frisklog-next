@@ -5,14 +5,18 @@ import { useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from './theme';
 import { GlobalStyle } from './theme/globalstyles';
 import { DefaultProps } from '../interfaces/default';
-import { ICommonState } from '../reducers/common';
+import { CommonState } from '../reducers/common';
+import { AppState } from '../reducers';
+import { ThemeMode } from '../types/mode';
 
 interface Props extends DefaultProps {}
 
 export const Providers: FC<Props> = ({ children }) => {
-    const { mode } = useSelector<any, ICommonState>((state) => state.common);
+    const { mode } = useSelector<AppState, CommonState>(
+        (state) => state.common,
+    );
 
-    const theme = mode === 'light' ? lightTheme : darkTheme;
+    const theme = mode === ThemeMode.LIGHT ? lightTheme : darkTheme;
 
     return (
         <>

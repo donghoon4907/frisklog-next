@@ -3,43 +3,57 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
 import { useInput, UseInputWhere } from '../../hooks/use-input';
-import { ActivePostAction } from '../../actions/post/active-post';
-import { PostModalAction } from '../../actions/switch/post-modal';
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { PostEditor } from '../Editor';
 import { FormInput } from '../FormInput';
 import { Form, FormColumn } from '../form/form.style';
 import { FormInputWithLeftBox } from '../FormInput.style';
 import { DeleteableButton } from '../button/Deleteable';
+import { AppState } from '../../reducers';
+import { hidePostModal } from '../../actions/switch/post-modal.action';
+import { activePostCleanUp } from '../../actions/post/active-post.action';
+import { PostState } from '../../reducers/post';
+import { CommonState } from '../../reducers/common';
+import { LoadingState } from '../../reducers/common/loading';
+import { createPostActionTypes } from '../../actions/post/create-post.action';
+import { updatePostActionTypes } from '../../actions/post/update-post.action';
 
 export const SetPostModal: FC = () => {
     const dispatch = useDispatch();
 
-    const { post, common } = useSelector<any, any>((state) => state);
+    const { activePost } = useSelector<AppState, PostState>(
+        (state) => state.post,
+    );
+
+    const { isShowPostModal } = useSelector<AppState, CommonState>(
+        (state) => state.common,
+    );
+
+    const loading = useSelector<AppState, LoadingState>(
+        (state) => state.loading,
+    );
 
     const { validateToken } = useAuthenticate();
 
     const category = useInput('', UseInputWhere.NO_SPACE);
 
     const [categories, setCategories] = useState<string[]>(
-        post.activePost.categories,
+        activePost.categories,
     );
 
-    const [content, setContent] = useState(post.activePost.content);
+    const [content, setContent] = useState(activePost.content);
 
-    const loading = post.isAddPostLoading || post.isUpdatePostLoading;
+    const isLoading =
+        loading[createPostActionTypes.REQUEST] ||
+        loading[updatePostActionTypes.REQUEST];
 
-    const isUpdate = !!post.activePost.id;
+    const isUpdate = !!activePost.id;
 
     const handleClose = () => {
         // 팝업 숨기기
-        dispatch({
-            type: PostModalAction.HIDE,
-        });
+        dispatch(hidePostModal());
         // 상태 초기화
-        dispatch({
-            type: ActivePostAction.INIT,
-        });
+        dispatch(activePostCleanUp());
     };
 
     const handleAddCategory = (evt: FormEvent<HTMLFormElement>) => {
@@ -69,7 +83,7 @@ export const SetPostModal: FC = () => {
         const token = validateToken();
 
         if (token !== null) {
-            if (loading) {
+            if (isLoading) {
                 return alert('요청 중입니다. 잠시만 기다려주세요.');
             }
 
@@ -89,7 +103,7 @@ export const SetPostModal: FC = () => {
     return (
         <Modal
             title={`게시물 ${isUpdate ? '수정' : '등록'}`}
-            visible={common.isShowPostModal}
+            visible={isShowPostModal}
             onCancel={handleClose}
             onOk={handleOk}
             destroyOnClose
