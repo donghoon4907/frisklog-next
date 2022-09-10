@@ -11,12 +11,12 @@ import { FormInputWithLeftBox } from '../FormInput.style';
 import { DeleteableButton } from '../button/Deleteable';
 import { AppState } from '../../reducers';
 import { hidePostModal } from '../../actions/switch/post-modal.action';
-import { activePostCleanUp } from '../../actions/post/active-post.action';
+import { initActivePost } from '../../actions/post/active-post.action';
 import { PostState } from '../../reducers/post';
 import { CommonState } from '../../reducers/common';
 import { LoadingState } from '../../reducers/common/loading';
-import { createPostActionTypes } from '../../actions/post/create-post.action';
-import { updatePostActionTypes } from '../../actions/post/update-post.action';
+import { CREATE_POST_KEY } from '../../actions/post/create-post.action';
+import { UPDATE_POST_KEY } from '../../actions/post/update-post.action';
 
 export const SetPostModal: FC = () => {
     const dispatch = useDispatch();
@@ -38,14 +38,12 @@ export const SetPostModal: FC = () => {
     const category = useInput('', UseInputWhere.NO_SPACE);
 
     const [categories, setCategories] = useState<string[]>(
-        activePost.categories,
+        activePost.categories || [],
     );
 
-    const [content, setContent] = useState(activePost.content);
+    const [content, setContent] = useState(activePost.content || '');
 
-    const isLoading =
-        loading[createPostActionTypes.REQUEST] ||
-        loading[updatePostActionTypes.REQUEST];
+    const isLoading = loading[CREATE_POST_KEY] || loading[UPDATE_POST_KEY];
 
     const isUpdate = !!activePost.id;
 
@@ -53,7 +51,11 @@ export const SetPostModal: FC = () => {
         // 팝업 숨기기
         dispatch(hidePostModal());
         // 상태 초기화
-        dispatch(activePostCleanUp());
+        dispatch(initActivePost());
+
+        category.setValue('');
+
+        setContent('');
     };
 
     const handleAddCategory = (evt: FormEvent<HTMLFormElement>) => {

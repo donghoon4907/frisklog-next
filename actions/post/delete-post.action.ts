@@ -5,12 +5,12 @@ import {
     DeletePostSuccessAction,
 } from './delete-post.interface';
 
-const REQUEST_NAME = 'CREATE_POST';
+export const DELETE_POST_KEY = 'DELETE_POST';
 
 export const deletePostActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${DELETE_POST_KEY}_REQUEST`,
+    SUCCESS: `${DELETE_POST_KEY}_SUCCESS`,
+    FAILURE: `${DELETE_POST_KEY}_FAILURE`,
 };
 
 export function deletePostRequest(

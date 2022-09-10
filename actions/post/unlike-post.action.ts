@@ -5,12 +5,12 @@ import {
     UnlikePostSuccessAction,
 } from './unlike-post.interface';
 
-const REQUEST_NAME = 'LIKE_POST';
+export const UNLIKE_POST_KEY = 'UNLIKE_POST';
 
 export const unlikePostActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${UNLIKE_POST_KEY}_REQUEST`,
+    SUCCESS: `${UNLIKE_POST_KEY}_SUCCESS`,
+    FAILURE: `${UNLIKE_POST_KEY}_FAILURE`,
 };
 
 export function unlikePostRequest(

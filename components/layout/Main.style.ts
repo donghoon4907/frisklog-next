@@ -30,4 +30,5 @@ export const MainTitle = styled.div`
     line-height: 1.5;
     margin-bottom: 5px;
     overflow: hidden;
+    color: inherit;
 `;

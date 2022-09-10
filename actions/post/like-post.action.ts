@@ -5,12 +5,12 @@ import {
     LikePostSuccessAction,
 } from './like-post.interface';
 
-const REQUEST_NAME = 'LIKE_POST';
+export const LIKE_POST_KEY = 'LIKE_POST';
 
 export const likePostActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${LIKE_POST_KEY}_REQUEST`,
+    SUCCESS: `${LIKE_POST_KEY}_SUCCESS`,
+    FAILURE: `${LIKE_POST_KEY}_FAILURE`,
 };
 
 export function likePostRequest(

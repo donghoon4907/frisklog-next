@@ -5,12 +5,12 @@ import {
     DeleteCommentSuccessAction,
 } from './delete-comment.interface';
 
-const REQUEST_NAME = 'DELETE_COMMENT';
+export const DELETE_COMMENT_KEY = 'DELETE_COMMENT';
 
 export const deleteCommentActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${DELETE_COMMENT_KEY}_REQUEST`,
+    SUCCESS: `${DELETE_COMMENT_KEY}_SUCCESS`,
+    FAILURE: `${DELETE_COMMENT_KEY}_FAILURE`,
 };
 
 export function deleteCommentRequest(

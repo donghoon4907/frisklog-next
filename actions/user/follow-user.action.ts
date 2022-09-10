@@ -5,12 +5,12 @@ import {
     FollowUserSuccessAction,
 } from './follow-user.interface';
 
-const REQUEST_NAME = 'FOLLOW_USER';
+export const FOLLOW_USER_KEY = 'FOLLOW_USER';
 
 export const followUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${FOLLOW_USER_KEY}_REQUEST`,
+    SUCCESS: `${FOLLOW_USER_KEY}_SUCCESS`,
+    FAILURE: `${FOLLOW_USER_KEY}_FAILURE`,
 };
 
 export function followUserRequest(

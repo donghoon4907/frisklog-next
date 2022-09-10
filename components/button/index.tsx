@@ -1,7 +1,7 @@
 import { FC, MouseEvent } from 'react';
 
 import { DefaultProps } from '../../interfaces/default';
-import { ButtonColorType, ButtonType } from './button.interface';
+import { ButtonColorType, ButtonType } from '../../types/button';
 import { ButtonBody } from './button.style';
 
 interface Props extends DefaultProps {

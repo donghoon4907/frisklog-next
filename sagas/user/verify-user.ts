@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { setUserRequest } from '../../actions/user/set-user.action';
+import { setUser } from '../../actions/user/user.action';
 import {
     verifyUserActionTypes,
     verifyUserFailure,
@@ -19,7 +19,7 @@ function* verifyUserSaga(action: VerifyUserRequestAction): any {
 
         const { token, ...userInfo } = response.verifyUser;
 
-        yield put(setUserRequest(userInfo));
+        yield put(setUser(userInfo));
 
         setCookie(COOKIE_TOKEN_KEY, token);
     } catch (e) {

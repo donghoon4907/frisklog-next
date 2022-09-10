@@ -31,6 +31,7 @@ h4,
 h5,
 h6 {
     margin-bottom: 0;
+    color: inherit !important;
 }
 
 hr {

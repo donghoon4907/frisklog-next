@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import Cookies from 'cookies';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import { wrapper } from '../store';
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
@@ -16,7 +17,10 @@ import { setDarkMode } from '../actions/switch/theme-mode.action';
 import { Header } from '../components/header';
 import { AuthModal } from '../components/modal/Auth';
 import { SetPostModal } from '../components/modal/SetPost';
-import { setUserRequest } from '../actions/user/set-user.action';
+import { setUser } from '../actions/user/user.action';
+import { AppState } from '../reducers';
+import { LoadingState } from '../reducers/common/loading';
+import { Loader } from '../components/Loader';
 
 const AppContainer = styled.div`
     display: flex;
@@ -32,6 +36,12 @@ const AppContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const loading = useSelector<AppState, LoadingState>(
+        (state) => state.loading,
+    );
+
+    const isLoading = Object.keys(loading).some((key) => loading[key]);
+
     return (
         <Providers>
             <AppContainer>
@@ -41,6 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Layout>
                 <AuthModal />
                 <SetPostModal />
+                {isLoading && <Loader />}
             </AppContainer>
         </Providers>
     );
@@ -84,7 +95,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                                 jwt.verify(token, jwtSecret) as JwtPayload;
 
                             store.dispatch(
-                                setUserRequest({
+                                setUser({
                                     id,
                                     nickname,
                                     avatar,

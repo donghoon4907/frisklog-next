@@ -5,12 +5,12 @@ import {
     CreateCommentSuccessAction,
 } from './create-comment.interface';
 
-const REQUEST_NAME = 'CREATE_COMMENT';
+export const CREATE_COMMENT_KEY = 'CREATE_COMMENT';
 
 export const createCommentActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${CREATE_COMMENT_KEY}_REQUEST`,
+    SUCCESS: `${CREATE_COMMENT_KEY}_SUCCESS`,
+    FAILURE: `${CREATE_COMMENT_KEY}_FAILURE`,
 };
 
 export function createCommentRequest(

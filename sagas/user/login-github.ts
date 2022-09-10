@@ -5,7 +5,7 @@ import {
     loginGithubSuccess,
 } from '../../actions/user/login-github.action';
 import { LoginGithubRequestAction } from '../../actions/user/login-github.interface';
-import { setUserRequest } from '../../actions/user/set-user.action';
+import { setUser } from '../../actions/user/user.action';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
 import { loginGithub } from '../../services/usersService';
@@ -18,7 +18,7 @@ function* loginGithubSaga(action: LoginGithubRequestAction): any {
 
         const { token, ...userInfo } = response.githubLogIn;
 
-        yield put(setUserRequest(userInfo));
+        yield put(setUser(userInfo));
 
         setCookie(COOKIE_TOKEN_KEY, token);
     } catch (e) {

@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 import { UserAction } from '../../actions/user';
-import { setUserActionTypes } from '../../actions/user/set-user.action';
+import { userActionTypes } from '../../actions/user/user.action';
 import { SetUserRequestAction } from '../../actions/user/set-user.interface';
 
 export interface UserState {
@@ -22,7 +22,7 @@ export default (state = initialState, action: UserAction) =>
     produce(state, (draft) => {
         switch (action.type) {
             // Load
-            case setUserActionTypes.REQUEST: {
+            case userActionTypes.SET: {
                 const { payload } = action as SetUserRequestAction;
 
                 draft.id = payload.id;
@@ -34,7 +34,7 @@ export default (state = initialState, action: UserAction) =>
                 draft.isMaster = payload.isMaster;
                 break;
             }
-            case setUserActionTypes.CLEANUP: {
+            case userActionTypes.INIT: {
                 draft.id = null;
 
                 draft.nickname = null;

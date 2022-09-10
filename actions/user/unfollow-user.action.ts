@@ -5,12 +5,12 @@ import {
     UnfollowUserSuccessAction,
 } from './unfollow-user.interface';
 
-const REQUEST_NAME = 'UNFOLLOW_USER';
+const UNFOLLOW_USER_KEY = 'UNFOLLOW_USER';
 
 export const unfollowUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${UNFOLLOW_USER_KEY}_REQUEST`,
+    SUCCESS: `${UNFOLLOW_USER_KEY}_SUCCESS`,
+    FAILURE: `${UNFOLLOW_USER_KEY}_FAILURE`,
 };
 
 export function unfollowUserRequest(

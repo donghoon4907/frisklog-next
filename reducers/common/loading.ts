@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action } from 'redux';
 
 export interface LoadingState {
     [key: string]: boolean;
@@ -16,9 +16,13 @@ const loadingReducer = (state: LoadingState = {}, action: Action) => {
 
     const [, requestName, requestStatus] = matches;
 
+    if (requestStatus === '') {
+        return state;
+    }
+
     return {
         ...state,
-        [requestName]: requestStatus === 'REQUEST'
+        [requestName]: requestStatus === 'REQUEST',
     };
 };
 

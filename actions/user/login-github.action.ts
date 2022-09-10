@@ -5,12 +5,12 @@ import {
     LoginGithubSuccessAction,
 } from './login-github.interface';
 
-const REQUEST_NAME = 'LOGIN_GITHUB';
+export const LOGIN_GITHUB_KEY = 'LOGIN_GITHUB';
 
 export const loginGithubActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${LOGIN_GITHUB_KEY}_REQUEST`,
+    SUCCESS: `${LOGIN_GITHUB_KEY}_SUCCESS`,
+    FAILURE: `${LOGIN_GITHUB_KEY}_FAILURE`,
 };
 
 export function loginGithubRequest(

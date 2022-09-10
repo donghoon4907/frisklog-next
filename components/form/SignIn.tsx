@@ -11,12 +11,12 @@ import { Form, FormColumn } from './form.style';
 import { AppState } from '../../reducers';
 import { LoadingState } from '../../reducers/common/loading';
 import {
-    loginUserActionTypes,
     loginUserRequest,
+    LOGIN_USER_KEY,
 } from '../../actions/user/login-user.action';
 import {
-    verifyUserActionTypes,
     verifyUserRequest,
+    VERIFY_USER_KEY,
 } from '../../actions/user/verify-user.action';
 
 const FormCheckboxWrapper = styled.div`
@@ -45,7 +45,7 @@ export const SignInForm: FC = () => {
     const handleLogin = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading[loginUserActionTypes.REQUEST]) {
+        if (loading[LOGIN_USER_KEY]) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
 
@@ -60,7 +60,7 @@ export const SignInForm: FC = () => {
     const handleVerify = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading[verifyUserActionTypes.REQUEST]) {
+        if (loading[VERIFY_USER_KEY]) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
 

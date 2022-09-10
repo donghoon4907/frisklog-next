@@ -5,12 +5,12 @@ import {
     UpdateUserSuccessAction,
 } from './update-user.interface';
 
-const REQUEST_NAME = 'UPDATE_USER';
+const UPDATE_USER_KEY = 'UPDATE_USER';
 
 export const updateUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${UPDATE_USER_KEY}_REQUEST`,
+    SUCCESS: `${UPDATE_USER_KEY}_SUCCESS`,
+    FAILURE: `${UPDATE_USER_KEY}_FAILURE`,
 };
 
 export function updateUserRequest(

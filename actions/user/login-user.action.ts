@@ -5,12 +5,12 @@ import {
     LoginUserSuccessAction,
 } from './login-user.interface';
 
-const REQUEST_NAME = 'LOGIN_USER';
+export const LOGIN_USER_KEY = 'LOGIN_USER';
 
 export const loginUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${LOGIN_USER_KEY}_REQUEST`,
+    SUCCESS: `${LOGIN_USER_KEY}_SUCCESS`,
+    FAILURE: `${LOGIN_USER_KEY}_FAILURE`,
 };
 
 export function loginUserRequest(

@@ -7,13 +7,13 @@ import {
     UploadImageSuccessPayload,
 } from './image.interface';
 
-const REQUEST_NAME = 'UPLOAD_IMAGE';
+export const UPLOAD_IMAGE_KEY = 'UPLOAD_IMAGE';
 
 export const uploadImageActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
-    CLEANUP: `${REQUEST_NAME}_CLEANUP`,
+    REQUEST: `${UPLOAD_IMAGE_KEY}_REQUEST`,
+    SUCCESS: `${UPLOAD_IMAGE_KEY}_SUCCESS`,
+    FAILURE: `${UPLOAD_IMAGE_KEY}_FAILURE`,
+    CLEANUP: `${UPLOAD_IMAGE_KEY}_CLEANUP`,
 };
 
 export function uploadImageRequest(

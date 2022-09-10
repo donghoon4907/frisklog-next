@@ -7,21 +7,21 @@ import {
 const REQUEST_NAME = 'ACTIVE_POST';
 
 export const activePostActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    CLEANUP: `${REQUEST_NAME}_CLEANUP`,
+    SET: `SET_${REQUEST_NAME}`,
+    INIT: `INIT_${REQUEST_NAME}`,
 };
 
-export function activePostRequest(
+export function setActivePost(
     payload: ActivePostRequestPayload,
 ): ActivePostRequestAction {
     return {
-        type: activePostActionTypes.REQUEST,
+        type: activePostActionTypes.SET,
         payload,
     };
 }
 
-export function activePostCleanUp(): ActivePostCleanUpAction {
+export function initActivePost(): ActivePostCleanUpAction {
     return {
-        type: activePostActionTypes.CLEANUP,
+        type: activePostActionTypes.INIT,
     };
 }

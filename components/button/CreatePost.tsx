@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 
-import { PostModalAction } from '../../actions/switch/post-modal';
+import { showPostModal } from '../../actions/switch/post-modal.action';
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { IconWrapper } from './IconWrapper';
 
@@ -15,9 +15,7 @@ export const CreatePostButton: FC = () => {
         const token = validateToken();
 
         if (token !== null) {
-            dispatch({
-                type: PostModalAction.SHOW,
-            });
+            dispatch(showPostModal());
         }
     };
 

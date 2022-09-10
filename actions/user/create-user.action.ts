@@ -5,12 +5,12 @@ import {
     CreateUserSuccessAction,
 } from './create-user.interface';
 
-const REQUEST_NAME = 'CREATE_USER';
+export const CREATE_USER_KEY = 'CREATE_USER';
 
 export const createUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${CREATE_USER_KEY}_REQUEST`,
+    SUCCESS: `${CREATE_USER_KEY}_SUCCESS`,
+    FAILURE: `${CREATE_USER_KEY}_FAILURE`,
 };
 
 export function createUserRequest(

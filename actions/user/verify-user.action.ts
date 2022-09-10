@@ -5,12 +5,12 @@ import {
     VerifyUserSuccessAction,
 } from './verify-user.interface';
 
-const REQUEST_NAME = 'LOGIN_USER';
+export const VERIFY_USER_KEY = 'VERIFY_USER';
 
 export const verifyUserActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${VERIFY_USER_KEY}_REQUEST`,
+    SUCCESS: `${VERIFY_USER_KEY}_SUCCESS`,
+    FAILURE: `${VERIFY_USER_KEY}_FAILURE`,
 };
 
 export function verifyUserRequest(

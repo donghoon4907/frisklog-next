@@ -5,12 +5,12 @@ import {
     UpdateCommentSuccessAction,
 } from './update-comment.interface';
 
-const REQUEST_NAME = 'UPDATE_COMMENT';
+export const UPDATE_COMMENT_KEY = 'UPDATE_COMMENT';
 
 export const updateCommentActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${UPDATE_COMMENT_KEY}_REQUEST`,
+    SUCCESS: `${UPDATE_COMMENT_KEY}_SUCCESS`,
+    FAILURE: `${UPDATE_COMMENT_KEY}_FAILURE`,
 };
 
 export function updateCommentRequest(

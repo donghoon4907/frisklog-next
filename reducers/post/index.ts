@@ -28,7 +28,7 @@ export default (state = initialState, action: PostAction) =>
     produce(state, (draft) => {
         switch (action.type) {
             // Active post
-            case activePostActionTypes.REQUEST: {
+            case activePostActionTypes.SET: {
                 const { payload } = action as ActivePostRequestAction;
 
                 draft.activePost.id = payload.id;
@@ -38,7 +38,7 @@ export default (state = initialState, action: PostAction) =>
                 draft.activePost.categories = payload.categories;
                 break;
             }
-            case activePostActionTypes.CLEANUP: {
+            case activePostActionTypes.INIT: {
                 draft.activePost.id = null;
 
                 draft.activePost.content = null;

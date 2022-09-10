@@ -6,12 +6,12 @@ import {
     GetPostsSuccessPayload,
 } from './get-posts.interface';
 
-const REQUEST_NAME = 'GET_POSTS';
+export const GET_POSTS_KEY = 'GET_POSTS';
 
 export const getPostsActionTypes = {
-    REQUEST: `${REQUEST_NAME}_REQUEST`,
-    SUCCESS: `${REQUEST_NAME}_SUCCESS`,
-    FAILURE: `${REQUEST_NAME}_FAILURE`,
+    REQUEST: `${GET_POSTS_KEY}_REQUEST`,
+    SUCCESS: `${GET_POSTS_KEY}_SUCCESS`,
+    FAILURE: `${GET_POSTS_KEY}_FAILURE`,
 };
 
 export function getPostsRequest(

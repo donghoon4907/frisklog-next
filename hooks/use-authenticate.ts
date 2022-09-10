@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { LoginModalAction } from '../actions/switch/login-modal';
+import { showLoginModal } from '../actions/switch/login-modal.action';
 import { getCookie } from '../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 
@@ -11,9 +11,7 @@ export const useAuthenticate = () => {
         const token = getCookie(COOKIE_TOKEN_KEY);
 
         if (token === null) {
-            dispatch({
-                type: LoginModalAction.SHOW,
-            });
+            dispatch(showLoginModal());
         }
 
         return token;
