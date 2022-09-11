@@ -5,7 +5,7 @@ export interface LoadingState {
 }
 
 const getLoadingMatches = (actionType: string) =>
-    /(.*)_(REQUEST|SUCCESS|FAILURE|)/.exec(actionType);
+    /(.*)_(REQUEST|SUCCESS|ERROR|)/.exec(actionType);
 
 const loadingReducer = (state: LoadingState = {}, action: Action) => {
     const matches = getLoadingMatches(action.type);
@@ -22,7 +22,7 @@ const loadingReducer = (state: LoadingState = {}, action: Action) => {
 
     return {
         ...state,
-        [requestName]: requestStatus === 'REQUEST',
+        loading: requestStatus === 'REQUEST',
     };
 };
 

@@ -24,7 +24,9 @@ export const ReadonlyButtonBody = styled.div`
     margin: 0 10px 10px 0;
 
     & svg {
-        fill: ${({ theme }) => theme.readOnlyBtnTextColor};
-        
+        fill: ${({ theme }) => theme.readOnlyBtnTextColor} !important;
+        width: 23px;
+        height: 23px;
+        margin-left: 5px;
     }
 `;

@@ -4,18 +4,13 @@ import { UnlikePostRequestAction } from '../../actions/post/unlike-post.interfac
 import { unlikePost } from '../../services/postsService';
 import {
     unlikePostActionTypes,
-    unlikePostFailure,
     unlikePostSuccess,
 } from '../../actions/post/unlike-post.action';
 
 function* unlikePostSaga(action: UnlikePostRequestAction) {
-    try {
-        yield call(unlikePost, action.payload);
+    yield call(unlikePost, action.payload);
 
-        yield put(unlikePostSuccess());
-    } catch (e) {
-        yield put(unlikePostFailure((e as Error).message));
-    }
+    yield put(unlikePostSuccess());
 }
 
 export function* watchUnlikePost() {

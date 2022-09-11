@@ -4,18 +4,13 @@ import { DeletePostRequestAction } from '../../actions/post/delete-post.interfac
 import { deletePost } from '../../services/postsService';
 import {
     deletePostActionTypes,
-    deletePostFailure,
     deletePostSuccess,
 } from '../../actions/post/delete-post.action';
 
 function* deletePostSaga(action: DeletePostRequestAction) {
-    try {
-        yield call(deletePost, action.payload);
+    yield call(deletePost, action.payload);
 
-        yield put(deletePostSuccess());
-    } catch (e) {
-        yield put(deletePostFailure((e as Error).message));
-    }
+    yield put(deletePostSuccess());
 }
 
 export function* watchDeletePost() {

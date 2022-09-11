@@ -5,7 +5,7 @@ export interface ErrorState {
 }
 
 const getErrorMatches = (actionType: string) =>
-    /(.*)_(REQUEST|FAILURE|CLEAR_ERRORS)/.exec(actionType);
+    /(.*)_(REQUEST|ERROR)/.exec(actionType);
 
 const errorReducer = (state: ErrorState = {}, action: ErrorAction) => {
     const matches = getErrorMatches(action.type);
@@ -18,7 +18,8 @@ const errorReducer = (state: ErrorState = {}, action: ErrorAction) => {
 
     return {
         ...state,
-        [requestName]: requestStatus === 'FAILURE' ? action.error : null,
+        message: requestStatus === 'ERROR' ? action.error.message : null,
+        statusCode: requestStatus === 'ERROR' ? action.error.statusCode : null,
     };
 };
 

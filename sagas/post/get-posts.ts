@@ -4,23 +4,18 @@ import { GetPostsRequestAction } from '../../actions/post/get-posts.interface';
 import { getPosts } from '../../services/postsService';
 import {
     getPostsActionTypes,
-    getPostsFailure,
     getPostsSuccess,
 } from '../../actions/post/get-posts.action';
 
 function* getPostsSaga(action: GetPostsRequestAction) {
-    try {
-        const { posts } = yield call(getPosts, action.payload);
+    const { posts } = yield call(getPosts, action.payload);
 
-        yield put(
-            getPostsSuccess({
-                nodes: posts.nodes,
-                pageInfo: posts.pageInfo,
-            }),
-        );
-    } catch (e) {
-        yield put(getPostsFailure((e as Error).message));
-    }
+    yield put(
+        getPostsSuccess({
+            nodes: posts.nodes,
+            pageInfo: posts.pageInfo,
+        }),
+    );
 }
 
 export function* watchGetPosts() {

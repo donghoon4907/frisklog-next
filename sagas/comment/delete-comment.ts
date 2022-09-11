@@ -4,18 +4,13 @@ import { DeleteCommentRequestAction } from '../../actions/comment/delete-comment
 import { deleteComment } from '../../services/commentsService';
 import {
     deleteCommentActionTypes,
-    deleteCommentFailure,
     deleteCommentSuccess,
 } from '../../actions/comment/delete-comment.action';
 
 function* deleteCommentSaga(action: DeleteCommentRequestAction) {
-    try {
-        yield call(deleteComment, action.payload);
+    yield call(deleteComment, action.payload);
 
-        yield put(deleteCommentSuccess());
-    } catch (e) {
-        yield put(deleteCommentFailure((e as Error).message));
-    }
+    yield put(deleteCommentSuccess());
 }
 
 export function* watchDeleteComment() {

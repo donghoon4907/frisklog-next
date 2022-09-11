@@ -1,6 +1,9 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
+import {
+    // ErrorAction,
+    PayloadAction,
+} from '..';
 
 export interface CreatePostRequestPayload {
     content: string;
@@ -12,9 +15,9 @@ export interface CreatePostRequestAction
 
 export interface CreatePostSuccessAction extends Action<string> {}
 
-export interface CreatePostFailureAction extends ErrorAction {}
+// export interface CreatePostFailureAction extends ErrorAction {}
 
 export type CreatePostAction =
     | CreatePostRequestAction
-    | CreatePostSuccessAction
-    | CreatePostFailureAction;
+    | CreatePostSuccessAction;
+// | CreatePostFailureAction;

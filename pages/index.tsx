@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 
 import { Aside } from '../components/layout/Aside';
@@ -12,7 +10,7 @@ import { MainTitle } from '../components/layout/Main.style';
 import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
-import { getPostsActionTypes } from '../actions/post/get-posts.action';
+import { getPostsRequest } from '../actions/post/get-posts.action';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -56,12 +54,11 @@ const Home: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     (store) =>
         async ({ req, res, ...etc }) => {
-            store.dispatch({
-                type: getPostsActionTypes.REQUEST,
-                payload: {
+            store.dispatch(
+                getPostsRequest({
                     limit: 12,
-                },
-            });
+                }),
+            );
 
             store.dispatch(END);
 

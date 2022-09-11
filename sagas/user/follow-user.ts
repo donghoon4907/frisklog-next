@@ -4,18 +4,13 @@ import { FollowUserRequestAction } from '../../actions/user/follow-user.interfac
 import { followUser } from '../../services/usersService';
 import {
     followUserActionTypes,
-    followUserFailure,
     followUserSuccess,
 } from '../../actions/user/follow-user.action';
 
 function* followUserSaga(action: FollowUserRequestAction) {
-    try {
-        yield call(followUser, action.payload);
+    yield call(followUser, action.payload);
 
-        yield put(followUserSuccess());
-    } catch (e) {
-        yield put(followUserFailure((e as Error).message));
-    }
+    yield put(followUserSuccess());
 }
 
 export function* watchFollowUser() {

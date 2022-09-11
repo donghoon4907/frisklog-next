@@ -1,5 +1,6 @@
+// import { FailurePayload } from '../../interfaces/error';
 import {
-    CreatePostFailureAction,
+    // CreatePostFailureAction,
     CreatePostRequestAction,
     CreatePostRequestPayload,
     CreatePostSuccessAction,
@@ -10,7 +11,7 @@ export const CREATE_POST_KEY = 'CREATE_POST';
 export const createPostActionTypes = {
     REQUEST: `${CREATE_POST_KEY}_REQUEST`,
     SUCCESS: `${CREATE_POST_KEY}_SUCCESS`,
-    FAILURE: `${CREATE_POST_KEY}_FAILURE`,
+    // FAILURE: `${CREATE_POST_KEY}_FAILURE`,
 };
 
 export function createPostRequest(
@@ -28,9 +29,11 @@ export function createPostSuccess(): CreatePostSuccessAction {
     };
 }
 
-export function createPostFailure(error: string): CreatePostFailureAction {
-    return {
-        type: createPostActionTypes.FAILURE,
-        error,
-    };
-}
+// export function createPostFailure(
+//     error: FailurePayload,
+// ): CreatePostFailureAction {
+//     return {
+//         type: createPostActionTypes.FAILURE,
+//         error,
+//     };
+// }

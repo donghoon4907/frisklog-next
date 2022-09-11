@@ -4,18 +4,13 @@ import { CreateCommentRequestAction } from '../../actions/comment/create-comment
 import { createComment } from '../../services/commentsService';
 import {
     createCommentActionTypes,
-    createCommentFailure,
     createCommentSuccess,
 } from '../../actions/comment/create-comment.action';
 
 function* createCommentSaga(action: CreateCommentRequestAction) {
-    try {
-        yield call(createComment, action.payload);
+    yield call(createComment, action.payload);
 
-        yield put(createCommentSuccess());
-    } catch (e) {
-        yield put(createCommentFailure((e as Error).message));
-    }
+    yield put(createCommentSuccess());
 }
 
 export function* watchCreateComment() {

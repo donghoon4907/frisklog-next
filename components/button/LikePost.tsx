@@ -2,14 +2,8 @@ import React, { useState, useEffect, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-import {
-    likePostRequest,
-    LIKE_POST_KEY,
-} from '../../actions/post/like-post.action';
-import {
-    unlikePostRequest,
-    UNLIKE_POST_KEY,
-} from '../../actions/post/unlike-post.action';
+import { likePostRequest } from '../../actions/post/like-post.action';
+import { unlikePostRequest } from '../../actions/post/unlike-post.action';
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { User } from '../../interfaces/user';
 import { AppState } from '../../reducers';
@@ -28,7 +22,7 @@ export const LikePostButton: FC<Props> = ({ postId, likers, isShowCount }) => {
 
     const { id } = useSelector<AppState, UserState>((state) => state.user);
 
-    const loading = useSelector<AppState, LoadingState>(
+    const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
     // 좋아요 여부 상태
@@ -38,10 +32,9 @@ export const LikePostButton: FC<Props> = ({ postId, likers, isShowCount }) => {
 
     const { validateToken } = useAuthenticate();
 
-    const isLoading = loading[LIKE_POST_KEY] || loading[UNLIKE_POST_KEY];
     // 클릭 핸들러
     const handleClick = () => {
-        if (isLoading) {
+        if (loading) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
         // 로그인 체크

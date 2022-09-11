@@ -36,11 +36,9 @@ const AppContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const loading = useSelector<AppState, LoadingState>(
+    const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
-
-    const isLoading = Object.keys(loading).some((key) => loading[key]);
 
     return (
         <Providers>
@@ -51,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Layout>
                 <AuthModal />
                 <SetPostModal />
-                {isLoading && <Loader />}
+                {loading && <Loader />}
             </AppContainer>
         </Providers>
     );
@@ -85,7 +83,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 let token = cookies.get(COOKIE_TOKEN_KEY) || null;
 
                 if (token) {
-                    client.setHeader('authorization', `Bearer ${token}`);
+                    // client.setHeader('authorization', `Bearer ${token}`);
 
                     const jwtSecret = process.env.JWT_SECRET;
 

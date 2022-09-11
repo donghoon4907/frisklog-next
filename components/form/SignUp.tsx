@@ -17,7 +17,7 @@ interface Props {
 export const SignUpForm: FC<Props> = ({ setMode }) => {
     const dispatch = useDispatch();
 
-    const { isAddUserLoading } = useSelector<AppState, LoadingState>(
+    const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
 
@@ -28,7 +28,7 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
     const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (isAddUserLoading) {
+        if (loading) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
 

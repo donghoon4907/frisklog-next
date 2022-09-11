@@ -1,9 +1,9 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { CommonState } from '../reducers/common';
 import { httpRequestingAlert } from '../lib/alert';
-import { UploadImageAction } from '../actions/upload/image.interface';
 import { PostEditorContainer } from './Editor.style';
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
@@ -22,9 +22,9 @@ interface Props extends EditorProps {
 
 export const PostEditor: FC<Props> = ({
     initialValue = '',
-    previewStyle = 'vertical',
+    previewStyle = 'tab',
     height = '75vh',
-    initialEditType,
+    initialEditType = 'wysiwyg',
     useCommandShortcut = true,
     onChange,
 }) => {
@@ -47,10 +47,11 @@ export const PostEditor: FC<Props> = ({
          * 1. instance.getMarkdown(): markdown type
          * 2. instance.getHtml(): html type
          */
-        onChange({
-            markdown: instance?.getMarkdown(),
-            description: instance?.preview?.el.innerText,
-        });
+        if (instance?.isWysiwygMode()) {
+            onChange(instance.getHTML());
+        } else {
+            onChange(instance.getMarkdown());
+        }
     };
 
     return (
@@ -64,11 +65,12 @@ export const PostEditor: FC<Props> = ({
                 initialValue={initialValue}
                 previewStyle={previewStyle}
                 height={height}
-                initialEditType={initialEditType || 'markdown'}
+                initialEditType={initialEditType}
                 useCommandShortcut={useCommandShortcut}
                 ref={$editor}
                 onChange={handleChange}
                 theme={mode}
+                hideModeSwitch
                 hooks={{
                     addImageBlobHook: async (blob: any, callback: any) => {
                         if (isUploadImageLoading) {

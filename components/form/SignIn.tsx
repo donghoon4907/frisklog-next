@@ -10,14 +10,8 @@ import { FormInput } from '../FormInput';
 import { Form, FormColumn } from './form.style';
 import { AppState } from '../../reducers';
 import { LoadingState } from '../../reducers/common/loading';
-import {
-    loginUserRequest,
-    LOGIN_USER_KEY,
-} from '../../actions/user/login-user.action';
-import {
-    verifyUserRequest,
-    VERIFY_USER_KEY,
-} from '../../actions/user/verify-user.action';
+import { loginUserRequest } from '../../actions/user/login-user.action';
+import { verifyUserRequest } from '../../actions/user/verify-user.action';
 
 const FormCheckboxWrapper = styled.div`
     width: 85px;
@@ -26,7 +20,7 @@ const FormCheckboxWrapper = styled.div`
 export const SignInForm: FC = () => {
     const dispatch = useDispatch();
 
-    const loading = useSelector<AppState, LoadingState>(
+    const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
 
@@ -45,7 +39,7 @@ export const SignInForm: FC = () => {
     const handleLogin = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading[LOGIN_USER_KEY]) {
+        if (loading) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
 
@@ -60,7 +54,7 @@ export const SignInForm: FC = () => {
     const handleVerify = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading[VERIFY_USER_KEY]) {
+        if (loading) {
             return alert('요청 중입니다. 잠시만 기다려주세요.');
         }
 
