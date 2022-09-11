@@ -12,3 +12,22 @@ export const mixinCentered = css`
     justify-content: center;
     align-items: center;
 `;
+
+export const mixinEllipsis = css`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
+export const mixinButtonAndText = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    & > div:nth-child(2) {
+        display: flex;
+        justify-content: flex-start;
+        flex-grow: 1;
+    }
+`;
