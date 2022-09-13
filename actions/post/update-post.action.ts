@@ -1,5 +1,4 @@
 import {
-    UpdatePostFailureAction,
     UpdatePostRequestAction,
     UpdatePostRequestPayload,
     UpdatePostSuccessAction,
@@ -25,12 +24,5 @@ export function updatePostRequest(
 export function updatePostSuccess(): UpdatePostSuccessAction {
     return {
         type: updatePostActionTypes.SUCCESS,
-    };
-}
-
-export function updatePostFailure(error: string): UpdatePostFailureAction {
-    return {
-        type: updatePostActionTypes.FAILURE,
-        error,
     };
 }

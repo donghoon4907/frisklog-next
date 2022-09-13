@@ -1,5 +1,4 @@
 import {
-    GetPostsFailureAction,
     GetPostsRequestAction,
     GetPostsRequestPayload,
     GetPostsSuccessAction,
@@ -29,12 +28,5 @@ export function getPostsSuccess(
     return {
         type: getPostsActionTypes.SUCCESS,
         payload,
-    };
-}
-
-export function getPostsFailure(error: string): GetPostsFailureAction {
-    return {
-        type: getPostsActionTypes.FAILURE,
-        error,
     };
 }

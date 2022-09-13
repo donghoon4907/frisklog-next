@@ -11,6 +11,10 @@ function* updatePostSaga(action: UpdatePostRequestAction) {
     yield call(updatePost, action.payload);
 
     yield put(updatePostSuccess());
+
+    alert('포스트가 정상적으로 수정되었습니다.');
+
+    window.location.reload();
 }
 
 export function* watchUpdatePost() {

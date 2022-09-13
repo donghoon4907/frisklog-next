@@ -68,8 +68,8 @@ export const ButtonAndTextWrapper = styled.div`
     ${mixinButtonAndText}
 
     & > span {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin-left: 5px;
-        line-height: 1.3;
+        line-height: 20px;
     }
 `;

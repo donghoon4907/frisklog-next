@@ -7,18 +7,12 @@ import { LinkAvatar } from './LinkAvatar';
 import { ActiveLink } from './ActiveLink';
 import { timeForToday } from '../lib/date/time-for-today';
 import * as StyledPost from './PostItem.style';
-import { User } from '../interfaces/user';
-import { Category } from '../interfaces/category';
 import { LikePostButton } from './button/LikePost';
+import { HomePost } from '../interfaces/post';
+import { ModifyPostButton } from './button/ModifyPost';
+import { RemovePostButton } from './button/RemovePost';
 
-interface Props {
-    id: string;
-    content: string;
-    likers: User[];
-    createdAt: string;
-    user: User;
-    categories: Category[];
-}
+interface Props extends HomePost {}
 
 export const PostItem: FC<Props> = ({
     id,
@@ -33,8 +27,6 @@ export const PostItem: FC<Props> = ({
     );
 
     const mdBodyEl = useRef<HTMLDivElement>(null);
-    // ori 작업 완료 여부
-    // useResizeImage(mdBodyEl);
     // 댓글 보기 여부
     const [activeComment, setActiveComment] = useState(false);
 
@@ -44,6 +36,8 @@ export const PostItem: FC<Props> = ({
     };
 
     const isMe = userId == user.id;
+
+    const postCategories = categories.map((category) => category.content);
 
     return (
         <StyledPost.Container>
@@ -64,23 +58,23 @@ export const PostItem: FC<Props> = ({
                     </StyledPost.NameWrapper>
                 </StyledPost.Header>
                 <StyledPost.Content>
-                    {/* <div
+                    <div
+                        className="toastui-editor-contents"
                         ref={mdBodyEl}
-                        className="markdown-body"
                         dangerouslySetInnerHTML={{
-                            __html: content ? marked(content) : '',
+                            __html: content,
                         }}
-                    /> */}
+                    />
                 </StyledPost.Content>
                 <StyledPost.Footer>
                     <StyledPost.Tag>
-                        {categories.map(({ content }, index) => (
+                        {postCategories.map((category, index) => (
                             <ActiveLink
                                 key={`post${id}Category${index}`}
-                                href={`/category/${content}`}
-                                ariaLabel={`'${content}' 카테고리 검색`}
+                                href={`/category/${category}`}
+                                ariaLabel={`'${category}' 카테고리 검색`}
                             >
-                                #{content}
+                                #{category}
                             </ActiveLink>
                         ))}
                     </StyledPost.Tag>
@@ -103,16 +97,16 @@ export const PostItem: FC<Props> = ({
                                 <Comment />
                             </button>
                         </div> */}
-                        {/* {isMe && (
+                        {isMe && (
                             <>
-                                <ModifyPostBtn
+                                <ModifyPostButton
                                     postId={id}
                                     content={content}
-                                    categories={Categories}
+                                    categories={postCategories}
                                 />
-                                <RemovePostBtn postId={id} />
+                                <RemovePostButton postId={id} />
                             </>
-                        )} */}
+                        )}
 
                         <StyledPost.Date>
                             {timeForToday(createdAt)}

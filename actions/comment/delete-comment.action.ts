@@ -1,5 +1,4 @@
 import {
-    DeleteCommentFailureAction,
     DeleteCommentRequestAction,
     DeleteCommentRequestPayload,
     DeleteCommentSuccessAction,
@@ -25,14 +24,5 @@ export function deleteCommentRequest(
 export function deleteCommentSuccess(): DeleteCommentSuccessAction {
     return {
         type: deleteCommentActionTypes.SUCCESS,
-    };
-}
-
-export function deleteCommentFailure(
-    error: string,
-): DeleteCommentFailureAction {
-    return {
-        type: deleteCommentActionTypes.FAILURE,
-        error,
     };
 }

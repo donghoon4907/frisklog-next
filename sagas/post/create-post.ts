@@ -12,7 +12,7 @@ function* createPostSaga(action: CreatePostRequestAction) {
 
     yield put(createPostSuccess());
 
-    alert('포스트작성이 정상처리되었습니다.');
+    alert('포스트가 정상적으로 작성되었습니다.');
 
     window.location.reload();
 }

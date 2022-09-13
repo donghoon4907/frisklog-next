@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
 import { Aside } from '../components/layout/Aside';
@@ -11,9 +11,16 @@ import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
 import { getPostsRequest } from '../actions/post/get-posts.action';
+import { AppState } from '../reducers';
+import { PostState } from '../reducers/post';
+import { PostItem } from '../components/PostItem';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
+
+    const { homePosts } = useSelector<AppState, PostState>(
+        (state) => state.post,
+    );
 
     const { validateToken } = useAuthenticate();
 
@@ -45,6 +52,9 @@ const Home: NextPage = () => {
                 <MainTitle>
                     <h2>최신 포스트</h2>
                 </MainTitle>
+                {homePosts.map((post) => (
+                    <PostItem key={`"homePost${post.id}`} {...post} />
+                ))}
             </Main>
             <Aside></Aside>
         </div>

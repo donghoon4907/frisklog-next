@@ -1,5 +1,4 @@
 import {
-    FollowUserFailureAction,
     FollowUserRequestAction,
     FollowUserRequestPayload,
     FollowUserSuccessAction,
@@ -25,12 +24,5 @@ export function followUserRequest(
 export function followUserSuccess(): FollowUserSuccessAction {
     return {
         type: followUserActionTypes.SUCCESS,
-    };
-}
-
-export function followUserFailure(error: string): FollowUserFailureAction {
-    return {
-        type: followUserActionTypes.FAILURE,
-        error,
     };
 }

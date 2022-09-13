@@ -1,6 +1,5 @@
 import {
     UploadImageCleanUpAction,
-    UploadImageFailureAction,
     UploadImageRequestAction,
     UploadImageRequestPayload,
     UploadImageSuccessAction,
@@ -31,13 +30,6 @@ export function uploadImageSuccess(
     return {
         type: uploadImageActionTypes.SUCCESS,
         payload,
-    };
-}
-
-export function uploadImageFailure(error: string): UploadImageFailureAction {
-    return {
-        type: uploadImageActionTypes.FAILURE,
-        error,
     };
 }
 

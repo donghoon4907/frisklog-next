@@ -15,5 +15,4 @@ export interface CreateCommentFailureAction extends ErrorAction {}
 
 export type CreateCommentAction =
     | CreateCommentRequestAction
-    | CreateCommentSuccessAction
-    | CreateCommentFailureAction;
+    | CreateCommentSuccessAction;

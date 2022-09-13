@@ -1,5 +1,4 @@
 import {
-    UnfollowUserFailureAction,
     UnfollowUserRequestAction,
     UnfollowUserRequestPayload,
     UnfollowUserSuccessAction,
@@ -25,12 +24,5 @@ export function unfollowUserRequest(
 export function unfollowUserSuccess(): UnfollowUserSuccessAction {
     return {
         type: unfollowUserActionTypes.SUCCESS,
-    };
-}
-
-export function unfollowUserFailure(error: string): UnfollowUserFailureAction {
-    return {
-        type: unfollowUserActionTypes.FAILURE,
-        error,
     };
 }

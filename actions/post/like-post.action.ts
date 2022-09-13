@@ -1,5 +1,4 @@
 import {
-    LikePostFailureAction,
     LikePostRequestAction,
     LikePostRequestPayload,
     LikePostSuccessAction,
@@ -25,12 +24,5 @@ export function likePostRequest(
 export function likePostSuccess(): LikePostSuccessAction {
     return {
         type: likePostActionTypes.SUCCESS,
-    };
-}
-
-export function likePostFailure(error: string): LikePostFailureAction {
-    return {
-        type: likePostActionTypes.FAILURE,
-        error,
     };
 }

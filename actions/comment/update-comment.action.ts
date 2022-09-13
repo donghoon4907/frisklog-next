@@ -1,5 +1,4 @@
 import {
-    UpdateCommentFailureAction,
     UpdateCommentRequestAction,
     UpdateCommentRequestPayload,
     UpdateCommentSuccessAction,
@@ -25,14 +24,5 @@ export function updateCommentRequest(
 export function updateCommentSuccess(): UpdateCommentSuccessAction {
     return {
         type: updateCommentActionTypes.SUCCESS,
-    };
-}
-
-export function updateCommentFailure(
-    error: string,
-): UpdateCommentFailureAction {
-    return {
-        type: updateCommentActionTypes.FAILURE,
-        error,
     };
 }

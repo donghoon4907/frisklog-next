@@ -1,5 +1,4 @@
 import {
-    LoginGithubFailureAction,
     LoginGithubRequestAction,
     LoginGithubRequestPayload,
     LoginGithubSuccessAction,
@@ -25,12 +24,5 @@ export function loginGithubRequest(
 export function loginGithubSuccess(): LoginGithubSuccessAction {
     return {
         type: loginGithubActionTypes.SUCCESS,
-    };
-}
-
-export function loginGithubFailure(error: string): LoginGithubFailureAction {
-    return {
-        type: loginGithubActionTypes.FAILURE,
-        error,
     };
 }

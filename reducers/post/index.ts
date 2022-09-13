@@ -5,6 +5,7 @@ import { activePostActionTypes } from '../../actions/post/active-post.action';
 import { ActivePostRequestAction } from '../../actions/post/active-post.interface';
 import { getPostsActionTypes } from '../../actions/post/get-posts.action';
 import { GetPostsSuccessAction } from '../../actions/post/get-posts.interface';
+import { HomePost } from '../../interfaces/post';
 
 export interface PostState {
     activePost: {
@@ -12,7 +13,7 @@ export interface PostState {
         content: string | null;
         categories: string[];
     };
-    homePosts: Record<string, any>[];
+    homePosts: HomePost[];
 }
 
 const initialState: PostState = {

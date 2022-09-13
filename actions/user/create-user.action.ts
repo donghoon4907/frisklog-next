@@ -1,5 +1,4 @@
 import {
-    CreateUserFailureAction,
     CreateUserRequestAction,
     CreateUserRequestPayload,
     CreateUserSuccessAction,
@@ -25,12 +24,5 @@ export function createUserRequest(
 export function createUserSuccess(): CreateUserSuccessAction {
     return {
         type: createUserActionTypes.SUCCESS,
-    };
-}
-
-export function createUserFailure(error: string): CreateUserFailureAction {
-    return {
-        type: createUserActionTypes.FAILURE,
-        error,
     };
 }

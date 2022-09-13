@@ -26,11 +26,8 @@ export const GET_POSTS = gql`
             nodes {
                 id
                 content
-                link
                 createdAt
-                updatedAt
                 likeCount
-                commentCount
 
                 user {
                     id
@@ -39,6 +36,14 @@ export const GET_POSTS = gql`
                     link
                     status
                     statusText
+                }
+
+                likers {
+                    id
+                }
+
+                categories {
+                    content
                 }
             }
 

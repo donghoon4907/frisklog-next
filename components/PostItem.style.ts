@@ -23,7 +23,7 @@ export const Header = styled.header`
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 12px;
+    padding: 5px;
 `;
 
 export const AvatarWrapper = styled.div`
@@ -59,7 +59,7 @@ export const Content = styled.div`
 `;
 
 export const Footer = styled.footer`
-    padding: 12px;
+    padding: 5px;
 `;
 
 export const Tag = styled.div`
@@ -70,14 +70,14 @@ export const Tag = styled.div`
     font-size: 1rem;
 
     & a {
-        padding: 2px 6px;
+        padding: 2px 6px 2px 0;
         color: ${({ theme }) => theme.textColor};
         display: inline-block;
     }
 `;
 
 export const More = styled.div`
-    padding-top: 12px;
+    padding-top: 5px;
     border-top: 1px solid var(--frisklog-divider-color);
     display: flex;
     justify-content: space-between;
@@ -88,5 +88,5 @@ export const More = styled.div`
 export const Date = styled.div`
     flex: 1;
     text-align: right;
-    line-height: 1.5;
+    line-height: 20px;
 `;

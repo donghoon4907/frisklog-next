@@ -1,5 +1,4 @@
 import {
-    CreateCommentFailureAction,
     CreateCommentRequestAction,
     CreateCommentRequestPayload,
     CreateCommentSuccessAction,
@@ -25,14 +24,5 @@ export function createCommentRequest(
 export function createCommentSuccess(): CreateCommentSuccessAction {
     return {
         type: createCommentActionTypes.SUCCESS,
-    };
-}
-
-export function createCommentFailure(
-    error: string,
-): CreateCommentFailureAction {
-    return {
-        type: createCommentActionTypes.FAILURE,
-        error,
     };
 }

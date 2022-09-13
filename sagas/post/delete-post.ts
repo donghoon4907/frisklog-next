@@ -11,6 +11,10 @@ function* deletePostSaga(action: DeletePostRequestAction) {
     yield call(deletePost, action.payload);
 
     yield put(deletePostSuccess());
+
+    alert('포스트가 정상적으로 삭제되었습니다.');
+
+    window.location.reload();
 }
 
 export function* watchDeletePost() {

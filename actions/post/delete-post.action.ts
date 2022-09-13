@@ -1,5 +1,4 @@
 import {
-    DeletePostFailureAction,
     DeletePostRequestAction,
     DeletePostRequestPayload,
     DeletePostSuccessAction,
@@ -25,12 +24,5 @@ export function deletePostRequest(
 export function deletePostSuccess(): DeletePostSuccessAction {
     return {
         type: deletePostActionTypes.SUCCESS,
-    };
-}
-
-export function deletePostFailure(error: string): DeletePostFailureAction {
-    return {
-        type: deletePostActionTypes.FAILURE,
-        error,
     };
 }

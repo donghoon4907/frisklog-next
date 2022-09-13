@@ -1,5 +1,4 @@
 import {
-    VerifyUserFailureAction,
     VerifyUserRequestAction,
     VerifyUserRequestPayload,
     VerifyUserSuccessAction,
@@ -25,12 +24,5 @@ export function verifyUserRequest(
 export function verifyUserSuccess(): VerifyUserSuccessAction {
     return {
         type: verifyUserActionTypes.SUCCESS,
-    };
-}
-
-export function verifyUserFailure(error: string): VerifyUserFailureAction {
-    return {
-        type: verifyUserActionTypes.FAILURE,
-        error,
     };
 }

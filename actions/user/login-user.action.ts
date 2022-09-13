@@ -1,5 +1,4 @@
 import {
-    LoginUserFailureAction,
     LoginUserRequestAction,
     LoginUserRequestPayload,
     LoginUserSuccessAction,
@@ -25,12 +24,5 @@ export function loginUserRequest(
 export function loginUserSuccess(): LoginUserSuccessAction {
     return {
         type: loginUserActionTypes.SUCCESS,
-    };
-}
-
-export function loginUserFailure(error: string): LoginUserFailureAction {
-    return {
-        type: loginUserActionTypes.FAILURE,
-        error,
     };
 }

@@ -1,5 +1,4 @@
 import {
-    UnlikePostFailureAction,
     UnlikePostRequestAction,
     UnlikePostRequestPayload,
     UnlikePostSuccessAction,
@@ -25,12 +24,5 @@ export function unlikePostRequest(
 export function unlikePostSuccess(): UnlikePostSuccessAction {
     return {
         type: unlikePostActionTypes.SUCCESS,
-    };
-}
-
-export function unlikePostFailure(error: string): UnlikePostFailureAction {
-    return {
-        type: unlikePostActionTypes.FAILURE,
-        error,
     };
 }

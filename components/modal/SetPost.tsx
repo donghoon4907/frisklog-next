@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
@@ -34,11 +34,9 @@ export const SetPostModal: FC = () => {
 
     const category = useInput('', UseInputWhere.NO_SPACE);
 
-    const [categories, setCategories] = useState<string[]>(
-        activePost.categories || [],
-    );
+    const [categories, setCategories] = useState<string[]>([]);
 
-    const [content, setContent] = useState(activePost.content || '');
+    const [content, setContent] = useState<string>('');
 
     const isUpdate = !!activePost.id;
 
@@ -92,6 +90,15 @@ export const SetPostModal: FC = () => {
         }
     };
 
+    useEffect(() => {
+        const { id, content, categories } = activePost;
+
+        if (id !== null) {
+            setContent(content!);
+            setCategories(categories);
+        }
+    }, [activePost]);
+
     return (
         <Modal
             title={`게시물 ${isUpdate ? '수정' : '등록'}`}
@@ -105,6 +112,7 @@ export const SetPostModal: FC = () => {
                 height="50vh"
                 previewStyle="tab"
                 initialEditType="wysiwyg"
+                initialValue={content}
                 onChange={(content) => setContent(content)}
             />
             <PostCategoriesForm
