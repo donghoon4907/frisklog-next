@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 
 import { wrapper } from '../store';
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
-import { client } from '../graphql/client';
 import { Providers } from '../components/Provider';
 import { Layout } from '../components/layout';
 import { setDarkMode } from '../actions/switch/theme-mode.action';
@@ -83,8 +82,6 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 let token = cookies.get(COOKIE_TOKEN_KEY) || null;
 
                 if (token) {
-                    // client.setHeader('authorization', `Bearer ${token}`);
-
                     const jwtSecret = process.env.JWT_SECRET;
 
                     if (jwtSecret) {

@@ -20,10 +20,23 @@ export const Body = styled.article`
 export const Header = styled.header`
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 5px;
+`;
+
+export const Writer = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+`;
+
+export const HeaderMore = styled.div`
+    & svg {
+        width: 20px;
+        height: 20px;
+    }
 `;
 
 export const AvatarWrapper = styled.div`
@@ -32,8 +45,6 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const NameWrapper = styled.div`
-    display: flex;
-    justify-content: flex-start;
     line-height: 1;
     flex-direction: row;
     flex-grow: 1;

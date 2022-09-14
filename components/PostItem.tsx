@@ -1,5 +1,7 @@
 import React, { useRef, useState, FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Dropdown } from 'antd';
+import { FiMoreVertical } from 'react-icons/fi';
 
 import { AppState } from '../reducers';
 import { UserState } from '../reducers/user';
@@ -11,6 +13,7 @@ import { LikePostButton } from './button/LikePost';
 import { HomePost } from '../interfaces/post';
 import { ModifyPostButton } from './button/ModifyPost';
 import { RemovePostButton } from './button/RemovePost';
+import { PostMenu } from './dropdown/PostItem.menu';
 
 interface Props extends HomePost {}
 
@@ -43,19 +46,35 @@ export const PostItem: FC<Props> = ({
         <StyledPost.Container>
             <StyledPost.Body>
                 <StyledPost.Header>
-                    <StyledPost.AvatarWrapper title="사용자 링크">
-                        <LinkAvatar
-                            ariaLabel="사용자 페이지로 이동"
-                            href={user.link}
-                            src={user.avatar}
-                            alt="Avatar"
-                        />
-                    </StyledPost.AvatarWrapper>
-                    <StyledPost.NameWrapper>
-                        <StyledPost.NameBody>
-                            {user.nickname}
-                        </StyledPost.NameBody>
-                    </StyledPost.NameWrapper>
+                    <StyledPost.Writer>
+                        <StyledPost.AvatarWrapper title="사용자 링크">
+                            <LinkAvatar
+                                ariaLabel="사용자 페이지로 이동"
+                                href={user.link}
+                                src={user.avatar}
+                                alt="Avatar"
+                            />
+                        </StyledPost.AvatarWrapper>
+                        <StyledPost.NameWrapper>
+                            <StyledPost.NameBody>
+                                {user.nickname}
+                            </StyledPost.NameBody>
+                        </StyledPost.NameWrapper>
+                    </StyledPost.Writer>
+                    <StyledPost.HeaderMore>
+                        <Dropdown
+                            overlay={
+                                <PostMenu
+                                    postId={id}
+                                    content={content}
+                                    categories={postCategories}
+                                />
+                            }
+                            placement="bottomRight"
+                        >
+                            <FiMoreVertical />
+                        </Dropdown>
+                    </StyledPost.HeaderMore>
                 </StyledPost.Header>
                 <StyledPost.Content>
                     <div
