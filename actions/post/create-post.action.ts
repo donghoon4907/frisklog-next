@@ -2,6 +2,7 @@ import {
     CreatePostRequestAction,
     CreatePostRequestPayload,
     CreatePostSuccessAction,
+    CreatePostSuccessPayload,
 } from './create-post.interface';
 
 export const CREATE_POST_KEY = 'CREATE_POST';
@@ -21,8 +22,11 @@ export function createPostRequest(
     };
 }
 
-export function createPostSuccess(): CreatePostSuccessAction {
+export function createPostSuccess(
+    payload: CreatePostSuccessPayload,
+): CreatePostSuccessAction {
     return {
         type: createPostActionTypes.SUCCESS,
+        payload,
     };
 }

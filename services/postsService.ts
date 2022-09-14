@@ -9,8 +9,8 @@ import { LikePostRequestPayload } from '../actions/post/like-post.interface';
 import { MUTATION_LIKE_POST } from '../graphql/mutation/post/like-post';
 import { UnlikePostRequestPayload } from '../actions/post/unlike-post.interface';
 import { MUTATION_UNLIKE_POST } from '../graphql/mutation/post/unlike-post';
-import { GetPostsRequestPayload } from '../actions/post/get-posts.interface';
 import { GET_POSTS } from '../graphql/query/post/posts';
+import { GetPostsRequestPayload } from '../actions/post/get-posts.interface';
 
 export function createPost(payload: CreatePostRequestPayload) {
     return client.request(MUTATION_CREATE_POST, payload);

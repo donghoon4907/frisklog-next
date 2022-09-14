@@ -1,20 +1,21 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+
 import {
     updatePostActionTypes,
     updatePostSuccess,
 } from '../../actions/post/update-post.action';
-
 import { UpdatePostRequestAction } from '../../actions/post/update-post.interface';
-import { updatePost } from '../../services/postsService';
+import { hidePostModal } from '../../actions/switch/post-modal.action';
+import * as postsService from '../../services/postsService';
 
 function* updatePostSaga(action: UpdatePostRequestAction) {
-    yield call(updatePost, action.payload);
+    const { updatePost } = yield call(postsService.updatePost, action.payload);
 
-    yield put(updatePostSuccess());
+    yield put(updatePostSuccess(updatePost));
 
     alert('포스트가 정상적으로 수정되었습니다.');
 
-    window.location.reload();
+    yield put(hidePostModal());
 }
 
 export function* watchUpdatePost() {

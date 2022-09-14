@@ -2,7 +2,7 @@ import { all, fork } from 'redux-saga/effects';
 
 import { watchCreatePost } from './create-post';
 import { watchDeletePost } from './delete-post';
-import { watchGetPosts } from './get-posts';
+import { watchHomePosts } from './home-posts';
 import { watchLikePost } from './like-post';
 import { watchUnlikePost } from './unlike-post';
 import { watchUpdatePost } from './update-post';
@@ -14,6 +14,6 @@ export function* postSaga() {
         fork(watchDeletePost),
         fork(watchLikePost),
         fork(watchUnlikePost),
-        fork(watchGetPosts),
+        fork(watchHomePosts),
     ]);
 }

@@ -1,5 +1,3 @@
-import { Action } from 'redux';
-
 import { ErrorAction, PayloadAction } from '..';
 
 export interface DeletePostRequestPayload {
@@ -9,7 +7,12 @@ export interface DeletePostRequestPayload {
 export interface DeletePostRequestAction
     extends PayloadAction<DeletePostRequestPayload> {}
 
-export interface DeletePostSuccessAction extends Action<string> {}
+export interface DeletePostSuccessPayload {
+    id: string;
+}
+
+export interface DeletePostSuccessAction
+    extends PayloadAction<DeletePostSuccessPayload> {}
 
 export interface DeletePostFailureAction extends ErrorAction {}
 

@@ -13,6 +13,11 @@ export const MUTATION_UPDATE_POST = gql`
             }
         ) {
             id
+            content
+
+            categories {
+                content
+            }
         }
     }
 `;

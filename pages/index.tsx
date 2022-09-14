@@ -10,7 +10,7 @@ import { MainTitle } from '../components/layout/Main.style';
 import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
-import { getPostsRequest } from '../actions/post/get-posts.action';
+import { homePostsRequest } from '../actions/post/home-posts.action';
 import { AppState } from '../reducers';
 import { PostState } from '../reducers/post';
 import { PostItem } from '../components/PostItem';
@@ -62,17 +62,21 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-    (store) =>
+    ({ getState, dispatch, sagaTask }) =>
         async ({ req, res, ...etc }) => {
-            store.dispatch(
-                getPostsRequest({
-                    limit: 12,
-                }),
-            );
+            const { post } = getState();
 
-            store.dispatch(END);
+            if (post.homePosts.length === 0) {
+                dispatch(
+                    homePostsRequest({
+                        limit: 12,
+                    }),
+                );
+            }
 
-            await store.sagaTask?.toPromise();
+            dispatch(END);
+
+            await sagaTask?.toPromise();
 
             return {
                 props: {},

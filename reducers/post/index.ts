@@ -3,8 +3,14 @@ import produce from 'immer';
 import { PostAction } from '../../actions/post';
 import { activePostActionTypes } from '../../actions/post/active-post.action';
 import { ActivePostRequestAction } from '../../actions/post/active-post.interface';
-import { getPostsActionTypes } from '../../actions/post/get-posts.action';
-import { GetPostsSuccessAction } from '../../actions/post/get-posts.interface';
+import { createPostActionTypes } from '../../actions/post/create-post.action';
+import { CreatePostSuccessAction } from '../../actions/post/create-post.interface';
+import { deletePostActionTypes } from '../../actions/post/delete-post.action';
+import { DeletePostSuccessAction } from '../../actions/post/delete-post.interface';
+import { homePostsActionTypes } from '../../actions/post/home-posts.action';
+import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
+import { updatePostActionTypes } from '../../actions/post/update-post.action';
+import { UpdatePostSuccessAction } from '../../actions/post/update-post.interface';
 import { HomePost } from '../../interfaces/post';
 
 export interface PostState {
@@ -28,7 +34,6 @@ const initialState: PostState = {
 export default (state = initialState, action: PostAction) =>
     produce(state, (draft) => {
         switch (action.type) {
-            // Active post
             case activePostActionTypes.SET: {
                 const { payload } = action as ActivePostRequestAction;
 
@@ -47,11 +52,52 @@ export default (state = initialState, action: PostAction) =>
                 draft.activePost.categories = [];
                 break;
             }
-            // Get posts
-            case getPostsActionTypes.SUCCESS: {
-                const { payload } = action as GetPostsSuccessAction;
+            case homePostsActionTypes.SUCCESS: {
+                const { payload } = action as HomePostsSuccessAction;
 
-                draft.homePosts = [...draft.homePosts, ...payload.nodes];
+                draft.homePosts = draft.homePosts.concat(payload.nodes);
+                break;
+            }
+            // Create posts
+            case createPostActionTypes.SUCCESS: {
+                const { payload } = action as CreatePostSuccessAction;
+
+                draft.homePosts.unshift({
+                    ...payload,
+                    likers: [],
+                    likeCount: 0,
+                });
+
+                break;
+            }
+            // Update posts
+            case updatePostActionTypes.SUCCESS: {
+                const { payload } = action as UpdatePostSuccessAction;
+
+                const findIndex = draft.homePosts.findIndex(
+                    (post) => payload.id == post.id,
+                );
+
+                if (findIndex !== -1) {
+                    draft.homePosts[findIndex].content = payload.content;
+
+                    draft.homePosts[findIndex].categories = payload.categories;
+                }
+
+                break;
+            }
+            // Delete posts
+            case deletePostActionTypes.SUCCESS: {
+                const { payload } = action as DeletePostSuccessAction;
+
+                const findIndex = draft.homePosts.findIndex(
+                    (post) => payload.id == post.id,
+                );
+
+                if (findIndex !== -1) {
+                    draft.homePosts.splice(findIndex, 1);
+                }
+
                 break;
             }
             default: {

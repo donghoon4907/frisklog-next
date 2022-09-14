@@ -2,6 +2,7 @@ import {
     DeletePostRequestAction,
     DeletePostRequestPayload,
     DeletePostSuccessAction,
+    DeletePostSuccessPayload,
 } from './delete-post.interface';
 
 export const DELETE_POST_KEY = 'DELETE_POST';
@@ -21,8 +22,11 @@ export function deletePostRequest(
     };
 }
 
-export function deletePostSuccess(): DeletePostSuccessAction {
+export function deletePostSuccess(
+    payload: DeletePostSuccessPayload,
+): DeletePostSuccessAction {
     return {
         type: deletePostActionTypes.SUCCESS,
+        payload,
     };
 }

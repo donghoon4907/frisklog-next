@@ -2,6 +2,7 @@ import {
     UpdatePostRequestAction,
     UpdatePostRequestPayload,
     UpdatePostSuccessAction,
+    UpdatePostSuccessPayload,
 } from './update-post.interface';
 
 export const UPDATE_POST_KEY = 'UPDATE_POST';
@@ -21,8 +22,11 @@ export function updatePostRequest(
     };
 }
 
-export function updatePostSuccess(): UpdatePostSuccessAction {
+export function updatePostSuccess(
+    payload: UpdatePostSuccessPayload,
+): UpdatePostSuccessAction {
     return {
         type: updatePostActionTypes.SUCCESS,
+        payload,
     };
 }

@@ -26,6 +26,8 @@ export interface SagaStore extends Store {
 export const makeStore = (context: Context) => {
     const sagaMiddleware = createSagaMiddleware({
         onError: (err) => {
+            console.log(err);
+
             const { message, statusCode } = getErrorPayload(err);
 
             store.dispatch(sagaError({ message, statusCode }));
