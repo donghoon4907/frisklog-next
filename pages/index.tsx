@@ -14,6 +14,7 @@ import { homePostsRequest } from '../actions/post/home-posts.action';
 import { AppState } from '../reducers';
 import { PostState } from '../reducers/post';
 import { PostItem } from '../components/PostItem';
+import { recommendUsersRequest } from '../actions/user/recommend-users.action';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -56,7 +57,11 @@ const Home: NextPage = () => {
                     <PostItem key={`"homePost${post.id}`} {...post} />
                 ))}
             </Main>
-            <Aside></Aside>
+            <Aside>
+                <MainTitle>
+                    <h2>추천인</h2>
+                </MainTitle>
+            </Aside>
         </>
     );
 };
@@ -64,12 +69,20 @@ const Home: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ getState, dispatch, sagaTask }) =>
         async ({ req, res, ...etc }) => {
-            const { post } = getState();
+            const { user, post } = getState();
 
             if (post.homePosts.length === 0) {
                 dispatch(
                     homePostsRequest({
                         limit: 12,
+                    }),
+                );
+            }
+
+            if (user.recommendUsers.length === 0) {
+                dispatch(
+                    recommendUsersRequest({
+                        limit: 5,
                     }),
                 );
             }

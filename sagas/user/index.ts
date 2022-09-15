@@ -4,6 +4,7 @@ import { watchCreateUser } from './create-user';
 import { watchFollowUser } from './follow-user';
 import { watchLoginGithub } from './login-github';
 import { watchLoginUser } from './login-user';
+import { watchRecommendUsers } from './recommend-users';
 import { watchUnfollowUser } from './unfollow-user';
 import { watchUpdateUser } from './update-user';
 import { watchVerifyUser } from './verify-user';
@@ -17,5 +18,6 @@ export function* userSaga() {
         fork(watchLoginUser),
         fork(watchVerifyUser),
         fork(watchLoginGithub),
+        fork(watchRecommendUsers),
     ]);
 }

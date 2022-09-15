@@ -25,7 +25,7 @@ export const GET_RECOMMENDERS = gql`
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }

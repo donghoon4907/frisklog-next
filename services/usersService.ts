@@ -13,6 +13,8 @@ import { VerifyUserRequestPayload } from '../actions/user/verify-user.interface'
 import { MUTATION_VERIFY_USER } from '../graphql/mutation/user/verify-user';
 import { LoginGithubRequestPayload } from '../actions/user/login-github.interface';
 import { MUTATION_GITHUB_LOGIN } from '../graphql/mutation/user/login-github';
+import { RecommendUsersRequestPayload } from '../actions/user/recommend-users.interface';
+import { GET_RECOMMENDERS } from '../graphql/query/user/recommenders';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -40,4 +42,8 @@ export function verifyUser(payload: VerifyUserRequestPayload) {
 
 export function loginGithub(payload: LoginGithubRequestPayload) {
     return client.request(MUTATION_GITHUB_LOGIN, payload);
+}
+
+export function getRecommenders(payload: RecommendUsersRequestPayload) {
+    return client.request(GET_RECOMMENDERS, payload);
 }

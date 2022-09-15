@@ -2,6 +2,7 @@ import { CreateUserAction } from './create-user.interface';
 import { FollowUserAction } from './follow-user.interface';
 import { LoginGithubAction } from './login-github.interface';
 import { LoginUserAction } from './login-user.interface';
+import { RecommendUsersAction } from './recommend-users.interface';
 import { SetUserAction } from './set-user.interface';
 import { UnfollowUserAction } from './unfollow-user.interface';
 import { UpdateUserAction } from './update-user.interface';
@@ -15,4 +16,5 @@ export type UserAction =
     | UnfollowUserAction
     | LoginUserAction
     | VerifyUserAction
-    | LoginGithubAction;
+    | LoginGithubAction
+    | RecommendUsersAction;
