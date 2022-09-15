@@ -15,12 +15,19 @@ import { AppState } from '../reducers';
 import { PostState } from '../reducers/post';
 import { PostItem } from '../components/PostItem';
 import { recommendUsersRequest } from '../actions/user/recommend-users.action';
+import { Slick } from '../components/Slick';
+import { UserState } from '../reducers/user';
+import { UserItem } from '../components/UserItem';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
 
     const { homePosts } = useSelector<AppState, PostState>(
         (state) => state.post,
+    );
+
+    const { recommendUsers } = useSelector<AppState, UserState>(
+        (state) => state.user,
     );
 
     const { validateToken } = useAuthenticate();
@@ -61,6 +68,11 @@ const Home: NextPage = () => {
                 <MainTitle>
                     <h2>추천인</h2>
                 </MainTitle>
+                <Slick>
+                    {recommendUsers.map((user) => (
+                        <UserItem key={`recommendUser${user.id}`} {...user} />
+                    ))}
+                </Slick>
             </Aside>
         </>
     );

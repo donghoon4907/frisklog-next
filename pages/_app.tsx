@@ -1,6 +1,8 @@
 import 'antd/dist/antd.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import type { AppProps } from 'next/app';
 import jwt, { JwtPayload } from 'jsonwebtoken';

@@ -31,3 +31,9 @@ export const mixinButtonAndText = css`
         flex-grow: 1;
     }
 `;
+
+export const mixinAlignIconCenter = (withTransform = '') => css`
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0) ${withTransform};
+`;

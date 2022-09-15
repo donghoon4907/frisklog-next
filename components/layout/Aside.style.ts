@@ -12,7 +12,7 @@ export const AsideContainer = styled.div`
         position: relative !important;
         padding-left: 0 !important;
         order: 1;
-        max-width: 500px;
+        max-width: 590px;
         width: 100% !important;
         height: auto !important;
     }

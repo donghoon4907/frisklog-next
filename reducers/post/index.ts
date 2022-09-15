@@ -66,6 +66,7 @@ export default (state = initialState, action: PostAction) =>
                     ...payload,
                     likers: [],
                     likeCount: 0,
+                    commentCount: 0,
                 });
 
                 break;
