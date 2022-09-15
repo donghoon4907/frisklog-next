@@ -9,6 +9,7 @@ export interface Post {
     link: string;
     user: User;
     likeCount: number;
+    commentCount: number;
     likers: User[];
     categories: Category[];
 }

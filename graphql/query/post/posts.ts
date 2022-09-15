@@ -28,6 +28,7 @@ export const GET_POSTS = gql`
                 content
                 createdAt
                 likeCount
+                commentCount
 
                 user {
                     id

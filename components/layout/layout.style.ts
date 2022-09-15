@@ -16,4 +16,10 @@ export const LayoutBody = styled.div`
     max-width: 990px;
     padding: 0 8px;
     width: 100%;
+
+    ${({ theme }) => theme.breakPoints.md} {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 `;

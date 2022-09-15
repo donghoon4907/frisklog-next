@@ -2,6 +2,7 @@ import React, { useRef, useState, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';
+import { BiCommentDetail } from 'react-icons/bi';
 
 import { AppState } from '../reducers';
 import { UserState } from '../reducers/user';
@@ -14,6 +15,7 @@ import { HomePost } from '../interfaces/post';
 import { ModifyPostButton } from './button/ModifyPost';
 import { RemovePostButton } from './button/RemovePost';
 import { PostMenu } from './dropdown/PostItem.menu';
+import { IconAndTextWrapper } from './button/IconWrapper';
 
 interface Props extends HomePost {}
 
@@ -24,6 +26,7 @@ export const PostItem: FC<Props> = ({
     categories,
     content,
     likers,
+    commentCount,
 }) => {
     const { id: userId } = useSelector<AppState, UserState>(
         (state) => state.user,
@@ -106,16 +109,18 @@ export const PostItem: FC<Props> = ({
                                 isShowCount={true}
                             />
                         </div>
-
-                        {/* <div title="댓글 버튼">
-                            <button
-                                type="button"
+                        <div>
+                            <IconAndTextWrapper
                                 onClick={handleShowComment}
-                                aria-label="댓글 보기"
+                                ariaLabel={
+                                    activeComment ? '댓글 닫기' : '댓글 보기'
+                                }
+                                text={commentCount.toLocaleString()}
                             >
-                                <Comment />
-                            </button>
-                        </div> */}
+                                <BiCommentDetail />
+                            </IconAndTextWrapper>
+                        </div>
+
                         {isMe && (
                             <>
                                 <ModifyPostButton

@@ -39,7 +39,7 @@ const Home: NextPage = () => {
     }, []);
 
     return (
-        <div>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                 ))}
             </Main>
             <Aside></Aside>
-        </div>
+        </>
     );
 };
 

@@ -7,8 +7,21 @@ export const AsideContainer = styled.div`
     padding-top: 24px;
     width: 380px;
     height: 500px;
+
+    ${({ theme }) => theme.breakPoints.md} {
+        position: relative !important;
+        padding-left: 0 !important;
+        order: 1;
+        max-width: 500px;
+        width: 100% !important;
+        height: auto !important;
+    }
 `;
 
-export const AsideBody = styled.main`
+export const AsideBody = styled.aside`
     flex: 1;
+
+    ${({ theme }) => theme.breakPoints.md} {
+        margin-bottom: 20px;
+    }
 `;

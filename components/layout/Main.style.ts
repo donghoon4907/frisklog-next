@@ -8,6 +8,11 @@ export const MainContainer = styled.div`
     padding-top: 24px;
     width: 100%;
     max-width: 590px;
+
+    ${({ theme }) => theme.breakPoints.md} {
+        padding: 0 !important;
+        order: 2;
+    }
 `;
 
 export const MainBody = styled.main`
