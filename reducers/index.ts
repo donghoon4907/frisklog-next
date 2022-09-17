@@ -4,6 +4,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import user from './user';
 import post from './post';
 import comment from './comment';
+import category from './category';
 import common from './common';
 import error from './common/error';
 import loading from './common/loading';
@@ -13,6 +14,7 @@ const combinedReducer = combineReducers({
     post,
     comment,
     common,
+    category,
     error,
     loading,
 });

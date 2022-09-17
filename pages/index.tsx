@@ -18,6 +18,7 @@ import { recommendUsersRequest } from '../actions/user/recommend-users.action';
 import { Slick } from '../components/Slick';
 import { UserState } from '../reducers/user';
 import { UserItem } from '../components/UserItem';
+import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const Home: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ getState, dispatch, sagaTask }) =>
         async ({ req, res, ...etc }) => {
-            const { user, post } = getState();
+            const { user, post, category } = getState();
 
             if (post.homePosts.length === 0) {
                 dispatch(
@@ -94,6 +95,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
             if (user.recommendUsers.length === 0) {
                 dispatch(
                     recommendUsersRequest({
+                        limit: 5,
+                    }),
+                );
+            }
+
+            if (category.recommendCategories.length === 0) {
+                dispatch(
+                    recommendCategoriesRequest({
                         limit: 5,
                     }),
                 );

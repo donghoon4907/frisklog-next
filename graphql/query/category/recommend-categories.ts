@@ -17,7 +17,7 @@ export const GET_RECOMMEND_CATEGORIES = gql`
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }
