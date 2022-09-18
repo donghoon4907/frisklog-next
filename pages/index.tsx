@@ -19,6 +19,8 @@ import { Slick } from '../components/Slick';
 import { UserState } from '../reducers/user';
 import { UserItem } from '../components/UserItem';
 import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
+import { CategoryState } from '../reducers/category';
+import { LinkCategoryButton } from '../components/button/LinkCategory';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -29,6 +31,10 @@ const Home: NextPage = () => {
 
     const { recommendUsers } = useSelector<AppState, UserState>(
         (state) => state.user,
+    );
+
+    const { recommendCategories } = useSelector<AppState, CategoryState>(
+        (state) => state.category,
     );
 
     const { validateToken } = useAuthenticate();
@@ -66,6 +72,18 @@ const Home: NextPage = () => {
                 ))}
             </Main>
             <Aside>
+                <MainTitle>
+                    <h2>추천 카테고리</h2>
+                </MainTitle>
+                <ul>
+                    {recommendCategories.map(({ id, content, postCount }) => (
+                        <LinkCategoryButton
+                            key={`recommendCategory${id}`}
+                            category={content}
+                            postCount={postCount}
+                        />
+                    ))}
+                </ul>
                 <MainTitle>
                     <h2>추천인</h2>
                 </MainTitle>
