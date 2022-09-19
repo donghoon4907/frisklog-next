@@ -3,9 +3,11 @@ import produce from 'immer';
 import { UserAction } from '../../actions/user';
 import { userActionTypes } from '../../actions/user/user.action';
 import { SetUserRequestAction } from '../../actions/user/set-user.interface';
-import { RecommendUser } from '../../interfaces/user';
+import { RecommendUser, User } from '../../interfaces/user';
 import { recommendUsersActionTypes } from '../../actions/user/recommend-users.action';
 import { RecommendUsersSuccessAction } from '../../actions/user/recommend-users.interface';
+import { getUserActionTypes } from '../../actions/user/get-user.action';
+import { GetUserSuccessAction } from '../../actions/user/get-user.interface';
 
 export interface UserState {
     id: string | null;
@@ -13,6 +15,7 @@ export interface UserState {
     avatar: string | null;
     isMaster: boolean | null;
     recommendUsers: RecommendUser[];
+    userPageProfile: User | null;
 }
 
 const initialState: UserState = {
@@ -21,6 +24,7 @@ const initialState: UserState = {
     avatar: null,
     isMaster: null,
     recommendUsers: [],
+    userPageProfile: null,
 };
 
 export default (state = initialState, action: UserAction) =>
@@ -56,6 +60,11 @@ export default (state = initialState, action: UserAction) =>
                     payload.nodes,
                 );
                 break;
+            }
+            case getUserActionTypes.SUCCESS: {
+                const { payload } = action as GetUserSuccessAction;
+
+                draft.userPageProfile = payload;
             }
             default: {
                 return state;

@@ -11,7 +11,9 @@ import { homePostsActionTypes } from '../../actions/post/home-posts.action';
 import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
 import { updatePostActionTypes } from '../../actions/post/update-post.action';
 import { UpdatePostSuccessAction } from '../../actions/post/update-post.interface';
-import { HomePost } from '../../interfaces/post';
+import { userPostsActionTypes } from '../../actions/post/user-posts.action';
+import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
+import { HomePost, UserPost } from '../../interfaces/post';
 
 export interface PostState {
     activePost: {
@@ -20,6 +22,10 @@ export interface PostState {
         categories: string[];
     };
     homePosts: HomePost[];
+    userPosts: {
+        userId: string | null;
+        nodes: UserPost[];
+    };
 }
 
 const initialState: PostState = {
@@ -29,6 +35,10 @@ const initialState: PostState = {
         categories: [],
     },
     homePosts: [],
+    userPosts: {
+        userId: null,
+        nodes: [],
+    },
 };
 
 export default (state = initialState, action: PostAction) =>
@@ -56,6 +66,19 @@ export default (state = initialState, action: PostAction) =>
                 const { payload } = action as HomePostsSuccessAction;
 
                 draft.homePosts = draft.homePosts.concat(payload.nodes);
+                break;
+            }
+            case userPostsActionTypes.SUCCESS: {
+                const { payload } = action as UserPostsSuccessAction;
+
+                if (draft.userPosts.userId === null) {
+                    draft.userPosts.nodes = payload.nodes;
+                } else {
+                    draft.userPosts.nodes = draft.userPosts.nodes.concat(
+                        payload.nodes,
+                    );
+                }
+
                 break;
             }
             // Create posts

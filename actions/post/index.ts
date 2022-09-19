@@ -5,6 +5,7 @@ import { HomePostsAction } from './home-posts.interface';
 import { LikePostAction } from './like-post.interface';
 import { UnlikePostAction } from './unlike-post.interface';
 import { UpdatePostAction } from './update-post.interface';
+import { UserPostsAction } from './user-posts.interface';
 
 export type PostAction =
     | CreatePostAction
@@ -13,4 +14,5 @@ export type PostAction =
     | LikePostAction
     | UnlikePostAction
     | ActivePostAction
-    | HomePostsAction;
+    | HomePostsAction
+    | UserPostsAction;
