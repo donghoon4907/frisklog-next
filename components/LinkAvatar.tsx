@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ActiveLink } from './ActiveLink';
-import { Avatar } from './Avatar';
+import { SquareAvatar } from './SquareAvatar';
 import { StatusType } from '../types/status';
 
 interface Props {
@@ -22,6 +22,6 @@ export const LinkAvatar: FC<Props> = ({
     tabIndex,
 }) => (
     <ActiveLink href={href} ariaLabel={ariaLabel} tabIndex={tabIndex}>
-        <Avatar src={src} alt={alt} statusCode={statusCode} />
+        <SquareAvatar src={src} alt={alt} statusCode={statusCode} />
     </ActiveLink>
 );

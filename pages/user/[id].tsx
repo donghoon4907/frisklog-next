@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+import styled from 'styled-components';
 
 import { userPostsRequest } from '../../actions/post/user-posts.action';
 import { getUserRequest } from '../../actions/user/get-user.action';
@@ -9,20 +11,41 @@ import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
 import { PostItem } from '../../components/PostItem';
+import { RectangleAvatar } from '../../components/RectangleAvatar';
+import { mixinBox } from '../../components/theme/mixins';
+import { UploadAvatar } from '../../components/UploadAvatar';
 import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
 import { UserState } from '../../reducers/user';
-
 import { wrapper } from '../../store';
+
+const UserProfileContainer = styled.div`
+    position: relative;
+    margin-bottom: 20px;
+
+    ${mixinBox}
+`;
+
+const UserProfileHeader = styled.div`
+    position: relative;
+    min-height: 186px;
+    height: 0;
+`;
 
 const UserProfile: NextPage = () => {
     const { userPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
 
-    const { userPageProfile } = useSelector<AppState, UserState>(
+    const { id, avatar, userPageProfile } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
+
+    const [uploadedFile, setUploadedFile] = useState<string>(
+        userPageProfile!.avatar,
+    );
+
+    const isMe = id == userPageProfile?.id;
 
     return (
         <>
@@ -42,7 +65,23 @@ const UserProfile: NextPage = () => {
                     <PostItem key={`"userPost${post.id}`} {...post} />
                 ))}
             </Main>
-            <Aside></Aside>
+            <Aside>
+                <UserProfileContainer>
+                    <UserProfileHeader>
+                        {isMe ? (
+                            <UploadAvatar
+                                src={avatar!}
+                                setUploadedFile={setUploadedFile}
+                            />
+                        ) : (
+                            <RectangleAvatar
+                                src={userPageProfile!.avatar}
+                                alt="Avatar"
+                            />
+                        )}
+                    </UserProfileHeader>
+                </UserProfileContainer>
+            </Aside>
         </>
     );
 };

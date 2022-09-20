@@ -8,23 +8,17 @@ import {
     ChangeEvent,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
 import { uploadImageRequest } from '../actions/upload/image.action';
-
-const UploadImageContainer = styled.button`
-    position: relative;
-    width: 100%;
-    height: 100%;
-    cursor: default;
-`;
+import { UploadAvatarContainer } from './Avatar.style';
+import { RectangleAvatar } from './RectangleAvatar';
 
 interface Props {
     src: string;
     setUploadedFile: Dispatch<SetStateAction<string>>;
 }
 
-export const UploadImage: FC<Props> = ({ src, setUploadedFile }) => {
+export const UploadAvatar: FC<Props> = ({ src, setUploadedFile }) => {
     const dispatch = useDispatch();
 
     const $file = useRef<HTMLInputElement>(null);
@@ -52,23 +46,25 @@ export const UploadImage: FC<Props> = ({ src, setUploadedFile }) => {
 
         formData.append('file', file);
 
-        uploadImageRequest({
-            formData,
-            callbackFunc: (fileName: string) => {
-                const path = `${process.env.BACKEND_ROOT}/upload/${fileName}`;
+        dispatch(
+            uploadImageRequest({
+                formData,
+                callbackFunc: (fileName: string) => {
+                    const path = `${process.env.BACKEND_ROOT}/upload/${fileName}`;
 
-                const reader = new FileReader();
+                    const reader = new FileReader();
 
-                reader.onloadend = () => {
-                    // 미리보기 상태 변경
-                    setPreview(reader.result as string);
-                    // 업로드된 파일 상태 변경
-                    setUploadedFile(fileName);
-                };
+                    reader.onloadend = () => {
+                        // 미리보기 상태 변경
+                        setPreview(reader.result as string);
+                        // 업로드된 파일 상태 변경
+                        setUploadedFile(fileName);
+                    };
 
-                reader.readAsDataURL(file);
-            },
-        });
+                    reader.readAsDataURL(file);
+                },
+            }),
+        );
     };
 
     useEffect(() => {
@@ -76,14 +72,12 @@ export const UploadImage: FC<Props> = ({ src, setUploadedFile }) => {
     }, [src]);
 
     return (
-        <button
+        <UploadAvatarContainer
             type="button"
-            className={displayName}
             onClick={handleClick}
             aria-label="프로필사진 업로드"
         >
-            <Image src={preview} alt="Avatar" isUpload={true} />
-
+            <RectangleAvatar src={preview} alt="Avatar" showBg />
             <input
                 type="file"
                 onChange={handleChange}
@@ -91,6 +85,6 @@ export const UploadImage: FC<Props> = ({ src, setUploadedFile }) => {
                 hidden
                 accept="image/jpg, image/jpeg, image/png, .gif"
             />
-        </button>
+        </UploadAvatarContainer>
     );
 };
