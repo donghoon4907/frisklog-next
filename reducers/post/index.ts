@@ -72,6 +72,8 @@ export default (state = initialState, action: PostAction) =>
                 const { payload } = action as UserPostsSuccessAction;
 
                 if (draft.userPosts.userId === null) {
+                    draft.userPosts.userId = payload.userId;
+
                     draft.userPosts.nodes = payload.nodes;
                 } else {
                     draft.userPosts.nodes = draft.userPosts.nodes.concat(

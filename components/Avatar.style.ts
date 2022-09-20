@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { AvatarType, AvatarShape } from '../types/avatar';
+
 export const AvatarContainer = styled.div`
     position: relative;
     width: 100%;
@@ -8,13 +10,15 @@ export const AvatarContainer = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
-export const AvatarBody = styled.img`
+export const AvatarBody = styled.img<{ type: AvatarType }>`
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    ${(props) =>
+        props.type === AvatarShape.SQUARE
+            ? 'height: 100%;object-fit: cover;'
+            : ''}
 `;
 
 export const BadgeWrapper = styled.div`

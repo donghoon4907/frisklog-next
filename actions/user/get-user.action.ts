@@ -5,12 +5,12 @@ import {
     GetUserSuccessPayload,
 } from './get-user.interface';
 
-export const HOME_POSTS_KEY = 'HOME_POSTS';
+export const GET_USER_KEY = 'GET_USER';
 
 export const getUserActionTypes = {
-    REQUEST: `${HOME_POSTS_KEY}_REQUEST`,
-    SUCCESS: `${HOME_POSTS_KEY}_SUCCESS`,
-    FAILURE: `${HOME_POSTS_KEY}_FAILURE`,
+    REQUEST: `${GET_USER_KEY}_REQUEST`,
+    SUCCESS: `${GET_USER_KEY}_SUCCESS`,
+    FAILURE: `${GET_USER_KEY}_FAILURE`,
 };
 
 export function getUserRequest(

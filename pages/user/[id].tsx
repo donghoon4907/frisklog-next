@@ -50,30 +50,38 @@ const UserProfile: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask }) =>
         async ({ req, res, query, ...etc }) => {
-            if (!query.id) {
-                throw new Error(
-                    '[Next] access denied in userPage:getServerSideProps',
+            try {
+                if (!query.id) {
+                    throw new Error(
+                        '[Next] access denied in userPage:getServerSideProps',
+                    );
+                }
+
+                const id = query.id as string;
+
+                dispatch(
+                    getUserRequest({
+                        id,
+                    }),
                 );
+
+                dispatch(
+                    userPostsRequest({
+                        limit: 10,
+                        userId: id,
+                    }),
+                );
+
+                dispatch(END);
+
+                await sagaTask?.toPromise();
+            } catch (e) {
+                console.log((e as Error).message);
+
+                res.statusCode = 302;
+
+                res.setHeader('Location', '/');
             }
-
-            const id = query.id as string;
-
-            dispatch(
-                getUserRequest({
-                    id,
-                }),
-            );
-
-            dispatch(
-                userPostsRequest({
-                    limit: 10,
-                    userId: id,
-                }),
-            );
-
-            dispatch(END);
-
-            await sagaTask?.toPromise();
 
             return {
                 props: {},

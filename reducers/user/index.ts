@@ -65,6 +65,7 @@ export default (state = initialState, action: UserAction) =>
                 const { payload } = action as GetUserSuccessAction;
 
                 draft.userPageProfile = payload;
+                break;
             }
             default: {
                 return state;

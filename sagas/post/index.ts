@@ -6,6 +6,7 @@ import { watchHomePosts } from './home-posts';
 import { watchLikePost } from './like-post';
 import { watchUnlikePost } from './unlike-post';
 import { watchUpdatePost } from './update-post';
+import { watchUserPosts } from './user-posts';
 
 export function* postSaga() {
     yield all([
@@ -15,5 +16,6 @@ export function* postSaga() {
         fork(watchLikePost),
         fork(watchUnlikePost),
         fork(watchHomePosts),
+        fork(watchUserPosts),
     ]);
 }

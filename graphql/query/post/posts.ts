@@ -15,7 +15,7 @@ export const GET_POSTS = gql`
         $offset: Int
         $limit: Int!
         $searchKeyword: String
-        $userId: ID # $order: [[String]]
+        $userId: String # $order: [[String]]
     ) {
         posts(
             offset: $offset
