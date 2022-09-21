@@ -8,7 +8,11 @@ const GRAPHQL_ENDPOINT = `${process.env.BACKEND_ROOT}/graphql`;
 export function updateClientHeader() {
     const token = getCookie(COOKIE_TOKEN_KEY);
 
-    client.setHeader('authorization', `Bearer ${token}`);
+    if (token) {
+        client.setHeader('authorization', `Bearer ${token}`);
+    } else {
+        client.setHeader('authorization', `Non-login`);
+    }
 }
 
 export const client = new GraphQLClient(GRAPHQL_ENDPOINT);

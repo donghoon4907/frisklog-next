@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { StatusType } from '../types/status';
+import { UserStatusType } from '../types/status';
 import { BadgeBody, BadgeText } from './Badge.style';
 
 interface Props {
-    statusCode: StatusType;
+    statusCode: UserStatusType;
     statusText?: string;
 }
 

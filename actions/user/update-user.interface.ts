@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface UpdateUserRequestPayload {
+export interface UpdateUserRequestPayload extends Payload {
     nickname?: string;
     avatar?: string;
     status?: string;

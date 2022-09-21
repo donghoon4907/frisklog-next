@@ -1,11 +1,11 @@
-import { StatusType } from '../types/status';
+import { UserStatusType } from '../types/status';
 
 export interface User {
     id: string;
     nickname: string;
     link: string;
     avatar: string;
-    status: StatusType;
+    status: UserStatusType;
     statusText: string;
     isMaster: boolean;
     createdAt: string;

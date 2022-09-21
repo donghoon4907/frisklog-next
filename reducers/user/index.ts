@@ -34,13 +34,15 @@ export default (state = initialState, action: UserAction) =>
             case userActionTypes.SET: {
                 const { payload } = action as SetUserRequestAction;
 
-                draft.id = payload.id;
+                const { id, nickname, avatar, isMaster } = payload;
 
-                draft.nickname = payload.nickname;
+                draft.id = id ? id : draft.id;
 
-                draft.avatar = payload.avatar;
+                draft.nickname = nickname ? nickname : draft.nickname;
 
-                draft.isMaster = payload.isMaster;
+                draft.avatar = avatar ? avatar : draft.avatar;
+
+                draft.isMaster = isMaster ? isMaster : draft.isMaster;
                 break;
             }
             case userActionTypes.INIT: {

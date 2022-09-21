@@ -14,16 +14,19 @@ import { UploadAvatarContainer } from './Avatar.style';
 import { RectangleAvatar } from './RectangleAvatar';
 
 interface Props {
-    src: string;
+    defaultPreview: string;
     setUploadedFile: Dispatch<SetStateAction<string>>;
 }
 
-export const UploadAvatar: FC<Props> = ({ src, setUploadedFile }) => {
+export const UploadAvatar: FC<Props> = ({
+    defaultPreview,
+    setUploadedFile,
+}) => {
     const dispatch = useDispatch();
 
     const $file = useRef<HTMLInputElement>(null);
     // 프로필사진 미리보기
-    const [preview, setPreview] = useState<string>('');
+    const [preview, setPreview] = useState<string>(defaultPreview);
     // 파일 클릭 핸들러
     const handleClick = () => {
         const node = $file.current;
@@ -66,10 +69,6 @@ export const UploadAvatar: FC<Props> = ({ src, setUploadedFile }) => {
             }),
         );
     };
-
-    useEffect(() => {
-        setPreview(src);
-    }, [src]);
 
     return (
         <UploadAvatarContainer

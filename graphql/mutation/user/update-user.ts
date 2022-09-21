@@ -18,9 +18,11 @@ export const MUTATION_UPDATE_USER = gql`
             id
             nickname
             avatar
+            isMaster
             status
             statusText
             isKeep
+            token
         }
     }
 `;

@@ -10,3 +10,7 @@ export interface ErrorAction extends Action<string> {
 }
 
 export interface SwitchAction extends Action<string> {}
+
+export interface Payload {
+    callbackFunc?: (props: any) => void;
+}

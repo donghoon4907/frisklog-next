@@ -1,9 +1,8 @@
 import { Action } from 'redux';
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface UploadImageRequestPayload {
+export interface UploadImageRequestPayload extends Payload {
     formData: FormData;
-    callbackFunc?: (fileName: string) => void;
 }
 
 export interface UploadImageRequestAction

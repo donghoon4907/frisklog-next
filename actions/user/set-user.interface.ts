@@ -3,10 +3,10 @@ import { Action } from 'redux';
 import { PayloadAction } from '..';
 
 export interface SetUserRequestPayload {
-    id: string;
-    nickname: string;
-    avatar: string;
-    isMaster: boolean;
+    id?: string;
+    nickname?: string;
+    avatar?: string;
+    isMaster?: boolean;
 }
 
 export interface SetUserRequestAction

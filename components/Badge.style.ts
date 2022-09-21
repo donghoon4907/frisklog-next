@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { StatusType } from '../types/status';
+import { UserStatusType } from '../types/status';
 
-export const BadgeBody = styled.span<{ statusCode: StatusType }>`
+export const BadgeBody = styled.span<{ statusCode: UserStatusType }>`
     display: inline-block;
     border-radius: 50%;
     width: 10px;
