@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { Button } from '.';
 import { updateUserRequest } from '../../actions/user/update-user.action';
 import { UserStatus } from '../../types/status';
@@ -23,7 +24,7 @@ export const LogoutButton: FC = () => {
     return (
         <div title="로그아웃 버튼">
             <Button type="button" colorType="primary" onClick={handleClick}>
-                <span>로그아웃</span>
+                로그아웃
             </Button>
         </div>
     );

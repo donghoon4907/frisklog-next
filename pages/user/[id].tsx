@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
-import styled from 'styled-components';
 
 import { userPostsRequest } from '../../actions/post/user-posts.action';
 import { getUserRequest } from '../../actions/user/get-user.action';
@@ -11,78 +9,15 @@ import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
 import { PostItem } from '../../components/PostItem';
-import { RectangleAvatar } from '../../components/RectangleAvatar';
-import { mixinBox } from '../../components/theme/mixins';
-import { UploadAvatar } from '../../components/UploadAvatar';
 import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
-import { UserState } from '../../reducers/user';
 import { wrapper } from '../../store';
-import * as StyledPost from '../../components/PostItem.style';
-import { LogoutButton } from '../../components/button/Logout';
-import { UpdateAvatarButton } from '../../components/button/UpdateAvatar';
-
-const UserProfileContainer = styled.div`
-    position: relative;
-    margin-bottom: 20px;
-
-    ${mixinBox}
-`;
-
-const UserProfileHeader = styled.div`
-    position: relative;
-    min-height: 186px;
-    height: 0;
-`;
-
-const UserProfileBody = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    width: 100%;
-`;
-
-const UserProfileFooter = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    margin-top: 16px;
-    padding: 5px;
-
-    & > div {
-        flex: 1;
-    }
-`;
-
-const UserProfileMeta = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    & > div:nth-child(1) {
-        flex: 1;
-    }
-`;
-
-const UserProfileNicknameWrapper = styled(StyledPost.NameWrapper)``;
-
-const UserProfileNicknameBody = styled(StyledPost.NameBody)``;
+import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 
 const UserProfile: NextPage = () => {
     const { userPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
-
-    const { id, avatar, userPageProfile } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
-
-    const [uploadedFile, setUploadedFile] = useState<string>(
-        userPageProfile!.avatar,
-    );
-
-    const isMe = id == userPageProfile?.id;
 
     return (
         <>
@@ -103,33 +38,7 @@ const UserProfile: NextPage = () => {
                 ))}
             </Main>
             <Aside>
-                <UserProfileContainer>
-                    <UserProfileHeader>
-                        {isMe ? (
-                            <UploadAvatar
-                                defaultPreview={avatar!}
-                                setUploadedFile={setUploadedFile}
-                            />
-                        ) : (
-                            <RectangleAvatar src={uploadedFile} alt="Avatar" />
-                        )}
-                    </UserProfileHeader>
-                    <UserProfileBody>
-                        <UserProfileMeta>
-                            <UserProfileNicknameWrapper>
-                                <UserProfileNicknameBody>
-                                    {userPageProfile?.nickname}
-                                </UserProfileNicknameBody>
-                            </UserProfileNicknameWrapper>
-                        </UserProfileMeta>
-                    </UserProfileBody>
-                    {isMe && (
-                        <UserProfileFooter>
-                            <LogoutButton />
-                            <UpdateAvatarButton avatar={uploadedFile} />
-                        </UserProfileFooter>
-                    )}
-                </UserProfileContainer>
+                <AsideUserProfile />
             </Aside>
         </>
     );

@@ -22,6 +22,7 @@ import { setUser } from '../actions/user/user.action';
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 import { Loader } from '../components/Loader';
+import { SetUserModal } from '../components/modal/SetUser';
 
 const AppContainer = styled.div`
     display: flex;
@@ -50,6 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Layout>
                 <AuthModal />
                 <SetPostModal />
+                <SetUserModal />
                 {loading && <Loader />}
             </AppContainer>
         </Providers>

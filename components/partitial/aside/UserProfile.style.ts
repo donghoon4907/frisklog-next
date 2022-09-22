@@ -1,0 +1,51 @@
+import styled from 'styled-components';
+
+import { mixinBox } from '../../theme/mixins';
+import * as StyledPost from '../../PostItem.style';
+
+export const Container = styled.div`
+    position: relative;
+    margin-bottom: 20px;
+
+    ${mixinBox}
+`;
+
+export const Header = styled.div`
+    position: relative;
+    min-height: 186px;
+    height: 0;
+`;
+
+export const Body = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 100%;
+`;
+
+export const Footer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-top: 16px;
+    padding: 5px;
+
+    & > div {
+        flex: 1;
+    }
+`;
+
+export const Meta = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > div:nth-child(1) {
+        flex: 1;
+    }
+`;
+
+export const NicknameWrapper = styled(StyledPost.NameWrapper)``;
+
+export const NicknameBody = styled(StyledPost.NameBody)``;
