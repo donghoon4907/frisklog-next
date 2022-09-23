@@ -13,6 +13,7 @@ import { updatePostActionTypes } from '../../actions/post/update-post.action';
 import { UpdatePostSuccessAction } from '../../actions/post/update-post.interface';
 import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
+import { OffsetPageInfo } from '../../interfaces/page-info';
 import { HomePost, UserPost } from '../../interfaces/post';
 
 export interface PostState {
@@ -21,7 +22,10 @@ export interface PostState {
         content: string | null;
         categories: string[];
     };
-    homePosts: HomePost[];
+    homePosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: HomePost[];
+    };
     userPosts: {
         userId: string | null;
         nodes: UserPost[];
@@ -34,7 +38,10 @@ const initialState: PostState = {
         content: null,
         categories: [],
     },
-    homePosts: [],
+    homePosts: {
+        pageInfo: null,
+        nodes: [],
+    },
     userPosts: {
         userId: null,
         nodes: [],
@@ -65,7 +72,11 @@ export default (state = initialState, action: PostAction) =>
             case homePostsActionTypes.SUCCESS: {
                 const { payload } = action as HomePostsSuccessAction;
 
-                draft.homePosts = draft.homePosts.concat(payload.nodes);
+                draft.homePosts.pageInfo = payload.pageInfo;
+
+                draft.homePosts.nodes = draft.homePosts.nodes.concat(
+                    payload.nodes,
+                );
                 break;
             }
             case userPostsActionTypes.SUCCESS: {
@@ -87,7 +98,7 @@ export default (state = initialState, action: PostAction) =>
             case createPostActionTypes.SUCCESS: {
                 const { payload } = action as CreatePostSuccessAction;
 
-                draft.homePosts.unshift({
+                draft.homePosts.nodes.unshift({
                     ...payload,
                     likers: [],
                     likeCount: 0,
@@ -100,14 +111,15 @@ export default (state = initialState, action: PostAction) =>
             case updatePostActionTypes.SUCCESS: {
                 const { payload } = action as UpdatePostSuccessAction;
 
-                const findIndex = draft.homePosts.findIndex(
+                const findIndex = draft.homePosts.nodes.findIndex(
                     (post) => payload.id == post.id,
                 );
 
                 if (findIndex !== -1) {
-                    draft.homePosts[findIndex].content = payload.content;
+                    draft.homePosts.nodes[findIndex].content = payload.content;
 
-                    draft.homePosts[findIndex].categories = payload.categories;
+                    draft.homePosts.nodes[findIndex].categories =
+                        payload.categories;
                 }
 
                 break;
@@ -116,12 +128,12 @@ export default (state = initialState, action: PostAction) =>
             case deletePostActionTypes.SUCCESS: {
                 const { payload } = action as DeletePostSuccessAction;
 
-                const findIndex = draft.homePosts.findIndex(
+                const findIndex = draft.homePosts.nodes.findIndex(
                     (post) => payload.id == post.id,
                 );
 
                 if (findIndex !== -1) {
-                    draft.homePosts.splice(findIndex, 1);
+                    draft.homePosts.nodes.splice(findIndex, 1);
                 }
 
                 break;

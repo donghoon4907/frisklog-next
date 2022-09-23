@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hideUserModal } from '../../actions/switch/user-modal.action';
@@ -21,7 +21,7 @@ export const SetUserModal: FC = () => {
         (state) => state.user,
     );
     // 별명
-    const newNickname = useInput(nickname!);
+    const newNickname = useInput('');
     // 팝업 닫기 핸들러
     const handleClose = () => {
         dispatch(hideUserModal());
@@ -44,6 +44,12 @@ export const SetUserModal: FC = () => {
             );
         }
     };
+
+    useEffect(() => {
+        if (nickname !== null) {
+            newNickname.setValue(nickname);
+        }
+    }, [nickname]);
 
     return (
         <Modal

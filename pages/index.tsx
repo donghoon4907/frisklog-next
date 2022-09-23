@@ -7,7 +7,6 @@ import { END } from 'redux-saga';
 import { Aside } from '../components/layout/Aside';
 import { Main } from '../components/layout/Main';
 import { MainTitle } from '../components/layout/Main.style';
-import { useAuthenticate } from '../hooks/use-authenticate';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
 import { homePostsRequest } from '../actions/post/home-posts.action';
@@ -23,6 +22,7 @@ import { CategoryState } from '../reducers/category';
 import { LinkCategoryButton } from '../components/button/LinkCategory';
 import { getCookie } from '../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
+import { ScrollList } from '../components/ScrollList';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -67,9 +67,12 @@ const Home: NextPage = () => {
                 <MainTitle>
                     <h2>최신 포스트</h2>
                 </MainTitle>
-                {homePosts.map((post) => (
-                    <PostItem key={`"homePost${post.id}`} {...post} />
-                ))}
+                <ScrollList
+                    nodes={homePosts.nodes}
+                    pageInfo={homePosts.pageInfo!}
+                    actionCreator={homePostsRequest}
+                    Node={PostItem}
+                />
             </Main>
             <Aside>
                 <MainTitle>
@@ -102,7 +105,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         async ({ req, res, ...etc }) => {
             const { user, post, category } = getState();
 
-            if (post.homePosts.length === 0) {
+            if (post.homePosts.pageInfo === null) {
                 dispatch(
                     homePostsRequest({
                         limit: 12,

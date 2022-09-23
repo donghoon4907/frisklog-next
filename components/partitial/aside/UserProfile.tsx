@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { AppState } from '../../../reducers';
@@ -20,7 +20,17 @@ export const AsideUserProfile: FC = () => {
         userPageProfile!.avatar,
     );
 
+    const [_nickname, setNickname] = useState<string>(
+        userPageProfile!.nickname,
+    );
+
     const isMe = id == userPageProfile?.id;
+
+    useEffect(() => {
+        if (nickname !== null) {
+            setNickname(nickname);
+        }
+    }, [nickname]);
 
     return (
         <StyledUserProfile.Container>
@@ -38,7 +48,7 @@ export const AsideUserProfile: FC = () => {
                 <StyledUserProfile.Meta>
                     <StyledUserProfile.NicknameWrapper>
                         <StyledUserProfile.NicknameBody>
-                            {isMe ? nickname : userPageProfile?.nickname}
+                            {_nickname}
                         </StyledUserProfile.NicknameBody>
                     </StyledUserProfile.NicknameWrapper>
                     {isMe && <SetNicknameButton />}

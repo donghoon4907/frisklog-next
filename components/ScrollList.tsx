@@ -1,52 +1,55 @@
-import React from "react";
+import { ElementType, FC } from 'react';
 
-import Query from "./Query";
-import Scroll from "./Scroll";
-import { fetchThen } from "../lib/fetch";
+import { Scroll } from './Scroll';
+import { OffsetPageInfo } from '../interfaces/page-info';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../reducers';
+import { LoadingState } from '../reducers/common/loading';
+import { AnyAction } from 'redux';
 
-/**
- * 공통 리스트 렌더링 컴포넌트
- *
- * @param {string}          type          데이터 키
- * @param {string}          query
- * @param {object}          variables
- * @param {string}          fetchPolicy
- * @param {React.Component} Item          렌더링 컴포넌트
- */
-const List = ({ type, Item, variables, ...props }) => (
-    <Query variables={variables} {...props}>
-        {({ data, fetchMore }) => {
-            const query = data[type];
+interface Props {
+    nodes: Record<string, any>[];
+    pageInfo: OffsetPageInfo;
+    Node: ElementType;
+    actionCreator: (payload: any) => AnyAction;
+}
 
-            const { totalCount, edges, pageInfo } = query;
+export const ScrollList: FC<Props> = ({
+    nodes,
+    pageInfo,
+    Node,
+    actionCreator,
+}) => {
+    const dispatch = useDispatch();
 
-            if (totalCount === 0) {
-                return null;
-            }
+    const { loading } = useSelector<AppState, LoadingState>(
+        (state) => state.loading,
+    );
 
-            const nodes = edges.map((edge) => edge.node);
+    return (
+        <>
+            {nodes.map((node) => (
+                <Node key={`node${node.id}`} {...node} />
+            ))}
 
-            return (
-                <>
-                    {nodes.map((node) => (
-                        <Item key={type + node.id} {...node} />
-                    ))}
+            <Scroll
+                onBottom={(activeScroll) => {
+                    const { currentPage, lastPage, pageSize } = pageInfo!;
 
-                    {pageInfo.hasNextPage && (
-                        <Scroll
-                            onBottom={fetchThen(fetchMore, {
-                                variables: {
-                                    ...variables,
-                                    cursor: pageInfo.endCursor
-                                },
-                                type
-                            })}
-                        />
-                    )}
-                </>
-            );
-        }}
-    </Query>
-);
+                    if (currentPage < lastPage) {
+                        if (!loading) {
+                            dispatch(
+                                actionCreator({
+                                    limit: pageSize,
+                                    offset: pageSize * currentPage,
+                                }),
+                            );
 
-export default List;
+                            activeScroll();
+                        }
+                    }
+                }}
+            />
+        </>
+    );
+};
