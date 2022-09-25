@@ -6,6 +6,7 @@ import {
     unlikePostActionTypes,
     unlikePostSuccess,
 } from '../../actions/post/unlike-post.action';
+import { safe } from '../../lib/error/safe';
 
 function* unlikePostSaga(action: UnlikePostRequestAction) {
     yield call(unlikePost, action.payload);
@@ -14,5 +15,5 @@ function* unlikePostSaga(action: UnlikePostRequestAction) {
 }
 
 export function* watchUnlikePost() {
-    yield takeEvery(unlikePostActionTypes.REQUEST, unlikePostSaga);
+    yield takeEvery(unlikePostActionTypes.REQUEST, safe(unlikePostSaga));
 }

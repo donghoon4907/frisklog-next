@@ -5,6 +5,7 @@ import {
     getUserSuccess,
 } from '../../actions/user/get-user.action';
 import { GetUserRequestAction } from '../../actions/user/get-user.interface';
+import { safe } from '../../lib/error/safe';
 import * as usersService from '../../services/usersService';
 
 function* getUserSaga(action: GetUserRequestAction) {

@@ -10,6 +10,7 @@ import { VerifyUserRequestAction } from '../../actions/user/verify-user.interfac
 import { updateClientHeader } from '../../graphql/client';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { safe } from '../../lib/error/safe';
 import * as usersService from '../../services/usersService';
 
 function* verifyUserSaga(action: VerifyUserRequestAction): any {
@@ -29,5 +30,5 @@ function* verifyUserSaga(action: VerifyUserRequestAction): any {
 }
 
 export function* watchVerifyUser() {
-    yield takeEvery(verifyUserActionTypes.REQUEST, verifyUserSaga);
+    yield takeEvery(verifyUserActionTypes.REQUEST, safe(verifyUserSaga));
 }

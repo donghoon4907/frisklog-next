@@ -5,6 +5,7 @@ import {
     likePostSuccess,
 } from '../../actions/post/like-post.action';
 import { LikePostRequestAction } from '../../actions/post/like-post.interface';
+import { safe } from '../../lib/error/safe';
 import { likePost } from '../../services/postsService';
 
 function* likePostSaga(action: LikePostRequestAction) {
@@ -14,5 +15,5 @@ function* likePostSaga(action: LikePostRequestAction) {
 }
 
 export function* watchLikePost() {
-    yield takeEvery(likePostActionTypes.REQUEST, likePostSaga);
+    yield takeEvery(likePostActionTypes.REQUEST, safe(likePostSaga));
 }

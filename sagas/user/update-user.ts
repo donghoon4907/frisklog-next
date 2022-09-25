@@ -9,6 +9,7 @@ import { initUser, setUser } from '../../actions/user/user.action';
 import { updateClientHeader } from '../../graphql/client';
 import { deleteCookie, setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { safe } from '../../lib/error/safe';
 import * as usersService from '../../services/usersService';
 import { UserStatus } from '../../types/status';
 
@@ -31,5 +32,5 @@ function* updateUserSaga(action: UpdateUserRequestAction) {
 }
 
 export function* watchUpdateUser() {
-    yield takeEvery(updateUserActionTypes.REQUEST, updateUserSaga);
+    yield takeEvery(updateUserActionTypes.REQUEST, safe(updateUserSaga));
 }

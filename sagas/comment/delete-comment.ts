@@ -6,6 +6,7 @@ import {
     deleteCommentActionTypes,
     deleteCommentSuccess,
 } from '../../actions/comment/delete-comment.action';
+import { safe } from '../../lib/error/safe';
 
 function* deleteCommentSaga(action: DeleteCommentRequestAction) {
     yield call(deleteComment, action.payload);
@@ -14,5 +15,5 @@ function* deleteCommentSaga(action: DeleteCommentRequestAction) {
 }
 
 export function* watchDeleteComment() {
-    yield takeEvery(deleteCommentActionTypes.REQUEST, deleteCommentSaga);
+    yield takeEvery(deleteCommentActionTypes.REQUEST, safe(deleteCommentSaga));
 }

@@ -8,6 +8,7 @@ import { setUser } from '../../actions/user/user.action';
 import { updateClientHeader } from '../../graphql/client';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { safe } from '../../lib/error/safe';
 import { loginGithub } from '../../services/usersService';
 
 function* loginGithubSaga(action: LoginGithubRequestAction): any {
@@ -25,5 +26,5 @@ function* loginGithubSaga(action: LoginGithubRequestAction): any {
 }
 
 export function* watchLoginGithub() {
-    yield takeEvery(loginGithubActionTypes.REQUEST, loginGithubSaga);
+    yield takeEvery(loginGithubActionTypes.REQUEST, safe(loginGithubSaga));
 }

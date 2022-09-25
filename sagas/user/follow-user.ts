@@ -6,6 +6,7 @@ import {
     followUserActionTypes,
     followUserSuccess,
 } from '../../actions/user/follow-user.action';
+import { safe } from '../../lib/error/safe';
 
 function* followUserSaga(action: FollowUserRequestAction) {
     yield call(followUser, action.payload);
@@ -14,5 +15,5 @@ function* followUserSaga(action: FollowUserRequestAction) {
 }
 
 export function* watchFollowUser() {
-    yield takeEvery(followUserActionTypes.REQUEST, followUserSaga);
+    yield takeEvery(followUserActionTypes.REQUEST, safe(followUserSaga));
 }

@@ -7,6 +7,7 @@ import {
     createPostSuccess,
 } from '../../actions/post/create-post.action';
 import { hidePostModal } from '../../actions/switch/post-modal.action';
+import { safe } from '../../lib/error/safe';
 
 function* createPostSaga(action: CreatePostRequestAction) {
     const { addPost } = yield call(postsService.createPost, action.payload);
@@ -19,5 +20,5 @@ function* createPostSaga(action: CreatePostRequestAction) {
 }
 
 export function* watchCreatePost() {
-    yield takeEvery(createPostActionTypes.REQUEST, createPostSaga);
+    yield takeEvery(createPostActionTypes.REQUEST, safe(createPostSaga));
 }

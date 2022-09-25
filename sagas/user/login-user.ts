@@ -5,6 +5,7 @@ import {
     loginUserSuccess,
 } from '../../actions/user/login-user.action';
 import { LoginUserRequestAction } from '../../actions/user/login-user.interface';
+import { safe } from '../../lib/error/safe';
 import * as usersService from '../../services/usersService';
 
 function* loginUserSaga(action: LoginUserRequestAction) {
@@ -18,5 +19,5 @@ function* loginUserSaga(action: LoginUserRequestAction) {
 }
 
 export function* watchLoginUser() {
-    yield takeEvery(loginUserActionTypes.REQUEST, loginUserSaga);
+    yield takeEvery(loginUserActionTypes.REQUEST, safe(loginUserSaga));
 }

@@ -6,6 +6,7 @@ import {
 } from '../../actions/post/update-post.action';
 import { UpdatePostRequestAction } from '../../actions/post/update-post.interface';
 import { hidePostModal } from '../../actions/switch/post-modal.action';
+import { safe } from '../../lib/error/safe';
 import * as postsService from '../../services/postsService';
 
 function* updatePostSaga(action: UpdatePostRequestAction) {
@@ -19,5 +20,5 @@ function* updatePostSaga(action: UpdatePostRequestAction) {
 }
 
 export function* watchUpdatePost() {
-    yield takeEvery(updatePostActionTypes.REQUEST, updatePostSaga);
+    yield takeEvery(updatePostActionTypes.REQUEST, safe(updatePostSaga));
 }

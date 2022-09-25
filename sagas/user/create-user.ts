@@ -6,6 +6,7 @@ import {
     createUserSuccess,
 } from '../../actions/user/create-user.action';
 import { createUser } from '../../services/usersService';
+import { safe } from '../../lib/error/safe';
 
 function* createUserSaga({ payload }: CreateUserRequestAction) {
     yield call(createUser, payload);
@@ -18,5 +19,5 @@ function* createUserSaga({ payload }: CreateUserRequestAction) {
 }
 
 export function* watchCreateUser() {
-    yield takeEvery(createUserActionTypes.REQUEST, createUserSaga);
+    yield takeEvery(createUserActionTypes.REQUEST, safe(createUserSaga));
 }

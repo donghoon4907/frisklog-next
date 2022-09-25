@@ -6,6 +6,7 @@ import {
     unfollowUserActionTypes,
     unfollowUserSuccess,
 } from '../../actions/user/unfollow-user.action';
+import { safe } from '../../lib/error/safe';
 
 function* unfollowUserSaga(action: UnfollowUserRequestAction) {
     yield call(unfollowUser, action.payload);
@@ -14,5 +15,5 @@ function* unfollowUserSaga(action: UnfollowUserRequestAction) {
 }
 
 export function* watchUnfollowUser() {
-    yield takeEvery(unfollowUserActionTypes.REQUEST, unfollowUserSaga);
+    yield takeEvery(unfollowUserActionTypes.REQUEST, safe(unfollowUserSaga));
 }

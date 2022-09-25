@@ -6,6 +6,7 @@ import {
     deletePostActionTypes,
     deletePostSuccess,
 } from '../../actions/post/delete-post.action';
+import { safe } from '../../lib/error/safe';
 
 function* deletePostSaga(action: DeletePostRequestAction) {
     const { deletePost } = yield call(postsService.deletePost, action.payload);
@@ -16,5 +17,5 @@ function* deletePostSaga(action: DeletePostRequestAction) {
 }
 
 export function* watchDeletePost() {
-    yield takeEvery(deletePostActionTypes.REQUEST, deletePostSaga);
+    yield takeEvery(deletePostActionTypes.REQUEST, safe(deletePostSaga));
 }

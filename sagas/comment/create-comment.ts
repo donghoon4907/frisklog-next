@@ -6,6 +6,7 @@ import {
     createCommentActionTypes,
     createCommentSuccess,
 } from '../../actions/comment/create-comment.action';
+import { safe } from '../../lib/error/safe';
 
 function* createCommentSaga(action: CreateCommentRequestAction) {
     yield call(createComment, action.payload);
@@ -14,5 +15,5 @@ function* createCommentSaga(action: CreateCommentRequestAction) {
 }
 
 export function* watchCreateComment() {
-    yield takeEvery(createCommentActionTypes.REQUEST, createCommentSaga);
+    yield takeEvery(createCommentActionTypes.REQUEST, safe(createCommentSaga));
 }

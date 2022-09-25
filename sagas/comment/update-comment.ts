@@ -5,6 +5,7 @@ import {
     updateCommentSuccess,
 } from '../../actions/comment/update-comment.action';
 import { UpdateCommentRequestAction } from '../../actions/comment/update-comment.interface';
+import { safe } from '../../lib/error/safe';
 import { updateComment } from '../../services/commentsService';
 
 function* updateCommentSaga(action: UpdateCommentRequestAction) {
@@ -14,5 +15,5 @@ function* updateCommentSaga(action: UpdateCommentRequestAction) {
 }
 
 export function* watchUpdateComment() {
-    yield takeEvery(updateCommentActionTypes.REQUEST, updateCommentSaga);
+    yield takeEvery(updateCommentActionTypes.REQUEST, safe(updateCommentSaga));
 }
