@@ -1,14 +1,15 @@
-import { FC, Dispatch, SetStateAction, FormEvent } from 'react';
+import { FC, Dispatch, SetStateAction, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useInput } from '../../hooks/use-input';
 import { AuthMode, AuthModeType } from '../../types/mode';
 import { FormInput } from '../FormInput';
 import { Button } from '../button';
-import { Form, FormColumn } from './form.style';
+import { Form, FormColumn, FormUploadAvatarColumn } from './form.style';
 import { AppState } from '../../reducers';
 import { LoadingState } from '../../reducers/common/loading';
 import { createUserRequest } from '../../actions/user/create-user.action';
+import { UploadAvatar } from '../UploadAvatar';
 
 interface Props {
     setMode: Dispatch<SetStateAction<AuthModeType>>;
@@ -20,6 +21,7 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
     const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
+    const [uploadedFile, setUploadedFile] = useState<string>('');
 
     const nickname = useInput('');
 
@@ -36,16 +38,13 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
             return alert('별명은 10자 미만으로 입력 해주세요.');
         }
 
-        // if (uploadedUrl) {
-        //     variables.avatar = uploadedUrl;
-        // }
-
         const tf = confirm('입력한 내용으로 회원가입 하시겠어요?');
 
         if (tf) {
             dispatch(
                 createUserRequest({
                     email: email.value,
+                    avatar: uploadedFile,
                     nickname: nickname.value,
                     callbackFunc: () => setMode(AuthMode.LOGIN),
                 }),
@@ -55,9 +54,12 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            {/* <div className="fr-modal__upload">
-                <UploadImage />
-            </div> */}
+            <FormUploadAvatarColumn>
+                <UploadAvatar
+                    defaultPreview=""
+                    setUploadedFile={setUploadedFile}
+                />
+            </FormUploadAvatarColumn>
             <FormColumn>
                 <FormInput
                     id="email"

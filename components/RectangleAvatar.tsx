@@ -15,7 +15,14 @@ interface Props {
 
 export const RectangleAvatar: FC<Props> = ({ src, alt, showBg = false }) => (
     <AvatarContainer>
-        <RectangleBody src={src} alt={alt} aria-hidden="true" showBg={showBg} />
+        {src && (
+            <RectangleBody
+                src={src}
+                alt={alt}
+                aria-hidden="true"
+                showBg={showBg}
+            />
+        )}
         {showBg && (
             <AvatarBackground>
                 <AiFillPicture size={50} />

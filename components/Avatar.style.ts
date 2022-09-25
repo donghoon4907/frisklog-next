@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mixinBox } from './theme/mixins';
 
 export const AvatarContainer = styled.div`
     position: relative;
@@ -47,12 +48,15 @@ export const AvatarBackground = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme.inputBgColor};
+    cursor: pointer;
 
     & svg {
         fill: ${({ theme }) => theme.iconColor};
         width: 50px;
         height: 50px;
     }
+
+    ${mixinBox}
 `;
 
 export const BadgeWrapper = styled.div`
