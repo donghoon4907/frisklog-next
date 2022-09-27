@@ -54,8 +54,6 @@ export const CreateCommentForm: FC<Props> = ({ postId }) => {
                     content,
                     callbackFunc: () => {
                         comment.setValue('');
-
-                        alert('댓글이 등록되었습니다.');
                     },
                 }),
             );

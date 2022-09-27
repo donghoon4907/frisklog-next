@@ -9,9 +9,13 @@ import {
 import { safe } from '../../lib/error/safe';
 
 function* createCommentSaga(action: CreateCommentRequestAction) {
-    yield call(createComment, action.payload);
+    const { addComment } = yield call(createComment, action.payload);
 
-    yield put(createCommentSuccess());
+    yield put(createCommentSuccess(addComment));
+
+    alert('댓글이 등록되었습니다.');
+
+    action.payload.callbackFunc?.(null);
 }
 
 export function* watchCreateComment() {

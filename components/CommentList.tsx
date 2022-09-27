@@ -34,7 +34,7 @@ export const CommentList: FC<Props> = ({ nodes, pageInfo, postId }) => {
         dispatch(
             postCommentsRequest({
                 postId,
-                offset: 5 * pageNo,
+                offset: 5 * (pageNo - 1),
                 limit: 5,
             }),
         );
@@ -54,7 +54,7 @@ export const CommentList: FC<Props> = ({ nodes, pageInfo, postId }) => {
                         <Button
                             type="button"
                             colorType="info"
-                            disabled={pageInfo.currentPage === 0}
+                            disabled={pageInfo.currentPage === 1}
                             onClick={() => handlePage(pageInfo.currentPage - 1)}
                         >
                             이전

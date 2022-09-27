@@ -1,6 +1,8 @@
 import produce from 'immer';
 
 import { CommentAction } from '../../actions/comment';
+import { createCommentActionTypes } from '../../actions/comment/create-comment.action';
+import { CreateCommentSuccessAction } from '../../actions/comment/create-comment.interface';
 import { postCommentsActionTypes } from '../../actions/comment/post-comments.action';
 import { PostCommentsSuccessAction } from '../../actions/comment/post-comments.interface';
 import { Comment } from '../../interfaces/comment';
@@ -33,6 +35,12 @@ export default (state = initialState, action: CommentAction) =>
                 draft.postComments.pageInfo = payload.pageInfo;
 
                 draft.postComments.nodes = payload.nodes;
+                break;
+            }
+            case createCommentActionTypes.SUCCESS: {
+                const { payload } = action as CreateCommentSuccessAction;
+
+                draft.postComments.nodes.unshift(payload);
                 break;
             }
             default: {

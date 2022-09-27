@@ -2,6 +2,7 @@ import {
     CreateCommentRequestAction,
     CreateCommentRequestPayload,
     CreateCommentSuccessAction,
+    CreateCommentSuccessPayload,
 } from './create-comment.interface';
 
 export const CREATE_COMMENT_KEY = 'CREATE_COMMENT';
@@ -21,8 +22,11 @@ export function createCommentRequest(
     };
 }
 
-export function createCommentSuccess(): CreateCommentSuccessAction {
+export function createCommentSuccess(
+    payload: CreateCommentSuccessPayload,
+): CreateCommentSuccessAction {
     return {
         type: createCommentActionTypes.SUCCESS,
+        payload,
     };
 }
