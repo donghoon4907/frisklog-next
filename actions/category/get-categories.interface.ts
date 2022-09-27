@@ -1,4 +1,4 @@
-export interface GetCategoriesRequestPayload {
-    offset?: number;
-    limit: number;
-}
+import { OffsetLimitRequestPayload } from '../../interfaces/request';
+
+export interface GetCategoriesRequestPayload
+    extends OffsetLimitRequestPayload {}

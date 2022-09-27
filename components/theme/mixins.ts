@@ -37,3 +37,18 @@ export const mixinAlignIconCenter = (withTransform = '') => css`
     top: 50%;
     transform: translate3d(0, -50%, 0) ${withTransform};
 `;
+
+export const mixinCancelAndSubmit = (gap = 0) => css`
+    display: flex;
+    justify-content: space-between;
+    gap: ${gap}px;
+
+    & > button {
+        flex: 1;
+    }
+
+    & > button:nth-child(1) {
+        background: ${({ theme }) => theme.colors.info};
+        border: 1px solid ${({ theme }) => theme.colors.info};
+    }
+`;

@@ -1,8 +1,9 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface CreateCommentRequestPayload {
+export interface CreateCommentRequestPayload extends Payload {
+    postId: string;
     content: string;
 }
 

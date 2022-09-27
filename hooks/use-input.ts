@@ -7,7 +7,9 @@ export enum UseInputWhere {
 export const useInput = (defaultValue: string, where?: UseInputWhere) => {
     const [value, setValue] = useState(defaultValue);
 
-    const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const onChange = (
+        evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
         let nextVal = evt.target.value;
 
         if (where === UseInputWhere.NO_SPACE) {

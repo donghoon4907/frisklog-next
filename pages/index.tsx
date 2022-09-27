@@ -68,8 +68,7 @@ const Home: NextPage = () => {
                     <h2>최신 포스트</h2>
                 </MainTitle>
                 <ScrollList
-                    nodes={homePosts.nodes}
-                    pageInfo={homePosts.pageInfo!}
+                    {...homePosts}
                     actionCreator={homePostsRequest}
                     Node={PostItem}
                 />

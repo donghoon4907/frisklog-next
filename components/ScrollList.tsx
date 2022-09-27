@@ -9,7 +9,7 @@ import { AnyAction } from 'redux';
 
 interface Props {
     nodes: Record<string, any>[];
-    pageInfo: OffsetPageInfo;
+    pageInfo: OffsetPageInfo | null;
     Node: ElementType;
     actionCreator: (payload: any) => AnyAction;
 }

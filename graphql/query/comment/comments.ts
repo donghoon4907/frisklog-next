@@ -13,14 +13,13 @@ export const GET_COMMENTS = gql`
     query GetComments(
         $offset: Int
         $limit: Int!
-        $postId: ID!
-        $order: [[String]]
+        $postId: String!
+        $order: [[String!]!]
     ) {
         comments(
             offset: $offset
             limit: $limit
-            searchKeyword: $searchKeyword
-            userId: $userId
+            postId: $postId
             order: $order
         ) {
             nodes {
@@ -40,7 +39,7 @@ export const GET_COMMENTS = gql`
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }

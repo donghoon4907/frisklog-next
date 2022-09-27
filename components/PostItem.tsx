@@ -1,5 +1,5 @@
-import React, { useRef, useState, FC } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useRef, FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BiCommentDetail } from 'react-icons/bi';
@@ -11,13 +11,16 @@ import { ActiveLink } from './ActiveLink';
 import { timeForToday } from '../lib/date/time-for-today';
 import * as StyledPost from './PostItem.style';
 import { LikePostButton } from './button/LikePost';
-import { HomePost } from '../interfaces/post';
+import { Post } from '../interfaces/post';
 import { ModifyPostButton } from './button/ModifyPost';
 import { RemovePostButton } from './button/RemovePost';
 import { PostMenu } from './dropdown/PostItem.menu';
 import { IconAndTextWrapper } from './button/IconWrapper';
+import { CommentList } from './CommentList';
+import { postCommentsRequest } from '../actions/comment/post-comments.action';
+import { CommentState } from '../reducers/comment';
 
-interface Props extends HomePost {}
+interface Props extends Post {}
 
 export const PostItem: FC<Props> = ({
     id,
@@ -28,17 +31,25 @@ export const PostItem: FC<Props> = ({
     likers,
     commentCount,
 }) => {
+    const dispatch = useDispatch();
+
     const { id: userId } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
 
+    const { postComments } = useSelector<AppState, CommentState>(
+        (state) => state.comment,
+    );
+
     const mdBodyEl = useRef<HTMLDivElement>(null);
-    // 댓글 보기 여부
-    const [activeComment, setActiveComment] = useState(false);
+
+    const activeComment = postComments.postId == id;
 
     // 댓글 클릭 핸들러
     const handleShowComment = () => {
-        setActiveComment(!activeComment);
+        if (postComments.postId === null || !activeComment) {
+            dispatch(postCommentsRequest({ postId: id, limit: 5 }));
+        }
     };
 
     const isMe = userId == user.id;
@@ -112,9 +123,7 @@ export const PostItem: FC<Props> = ({
                         <div>
                             <IconAndTextWrapper
                                 onClick={handleShowComment}
-                                ariaLabel={
-                                    activeComment ? '댓글 닫기' : '댓글 보기'
-                                }
+                                ariaLabel="댓글 보기"
                                 text={commentCount.toLocaleString()}
                             >
                                 <BiCommentDetail />
@@ -136,9 +145,15 @@ export const PostItem: FC<Props> = ({
                             {timeForToday(createdAt)}
                         </StyledPost.Date>
                     </StyledPost.More>
-                    {/* <div className={`${displayName}__comment`}>
-                        {activeComment && <CommentList postId={id} />}
-                    </div> */}
+                    <div>
+                        {activeComment && (
+                            <CommentList
+                                postId={postComments.postId!}
+                                nodes={postComments.nodes!}
+                                pageInfo={postComments.pageInfo!}
+                            />
+                        )}
+                    </div>
                 </StyledPost.Footer>
             </StyledPost.Body>
         </StyledPost.Container>
