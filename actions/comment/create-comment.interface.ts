@@ -1,5 +1,3 @@
-import { Action } from 'redux';
-
 import { ErrorAction, Payload, PayloadAction } from '..';
 import { Comment } from '../../interfaces/comment';
 

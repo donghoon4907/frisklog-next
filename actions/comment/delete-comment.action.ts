@@ -2,6 +2,7 @@ import {
     DeleteCommentRequestAction,
     DeleteCommentRequestPayload,
     DeleteCommentSuccessAction,
+    DeleteCommentSuccessPayload,
 } from './delete-comment.interface';
 
 export const DELETE_COMMENT_KEY = 'DELETE_COMMENT';
@@ -21,8 +22,11 @@ export function deleteCommentRequest(
     };
 }
 
-export function deleteCommentSuccess(): DeleteCommentSuccessAction {
+export function deleteCommentSuccess(
+    payload: DeleteCommentSuccessPayload,
+): DeleteCommentSuccessAction {
     return {
         type: deleteCommentActionTypes.SUCCESS,
+        payload,
     };
 }

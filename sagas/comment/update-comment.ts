@@ -6,12 +6,17 @@ import {
 } from '../../actions/comment/update-comment.action';
 import { UpdateCommentRequestAction } from '../../actions/comment/update-comment.interface';
 import { safe } from '../../lib/error/safe';
-import { updateComment } from '../../services/commentsService';
+import * as commentsService from '../../services/commentsService';
 
 function* updateCommentSaga(action: UpdateCommentRequestAction) {
-    yield call(updateComment, action.payload);
+    const { updateComment } = yield call(
+        commentsService.updateComment,
+        action.payload,
+    );
 
-    yield put(updateCommentSuccess());
+    yield put(updateCommentSuccess(updateComment));
+
+    action.payload.callbackFunc?.(null);
 }
 
 export function* watchUpdateComment() {

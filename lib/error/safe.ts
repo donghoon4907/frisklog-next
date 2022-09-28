@@ -11,6 +11,7 @@ export const safe = (saga: any, ...args: any) =>
         try {
             yield call(saga, ...args, action);
         } catch (err) {
+            console.log(err);
             const { message, statusCode } = getErrorPayload(err);
 
             yield put(sagaError({ message, statusCode }));

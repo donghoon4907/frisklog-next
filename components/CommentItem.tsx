@@ -34,13 +34,9 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
 
     const { validateToken } = useAuthenticate();
     // 댓글
-    const comment = useInput(content);
+    const comment = useInput('');
     // 수정 활성화 여부
     const [activeUpdate, setActiveUpdate] = useState(false);
-    // 수정된 댓글
-    const [changeComment, setChangeComment] = useState(content);
-    // 삭제되어 사용할 수 없게 되었는지 여부
-    const [disabled, setDisabled] = useState(false);
     // 내가 작성한 댓글인지 여부
     const isMyComment = userId ? userId == user.id : false;
     // 수정 클릭 핸들러
@@ -49,11 +45,9 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
     };
     // 수정 취소 핸들러
     const handleHideUpdate = () => {
-        const tf = confirm('수정을 취소하시겠어요?');
+        comment.setValue('');
 
-        if (tf) {
-            setActiveUpdate(false);
-        }
+        setActiveUpdate(false);
     };
     // 댓글 수정 핸들러
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -81,7 +75,7 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                 updateCommentRequest({
                     id,
                     content: comment.value,
-                    callbackFunc: () => setChangeComment(comment.value),
+                    callbackFunc: () => handleHideUpdate(),
                 }),
             );
         }
@@ -105,7 +99,7 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
             dispatch(
                 deleteCommentRequest({
                     id,
-                    callbackFunc: () => setDisabled(true),
+                    callbackFunc: () => handleHideUpdate(),
                 }),
             );
         }
@@ -129,7 +123,7 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                         </span>
                     </StyledCommentItem.Nickname>
                     <StyledCommentItem.Content>
-                        {changeComment}
+                        {content}
                     </StyledCommentItem.Content>
                     <StyledCommentItem.Date>
                         <span>{timeForToday(createdAt)}</span>
@@ -178,7 +172,6 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                     </FormSubmitColumn>
                 </form>
             )}
-            {disabled && <em>삭제된 댓글입니다.</em>}
         </StyledCommentItem.Container>
     );
 };

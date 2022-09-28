@@ -9,7 +9,12 @@ export interface DeleteCommentRequestPayload extends Payload {
 export interface DeleteCommentRequestAction
     extends PayloadAction<DeleteCommentRequestPayload> {}
 
-export interface DeleteCommentSuccessAction extends Action<string> {}
+export interface DeleteCommentSuccessPayload {
+    id: string;
+}
+
+export interface DeleteCommentSuccessAction
+    extends PayloadAction<DeleteCommentSuccessPayload> {}
 
 export interface DeleteCommentFailureAction extends ErrorAction {}
 

@@ -2,6 +2,7 @@ import {
     UpdateCommentRequestAction,
     UpdateCommentRequestPayload,
     UpdateCommentSuccessAction,
+    UpdateCommentSuccessPayload,
 } from './update-comment.interface';
 
 export const UPDATE_COMMENT_KEY = 'UPDATE_COMMENT';
@@ -21,8 +22,11 @@ export function updateCommentRequest(
     };
 }
 
-export function updateCommentSuccess(): UpdateCommentSuccessAction {
+export function updateCommentSuccess(
+    payload: UpdateCommentSuccessPayload,
+): UpdateCommentSuccessAction {
     return {
         type: updateCommentActionTypes.SUCCESS,
+        payload,
     };
 }

@@ -6,4 +6,5 @@ import { UpdateCommentAction } from './update-comment.interface';
 export type CommentAction =
     | CreateCommentAction
     | UpdateCommentAction
-    | DeleteCommentAction;
+    | DeleteCommentAction
+    | PostCommentsAction;
