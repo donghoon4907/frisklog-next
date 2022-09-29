@@ -1,27 +1,13 @@
 import { gql } from 'graphql-request';
 
 import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
+import { CORE_USER_FIELDS } from '../../fragment/user';
 
-/**
- * 좋아요한 게시물 검색
- *
- * @param $order  정렬
- * @param $userId 사용자 ID
- */
 export const GET_FOLLOWING_POSTS = gql`
     ${PAGING_META_FIELDS}
-    query GetFollowingPosts(
-        $offset: Int
-        $limit: Int!
-        $userId: ID
-        $order: [[String]]
-    ) {
-        followingPosts(
-            offset: $offset
-            limit: $limit
-            userId: $userId
-            order: $order
-        ) {
+    ${CORE_USER_FIELDS}
+    query GetFollowingPosts($offset: Int, $limit: Int!, $userId: String) {
+        followingPosts(offset: $offset, limit: $limit, userId: $userId) {
             nodes {
                 id
                 content
@@ -32,12 +18,7 @@ export const GET_FOLLOWING_POSTS = gql`
                 commentCount
 
                 user {
-                    id
-                    nickname
-                    avatar
-                    link
-                    status
-                    statusText
+                    ...CoreUserFields
                 }
             }
 

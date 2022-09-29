@@ -9,3 +9,14 @@ export const AUTH_USER_FIELDS = gql`
         token
     }
 `;
+
+export const CORE_USER_FIELDS = gql`
+    fragment CoreUserFields on User {
+        id
+        nickname
+        avatar
+        link
+        status
+        statusText
+    }
+`;

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
 import { Aside } from '../components/layout/Aside';
@@ -20,13 +19,11 @@ import { UserItem } from '../components/UserItem';
 import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
 import { CategoryState } from '../reducers/category';
 import { LinkCategoryButton } from '../components/button/LinkCategory';
-import { getCookie } from '../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { ScrollList } from '../components/ScrollList';
+import { ServerCookie } from '../lib/cookie/cookie.server';
 
 const Home: NextPage = () => {
-    const dispatch = useDispatch();
-
     const { homePosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
@@ -38,20 +35,6 @@ const Home: NextPage = () => {
     const { recommendCategories } = useSelector<AppState, CategoryState>(
         (state) => state.category,
     );
-
-    useEffect(() => {
-        const token = getCookie(COOKIE_TOKEN_KEY);
-
-        if (token === null) {
-            const url = new URL(window.location.href);
-
-            const code = url.searchParams.get('code');
-
-            if (code !== null) {
-                dispatch(loginGithubRequest({ code }));
-            }
-        }
-    }, []);
 
     return (
         <>
@@ -101,31 +84,50 @@ const Home: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ getState, dispatch, sagaTask }) =>
-        async ({ req, res, ...etc }) => {
+        async ({ req, res, query, ...etc }) => {
+            const { code } = query;
+
             const { user, post, category } = getState();
 
-            if (post.homePosts.pageInfo === null) {
+            if (typeof code === 'string') {
                 dispatch(
-                    homePostsRequest({
-                        limit: 12,
-                    }),
-                );
-            }
+                    loginGithubRequest({
+                        code,
+                        callbackFunc: (token: string) => {
+                            const cookies = new ServerCookie(req, res);
 
-            if (user.recommendUsers.length === 0) {
-                dispatch(
-                    recommendUsersRequest({
-                        limit: 5,
-                    }),
-                );
-            }
+                            cookies.setCookie(COOKIE_TOKEN_KEY, token);
 
-            if (category.recommendCategories.length === 0) {
-                dispatch(
-                    recommendCategoriesRequest({
-                        limit: 5,
+                            res.statusCode = 302;
+
+                            res.setHeader('Location', '/');
+                        },
                     }),
                 );
+            } else {
+                if (post.homePosts.pageInfo === null) {
+                    dispatch(
+                        homePostsRequest({
+                            limit: 12,
+                        }),
+                    );
+                }
+
+                if (user.recommendUsers.length === 0) {
+                    dispatch(
+                        recommendUsersRequest({
+                            limit: 5,
+                        }),
+                    );
+                }
+
+                if (category.recommendCategories.length === 0) {
+                    dispatch(
+                        recommendCategoriesRequest({
+                            limit: 5,
+                        }),
+                    );
+                }
             }
 
             dispatch(END);

@@ -14,7 +14,7 @@ import { UpdatePostSuccessAction } from '../../actions/post/update-post.interfac
 import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import { HomePost, UserPost } from '../../interfaces/post';
+import { FollowingPost, HomePost, UserPost } from '../../interfaces/post';
 
 export interface PostState {
     activePost: {
@@ -30,6 +30,10 @@ export interface PostState {
         userId: string | null;
         nodes: UserPost[];
     };
+    followingPosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: FollowingPost[];
+    };
 }
 
 const initialState: PostState = {
@@ -44,6 +48,10 @@ const initialState: PostState = {
     },
     userPosts: {
         userId: null,
+        nodes: [],
+    },
+    followingPosts: {
+        pageInfo: null,
         nodes: [],
     },
 };

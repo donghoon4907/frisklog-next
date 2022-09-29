@@ -6,7 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import type { AppProps } from 'next/app';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import Cookies from 'cookies';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -23,6 +22,7 @@ import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 import { Loader } from '../components/Loader';
 import { SetUserModal } from '../components/modal/SetUser';
+import { ServerCookie } from '../lib/cookie/cookie.server';
 
 const AppContainer = styled.div`
     display: flex;
@@ -68,14 +68,14 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
             if (isServer) {
                 const state = store.getState();
 
-                const cookies = new Cookies(req, res);
+                const cookies = new ServerCookie(req, res);
                 // 테마 정보 불러오기
-                let mode = cookies.get(COOKIE_THEME_KEY) || null;
+                let mode = cookies.getCookie(COOKIE_THEME_KEY);
 
                 if (mode === null) {
                     mode = state.common.mode;
 
-                    cookies.set(COOKIE_THEME_KEY, mode, { httpOnly: false });
+                    cookies.setCookie(COOKIE_THEME_KEY, mode);
                 }
 
                 if (mode === 'dark') {
@@ -83,7 +83,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 }
 
                 // 토큰 정보 불러오기
-                let token = cookies.get(COOKIE_TOKEN_KEY) || null;
+                let token = cookies.getCookie(COOKIE_TOKEN_KEY);
 
                 if (token) {
                     const jwtSecret = process.env.JWT_SECRET;
@@ -103,8 +103,8 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                             );
                         } catch {
                             console.error('[NEXT_APP] Failed to verify token.');
-                            // delete cookie
-                            cookies.set(COOKIE_TOKEN_KEY);
+
+                            cookies.deleteCookie(COOKIE_TOKEN_KEY);
                         }
                     } else {
                         console.error('[NEXT_APP] Failed to load jwt secret.');

@@ -1,5 +1,6 @@
 import { gql } from 'graphql-request';
 
+import { CORE_COMMENT_FIELDS } from '../../fragment/comment';
 import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
 
 /**
@@ -10,6 +11,7 @@ import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
  */
 export const GET_COMMENTS = gql`
     ${PAGING_META_FIELDS}
+    ${CORE_COMMENT_FIELDS}
     query GetComments(
         $offset: Int
         $limit: Int!
@@ -23,19 +25,7 @@ export const GET_COMMENTS = gql`
             order: $order
         ) {
             nodes {
-                id
-                content
-                createdAt
-                updatedAt
-
-                user {
-                    id
-                    nickname
-                    avatar
-                    link
-                    status
-                    statusText
-                }
+                ...CoreCommentFields
             }
 
             pageInfo {
