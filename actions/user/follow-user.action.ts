@@ -2,6 +2,7 @@ import {
     FollowUserRequestAction,
     FollowUserRequestPayload,
     FollowUserSuccessAction,
+    FollowUserSuccessPayload,
 } from './follow-user.interface';
 
 export const FOLLOW_USER_KEY = 'FOLLOW_USER';
@@ -21,8 +22,11 @@ export function followUserRequest(
     };
 }
 
-export function followUserSuccess(): FollowUserSuccessAction {
+export function followUserSuccess(
+    payload: FollowUserSuccessPayload,
+): FollowUserSuccessAction {
     return {
         type: followUserActionTypes.SUCCESS,
+        payload,
     };
 }

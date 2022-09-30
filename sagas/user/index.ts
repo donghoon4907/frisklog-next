@@ -3,6 +3,7 @@ import { all, fork } from 'redux-saga/effects';
 import { watchCreateUser } from './create-user';
 import { watchFollowUser } from './follow-user';
 import { watchGetUser } from './get-user';
+import { watchLoadUser } from './load-user';
 import { watchLoginGithub } from './login-github';
 import { watchLoginUser } from './login-user';
 import { watchRecommendUsers } from './recommend-users';
@@ -21,5 +22,6 @@ export function* userSaga() {
         fork(watchLoginGithub),
         fork(watchRecommendUsers),
         fork(watchGetUser),
+        fork(watchLoadUser),
     ]);
 }

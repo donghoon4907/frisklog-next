@@ -1,6 +1,5 @@
-import { Action } from 'redux';
-
 import { ErrorAction, PayloadAction } from '..';
+import { User } from '../../interfaces/user';
 
 export interface UnfollowUserRequestPayload {
     id: string;
@@ -9,7 +8,10 @@ export interface UnfollowUserRequestPayload {
 export interface UnfollowUserRequestAction
     extends PayloadAction<UnfollowUserRequestPayload> {}
 
-export interface UnfollowUserSuccessAction extends Action<string> {}
+export interface UnfollowUserSuccessPayload extends User {}
+
+export interface UnfollowUserSuccessAction
+    extends PayloadAction<UnfollowUserSuccessPayload> {}
 
 export interface UnfollowUserFailureAction extends ErrorAction {}
 

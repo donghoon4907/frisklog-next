@@ -17,12 +17,12 @@ import { setDarkMode } from '../actions/switch/theme-mode.action';
 import { Header } from '../components/header';
 import { AuthModal } from '../components/modal/Auth';
 import { SetPostModal } from '../components/modal/SetPost';
-import { setUser } from '../actions/user/user.action';
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 import { Loader } from '../components/Loader';
 import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
+import { loadUserRequest } from '../actions/user/load-user.action';
 
 const AppContainer = styled.div`
     display: flex;
@@ -90,17 +90,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                     if (jwtSecret) {
                         try {
-                            const { id, nickname, avatar, isMaster } =
-                                jwt.verify(token, jwtSecret) as JwtPayload;
+                            const { id } = jwt.verify(
+                                token,
+                                jwtSecret,
+                            ) as JwtPayload;
 
-                            store.dispatch(
-                                setUser({
-                                    id,
-                                    nickname,
-                                    avatar,
-                                    isMaster,
-                                }),
-                            );
+                            store.dispatch(loadUserRequest({ id: String(id) }));
                         } catch {
                             console.error('[NEXT_APP] Failed to verify token.');
 

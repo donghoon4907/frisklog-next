@@ -1,12 +1,11 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface CreateUserRequestPayload {
+export interface CreateUserRequestPayload extends Payload {
     email: string;
     nickname: string;
     avatar?: string;
-    callbackFunc?: () => void;
 }
 
 export interface CreateUserRequestAction

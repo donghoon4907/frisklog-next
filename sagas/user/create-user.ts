@@ -15,7 +15,7 @@ function* createUserSaga({ payload }: CreateUserRequestAction) {
 
     alert('회원가입이 정상처리되었습니다.');
 
-    payload.callbackFunc?.();
+    payload.callbackFunc?.(null);
 }
 
 export function* watchCreateUser() {

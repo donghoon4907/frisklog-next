@@ -2,6 +2,7 @@ import {
     UnfollowUserRequestAction,
     UnfollowUserRequestPayload,
     UnfollowUserSuccessAction,
+    UnfollowUserSuccessPayload,
 } from './unfollow-user.interface';
 
 const UNFOLLOW_USER_KEY = 'UNFOLLOW_USER';
@@ -21,8 +22,11 @@ export function unfollowUserRequest(
     };
 }
 
-export function unfollowUserSuccess(): UnfollowUserSuccessAction {
+export function unfollowUserSuccess(
+    payload: UnfollowUserSuccessPayload,
+): UnfollowUserSuccessAction {
     return {
         type: unfollowUserActionTypes.SUCCESS,
+        payload,
     };
 }
