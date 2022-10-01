@@ -27,9 +27,9 @@ export const ButtonBody = styled.button<{ disabled: boolean }>`
     }
 
     &.info {
-        background-color: ${({ theme }) => theme.secondaryBtnColor};
-        border-color: ${({ theme }) => theme.secondaryBtnColor};
-        color: ${({ theme }) => theme.secondaryBtnTextColor};
+        background-color: ${({ theme }) => theme.colors.info};
+        border-color: ${({ theme }) => theme.colors.info};
+        color: ${({ theme }) => theme.primaryBtnTextColor};
     }
 
     &.danger {

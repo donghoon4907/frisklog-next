@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { FollowUserRequestAction } from '../../actions/user/follow-user.interface';
-import { followUser } from '../../services/usersService';
+import * as usersService from '../../services/usersService';
 import {
     followUserActionTypes,
     followUserSuccess,
@@ -9,9 +9,9 @@ import {
 import { safe } from '../../lib/error/safe';
 
 function* followUserSaga(action: FollowUserRequestAction) {
-    yield call(followUser, action.payload);
+    const { follow } = yield call(usersService.followUser, action.payload);
 
-    yield put(followUserSuccess());
+    yield put(followUserSuccess(follow));
 }
 
 export function* watchFollowUser() {

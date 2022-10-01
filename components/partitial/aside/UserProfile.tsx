@@ -9,6 +9,7 @@ import { SetNicknameButton } from '../../button/SetNickname';
 import { LogoutButton } from '../../button/Logout';
 import { UpdateAvatarButton } from '../../button/UpdateAvatar';
 import * as StyledUserProfile from './UserProfile.style';
+import { FollowButton } from '../../button/Follow';
 
 export const AsideUserProfile: FC = () => {
     const { id, avatar, nickname, userPageProfile } = useSelector<
@@ -20,17 +21,15 @@ export const AsideUserProfile: FC = () => {
         userPageProfile!.avatar,
     );
 
-    const [_nickname, setNickname] = useState<string>(
-        userPageProfile!.nickname,
-    );
+    const [_nickname, setNickname] = useState<string>('');
 
     const isMe = id == userPageProfile?.id;
 
     useEffect(() => {
-        if (nickname !== null) {
-            setNickname(nickname);
+        if (userPageProfile) {
+            setNickname(userPageProfile.nickname);
         }
-    }, [nickname]);
+    }, [userPageProfile]);
 
     return (
         <StyledUserProfile.Container>
@@ -51,7 +50,8 @@ export const AsideUserProfile: FC = () => {
                             {_nickname}
                         </StyledUserProfile.NicknameBody>
                     </StyledUserProfile.NicknameWrapper>
-                    {isMe && <SetNicknameButton />}
+                    {!isMe && <FollowButton userId={userPageProfile!.id} />}
+                    {/* {isMe && <SetNicknameButton />} */}
                 </StyledUserProfile.Meta>
             </StyledUserProfile.Body>
             {isMe && (

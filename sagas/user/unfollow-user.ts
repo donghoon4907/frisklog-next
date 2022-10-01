@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { UnfollowUserRequestAction } from '../../actions/user/unfollow-user.interface';
-import { unfollowUser } from '../../services/usersService';
+import * as usersService from '../../services/usersService';
 import {
     unfollowUserActionTypes,
     unfollowUserSuccess,
@@ -9,9 +9,9 @@ import {
 import { safe } from '../../lib/error/safe';
 
 function* unfollowUserSaga(action: UnfollowUserRequestAction) {
-    yield call(unfollowUser, action.payload);
+    const { unfollow } = yield call(usersService.unfollowUser, action.payload);
 
-    yield put(unfollowUserSuccess());
+    yield put(unfollowUserSuccess(unfollow));
 }
 
 export function* watchUnfollowUser() {
