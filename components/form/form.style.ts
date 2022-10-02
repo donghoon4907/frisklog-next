@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mixinCancelAndSubmit } from '../theme/mixins';
+import { mixinBox, mixinCancelAndSubmit } from '../theme/mixins';
 
 export const Form = styled.form``;
 
@@ -9,6 +9,8 @@ export const FormColumn = styled.div`
 
 export const FormUploadAvatarColumn = styled.div`
     height: 186px;
+
+    ${mixinBox}
 `;
 
 export const FormSubmitColumn = styled.div`

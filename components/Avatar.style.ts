@@ -55,8 +55,6 @@ export const AvatarBackground = styled.div`
         width: 50px;
         height: 50px;
     }
-
-    ${mixinBox}
 `;
 
 export const BadgeWrapper = styled.div`

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { AiTwotoneSetting } from 'react-icons/ai';
 
-import { Button } from '.';
 import { showUserModal } from '../../actions/switch/user-modal.action';
+import { IconWrapper } from './IconWrapper';
 
 export const SetNicknameButton: FC = () => {
     const dispatch = useDispatch();
@@ -13,10 +14,8 @@ export const SetNicknameButton: FC = () => {
     };
 
     return (
-        <div title="닉네임변경 버튼">
-            <Button type="button" colorType="primary" onClick={handleClick}>
-                닉네임 변경
-            </Button>
-        </div>
+        <IconWrapper ariaLabel="닉네임변경" onClick={handleClick}>
+            <AiTwotoneSetting />
+        </IconWrapper>
     );
 };

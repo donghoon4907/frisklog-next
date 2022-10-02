@@ -46,6 +46,10 @@ export const Meta = styled.div`
     }
 `;
 
-export const NicknameWrapper = styled(StyledPost.NameWrapper)``;
+export const NicknameWrapper = styled(StyledPost.NameWrapper)`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+`;
 
 export const NicknameBody = styled(StyledPost.NameBody)``;

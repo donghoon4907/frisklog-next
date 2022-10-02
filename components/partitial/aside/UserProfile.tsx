@@ -12,22 +12,23 @@ import * as StyledUserProfile from './UserProfile.style';
 import { FollowButton } from '../../button/Follow';
 
 export const AsideUserProfile: FC = () => {
-    const { id, avatar, nickname, userPageProfile } = useSelector<
-        AppState,
-        UserState
-    >((state) => state.user);
+    const { id, userPageProfile } = useSelector<AppState, UserState>(
+        (state) => state.user,
+    );
 
     const [uploadedFile, setUploadedFile] = useState<string>(
         userPageProfile!.avatar,
     );
 
-    const [_nickname, setNickname] = useState<string>('');
+    const [nickname, setNickname] = useState<string>('');
 
     const isMe = id == userPageProfile?.id;
 
     useEffect(() => {
         if (userPageProfile) {
             setNickname(userPageProfile.nickname);
+
+            setUploadedFile(userPageProfile.avatar);
         }
     }, [userPageProfile]);
 
@@ -36,7 +37,7 @@ export const AsideUserProfile: FC = () => {
             <StyledUserProfile.Header>
                 {isMe ? (
                     <UploadAvatar
-                        defaultPreview={avatar!}
+                        defaultPreview={uploadedFile}
                         setUploadedFile={setUploadedFile}
                     />
                 ) : (
@@ -47,11 +48,11 @@ export const AsideUserProfile: FC = () => {
                 <StyledUserProfile.Meta>
                     <StyledUserProfile.NicknameWrapper>
                         <StyledUserProfile.NicknameBody>
-                            {_nickname}
+                            {nickname}
                         </StyledUserProfile.NicknameBody>
+                        {isMe && <SetNicknameButton />}
                     </StyledUserProfile.NicknameWrapper>
                     {!isMe && <FollowButton userId={userPageProfile!.id} />}
-                    {/* {isMe && <SetNicknameButton />} */}
                 </StyledUserProfile.Meta>
             </StyledUserProfile.Body>
             {isMe && (
