@@ -23,6 +23,7 @@ import { Loader } from '../components/Loader';
 import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
+import { updateClientHeader } from '../graphql/client';
 
 const AppContainer = styled.div`
     display: flex;
@@ -86,6 +87,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 let token = cookies.getCookie(COOKIE_TOKEN_KEY);
 
                 if (token) {
+                    updateClientHeader({ token });
                     const jwtSecret = process.env.JWT_SECRET;
 
                     if (jwtSecret) {

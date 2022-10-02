@@ -10,19 +10,12 @@ import {
 function* userPostsSaga(action: UserPostsRequestAction) {
     const { posts } = yield call(postsService.getPosts, action.payload);
 
-    const { userId } = action.payload;
-
-    if (userId) {
-        yield put(
-            userPostsSuccess({
-                userId,
-                nodes: posts.nodes,
-                pageInfo: posts.pageInfo,
-            }),
-        );
-    } else {
-        throw new Error('[Saga] userId is not defined in userPostsSaga');
-    }
+    yield put(
+        userPostsSuccess({
+            nodes: posts.nodes,
+            pageInfo: posts.pageInfo,
+        }),
+    );
 }
 
 export function* watchUserPosts() {

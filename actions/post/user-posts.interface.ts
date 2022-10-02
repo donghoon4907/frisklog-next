@@ -10,7 +10,6 @@ export interface UserPostsRequestPayload
     > {}
 
 export interface UserPostsSuccessPayload {
-    userId: string;
     nodes: UserPost[];
     pageInfo: OffsetPageInfo;
 }

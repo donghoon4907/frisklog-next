@@ -11,6 +11,8 @@ import { UnlikePostRequestPayload } from '../actions/post/unlike-post.interface'
 import { MUTATION_UNLIKE_POST } from '../graphql/mutation/post/unlike-post';
 import { GET_POSTS } from '../graphql/query/post/posts';
 import { GetPostsRequestPayload } from '../actions/post/get-posts.interface';
+import { FollowingPostsRequestPayload } from '../actions/post/following-posts.interface';
+import { GET_FOLLOWING_POSTS } from '../graphql/query/post/following-posts';
 
 export function createPost(payload: CreatePostRequestPayload) {
     return client.request(MUTATION_CREATE_POST, payload);
@@ -34,4 +36,8 @@ export function unlikePost(payload: UnlikePostRequestPayload) {
 
 export function getPosts(payload: GetPostsRequestPayload) {
     return client.request(GET_POSTS, payload);
+}
+
+export function getFollowingPosts(payload: FollowingPostsRequestPayload) {
+    return client.request(GET_FOLLOWING_POSTS, payload);
 }

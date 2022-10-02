@@ -7,6 +7,8 @@ import { createPostActionTypes } from '../../actions/post/create-post.action';
 import { CreatePostSuccessAction } from '../../actions/post/create-post.interface';
 import { deletePostActionTypes } from '../../actions/post/delete-post.action';
 import { DeletePostSuccessAction } from '../../actions/post/delete-post.interface';
+import { followingPostsActionTypes } from '../../actions/post/following-posts.action';
+import { FollowingPostsSuccessAction } from '../../actions/post/following-posts.interface';
 import { homePostsActionTypes } from '../../actions/post/home-posts.action';
 import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
 import { updatePostActionTypes } from '../../actions/post/update-post.action';
@@ -27,7 +29,7 @@ export interface PostState {
         nodes: HomePost[];
     };
     userPosts: {
-        userId: string | null;
+        pageInfo: OffsetPageInfo | null;
         nodes: UserPost[];
     };
     followingPosts: {
@@ -47,7 +49,7 @@ const initialState: PostState = {
         nodes: [],
     },
     userPosts: {
-        userId: null,
+        pageInfo: null,
         nodes: [],
     },
     followingPosts: {
@@ -80,24 +82,42 @@ export default (state = initialState, action: PostAction) =>
             case homePostsActionTypes.SUCCESS: {
                 const { payload } = action as HomePostsSuccessAction;
 
-                draft.homePosts.pageInfo = payload.pageInfo;
+                const { pageInfo, nodes } = payload;
 
-                draft.homePosts.nodes = draft.homePosts.nodes.concat(
-                    payload.nodes,
-                );
+                draft.homePosts.pageInfo = pageInfo;
+
+                draft.homePosts.nodes = draft.homePosts.nodes.concat(nodes);
                 break;
             }
             case userPostsActionTypes.SUCCESS: {
                 const { payload } = action as UserPostsSuccessAction;
 
-                if (draft.userPosts.userId === null) {
-                    draft.userPosts.userId = payload.userId;
+                const { pageInfo, nodes } = payload;
 
-                    draft.userPosts.nodes = payload.nodes;
+                draft.userPosts.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.userPosts.nodes = nodes;
                 } else {
-                    draft.userPosts.nodes = draft.userPosts.nodes.concat(
-                        payload.nodes,
-                    );
+                    draft.userPosts.nodes = draft.userPosts.nodes.concat(nodes);
+                }
+
+                break;
+            }
+            case followingPostsActionTypes.SUCCESS: {
+                const { payload } = action as FollowingPostsSuccessAction;
+
+                const { pageInfo, nodes } = payload;
+
+                draft.followingPosts.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.followingPosts.nodes = payload.nodes;
+                } else {
+                    draft.followingPosts.nodes =
+                        draft.followingPosts.nodes.concat(nodes);
                 }
 
                 break;

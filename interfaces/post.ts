@@ -14,8 +14,8 @@ export interface Post {
     categories: Category[];
 }
 
-export interface HomePost extends Omit<Post, 'link' | 'updatedAt'> {}
+export interface HomePost extends Post {}
 
-export interface UserPost extends Omit<Post, 'link' | 'updatedAt'> {}
+export interface UserPost extends Post {}
 
-export interface FollowingPost extends Omit<Post, 'link' | 'updatedAt'> {}
+export interface FollowingPost extends Post {}

@@ -1,6 +1,7 @@
 import { gql } from 'graphql-request';
 
 import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
+import { POST_ITEM_FIELDS } from '../../fragment/post';
 
 /**
  * 좋아요한 게시물 검색
@@ -10,6 +11,7 @@ import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
  */
 export const GET_LIKE_POSTS = gql`
     ${PAGING_META_FIELDS}
+    ${POST_ITEM_FIELDS}
     query GetCategoryPosts(
         $offset: Int
         $limit: Int!
@@ -23,26 +25,11 @@ export const GET_LIKE_POSTS = gql`
             order: $order
         ) {
             nodes {
-                id
-                content
-                link
-                createdAt
-                updatedAt
-                likeCount
-                commentCount
-
-                user {
-                    id
-                    nickname
-                    avatar
-                    link
-                    status
-                    statusText
-                }
+                ...PostItemFields
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }

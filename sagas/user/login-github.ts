@@ -21,7 +21,7 @@ function* loginGithubSaga(action: LoginGithubRequestAction): any {
 
     yield put(setUser(userInfo));
 
-    updateClientHeader();
+    updateClientHeader({ token });
 
     action.payload.callbackFunc?.(token);
 }

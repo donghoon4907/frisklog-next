@@ -5,7 +5,7 @@ import {
     FollowingPostsSuccessPayload,
 } from './following-posts.interface';
 
-export const FOLLOWING_POSTS_KEY = 'HOME_POSTS';
+export const FOLLOWING_POSTS_KEY = 'FOLLOWING_POSTS';
 
 export const followingPostsActionTypes = {
     REQUEST: `${FOLLOWING_POSTS_KEY}_REQUEST`,

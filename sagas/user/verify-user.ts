@@ -24,7 +24,7 @@ function* verifyUserSaga(action: VerifyUserRequestAction): any {
 
     setCookie(COOKIE_TOKEN_KEY, token);
 
-    updateClientHeader();
+    updateClientHeader({ token });
 
     yield put(hideLoginModal());
 }

@@ -16,6 +16,8 @@ import { UserStatus } from '../../types/status';
 function* updateUserSaga(action: UpdateUserRequestAction) {
     const { updateUser } = yield call(usersService.updateUser, action.payload);
 
+    const { token } = updateUser;
+
     yield put(updateUserSuccess());
 
     if (action.payload.status === UserStatus.OFFLINE) {
@@ -28,7 +30,7 @@ function* updateUserSaga(action: UpdateUserRequestAction) {
         setCookie(COOKIE_TOKEN_KEY, updateUser.token);
     }
 
-    updateClientHeader();
+    updateClientHeader({ token });
 }
 
 export function* watchUpdateUser() {

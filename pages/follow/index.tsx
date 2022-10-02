@@ -1,15 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+import { followingPostsRequest } from '../../actions/post/following-posts.action';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
+import { PostItem } from '../../components/PostItem';
+import { AppState } from '../../reducers';
+import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 
 const Follow: NextPage = () => {
-    const dispatch = useDispatch();
+    const { followingPosts } = useSelector<AppState, PostState>(
+        (state) => state.post,
+    );
 
     return (
         <>
@@ -25,6 +30,9 @@ const Follow: NextPage = () => {
                 <MainTitle>
                     <h2>팔로잉 최신 포스트</h2>
                 </MainTitle>
+                {followingPosts.nodes.map((post) => (
+                    <PostItem key={`"followingPost${post.id}`} {...post} />
+                ))}
             </Main>
             <Aside></Aside>
         </>
@@ -32,17 +40,13 @@ const Follow: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-    ({ getState, dispatch, sagaTask }) =>
+    ({ dispatch, sagaTask }) =>
         async ({ req, res, ...etc }) => {
-            const { user, post, category } = getState();
-
-            // if (post.homePosts.pageInfo === null) {
-            //     dispatch(
-            //         homePostsRequest({
-            //             limit: 12,
-            //         }),
-            //     );
-            // }
+            dispatch(
+                followingPostsRequest({
+                    limit: 10,
+                }),
+            );
 
             dispatch(END);
 
