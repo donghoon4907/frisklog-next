@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { FC, MouseEvent, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hideUserModal } from '../../actions/switch/user-modal.action';
@@ -44,12 +44,6 @@ export const SetUserModal: FC = () => {
             );
         }
     };
-
-    useEffect(() => {
-        if (nickname !== null) {
-            newNickname.setValue(nickname);
-        }
-    }, [nickname]);
 
     return (
         <Modal

@@ -4,7 +4,7 @@ import { FollowingPost } from '../../interfaces/post';
 import { GetPostsRequestPayload } from './get-posts.interface';
 
 export interface FollowingPostsRequestPayload
-    extends Pick<GetPostsRequestPayload, 'offset' | 'limit'> {}
+    extends Pick<GetPostsRequestPayload, 'offset' | 'limit' | 'userId'> {}
 
 export interface FollowingPostsSuccessPayload {
     nodes: FollowingPost[];

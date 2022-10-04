@@ -3,9 +3,11 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 import { followingPostsRequest } from '../../actions/post/following-posts.action';
+import { getFollowingsRequest } from '../../actions/user/get-followings.action';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
+import { SearchFollowing } from '../../components/partitial/aside/SearchFollowing';
 import { PostItem } from '../../components/PostItem';
 import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
@@ -34,17 +36,29 @@ const Follow: NextPage = () => {
                     <PostItem key={`"followingPost${post.id}`} {...post} />
                 ))}
             </Main>
-            <Aside></Aside>
+            <Aside>
+                <SearchFollowing />
+            </Aside>
         </>
     );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask }) =>
-        async ({ req, res, ...etc }) => {
+        async ({ req, res, query, ...etc }) => {
+            const { userId, search } = query;
+
+            dispatch(
+                getFollowingsRequest({
+                    limit: 5,
+                    nickname: search as string | undefined,
+                }),
+            );
+
             dispatch(
                 followingPostsRequest({
                     limit: 10,
+                    userId: userId as string | undefined,
                 }),
             );
 

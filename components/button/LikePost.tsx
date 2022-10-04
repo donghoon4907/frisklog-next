@@ -73,7 +73,7 @@ export const LikePostButton: FC<Props> = ({ postId, likers, isShowCount }) => {
 
     useEffect(() => {
         setIsLike(likers.some((liker) => liker.id == id));
-    }, [id]);
+    }, [id, likers]);
 
     return isShowCount ? (
         <IconAndTextWrapper

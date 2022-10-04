@@ -87,7 +87,9 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 let token = cookies.getCookie(COOKIE_TOKEN_KEY);
 
                 if (token) {
+                    // graphql-request client header update
                     updateClientHeader({ token });
+
                     const jwtSecret = process.env.JWT_SECRET;
 
                     if (jwtSecret) {

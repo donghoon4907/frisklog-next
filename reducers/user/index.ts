@@ -12,6 +12,9 @@ import { followUserActionTypes } from '../../actions/user/follow-user.action';
 import { FollowUserSuccessAction } from '../../actions/user/follow-user.interface';
 import { unfollowUserActionTypes } from '../../actions/user/unfollow-user.action';
 import { UnfollowUserSuccessAction } from '../../actions/user/unfollow-user.interface';
+import { getFollowingsActionTypes } from '../../actions/user/get-followings.action';
+import { GetFollowingsSuccessAction } from '../../actions/user/get-followings.interface';
+import { OffsetPageInfo } from '../../interfaces/page-info';
 
 export interface UserState {
     id: string | null;
@@ -21,6 +24,10 @@ export interface UserState {
     followings: User[];
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
+    searchedFollowings: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: User[];
+    };
 }
 
 const initialState: UserState = {
@@ -31,6 +38,10 @@ const initialState: UserState = {
     followings: [],
     recommendUsers: [],
     userPageProfile: null,
+    searchedFollowings: {
+        pageInfo: null,
+        nodes: [],
+    },
 };
 
 export default (state = initialState, action: UserAction) =>
@@ -51,6 +62,13 @@ export default (state = initialState, action: UserAction) =>
                 draft.isMaster = isMaster ? isMaster : draft.isMaster;
 
                 draft.followings = followings ? followings : draft.followings;
+
+                const isMypage =
+                    draft.userPageProfile &&
+                    draft.userPageProfile.id == draft.id;
+                if (isMypage && nickname) {
+                    draft.userPageProfile!.nickname = nickname;
+                }
                 break;
             }
             case userActionTypes.INIT: {
@@ -71,6 +89,14 @@ export default (state = initialState, action: UserAction) =>
                 draft.recommendUsers = draft.recommendUsers.concat(
                     payload.nodes,
                 );
+                break;
+            }
+            case getFollowingsActionTypes.SUCCESS: {
+                const { payload } = action as GetFollowingsSuccessAction;
+
+                draft.searchedFollowings.pageInfo = payload.pageInfo;
+
+                draft.searchedFollowings.nodes = payload.nodes;
                 break;
             }
             case getUserActionTypes.SUCCESS: {

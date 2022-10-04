@@ -37,7 +37,7 @@ export const GET_USERS = gql`
             }
 
             pageInfo {
-                ...PagingMetadataFields
+                ...PagingMetaFields
             }
         }
     }
