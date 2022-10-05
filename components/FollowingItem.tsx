@@ -55,7 +55,7 @@ export const FollowingItem: FC<Props> = ({
                 </ActiveLink>
             </StyledFollowingItem.Link>
             <StyledFollowingItem.Toolbar>
-                <FollowButton userId={id} />
+                <FollowButton userId={id} defaultIsFollowing={true} />
             </StyledFollowingItem.Toolbar>
         </StyledFollowingItem.Container>
     );

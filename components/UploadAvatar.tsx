@@ -5,6 +5,7 @@ import {
     Dispatch,
     SetStateAction,
     ChangeEvent,
+    useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -25,7 +26,7 @@ export const UploadAvatar: FC<Props> = ({
 
     const $file = useRef<HTMLInputElement>(null);
     // 프로필사진 미리보기
-    const [preview, setPreview] = useState<string>(defaultPreview);
+    const [preview, setPreview] = useState<string>('');
     // 파일 클릭 핸들러
     const handleClick = () => {
         const node = $file.current;
@@ -68,6 +69,10 @@ export const UploadAvatar: FC<Props> = ({
             }),
         );
     };
+
+    useEffect(() => {
+        setPreview(defaultPreview);
+    }, [defaultPreview]);
 
     return (
         <UploadAvatarContainer

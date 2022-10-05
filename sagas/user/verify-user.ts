@@ -24,9 +24,10 @@ function* verifyUserSaga(action: VerifyUserRequestAction): any {
 
     setCookie(COOKIE_TOKEN_KEY, token);
 
-    updateClientHeader({ token });
+    location.replace('/');
+    // updateClientHeader({ token });
 
-    yield put(hideLoginModal());
+    // yield put(hideLoginModal());
 }
 
 export function* watchVerifyUser() {

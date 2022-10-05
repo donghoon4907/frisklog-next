@@ -1,14 +1,14 @@
 import { Action } from 'redux';
 
 import { PayloadAction } from '..';
-import { User } from '../../interfaces/user';
+import { Follow } from '../../interfaces/follow';
 
 export interface SetUserRequestPayload {
     id?: string;
     nickname?: string;
     avatar?: string;
     isMaster?: boolean;
-    followings?: User[];
+    followings?: Follow[];
 }
 
 export interface SetUserRequestAction

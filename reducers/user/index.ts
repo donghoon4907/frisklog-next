@@ -21,7 +21,7 @@ export interface UserState {
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
-    followings: User[];
+    // followings: User[];
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
     searchedFollowings: {
@@ -35,7 +35,7 @@ const initialState: UserState = {
     nickname: null,
     avatar: null,
     isMaster: null,
-    followings: [],
+    // followings: [],
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
@@ -61,11 +61,13 @@ export default (state = initialState, action: UserAction) =>
 
                 draft.isMaster = isMaster ? isMaster : draft.isMaster;
 
-                draft.followings = followings ? followings : draft.followings;
+                // draft.followings = followings
+                //     ? followings.map((following) => following.acceptor)
+                //     : draft.followings;
 
                 const isMypage =
                     draft.userPageProfile &&
-                    draft.userPageProfile.id == draft.id;
+                    draft.userPageProfile.id === draft.id;
                 if (isMypage && nickname) {
                     draft.userPageProfile!.nickname = nickname;
                 }
@@ -80,7 +82,7 @@ export default (state = initialState, action: UserAction) =>
 
                 draft.isMaster = null;
 
-                draft.followings = [];
+                // draft.followings = [];
                 break;
             }
             case recommendUsersActionTypes.SUCCESS: {
@@ -105,24 +107,24 @@ export default (state = initialState, action: UserAction) =>
                 draft.userPageProfile = payload;
                 break;
             }
-            case followUserActionTypes.SUCCESS: {
-                const { payload } = action as FollowUserSuccessAction;
+            // case followUserActionTypes.SUCCESS: {
+            //     const { payload } = action as FollowUserSuccessAction;
 
-                draft.followings.push(payload);
-                break;
-            }
-            case unfollowUserActionTypes.SUCCESS: {
-                const { payload } = action as UnfollowUserSuccessAction;
+            //     draft.followings.push(payload);
+            //     break;
+            // }
+            // case unfollowUserActionTypes.SUCCESS: {
+            //     const { payload } = action as UnfollowUserSuccessAction;
 
-                const findIndex = draft.followings.findIndex(
-                    (user) => payload.id == user.id,
-                );
+            //     const findIndex = draft.followings.findIndex(
+            //         (user) => payload.id === user.id,
+            //     );
 
-                if (findIndex !== -1) {
-                    draft.followings.splice(findIndex, 1);
-                }
-                break;
-            }
+            //     if (findIndex !== -1) {
+            //         draft.followings.splice(findIndex, 1);
+            //     }
+            //     break;
+            // }
             default: {
                 return state;
             }

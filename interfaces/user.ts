@@ -10,8 +10,10 @@ export interface User {
     isMaster: boolean;
     createdAt: string;
     updatedAt: string;
-    followerCount: number;
-    postCount: number;
+    followerCount?: number;
+    postCount?: number;
+    isFollowing?: boolean;
+    isMe?: boolean;
 }
 
 export interface RecommendUser extends User {}

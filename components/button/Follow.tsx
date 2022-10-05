@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '.';
@@ -7,18 +7,19 @@ import { unfollowUserRequest } from '../../actions/user/unfollow-user.action';
 import { useAuthenticate } from '../../hooks/use-authenticate';
 import { AppState } from '../../reducers';
 import { LoadingState } from '../../reducers/common/loading';
-import { UserState } from '../../reducers/user';
+// import { UserState } from '../../reducers/user';
 
 interface Props {
     userId: string;
+    defaultIsFollowing?: boolean;
 }
 
-export const FollowButton: FC<Props> = ({ userId }) => {
+export const FollowButton: FC<Props> = ({ userId, defaultIsFollowing }) => {
     const dispatch = useDispatch();
 
-    const { id, followings } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
+    // const { id, followings } = useSelector<AppState, UserState>(
+    //     (state) => state.user,
+    // );
 
     const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
@@ -26,7 +27,10 @@ export const FollowButton: FC<Props> = ({ userId }) => {
 
     const { validateToken } = useAuthenticate();
 
-    const isFollowing = followings.some((following) => following.id == userId);
+    const [isFollowing, setIsFollowing] = useState<boolean>(
+        defaultIsFollowing || false,
+    );
+    // const isFollowing = followings.some((following) => following.id == userId);
     // 클릭 핸들러
     const handleClick = () => {
         const token = validateToken();
@@ -44,6 +48,8 @@ export const FollowButton: FC<Props> = ({ userId }) => {
         } else {
             dispatch(followUserRequest({ id: userId }));
         }
+
+        setIsFollowing(!isFollowing);
     };
 
     return (

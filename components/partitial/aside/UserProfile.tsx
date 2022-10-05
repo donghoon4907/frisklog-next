@@ -16,17 +16,15 @@ export const AsideUserProfile: FC = () => {
         (state) => state.user,
     );
 
-    const [uploadedFile, setUploadedFile] = useState<string>(
-        userPageProfile!.avatar,
-    );
+    const [uploadedFile, setUploadedFile] = useState<string>('');
 
-    const [nickname, setNickname] = useState<string>('');
+    // const [nickname, setNickname] = useState<string>('');
 
-    const isMe = id == userPageProfile?.id;
+    const isMe = id === userPageProfile!.id;
 
     useEffect(() => {
         if (userPageProfile) {
-            setNickname(userPageProfile.nickname);
+            // setNickname(userPageProfile.nickname);
 
             setUploadedFile(userPageProfile.avatar);
         }
@@ -48,11 +46,16 @@ export const AsideUserProfile: FC = () => {
                 <StyledUserProfile.Meta>
                     <StyledUserProfile.NicknameWrapper>
                         <StyledUserProfile.NicknameBody>
-                            {nickname}
+                            {userPageProfile!.nickname}
                         </StyledUserProfile.NicknameBody>
                         {isMe && <SetNicknameButton />}
                     </StyledUserProfile.NicknameWrapper>
-                    {!isMe && <FollowButton userId={userPageProfile!.id} />}
+                    {!isMe && (
+                        <FollowButton
+                            userId={userPageProfile!.id}
+                            defaultIsFollowing={userPageProfile!.isFollowing}
+                        />
+                    )}
                 </StyledUserProfile.Meta>
             </StyledUserProfile.Body>
             {isMe && (

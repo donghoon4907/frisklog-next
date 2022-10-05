@@ -84,7 +84,7 @@ export const PostEditor: FC<Props> = ({
                             uploadImageRequest({
                                 formData,
                                 callbackFunc: (fileName: string) => {
-                                    const path = `${process.env.BACKEND_ROOT}/upload/${fileName}`;
+                                    const path = `${process.env.BACKEND_ROOT}/${fileName}`;
 
                                     callback(path, '');
                                 },

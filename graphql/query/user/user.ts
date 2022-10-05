@@ -12,9 +12,8 @@ export const GET_USER = gql`
         user(id: $id) {
             ...CoreUserFields
 
-            followings {
-                ...CoreUserFields
-            }
+            isFollowing
+            isMe
         }
     }
 `;

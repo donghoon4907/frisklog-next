@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hideUserModal } from '../../actions/switch/user-modal.action';

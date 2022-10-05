@@ -1,6 +1,7 @@
 import { gql } from 'graphql-request';
 
 import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
+import { CORE_USER_FIELDS } from '../../fragment/user';
 
 /**
  * 사용자 검색
@@ -10,6 +11,7 @@ import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
  */
 export const GET_USERS = gql`
     ${PAGING_META_FIELDS}
+    ${CORE_USER_FIELDS}
     query GetUsers(
         $offset: Int
         $limit: Int!
@@ -23,17 +25,7 @@ export const GET_USERS = gql`
             order: $order
         ) {
             nodes {
-                id
-                nickname
-                avatar
-                link
-                status
-                statusText
-                isMaster
-                createdAt
-                updatedAt
-                followerCount
-                postCount
+                ...CoreUserFields
             }
 
             pageInfo {
