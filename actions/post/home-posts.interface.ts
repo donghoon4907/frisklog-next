@@ -1,10 +1,11 @@
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 import { OffsetPageInfo } from '../../interfaces/page-info';
 import { HomePost } from '../../interfaces/post';
 import { GetPostsRequestPayload } from './get-posts.interface';
 
 export interface HomePostsRequestPayload
-    extends Pick<GetPostsRequestPayload, 'offset' | 'limit'> {}
+    extends Pick<GetPostsRequestPayload, 'offset' | 'limit'>,
+        Payload {}
 
 export interface HomePostsSuccessPayload {
     nodes: HomePost[];

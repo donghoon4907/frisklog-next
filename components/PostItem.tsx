@@ -75,20 +75,22 @@ export const PostItem: FC<Props> = ({
                             </StyledPost.NameBody>
                         </StyledPost.NameWrapper>
                     </StyledPost.Writer>
-                    <StyledPost.HeaderMore>
-                        <Dropdown
-                            overlay={
-                                <PostMenu
-                                    postId={id}
-                                    content={content}
-                                    categories={postCategories}
-                                />
-                            }
-                            placement="bottomRight"
-                        >
-                            <FiMoreVertical />
-                        </Dropdown>
-                    </StyledPost.HeaderMore>
+                    {isMe && (
+                        <StyledPost.HeaderMore>
+                            <Dropdown
+                                overlay={
+                                    <PostMenu
+                                        id={id}
+                                        content={content}
+                                        categories={postCategories}
+                                    />
+                                }
+                                placement="bottomRight"
+                            >
+                                <FiMoreVertical />
+                            </Dropdown>
+                        </StyledPost.HeaderMore>
+                    )}
                 </StyledPost.Header>
                 <StyledPost.Content>
                     <div
@@ -137,7 +139,7 @@ export const PostItem: FC<Props> = ({
                                     content={content}
                                     categories={postCategories}
                                 />
-                                <RemovePostButton postId={id} />
+                                <RemovePostButton id={id} />
                             </>
                         )}
 

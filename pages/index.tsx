@@ -87,8 +87,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         async ({ req, res, query, ...etc }) => {
             const { code } = query;
 
-            const { user, post, category } = getState();
-
             if (typeof code === 'string') {
                 dispatch(
                     loginGithubRequest({
@@ -105,29 +103,23 @@ export const getServerSideProps = wrapper.getServerSideProps(
                     }),
                 );
             } else {
-                if (post.homePosts.pageInfo === null) {
-                    dispatch(
-                        homePostsRequest({
-                            limit: 12,
-                        }),
-                    );
-                }
+                dispatch(
+                    homePostsRequest({
+                        limit: 12,
+                    }),
+                );
 
-                if (user.recommendUsers.length === 0) {
-                    dispatch(
-                        recommendUsersRequest({
-                            limit: 5,
-                        }),
-                    );
-                }
+                dispatch(
+                    recommendUsersRequest({
+                        limit: 5,
+                    }),
+                );
 
-                if (category.recommendCategories.length === 0) {
-                    dispatch(
-                        recommendCategoriesRequest({
-                            limit: 5,
-                        }),
-                    );
-                }
+                dispatch(
+                    recommendCategoriesRequest({
+                        limit: 5,
+                    }),
+                );
             }
 
             dispatch(END);

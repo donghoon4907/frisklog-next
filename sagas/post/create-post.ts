@@ -6,17 +6,18 @@ import {
     createPostActionTypes,
     createPostSuccess,
 } from '../../actions/post/create-post.action';
-import { hidePostModal } from '../../actions/switch/post-modal.action';
 import { safe } from '../../lib/error/safe';
 
 function* createPostSaga(action: CreatePostRequestAction) {
-    const { addPost } = yield call(postsService.createPost, action.payload);
+    const { payload } = action;
+
+    const { addPost } = yield call(postsService.createPost, payload);
 
     yield put(createPostSuccess(addPost));
 
     alert('포스트가 정상적으로 작성되었습니다.');
 
-    yield put(hidePostModal());
+    payload.callbackFunc?.(null);
 }
 
 export function* watchCreatePost() {

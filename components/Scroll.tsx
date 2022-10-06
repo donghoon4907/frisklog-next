@@ -13,8 +13,6 @@ export class Scroll extends Component<Props> {
         const { scrollHeight, clientHeight, scrollTop } = $main;
 
         if (scrollTop + clientHeight > scrollHeight - 600) {
-            this.disabledEvent();
-
             onBottom(this.activeEvent);
         }
     };

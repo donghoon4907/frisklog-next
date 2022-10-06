@@ -1,7 +1,7 @@
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 import { Post } from '../../interfaces/post';
 
-export interface CreatePostRequestPayload {
+export interface CreatePostRequestPayload extends Payload {
     content: string;
     categories: string[];
 }

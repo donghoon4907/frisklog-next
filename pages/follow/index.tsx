@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+
 import { followingPostsRequest } from '../../actions/post/following-posts.action';
 import { getFollowingsRequest } from '../../actions/user/get-followings.action';
 import { Aside } from '../../components/layout/Aside';
@@ -9,6 +10,7 @@ import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
 import { SearchFollowing } from '../../components/partitial/aside/SearchFollowing';
 import { PostItem } from '../../components/PostItem';
+import { ScrollList } from '../../components/ScrollList';
 import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
@@ -32,9 +34,11 @@ const Follow: NextPage = () => {
                 <MainTitle>
                     <h2>팔로잉 최신 포스트</h2>
                 </MainTitle>
-                {followingPosts.nodes.map((post) => (
-                    <PostItem key={`"followingPost${post.id}`} {...post} />
-                ))}
+                <ScrollList
+                    {...followingPosts}
+                    actionCreator={followingPostsRequest}
+                    Node={PostItem}
+                />
             </Main>
             <Aside>
                 <SearchFollowing />

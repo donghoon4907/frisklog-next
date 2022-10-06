@@ -8,7 +8,9 @@ import {
 } from '../../actions/post/user-posts.action';
 
 function* userPostsSaga(action: UserPostsRequestAction) {
-    const { posts } = yield call(postsService.getPosts, action.payload);
+    const { payload } = action;
+
+    const { posts } = yield call(postsService.getPosts, payload);
 
     yield put(
         userPostsSuccess({
@@ -16,6 +18,8 @@ function* userPostsSaga(action: UserPostsRequestAction) {
             pageInfo: posts.pageInfo,
         }),
     );
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchUserPosts() {

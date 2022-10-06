@@ -31,6 +31,8 @@ export const PostCategoriesForm: FC<Props> = ({
         }
 
         setCategories((categories) => [...categories, category.value]);
+
+        category.setValue('');
     };
 
     const handleRemoveCategory = (removeCategory: string) => {

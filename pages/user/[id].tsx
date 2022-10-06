@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
@@ -13,8 +14,13 @@ import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
+import { ScrollList } from '../../components/ScrollList';
 
-const UserProfile: NextPage = () => {
+interface Props {
+    id: string;
+}
+
+const UserProfile: NextPage<Props> = ({ id }) => {
     const { userPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
@@ -33,9 +39,12 @@ const UserProfile: NextPage = () => {
                 <MainTitle>
                     <h2>모든 포스트</h2>
                 </MainTitle>
-                {userPosts.nodes.map((post) => (
-                    <PostItem key={`"userPost${post.id}`} {...post} />
-                ))}
+                <ScrollList
+                    {...userPosts}
+                    actionCreator={userPostsRequest}
+                    Node={PostItem}
+                    payload={{ userId: id }}
+                />
             </Main>
             <Aside>
                 <AsideUserProfile />
@@ -47,14 +56,14 @@ const UserProfile: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask }) =>
         async ({ req, res, query, ...etc }) => {
+            const id = query.id as string;
+
             try {
-                if (!query.id) {
+                if (!id) {
                     throw new Error(
                         '[Next] access denied in userPage:getServerSideProps',
                     );
                 }
-
-                const id = query.id as string;
 
                 dispatch(
                     getUserRequest({
@@ -64,7 +73,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
                 dispatch(
                     userPostsRequest({
-                        limit: 10,
+                        limit: 12,
                         userId: id,
                     }),
                 );
@@ -81,7 +90,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
             }
 
             return {
-                props: {},
+                props: {
+                    id,
+                },
             };
         },
 );

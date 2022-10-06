@@ -123,49 +123,49 @@ export default (state = initialState, action: PostAction) =>
                 break;
             }
             // Create posts
-            case createPostActionTypes.SUCCESS: {
-                const { payload } = action as CreatePostSuccessAction;
+            // case createPostActionTypes.SUCCESS: {
+            //     const { payload } = action as CreatePostSuccessAction;
 
-                draft.homePosts.nodes.unshift({
-                    ...payload,
-                    likers: [],
-                    likeCount: 0,
-                    commentCount: 0,
-                });
+            //     draft.homePosts.nodes.unshift({
+            //         ...payload,
+            //         likers: [],
+            //         likeCount: 0,
+            //         commentCount: 0,
+            //     });
 
-                break;
-            }
+            //     break;
+            // }
             // Update posts
-            case updatePostActionTypes.SUCCESS: {
-                const { payload } = action as UpdatePostSuccessAction;
+            // case updatePostActionTypes.SUCCESS: {
+            //     const { payload } = action as UpdatePostSuccessAction;
 
-                const findIndex = draft.homePosts.nodes.findIndex(
-                    (post) => payload.id == post.id,
-                );
+            //     const findIndex = draft.homePosts.nodes.findIndex(
+            //         (post) => payload.id == post.id,
+            //     );
 
-                if (findIndex !== -1) {
-                    draft.homePosts.nodes[findIndex].content = payload.content;
+            //     if (findIndex !== -1) {
+            //         draft.homePosts.nodes[findIndex].content = payload.content;
 
-                    draft.homePosts.nodes[findIndex].categories =
-                        payload.categories;
-                }
+            //         draft.homePosts.nodes[findIndex].categories =
+            //             payload.categories;
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
             // Delete posts
-            case deletePostActionTypes.SUCCESS: {
-                const { payload } = action as DeletePostSuccessAction;
+            // case deletePostActionTypes.SUCCESS: {
+            //     const { payload } = action as DeletePostSuccessAction;
 
-                const findIndex = draft.homePosts.nodes.findIndex(
-                    (post) => payload.id == post.id,
-                );
+            //     const findIndex = draft.homePosts.nodes.findIndex(
+            //         (post) => payload.id == post.id,
+            //     );
 
-                if (findIndex !== -1) {
-                    draft.homePosts.nodes.splice(findIndex, 1);
-                }
+            //     if (findIndex !== -1) {
+            //         draft.homePosts.nodes.splice(findIndex, 1);
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
             default: {
                 return state;
             }

@@ -9,11 +9,15 @@ import {
 import { safe } from '../../lib/error/safe';
 
 function* deletePostSaga(action: DeletePostRequestAction) {
-    const { deletePost } = yield call(postsService.deletePost, action.payload);
+    const { payload } = action;
+
+    const { deletePost } = yield call(postsService.deletePost, payload);
 
     yield put(deletePostSuccess(deletePost));
 
     alert('포스트가 정상적으로 삭제되었습니다.');
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchDeletePost() {

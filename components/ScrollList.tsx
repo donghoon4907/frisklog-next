@@ -12,6 +12,7 @@ interface Props {
     pageInfo: OffsetPageInfo | null;
     Node: ElementType;
     actionCreator: (payload: any) => AnyAction;
+    payload?: any;
 }
 
 export const ScrollList: FC<Props> = ({
@@ -19,6 +20,7 @@ export const ScrollList: FC<Props> = ({
     pageInfo,
     Node,
     actionCreator,
+    payload = {},
 }) => {
     const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ export const ScrollList: FC<Props> = ({
             ))}
 
             <Scroll
-                onBottom={(activeScroll) => {
+                onBottom={() => {
                     const { currentPage, lastPage, pageSize } = pageInfo!;
 
                     if (currentPage < lastPage) {
@@ -42,10 +44,9 @@ export const ScrollList: FC<Props> = ({
                                 actionCreator({
                                     limit: pageSize,
                                     offset: pageSize * currentPage,
+                                    ...payload,
                                 }),
                             );
-
-                            activeScroll();
                         }
                     }
                 }}

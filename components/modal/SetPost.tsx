@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
 import { useInput, UseInputWhere } from '../../hooks/use-input';
-import { useAuthenticate } from '../../hooks/use-authenticate';
 import { PostEditor } from '../Editor';
 import { AppState } from '../../reducers';
 import { hidePostModal } from '../../actions/switch/post-modal.action';
 import { initActivePost } from '../../actions/post/active-post.action';
 import { PostState } from '../../reducers/post';
 import { CommonState } from '../../reducers/common';
-import { LoadingState } from '../../reducers/common/loading';
+import { PostCategoriesForm } from '../form/PostCategories';
+import { useMutation } from '../../hooks/use-mutation';
 import { createPostRequest } from '../../actions/post/create-post.action';
 import { updatePostRequest } from '../../actions/post/update-post.action';
-import { PostCategoriesForm } from '../form/PostCategories';
 
 export const SetPostModal: FC = () => {
     const dispatch = useDispatch();
@@ -26,11 +25,15 @@ export const SetPostModal: FC = () => {
         (state) => state.common,
     );
 
-    const { loading } = useSelector<AppState, LoadingState>(
-        (state) => state.loading,
-    );
+    const [createPost] = useMutation(createPostRequest, {
+        useAuth: true,
+        useReload: true,
+    });
 
-    const { validateToken } = useAuthenticate();
+    const [updatePost] = useMutation(updatePostRequest, {
+        useAuth: true,
+        useReload: true,
+    });
 
     const category = useInput('', UseInputWhere.NO_SPACE);
 
@@ -55,37 +58,17 @@ export const SetPostModal: FC = () => {
 
     // 등록 및 수정 핸들러
     const handleOk = async () => {
-        // 로그인 체크
-        const token = validateToken();
+        const message = `입력한 내용으로 게시물을 ${
+            isUpdate ? '수정' : '등록'
+        }하시겠어요?`;
 
-        if (token !== null) {
-            if (loading) {
-                return alert('요청 중입니다. 잠시만 기다려주세요.');
-            }
+        const tf = confirm(message);
 
-            const tf = confirm(
-                `입력한 내용으로 게시물을 ${
-                    isUpdate ? '수정' : '등록'
-                }하시겠어요?`,
-            );
-
-            if (tf) {
-                if (isUpdate) {
-                    dispatch(
-                        updatePostRequest({
-                            id: activePost.id!,
-                            content,
-                            categories,
-                        }),
-                    );
-                } else {
-                    dispatch(
-                        createPostRequest({
-                            content,
-                            categories,
-                        }),
-                    );
-                }
+        if (tf) {
+            if (isUpdate) {
+                updatePost({ id: activePost.id!, content, categories });
+            } else {
+                createPost({ content, categories });
             }
         }
     };
@@ -95,6 +78,7 @@ export const SetPostModal: FC = () => {
 
         if (id !== null) {
             setContent(content!);
+
             setCategories(categories);
         }
     }, [activePost]);

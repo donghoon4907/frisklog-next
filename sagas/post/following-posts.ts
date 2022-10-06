@@ -8,9 +8,11 @@ import {
 import { FollowingPostsRequestAction } from '../../actions/post/following-posts.interface';
 
 function* followingPostsSaga(action: FollowingPostsRequestAction) {
+    const { payload } = action;
+
     const { followingPosts } = yield call(
         postsService.getFollowingPosts,
-        action.payload,
+        payload,
     );
 
     yield put(
@@ -19,6 +21,8 @@ function* followingPostsSaga(action: FollowingPostsRequestAction) {
             pageInfo: followingPosts.pageInfo,
         }),
     );
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchFollowingPosts() {

@@ -1,6 +1,6 @@
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface DeletePostRequestPayload {
+export interface DeletePostRequestPayload extends Payload {
     id: string;
 }
 

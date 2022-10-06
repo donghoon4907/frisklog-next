@@ -8,7 +8,9 @@ import {
 } from '../../actions/post/home-posts.action';
 
 function* homePostsSaga(action: HomePostsRequestAction) {
-    const { posts } = yield call(postsService.getPosts, action.payload);
+    const { payload } = action;
+
+    const { posts } = yield call(postsService.getPosts, payload);
 
     yield put(
         homePostsSuccess({
@@ -16,6 +18,8 @@ function* homePostsSaga(action: HomePostsRequestAction) {
             pageInfo: posts.pageInfo,
         }),
     );
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchHomePosts() {

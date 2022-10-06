@@ -5,18 +5,19 @@ import {
     updatePostSuccess,
 } from '../../actions/post/update-post.action';
 import { UpdatePostRequestAction } from '../../actions/post/update-post.interface';
-import { hidePostModal } from '../../actions/switch/post-modal.action';
 import { safe } from '../../lib/error/safe';
 import * as postsService from '../../services/postsService';
 
 function* updatePostSaga(action: UpdatePostRequestAction) {
-    const { updatePost } = yield call(postsService.updatePost, action.payload);
+    const { payload } = action;
+
+    const { updatePost } = yield call(postsService.updatePost, payload);
 
     yield put(updatePostSuccess(updatePost));
 
     alert('포스트가 정상적으로 수정되었습니다.');
 
-    yield put(hidePostModal());
+    payload.callbackFunc?.(null);
 }
 
 export function* watchUpdatePost() {

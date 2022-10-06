@@ -1,23 +1,30 @@
 import { Menu } from 'antd';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { setActivePost } from '../../actions/post/active-post.action';
 import { deletePostRequest } from '../../actions/post/delete-post.action';
 import { showPostModal } from '../../actions/switch/post-modal.action';
+import { useMutation } from '../../hooks/use-mutation';
 
 interface Props {
-    postId: string;
+    id: string;
     content: string;
     categories: string[];
 }
 
-export const PostMenu: FC<Props> = ({ postId, content, categories }) => {
+export const PostMenu: FC<Props> = ({ id, content, categories }) => {
     const dispatch = useDispatch();
+
+    const [deletePost] = useMutation(deletePostRequest, {
+        useAuth: true,
+        useReload: true,
+    });
 
     const handleModify = () => {
         dispatch(
             setActivePost({
-                id: postId,
+                id,
                 content,
                 categories,
             }),
@@ -27,11 +34,13 @@ export const PostMenu: FC<Props> = ({ postId, content, categories }) => {
     };
 
     const handleDelete = () => {
-        dispatch(
-            deletePostRequest({
-                id: postId,
-            }),
-        );
+        const message = '포스트를 삭제하시겠습니까?';
+
+        const tf = confirm(message);
+
+        if (tf) {
+            deletePost({ id });
+        }
     };
 
     return (
