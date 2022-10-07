@@ -3,6 +3,7 @@ import { FollowUserAction } from './follow-user.interface';
 import { GetUserAction } from './get-user.interface';
 import { LoginGithubAction } from './login-github.interface';
 import { LoginUserAction } from './login-user.interface';
+import { LogoutUserAction } from './logout-user.interface';
 import { RecommendUsersAction } from './recommend-users.interface';
 import { SetUserAction } from './set-user.interface';
 import { UnfollowUserAction } from './unfollow-user.interface';
@@ -19,4 +20,5 @@ export type UserAction =
     | VerifyUserAction
     | LoginGithubAction
     | RecommendUsersAction
-    | GetUserAction;
+    | GetUserAction
+    | LogoutUserAction;

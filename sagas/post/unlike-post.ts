@@ -9,9 +9,13 @@ import {
 import { safe } from '../../lib/error/safe';
 
 function* unlikePostSaga(action: UnlikePostRequestAction) {
-    yield call(unlikePost, action.payload);
+    const { payload } = action;
+
+    yield call(unlikePost, payload);
 
     yield put(unlikePostSuccess());
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchUnlikePost() {

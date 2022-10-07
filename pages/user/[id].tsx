@@ -58,36 +58,22 @@ export const getServerSideProps = wrapper.getServerSideProps(
         async ({ req, res, query, ...etc }) => {
             const id = query.id as string;
 
-            try {
-                if (!id) {
-                    throw new Error(
-                        '[Next] access denied in userPage:getServerSideProps',
-                    );
-                }
+            dispatch(
+                getUserRequest({
+                    id,
+                }),
+            );
 
-                dispatch(
-                    getUserRequest({
-                        id,
-                    }),
-                );
+            dispatch(
+                userPostsRequest({
+                    limit: 12,
+                    userId: id,
+                }),
+            );
 
-                dispatch(
-                    userPostsRequest({
-                        limit: 12,
-                        userId: id,
-                    }),
-                );
+            dispatch(END);
 
-                dispatch(END);
-
-                await sagaTask?.toPromise();
-            } catch (e) {
-                console.log((e as Error).message);
-
-                res.statusCode = 302;
-
-                res.setHeader('Location', '/');
-            }
+            await sagaTask?.toPromise();
 
             return {
                 props: {

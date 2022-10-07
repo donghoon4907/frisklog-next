@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
+import { ErrorAction, Payload, PayloadAction } from '..';
 
-export interface LikePostRequestPayload {
+export interface LikePostRequestPayload extends Payload {
     id: string;
 }
 

@@ -52,6 +52,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
         async ({ req, res, query, ...etc }) => {
             const { userId, search } = query;
 
+            // if (userId && typeof userId !== 'string') {
+            //     res.statusCode = 302;
+
+            //     res.setHeader('Location', '/404');
+            // }
+
             dispatch(
                 getFollowingsRequest({
                     limit: 5,

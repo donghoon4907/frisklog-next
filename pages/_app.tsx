@@ -60,14 +60,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(
-    (store) =>
+    ({ dispatch, getState }) =>
         async ({ Component, ctx }) => {
             const { req, res } = ctx;
 
             const isServer = !!req && !!res;
 
             if (isServer) {
-                const state = store.getState();
+                const state = getState();
 
                 const cookies = new ServerCookie(req, res);
                 // 테마 정보 불러오기
@@ -80,16 +80,16 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 }
 
                 if (mode === 'dark') {
-                    store.dispatch(setDarkMode());
+                    dispatch(setDarkMode());
                 }
 
                 // 토큰 정보 불러오기
                 let token = cookies.getCookie(COOKIE_TOKEN_KEY);
 
-                if (token) {
-                    // graphql-request client header update
-                    updateClientHeader({ token });
+                // graphql-request client header update
+                updateClientHeader({ token });
 
+                if (token) {
                     const jwtSecret = process.env.JWT_SECRET;
 
                     if (jwtSecret) {
@@ -99,7 +99,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                                 jwtSecret,
                             ) as JwtPayload;
 
-                            store.dispatch(loadUserRequest({ id: String(id) }));
+                            dispatch(loadUserRequest({ id }));
                         } catch {
                             console.error('[NEXT_APP] Failed to verify token.');
 

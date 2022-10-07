@@ -8,9 +8,10 @@ export interface Post {
     updatedAt: string;
     link: string;
     user: User;
-    likeCount: number;
+    likedCount: number;
     commentCount: number;
     likers: User[];
+    isLiked: boolean;
     categories: Category[];
 }
 

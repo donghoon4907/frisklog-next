@@ -9,7 +9,7 @@ export const MUTATION_CREATE_POST = gql`
             id
             content
             createdAt
-            likeCount
+            likedCount
 
             user {
                 ...CoreUserFields

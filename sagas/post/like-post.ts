@@ -9,9 +9,13 @@ import { safe } from '../../lib/error/safe';
 import { likePost } from '../../services/postsService';
 
 function* likePostSaga(action: LikePostRequestAction) {
-    yield call(likePost, action.payload);
+    const { payload } = action;
+
+    yield call(likePost, payload);
 
     yield put(likePostSuccess());
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchLikePost() {

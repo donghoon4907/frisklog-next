@@ -6,8 +6,8 @@ import { LoadingState } from '../reducers/common/loading';
 import { useAuthenticate } from './use-authenticate';
 
 interface OptionProps {
-    useAuth: boolean;
-    useReload: boolean;
+    useAuth?: boolean;
+    useReload?: boolean;
 }
 
 export const useMutation = (
@@ -24,8 +24,9 @@ export const useMutation = (
         (state) => state.loading,
     );
 
-    const fireEvent = (args: Record<string, any>) => {
+    const fireEvent = (args = {}, callback = () => {}) => {
         const { useAuth, useReload } = options;
+
         if (useAuth) {
             const token = validateToken();
 
@@ -44,6 +45,8 @@ export const useMutation = (
                 callbackFunc: () => {
                     if (useReload) {
                         router.replace(router.asPath);
+                    } else {
+                        callback();
                     }
                 },
             }),

@@ -28,7 +28,8 @@ export const PostItem: FC<Props> = ({
     user,
     categories,
     content,
-    likers,
+    isLiked,
+    likedCount,
     commentCount,
 }) => {
     const dispatch = useDispatch();
@@ -118,7 +119,8 @@ export const PostItem: FC<Props> = ({
                         <div>
                             <LikePostButton
                                 postId={id}
-                                likers={likers}
+                                isLiked={isLiked}
+                                likedCount={likedCount}
                                 isShowCount={true}
                             />
                         </div>

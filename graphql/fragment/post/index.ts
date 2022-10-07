@@ -9,7 +9,7 @@ export const CORE_POST_FIELDS = gql`
         link
         createdAt
         updatedAt
-        likeCount
+        likedCount
         commentCount
     }
 `;
@@ -19,13 +19,10 @@ export const POST_ITEM_FIELDS = gql`
     ${CORE_USER_FIELDS}
     fragment PostItemFields on Post {
         ...CorePostFields
+        isLiked
 
         user {
             ...CoreUserFields
-        }
-
-        likers {
-            id
         }
 
         categories {
