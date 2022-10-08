@@ -8,10 +8,13 @@ import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
 import { PostItem } from '../../components/PostItem';
 import { AppState } from '../../reducers';
-import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
 import { searchPostsRequest } from '../../actions/post/search-posts.action';
+import { CategoryState } from '../../reducers/category';
+import { LinkCategoryButton } from '../../components/button/LinkCategory';
+import { PostState } from '../../reducers/post';
+import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
 
 interface Props {
     searchKeyword: string;
@@ -20,6 +23,10 @@ interface Props {
 const Search: NextPage<Props> = ({ searchKeyword }) => {
     const { searchPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
+    );
+
+    const { relatedCategories } = useSelector<AppState, CategoryState>(
+        (state) => state.category,
     );
 
     return (
@@ -43,7 +50,26 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                     payload={{ searchKeyword }}
                 />
             </Main>
-            <Aside></Aside>
+            <Aside>
+                {relatedCategories.length > 0 && (
+                    <>
+                        <MainTitle>
+                            <h2>{`"${searchKeyword}"와 관련된 카테고리`}</h2>
+                        </MainTitle>
+                        <ul>
+                            {relatedCategories.map(
+                                ({ content, postCount }, idx) => (
+                                    <LinkCategoryButton
+                                        key={`relatedCategory${idx}`}
+                                        category={content}
+                                        postCount={postCount}
+                                    />
+                                ),
+                            )}
+                        </ul>
+                    </>
+                )}
+            </Aside>
         </>
     );
 };
@@ -57,6 +83,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
                 searchPostsRequest({
                     limit: 12,
                     searchKeyword,
+                }),
+            );
+
+            dispatch(
+                relatedCategoriesRequest({
+                    content: searchKeyword,
                 }),
             );
 

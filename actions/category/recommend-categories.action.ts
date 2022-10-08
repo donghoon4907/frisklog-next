@@ -5,12 +5,12 @@ import {
     RecommendCategoriesSuccessPayload,
 } from './recommend-categories.interface';
 
-export const RECOMMEND_USERS_KEY = 'RECOMMEND_CATEGORIES';
+export const RECOMMEND_CATEGORIES_KEY = 'RECOMMEND_CATEGORIES';
 
 export const recommendCategoriesActionTypes = {
-    REQUEST: `${RECOMMEND_USERS_KEY}_REQUEST`,
-    SUCCESS: `${RECOMMEND_USERS_KEY}_SUCCESS`,
-    FAILURE: `${RECOMMEND_USERS_KEY}_FAILURE`,
+    REQUEST: `${RECOMMEND_CATEGORIES_KEY}_REQUEST`,
+    SUCCESS: `${RECOMMEND_CATEGORIES_KEY}_SUCCESS`,
+    FAILURE: `${RECOMMEND_CATEGORIES_KEY}_FAILURE`,
 };
 
 export function recommendCategoriesRequest(

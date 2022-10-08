@@ -1,8 +1,10 @@
 export interface Category {
     id: string;
     content: string;
-}
-
-export interface RecommendCategory extends Category {
     postCount: number;
 }
+
+export interface RecommendCategory extends Category {}
+
+export interface RelatedCategory
+    extends Pick<Category, 'content' | 'postCount'> {}
