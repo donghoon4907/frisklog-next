@@ -5,6 +5,7 @@ import { watchDeletePost } from './delete-post';
 import { watchFollowingPosts } from './following-posts';
 import { watchHomePosts } from './home-posts';
 import { watchLikePost } from './like-post';
+import { watchSearchPosts } from './search-posts';
 import { watchUnlikePost } from './unlike-post';
 import { watchUpdatePost } from './update-post';
 import { watchUserPosts } from './user-posts';
@@ -19,5 +20,6 @@ export function* postSaga() {
         fork(watchHomePosts),
         fork(watchUserPosts),
         fork(watchFollowingPosts),
+        fork(watchSearchPosts),
     ]);
 }

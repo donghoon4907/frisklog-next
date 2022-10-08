@@ -11,12 +11,18 @@ import { followingPostsActionTypes } from '../../actions/post/following-posts.ac
 import { FollowingPostsSuccessAction } from '../../actions/post/following-posts.interface';
 import { homePostsActionTypes } from '../../actions/post/home-posts.action';
 import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
+import { searchPostsActionTypes } from '../../actions/post/search-posts.action';
 import { updatePostActionTypes } from '../../actions/post/update-post.action';
 import { UpdatePostSuccessAction } from '../../actions/post/update-post.interface';
 import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import { FollowingPost, HomePost, UserPost } from '../../interfaces/post';
+import {
+    FollowingPost,
+    HomePost,
+    SearchPost,
+    UserPost,
+} from '../../interfaces/post';
 
 export interface PostState {
     activePost: {
@@ -27,6 +33,10 @@ export interface PostState {
     homePosts: {
         pageInfo: OffsetPageInfo | null;
         nodes: HomePost[];
+    };
+    searchPosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: SearchPost[];
     };
     userPosts: {
         pageInfo: OffsetPageInfo | null;
@@ -45,6 +55,10 @@ const initialState: PostState = {
         categories: [],
     },
     homePosts: {
+        pageInfo: null,
+        nodes: [],
+    },
+    searchPosts: {
         pageInfo: null,
         nodes: [],
     },
@@ -101,6 +115,23 @@ export default (state = initialState, action: PostAction) =>
                     draft.userPosts.nodes = nodes;
                 } else {
                     draft.userPosts.nodes = draft.userPosts.nodes.concat(nodes);
+                }
+
+                break;
+            }
+            case searchPostsActionTypes.SUCCESS: {
+                const { payload } = action as UserPostsSuccessAction;
+
+                const { pageInfo, nodes } = payload;
+
+                draft.searchPosts.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.searchPosts.nodes = nodes;
+                } else {
+                    draft.searchPosts.nodes =
+                        draft.searchPosts.nodes.concat(nodes);
                 }
 
                 break;
