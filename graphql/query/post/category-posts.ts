@@ -12,18 +12,8 @@ import { POST_ITEM_FIELDS } from '../../fragment/post';
 export const GET_CATEGORY_POSTS = gql`
     ${PAGING_META_FIELDS}
     ${POST_ITEM_FIELDS}
-    query GetCategoryPosts(
-        $offset: Int
-        $limit: Int!
-        $category: String!
-        $order: [[String]]
-    ) {
-        categoryPosts(
-            offset: $offset
-            limit: $limit
-            category: $category
-            order: $order
-        ) {
+    query GetCategoryPosts($offset: Int, $limit: Int!, $category: String!) {
+        categoryPosts(offset: $offset, limit: $limit, category: $category) {
             nodes {
                 ...PostItemFields
             }

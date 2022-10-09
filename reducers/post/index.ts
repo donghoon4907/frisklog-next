@@ -3,6 +3,7 @@ import produce from 'immer';
 import { PostAction } from '../../actions/post';
 import { activePostActionTypes } from '../../actions/post/active-post.action';
 import { ActivePostRequestAction } from '../../actions/post/active-post.interface';
+import { categoryPostsActionTypes } from '../../actions/post/category-posts.action';
 import { createPostActionTypes } from '../../actions/post/create-post.action';
 import { CreatePostSuccessAction } from '../../actions/post/create-post.interface';
 import { deletePostActionTypes } from '../../actions/post/delete-post.action';
@@ -18,6 +19,7 @@ import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
 import {
+    CategoryPost,
     FollowingPost,
     HomePost,
     SearchPost,
@@ -37,6 +39,10 @@ export interface PostState {
     searchPosts: {
         pageInfo: OffsetPageInfo | null;
         nodes: SearchPost[];
+    };
+    categoryPosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: CategoryPost[];
     };
     userPosts: {
         pageInfo: OffsetPageInfo | null;
@@ -59,6 +65,10 @@ const initialState: PostState = {
         nodes: [],
     },
     searchPosts: {
+        pageInfo: null,
+        nodes: [],
+    },
+    categoryPosts: {
         pageInfo: null,
         nodes: [],
     },
@@ -132,6 +142,23 @@ export default (state = initialState, action: PostAction) =>
                 } else {
                     draft.searchPosts.nodes =
                         draft.searchPosts.nodes.concat(nodes);
+                }
+
+                break;
+            }
+            case categoryPostsActionTypes.SUCCESS: {
+                const { payload } = action as UserPostsSuccessAction;
+
+                const { pageInfo, nodes } = payload;
+
+                draft.categoryPosts.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.categoryPosts.nodes = nodes;
+                } else {
+                    draft.categoryPosts.nodes =
+                        draft.categoryPosts.nodes.concat(nodes);
                 }
 
                 break;

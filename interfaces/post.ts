@@ -19,6 +19,8 @@ export interface HomePost extends Post {}
 
 export interface SearchPost extends Post {}
 
+export interface CategoryPost extends Post {}
+
 export interface UserPost extends Post {}
 
 export interface FollowingPost extends Post {}

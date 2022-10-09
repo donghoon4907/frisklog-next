@@ -13,6 +13,8 @@ import { GET_POSTS } from '../graphql/query/post/posts';
 import { GetPostsRequestPayload } from '../actions/post/get-posts.interface';
 import { FollowingPostsRequestPayload } from '../actions/post/following-posts.interface';
 import { GET_FOLLOWING_POSTS } from '../graphql/query/post/following-posts';
+import { CategoryPostsRequestPayload } from '../actions/post/category-posts.interface';
+import { GET_CATEGORY_POSTS } from '../graphql/query/post/category-posts';
 
 export function createPost(payload: CreatePostRequestPayload) {
     return client.request(MUTATION_CREATE_POST, payload);
@@ -40,4 +42,8 @@ export function getPosts(payload: GetPostsRequestPayload) {
 
 export function getFollowingPosts(payload: FollowingPostsRequestPayload) {
     return client.request(GET_FOLLOWING_POSTS, payload);
+}
+
+export function getCategoryPosts(payload: CategoryPostsRequestPayload) {
+    return client.request(GET_CATEGORY_POSTS, payload);
 }

@@ -9,6 +9,7 @@ import { watchSearchPosts } from './search-posts';
 import { watchUnlikePost } from './unlike-post';
 import { watchUpdatePost } from './update-post';
 import { watchUserPosts } from './user-posts';
+import { watchCategoryPosts } from './category-posts';
 
 export function* postSaga() {
     yield all([
@@ -21,5 +22,6 @@ export function* postSaga() {
         fork(watchUserPosts),
         fork(watchFollowingPosts),
         fork(watchSearchPosts),
+        fork(watchCategoryPosts),
     ]);
 }
