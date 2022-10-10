@@ -8,9 +8,11 @@ export const FormColumn = styled.div`
 `;
 
 export const FormUploadAvatarColumn = styled.div`
-    height: 186px;
-
     ${mixinBox}
+
+    & > button {
+        display: block;
+    }
 `;
 
 export const FormSubmitColumn = styled.div`

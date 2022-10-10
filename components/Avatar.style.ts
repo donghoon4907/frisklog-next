@@ -3,10 +3,18 @@ import { mixinBox } from './theme/mixins';
 
 export const AvatarContainer = styled.div`
     position: relative;
-    width: 100%;
-    height: 100%;
+
     overflow: hidden;
     border-radius: ${({ theme }) => theme.borderRadius};
+`;
+
+export const SquareAvatarContainer = styled(AvatarContainer)`
+    width: 100%;
+    height: 100%;
+`;
+
+export const RectangleAvatarContainer = styled(AvatarContainer)`
+    padding-top: 56.25%;
 `;
 
 export const AvatarBody = styled.img`
@@ -15,6 +23,7 @@ export const AvatarBody = styled.img`
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1000;
 `;
 
 export const SquareBody = styled(AvatarBody)`
@@ -22,7 +31,6 @@ export const SquareBody = styled(AvatarBody)`
 `;
 
 export const RectangleBody = styled(AvatarBody)<{ showBg: boolean }>`
-    object-fit: contain;
     ${(props) =>
         props.showBg
             ? `
@@ -42,6 +50,9 @@ export const UploadAvatarContainer = styled.button`
 `;
 
 export const AvatarBackground = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -49,6 +60,7 @@ export const AvatarBackground = styled.div`
     align-items: center;
     background-color: ${({ theme }) => theme.inputBgColor};
     cursor: pointer;
+    z-index: 0;
 
     & svg {
         fill: ${({ theme }) => theme.iconColor};

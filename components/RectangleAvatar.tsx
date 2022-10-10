@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { AiFillPicture } from 'react-icons/ai';
 
 import {
-    AvatarContainer,
+    RectangleAvatarContainer,
     RectangleBody,
     AvatarBackground,
 } from './Avatar.style';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const RectangleAvatar: FC<Props> = ({ src, alt, showBg = false }) => (
-    <AvatarContainer>
+    <RectangleAvatarContainer>
         {src && (
             <RectangleBody
                 src={src}
@@ -28,5 +28,5 @@ export const RectangleAvatar: FC<Props> = ({ src, alt, showBg = false }) => (
                 <AiFillPicture size={50} />
             </AvatarBackground>
         )}
-    </AvatarContainer>
+    </RectangleAvatarContainer>
 );

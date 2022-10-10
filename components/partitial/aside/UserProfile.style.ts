@@ -12,8 +12,8 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     position: relative;
-    min-height: 186px;
-    height: 0;
+    width: 100%;
+    height: 100%;
 `;
 
 export const Body = styled.div`

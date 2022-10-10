@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 import { UserStatusType } from '../types/status';
-import { SquareBody, AvatarContainer, BadgeWrapper } from './Avatar.style';
+import {
+    SquareBody,
+    SquareAvatarContainer,
+    BadgeWrapper,
+} from './Avatar.style';
 import { Badge } from './Badge';
 
 interface Props {
@@ -11,12 +15,12 @@ interface Props {
 }
 
 export const SquareAvatar: FC<Props> = ({ src, alt, statusCode }) => (
-    <AvatarContainer>
+    <SquareAvatarContainer>
         <SquareBody src={src} alt={alt} aria-hidden="true" />
         {statusCode && (
             <BadgeWrapper>
                 <Badge statusCode={statusCode} />
             </BadgeWrapper>
         )}
-    </AvatarContainer>
+    </SquareAvatarContainer>
 );
