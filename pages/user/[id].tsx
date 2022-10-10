@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
@@ -15,12 +14,17 @@ import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
+import { UserState } from '../../reducers/user';
 
 interface Props {
-    id: string;
+    userId: string;
 }
 
-const UserProfile: NextPage<Props> = ({ id }) => {
+const UserProfile: NextPage<Props> = ({ userId }) => {
+    const { id, userPageProfile } = useSelector<AppState, UserState>(
+        (state) => state.user,
+    );
+
     const { userPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
@@ -47,7 +51,7 @@ const UserProfile: NextPage<Props> = ({ id }) => {
                 />
             </Main>
             <Aside>
-                <AsideUserProfile />
+                {userPageProfile && <AsideUserProfile user={userPageProfile} />}
             </Aside>
         </>
     );
@@ -56,18 +60,18 @@ const UserProfile: NextPage<Props> = ({ id }) => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask }) =>
         async ({ req, res, query, ...etc }) => {
-            const id = query.id as string;
+            const userId = query.id as string;
 
             dispatch(
                 getUserRequest({
-                    id,
+                    id: userId,
                 }),
             );
 
             dispatch(
                 userPostsRequest({
                     limit: 12,
-                    userId: id,
+                    userId,
                 }),
             );
 
@@ -77,7 +81,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             return {
                 props: {
-                    id,
+                    userId,
                 },
             };
         },

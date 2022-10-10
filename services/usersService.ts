@@ -19,6 +19,8 @@ import { GetUserRequestPayload } from '../actions/user/get-user.interface';
 import { GET_USER } from '../graphql/query/user/user';
 import { GetFollowingsRequestPayload } from '../actions/user/get-followings.interface';
 import { GET_FOLLOWINGS } from '../graphql/query/user/followings';
+import { GetUsersRequestPayload } from '../actions/user/get-users.interface';
+import { GET_USERS } from '../graphql/query/user/users';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -50,6 +52,10 @@ export function loginGithub(payload: LoginGithubRequestPayload) {
 
 export function getRecommenders(payload: RecommendUsersRequestPayload) {
     return client.request(GET_RECOMMENDERS, payload);
+}
+
+export function getUsers(payload: GetUsersRequestPayload) {
+    return client.request(GET_USERS, payload);
 }
 
 export function getUser(payload: GetUserRequestPayload) {

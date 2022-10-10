@@ -10,25 +10,24 @@ import { LogoutButton } from '../../button/Logout';
 import { UpdateAvatarButton } from '../../button/UpdateAvatar';
 import * as StyledUserProfile from './UserProfile.style';
 import { FollowButton } from '../../button/Follow';
+import { User } from '../../../interfaces/user';
 
-export const AsideUserProfile: FC = () => {
-    const { id, userPageProfile } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
+interface Props {
+    user: User;
+}
+
+export const AsideUserProfile: FC<Props> = ({ user }) => {
+    const { id } = useSelector<AppState, UserState>((state) => state.user);
 
     const [uploadedFile, setUploadedFile] = useState<string>('');
 
-    // const [nickname, setNickname] = useState<string>('');
-
-    const isMe = id === userPageProfile!.id;
+    const isMe = id === user.id;
 
     useEffect(() => {
-        if (userPageProfile) {
-            // setNickname(userPageProfile.nickname);
-
-            setUploadedFile(userPageProfile.avatar);
+        if (user) {
+            setUploadedFile(user.avatar);
         }
-    }, [userPageProfile]);
+    }, [user]);
 
     return (
         <StyledUserProfile.Container>
@@ -46,14 +45,15 @@ export const AsideUserProfile: FC = () => {
                 <StyledUserProfile.Meta>
                     <StyledUserProfile.NicknameWrapper>
                         <StyledUserProfile.NicknameBody>
-                            {userPageProfile!.nickname}
+                            {user.nickname}
                         </StyledUserProfile.NicknameBody>
-                        {isMe && <SetNicknameButton />}
                     </StyledUserProfile.NicknameWrapper>
-                    {!isMe && (
+                    {isMe ? (
+                        <SetNicknameButton />
+                    ) : (
                         <FollowButton
-                            userId={userPageProfile!.id}
-                            defaultIsFollowing={userPageProfile!.isFollowing}
+                            userId={user.id}
+                            defaultIsFollowing={user.isFollowing}
                         />
                     )}
                 </StyledUserProfile.Meta>

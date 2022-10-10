@@ -5,6 +5,7 @@ import { LoginGithubAction } from './login-github.interface';
 import { LoginUserAction } from './login-user.interface';
 import { LogoutUserAction } from './logout-user.interface';
 import { RecommendUsersAction } from './recommend-users.interface';
+import { SearchUserssAction } from './search-users.interface';
 import { SetUserAction } from './set-user.interface';
 import { UnfollowUserAction } from './unfollow-user.interface';
 import { UpdateUserAction } from './update-user.interface';
@@ -21,4 +22,5 @@ export type UserAction =
     | LoginGithubAction
     | RecommendUsersAction
     | GetUserAction
-    | LogoutUserAction;
+    | LogoutUserAction
+    | SearchUserssAction;

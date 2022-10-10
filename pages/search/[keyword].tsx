@@ -15,12 +15,19 @@ import { CategoryState } from '../../reducers/category';
 import { LinkCategoryButton } from '../../components/button/LinkCategory';
 import { PostState } from '../../reducers/post';
 import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
+import { searchUsersRequest } from '../../actions/user/search-users.action';
+import { UserState } from '../../reducers/user';
+import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 
 interface Props {
     searchKeyword: string;
 }
 
 const Search: NextPage<Props> = ({ searchKeyword }) => {
+    const { searchUsers } = useSelector<AppState, UserState>(
+        (state) => state.user,
+    );
+
     const { searchPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
@@ -51,6 +58,14 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                 />
             </Main>
             <Aside>
+                {searchUsers.nodes.length > 0 && (
+                    <>
+                        <MainTitle>
+                            <h2>{`"${searchKeyword}"와 유사한 사용자`}</h2>
+                        </MainTitle>
+                        <AsideUserProfile user={searchUsers.nodes[0]} />
+                    </>
+                )}
                 {relatedCategories.length > 0 && (
                     <>
                         <MainTitle>
@@ -83,6 +98,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
                 searchPostsRequest({
                     limit: 12,
                     searchKeyword,
+                }),
+            );
+
+            dispatch(
+                searchUsersRequest({
+                    limit: 1,
+                    nickname: searchKeyword,
                 }),
             );
 

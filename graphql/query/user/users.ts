@@ -12,18 +12,8 @@ import { CORE_USER_FIELDS } from '../../fragment/user';
 export const GET_USERS = gql`
     ${PAGING_META_FIELDS}
     ${CORE_USER_FIELDS}
-    query GetUsers(
-        $offset: Int
-        $limit: Int!
-        $nickname: String
-        $order: [[String]]
-    ) {
-        users(
-            offset: $offset
-            limit: $limit
-            nickname: $nickname
-            order: $order
-        ) {
+    query GetUsers($offset: Int, $limit: Int!, $nickname: String) {
+        users(offset: $offset, limit: $limit, nickname: $nickname) {
             nodes {
                 ...CoreUserFields
             }

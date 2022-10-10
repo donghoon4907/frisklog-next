@@ -4,17 +4,12 @@ import { PostAction } from '../../actions/post';
 import { activePostActionTypes } from '../../actions/post/active-post.action';
 import { ActivePostRequestAction } from '../../actions/post/active-post.interface';
 import { categoryPostsActionTypes } from '../../actions/post/category-posts.action';
-import { createPostActionTypes } from '../../actions/post/create-post.action';
-import { CreatePostSuccessAction } from '../../actions/post/create-post.interface';
-import { deletePostActionTypes } from '../../actions/post/delete-post.action';
-import { DeletePostSuccessAction } from '../../actions/post/delete-post.interface';
 import { followingPostsActionTypes } from '../../actions/post/following-posts.action';
 import { FollowingPostsSuccessAction } from '../../actions/post/following-posts.interface';
 import { homePostsActionTypes } from '../../actions/post/home-posts.action';
 import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
 import { searchPostsActionTypes } from '../../actions/post/search-posts.action';
-import { updatePostActionTypes } from '../../actions/post/update-post.action';
-import { UpdatePostSuccessAction } from '../../actions/post/update-post.interface';
+import { SearchPostsSuccessAction } from '../../actions/post/search-posts.interface';
 import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
@@ -130,7 +125,7 @@ export default (state = initialState, action: PostAction) =>
                 break;
             }
             case searchPostsActionTypes.SUCCESS: {
-                const { payload } = action as UserPostsSuccessAction;
+                const { payload } = action as SearchPostsSuccessAction;
 
                 const { pageInfo, nodes } = payload;
 

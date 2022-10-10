@@ -15,6 +15,8 @@ import { UnfollowUserSuccessAction } from '../../actions/user/unfollow-user.inte
 import { getFollowingsActionTypes } from '../../actions/user/get-followings.action';
 import { GetFollowingsSuccessAction } from '../../actions/user/get-followings.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
+import { searchUsersActionTypes } from '../../actions/user/search-users.action';
+import { SearchUsersSuccessAction } from '../../actions/user/search-users.interface';
 
 export interface UserState {
     id: string | null;
@@ -25,6 +27,10 @@ export interface UserState {
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
     searchedFollowings: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: User[];
+    };
+    searchUsers: {
         pageInfo: OffsetPageInfo | null;
         nodes: User[];
     };
@@ -39,6 +45,10 @@ const initialState: UserState = {
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
+        pageInfo: null,
+        nodes: [],
+    },
+    searchUsers: {
         pageInfo: null,
         nodes: [],
     },
@@ -99,6 +109,23 @@ export default (state = initialState, action: UserAction) =>
                 draft.searchedFollowings.pageInfo = payload.pageInfo;
 
                 draft.searchedFollowings.nodes = payload.nodes;
+                break;
+            }
+            case searchUsersActionTypes.SUCCESS: {
+                const { payload } = action as SearchUsersSuccessAction;
+
+                const { pageInfo, nodes } = payload;
+
+                draft.searchUsers.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.searchUsers.nodes = nodes;
+                } else {
+                    draft.searchUsers.nodes =
+                        draft.searchUsers.nodes.concat(nodes);
+                }
+
                 break;
             }
             case getUserActionTypes.SUCCESS: {
