@@ -1,18 +1,14 @@
 import { Action } from 'redux';
 
-import { ErrorAction, PayloadAction } from '..';
-import { GetUserRequestPayload } from './get-user.interface';
+import { ErrorAction } from '..';
 
-export interface LoadUserRequestPayload extends GetUserRequestPayload {}
-
-export interface LoadUserRequestAction
-    extends PayloadAction<GetUserRequestPayload> {}
+export interface LoadUserRequestAction extends Action<string> {}
 
 export interface LoadUserSuccessAction extends Action<string> {}
 
 export interface LoadUserFailureAction extends ErrorAction {}
 
 export type LoadUserAction =
-    | LoadUserRequestPayload
+    | LoadUserRequestAction
     | LoadUserSuccessAction
     | LoadUserFailureAction;

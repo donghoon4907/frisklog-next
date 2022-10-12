@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import type { AppProps } from 'next/app';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -90,24 +89,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 updateClientHeader({ token });
 
                 if (token) {
-                    const jwtSecret = process.env.JWT_SECRET;
-
-                    if (jwtSecret) {
-                        try {
-                            const { id } = jwt.verify(
-                                token,
-                                jwtSecret,
-                            ) as JwtPayload;
-
-                            dispatch(loadUserRequest({ id }));
-                        } catch {
-                            console.error('[NEXT_APP] Failed to verify token.');
-
-                            cookies.deleteCookie(COOKIE_TOKEN_KEY);
-                        }
-                    } else {
-                        console.error('[NEXT_APP] Failed to load jwt secret.');
-                    }
+                    dispatch(loadUserRequest());
                 }
             }
 

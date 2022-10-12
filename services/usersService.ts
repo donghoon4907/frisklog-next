@@ -21,6 +21,7 @@ import { GetFollowingsRequestPayload } from '../actions/user/get-followings.inte
 import { GET_FOLLOWINGS } from '../graphql/query/user/followings';
 import { GetUsersRequestPayload } from '../actions/user/get-users.interface';
 import { GET_USERS } from '../graphql/query/user/users';
+import { LOAD_USER } from '../graphql/query/user/load-user';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -60,6 +61,10 @@ export function getUsers(payload: GetUsersRequestPayload) {
 
 export function getUser(payload: GetUserRequestPayload) {
     return client.request(GET_USER, payload);
+}
+
+export function loadUser() {
+    return client.request(LOAD_USER);
 }
 
 export function getFollowings(payload: GetFollowingsRequestPayload) {

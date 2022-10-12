@@ -1,6 +1,5 @@
 import {
     LoadUserRequestAction,
-    LoadUserRequestPayload,
     LoadUserSuccessAction,
 } from './load-user.interface';
 
@@ -12,12 +11,9 @@ export const loadUserActionTypes = {
     FAILURE: `${LOAD_USER_KEY}_FAILURE`,
 };
 
-export function loadUserRequest(
-    payload: LoadUserRequestPayload,
-): LoadUserRequestAction {
+export function loadUserRequest(): LoadUserRequestAction {
     return {
         type: loadUserActionTypes.REQUEST,
-        payload,
     };
 }
 
