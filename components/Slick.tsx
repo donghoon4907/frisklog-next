@@ -8,14 +8,14 @@ import { DefaultProps } from '../interfaces/default';
 
 const PrevArrowWrapper = styled.button`
     left: -20px;
-    z-index: 1000;
+    z-index: 2;
 
     ${mixinAlignIconCenter('rotate(180deg)')}
 `;
 
 const NextArrowWrapper = styled.button`
     right: -20px;
-    z-index: 1000;
+    z-index: 2;
 
     ${mixinAlignIconCenter()}
 `;

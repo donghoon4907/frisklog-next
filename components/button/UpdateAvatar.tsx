@@ -19,6 +19,9 @@ export const UpdateAvatarButton: FC<Props> = ({ avatar }) => {
             dispatch(
                 updateUserRequest({
                     avatar,
+                    callbackFunc: () => {
+                        alert('변경되었습니다.');
+                    },
                 }),
             );
         }

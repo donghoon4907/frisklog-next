@@ -13,7 +13,15 @@ export const LOAD_USER = gql`
             ...CoreUserFields
 
             receiveNotifications {
+                id
                 content
+                url
+                createdAt
+                readedAt
+
+                from {
+                    ...CoreUserFields
+                }
             }
         }
     }

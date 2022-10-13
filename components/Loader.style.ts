@@ -11,7 +11,7 @@ export const LoaderContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 5;
 
     & > svg {
         animation: ${rotate} 3s linear infinite;

@@ -8,22 +8,22 @@ import { recommendUsersActionTypes } from '../../actions/user/recommend-users.ac
 import { RecommendUsersSuccessAction } from '../../actions/user/recommend-users.interface';
 import { getUserActionTypes } from '../../actions/user/get-user.action';
 import { GetUserSuccessAction } from '../../actions/user/get-user.interface';
-import { followUserActionTypes } from '../../actions/user/follow-user.action';
-import { FollowUserSuccessAction } from '../../actions/user/follow-user.interface';
-import { unfollowUserActionTypes } from '../../actions/user/unfollow-user.action';
-import { UnfollowUserSuccessAction } from '../../actions/user/unfollow-user.interface';
 import { getFollowingsActionTypes } from '../../actions/user/get-followings.action';
 import { GetFollowingsSuccessAction } from '../../actions/user/get-followings.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
 import { searchUsersActionTypes } from '../../actions/user/search-users.action';
 import { SearchUsersSuccessAction } from '../../actions/user/search-users.interface';
+import { Notification } from '../../interfaces/notification';
+import { NotificationAction } from '../../actions/notification';
+import { readNotificationsActionTypes } from '../../actions/notification/read-notifications.action';
+import { ReadNotificationsSuccessAction } from '../../actions/notification/read-notifications.interface';
 
 export interface UserState {
     id: string | null;
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
-    // followings: User[];
+    notifications: Notification[];
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
     searchedFollowings: {
@@ -41,7 +41,7 @@ const initialState: UserState = {
     nickname: null,
     avatar: null,
     isMaster: null,
-    // followings: [],
+    notifications: [],
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
@@ -54,14 +54,18 @@ const initialState: UserState = {
     },
 };
 
-export default (state = initialState, action: UserAction) =>
+export default (
+    state = initialState,
+    action: UserAction | NotificationAction,
+) =>
     produce(state, (draft) => {
         switch (action.type) {
             // Load
             case userActionTypes.SET: {
                 const { payload } = action as SetUserRequestAction;
 
-                const { id, nickname, avatar, isMaster, followings } = payload;
+                const { id, nickname, avatar, isMaster, receiveNotifications } =
+                    payload;
 
                 draft.id = id ? id : draft.id;
 
@@ -71,9 +75,9 @@ export default (state = initialState, action: UserAction) =>
 
                 draft.isMaster = isMaster ? isMaster : draft.isMaster;
 
-                // draft.followings = followings
-                //     ? followings.map((following) => following.acceptor)
-                //     : draft.followings;
+                draft.notifications = receiveNotifications
+                    ? receiveNotifications
+                    : draft.notifications;
 
                 const isMypage =
                     draft.userPageProfile &&
@@ -91,8 +95,6 @@ export default (state = initialState, action: UserAction) =>
                 draft.avatar = null;
 
                 draft.isMaster = null;
-
-                // draft.followings = [];
                 break;
             }
             case recommendUsersActionTypes.SUCCESS: {
@@ -134,24 +136,22 @@ export default (state = initialState, action: UserAction) =>
                 draft.userPageProfile = payload;
                 break;
             }
-            // case followUserActionTypes.SUCCESS: {
-            //     const { payload } = action as FollowUserSuccessAction;
+            case readNotificationsActionTypes.SUCCESS: {
+                const { payload } = action as ReadNotificationsSuccessAction;
 
-            //     draft.followings.push(payload);
-            //     break;
-            // }
-            // case unfollowUserActionTypes.SUCCESS: {
-            //     const { payload } = action as UnfollowUserSuccessAction;
+                for (let i = 0; i < draft.notifications.length; i++) {
+                    inner: for (let j = 0; j < payload.length; j++) {
+                        if (draft.notifications[i].id === payload[j].id) {
+                            draft.notifications[i].readedAt =
+                                payload[j].readedAt;
 
-            //     const findIndex = draft.followings.findIndex(
-            //         (user) => payload.id === user.id,
-            //     );
+                            break inner;
+                        }
+                    }
+                }
 
-            //     if (findIndex !== -1) {
-            //         draft.followings.splice(findIndex, 1);
-            //     }
-            //     break;
-            // }
+                break;
+            }
             default: {
                 return state;
             }

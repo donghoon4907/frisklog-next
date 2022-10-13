@@ -5,7 +5,7 @@ export const HeaderContainer = styled.div`
     background-color: ${(props) => props.theme.headerBgColor};
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
     flex-shrink: 0;
-    z-index: 1000;
+    z-index: 3;
 `;
 
 export const HeaderBody = styled.header`

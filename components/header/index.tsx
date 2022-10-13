@@ -11,6 +11,7 @@ import { ProfileButton } from '../button/Profile';
 import { CommonState } from '../../reducers/common';
 import { AppState } from '../../reducers';
 import { HeaderBody, HeaderColumn, HeaderContainer } from './header.style';
+import { NotificationButton } from '../button/Notification';
 
 export const Header: FC = () => {
     const { isShowSearchBar } = useSelector<AppState, CommonState>(
@@ -29,6 +30,7 @@ export const Header: FC = () => {
                         <SearchButton />
                         <FavoriteButton />
                         <CreatePostButton />
+                        <NotificationButton />
                         <ProfileButton />
                     </HeaderColumn>
                 </HeaderBody>

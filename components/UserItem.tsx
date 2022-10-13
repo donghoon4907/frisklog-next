@@ -10,7 +10,7 @@ export const UserItem: FC<Props> = ({ nickname, avatar, link, postCount }) => (
     <StyleUser.Container>
         <StyleUser.Header>
             <StyleUser.Nickname>{nickname}</StyleUser.Nickname>
-            <span>{postCount.toLocaleString()} Posts</span>
+            <span>{postCount?.toLocaleString()} Posts</span>
         </StyleUser.Header>
         <StyleUser.Body>
             <StyleUser.AvatarWrapper>

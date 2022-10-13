@@ -127,11 +127,14 @@ button {
 .ant-modal-body {
     padding: ${({ theme }) => theme.padding.sm};
 }
-.ant-modal-header, .ant-modal-title, .ant-modal-body, .ant-modal-footer {
+.ant-popover-inner-content {
+    padding: 0 !important;
+}
+.ant-modal-header, .ant-modal-title, .ant-modal-body, .ant-modal-footer, .ant-popover-title, .ant-popover-inner-content {
     background: ${({ theme }) => theme.modalBgColor} !important;
     color: ${({ theme }) => theme.textColor} !important;
 }
-.ant-modal-header {
+.ant-modal-header, .ant-popover-title {
     border-bottom-color: ${({ theme }) => theme.dividerColor} !important;
 }
 
