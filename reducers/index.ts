@@ -5,6 +5,7 @@ import user from './user';
 import post from './post';
 import comment from './comment';
 import category from './category';
+import notification from './notification';
 import common from './common';
 import error from './common/error';
 import loading from './common/loading';
@@ -15,6 +16,7 @@ const combinedReducer = combineReducers({
     comment,
     common,
     category,
+    notification,
     error,
     loading,
 });

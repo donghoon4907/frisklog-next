@@ -11,18 +11,6 @@ export const LOAD_USER = gql`
     query LoadUser {
         loadUser {
             ...CoreUserFields
-
-            receiveNotifications {
-                id
-                content
-                url
-                createdAt
-                readedAt
-
-                from {
-                    ...CoreUserFields
-                }
-            }
         }
     }
 `;

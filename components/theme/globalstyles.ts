@@ -78,10 +78,12 @@ button {
     color: inherit;
     cursor: pointer;
 }
-#main::-webkit-scrollbar {
+
+#main::-webkit-scrollbar, #popover::-webkit-scrollbar {
     width: 8px;
 }
-#main::-webkit-scrollbar-thumb {
+
+#main::-webkit-scrollbar-thumb, #popover::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.iconColor};
     border-radius: 10px;
 }

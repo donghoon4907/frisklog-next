@@ -13,17 +13,13 @@ import { GetFollowingsSuccessAction } from '../../actions/user/get-followings.in
 import { OffsetPageInfo } from '../../interfaces/page-info';
 import { searchUsersActionTypes } from '../../actions/user/search-users.action';
 import { SearchUsersSuccessAction } from '../../actions/user/search-users.interface';
-import { Notification } from '../../interfaces/notification';
 import { NotificationAction } from '../../actions/notification';
-import { readNotificationsActionTypes } from '../../actions/notification/read-notifications.action';
-import { ReadNotificationsSuccessAction } from '../../actions/notification/read-notifications.interface';
 
 export interface UserState {
     id: string | null;
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
-    notifications: Notification[];
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
     searchedFollowings: {
@@ -41,7 +37,6 @@ const initialState: UserState = {
     nickname: null,
     avatar: null,
     isMaster: null,
-    notifications: [],
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
@@ -64,8 +59,7 @@ export default (
             case userActionTypes.SET: {
                 const { payload } = action as SetUserRequestAction;
 
-                const { id, nickname, avatar, isMaster, receiveNotifications } =
-                    payload;
+                const { id, nickname, avatar, isMaster } = payload;
 
                 draft.id = id ? id : draft.id;
 
@@ -74,10 +68,6 @@ export default (
                 draft.avatar = avatar ? avatar : draft.avatar;
 
                 draft.isMaster = isMaster ? isMaster : draft.isMaster;
-
-                draft.notifications = receiveNotifications
-                    ? receiveNotifications
-                    : draft.notifications;
 
                 const isMypage =
                     draft.userPageProfile &&
@@ -136,22 +126,7 @@ export default (
                 draft.userPageProfile = payload;
                 break;
             }
-            case readNotificationsActionTypes.SUCCESS: {
-                const { payload } = action as ReadNotificationsSuccessAction;
 
-                for (let i = 0; i < draft.notifications.length; i++) {
-                    inner: for (let j = 0; j < payload.length; j++) {
-                        if (draft.notifications[i].id === payload[j].id) {
-                            draft.notifications[i].readedAt =
-                                payload[j].readedAt;
-
-                            break inner;
-                        }
-                    }
-                }
-
-                break;
-            }
             default: {
                 return state;
             }

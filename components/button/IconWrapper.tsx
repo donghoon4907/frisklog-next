@@ -1,7 +1,11 @@
 import { FC, MouseEvent } from 'react';
 
 import { DefaultProps } from '../../interfaces/default';
-import { ButtonAndTextWrapper, CenteredButton } from './button.style';
+import {
+    RelativeButtonWrapper,
+    ButtonAndTextWrapper,
+    CenteredButton,
+} from './button.style';
 
 interface Props extends DefaultProps {
     ariaLabel: string;
@@ -11,7 +15,7 @@ interface Props extends DefaultProps {
 
 export const IconWrapper: FC<Props> = ({ children, ariaLabel, onClick }) => {
     return (
-        <div title={`${ariaLabel} 버튼`}>
+        <RelativeButtonWrapper title={`${ariaLabel} 버튼`}>
             <CenteredButton
                 type="button"
                 aria-label={ariaLabel}
@@ -20,7 +24,7 @@ export const IconWrapper: FC<Props> = ({ children, ariaLabel, onClick }) => {
             >
                 {children}
             </CenteredButton>
-        </div>
+        </RelativeButtonWrapper>
     );
 };
 

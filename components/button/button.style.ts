@@ -64,6 +64,10 @@ export const CenteredButton = styled.button`
     ${mixinCentered}
 `;
 
+export const RelativeButtonWrapper = styled.div`
+    position: relative;
+`;
+
 export const ButtonAndTextWrapper = styled.div`
     ${mixinButtonAndText}
 
