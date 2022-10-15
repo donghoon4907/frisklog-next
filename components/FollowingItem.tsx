@@ -43,7 +43,7 @@ export const FollowingItem: FC<Props> = ({
                         </StyledFollowingItem.Avatar>
                         <StyledFollowingItem.Meta>
                             <StyledFollowingItem.Name>
-                                <span>{nickname}</span>
+                                {nickname}
                             </StyledFollowingItem.Name>
                             <StyledFollowingItem.Description>
                                 <span>팔로워 {followerCount}명</span>

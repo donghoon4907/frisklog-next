@@ -49,7 +49,7 @@ export const Meta = styled.div`
     margin-left: 10px;
 `;
 
-export const Name = styled.div`
+export const Name = styled.span`
     font-size: 1.2rem;
     margin-bottom: 5px;
     line-height: 1.5;

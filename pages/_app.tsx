@@ -23,7 +23,6 @@ import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
-import { getNotificationsRequest } from '../actions/notification/get-notifications.action';
 
 const AppContainer = styled.div`
     display: flex;
@@ -91,8 +90,6 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                 if (token) {
                     dispatch(loadUserRequest());
-
-                    dispatch(getNotificationsRequest({ limit: 10 }));
                 }
             }
 

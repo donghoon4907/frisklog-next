@@ -11,6 +11,7 @@ export const GET_NOTIFICATIONS = gql`
             nodes {
                 id
                 content
+                url
                 createdAt
                 readedAt
 

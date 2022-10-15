@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
 
 import { SquareAvatar } from './SquareAvatar';
 import * as StyledNewNotificationItem from './NewNotificationItem.style';
@@ -8,6 +7,7 @@ import { Notification } from '../interfaces/notification';
 import { timeForToday } from '../lib/date/time-for-today';
 import { useMutation } from '../hooks/use-mutation';
 import { readNotificationsRequest } from '../actions/notification/read-notifications.action';
+import { RemoveNotificationButton } from './button/RemoveNotification';
 
 interface Props extends Notification {}
 
@@ -53,9 +53,15 @@ export const NewNotificationItem: FC<Props> = ({
                         <SquareAvatar src={from.avatar} alt="Avatar" />
                     </StyledNewNotificationItem.Avatar>
                     <StyledNewNotificationItem.Meta>
-                        <StyledNewNotificationItem.Name>
-                            <span>{from.nickname}</span>
-                        </StyledNewNotificationItem.Name>
+                        <div>
+                            <StyledNewNotificationItem.Name>
+                                {from.nickname}
+                            </StyledNewNotificationItem.Name>
+                            <span>
+                                {`님의 ${content} 소식을 전해드립니다.`}
+                            </span>
+                        </div>
+
                         <StyledNewNotificationItem.Description>
                             <span>{timeForToday(createdAt)}</span>
                         </StyledNewNotificationItem.Description>
@@ -63,7 +69,7 @@ export const NewNotificationItem: FC<Props> = ({
                 </StyledNewNotificationItem.Body>
             </StyledNewNotificationItem.Link>
             <StyledNewNotificationItem.Toolbar>
-                <AiOutlineClose />
+                <RemoveNotificationButton id={id} />
             </StyledNewNotificationItem.Toolbar>
         </StyledNewNotificationItem.Container>
     );

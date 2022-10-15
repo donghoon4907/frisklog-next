@@ -6,7 +6,9 @@ export const Container = styled(StyledSearchFollowing.Container)``;
 
 export const Header = styled(StyledSearchFollowing.Header)``;
 
-export const Body = styled(StyledSearchFollowing.Body)``;
+export const Body = styled(StyledSearchFollowing.Body)`
+    max-height: none !important;
+`;
 
 export const Footer = styled(StyledSearchFollowing.Footer)``;
 
