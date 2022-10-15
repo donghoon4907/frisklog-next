@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FaBell } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -25,11 +25,25 @@ export const NotificationButton: FC = () => {
         useAuth: true,
     });
 
+    const [open, setOpen] = useState(false);
+
     const handleClick = () => {
         if (notifications.pageInfo === null) {
             getNotifications({ limit: 3 });
         }
     };
+
+    const handleVisibleChange = (newOpen: boolean) => {
+        setOpen(newOpen);
+    };
+
+    useEffect(() => {
+        if (notifications.pageInfo) {
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
+    }, [notifications]);
 
     return (
         <IconWrapper ariaLabel="알림" onClick={handleClick}>
@@ -43,7 +57,8 @@ export const NotificationButton: FC = () => {
                 }
                 trigger="click"
                 showArrow={false}
-                visible={!!notifications.pageInfo}
+                visible={open}
+                onVisibleChange={handleVisibleChange}
             >
                 <FaBell />
             </Popover>
