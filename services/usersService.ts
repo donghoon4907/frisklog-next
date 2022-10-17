@@ -22,6 +22,8 @@ import { GET_FOLLOWINGS } from '../graphql/query/user/followings';
 import { GetUsersRequestPayload } from '../actions/user/get-users.interface';
 import { GET_USERS } from '../graphql/query/user/users';
 import { LOAD_USER } from '../graphql/query/user/load-user';
+import { UpdateSettingRequestPayload } from '../actions/user/update-setting.interface';
+import { MUTATION_UPDATE_SETTING } from '../graphql/mutation/user/update-setting';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -69,4 +71,8 @@ export function loadUser() {
 
 export function getFollowings(payload: GetFollowingsRequestPayload) {
     return client.request(GET_FOLLOWINGS, payload);
+}
+
+export function updateSetting(payload: UpdateSettingRequestPayload) {
+    return client.request(MUTATION_UPDATE_SETTING, payload);
 }

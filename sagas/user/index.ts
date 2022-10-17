@@ -11,6 +11,7 @@ import { watchLogoutUser } from './logout-user';
 import { watchRecommendUsers } from './recommend-users';
 import { watchSearchUsers } from './search-users';
 import { watchUnfollowUser } from './unfollow-user';
+import { watchUpdateSetting } from './update-setting';
 import { watchUpdateUser } from './update-user';
 import { watchVerifyUser } from './verify-user';
 
@@ -29,5 +30,6 @@ export function* userSaga() {
         fork(watchGetFollowings),
         fork(watchLogoutUser),
         fork(watchSearchUsers),
+        fork(watchUpdateSetting),
     ]);
 }

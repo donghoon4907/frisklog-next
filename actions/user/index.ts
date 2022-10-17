@@ -8,6 +8,7 @@ import { RecommendUsersAction } from './recommend-users.interface';
 import { SearchUserssAction } from './search-users.interface';
 import { SetUserAction } from './set-user.interface';
 import { UnfollowUserAction } from './unfollow-user.interface';
+import { UpdateSettingAction } from './update-setting.interface';
 import { UpdateUserAction } from './update-user.interface';
 import { VerifyUserAction } from './verify-user.interface';
 
@@ -23,4 +24,5 @@ export type UserAction =
     | RecommendUsersAction
     | GetUserAction
     | LogoutUserAction
-    | SearchUserssAction;
+    | SearchUserssAction
+    | UpdateSettingAction;

@@ -20,6 +20,7 @@ export interface UserState {
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
+    receivePostNotification: boolean | null;
     recommendUsers: RecommendUser[];
     userPageProfile: User | null;
     searchedFollowings: {
@@ -37,6 +38,7 @@ const initialState: UserState = {
     nickname: null,
     avatar: null,
     isMaster: null,
+    receivePostNotification: null,
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
@@ -59,7 +61,13 @@ export default (
             case userActionTypes.SET: {
                 const { payload } = action as SetUserRequestAction;
 
-                const { id, nickname, avatar, isMaster } = payload;
+                const {
+                    id,
+                    nickname,
+                    avatar,
+                    isMaster,
+                    receivePostNotification,
+                } = payload;
 
                 draft.id = id ? id : draft.id;
 
@@ -67,7 +75,13 @@ export default (
 
                 draft.avatar = avatar ? avatar : draft.avatar;
 
-                draft.isMaster = isMaster ? isMaster : draft.isMaster;
+                draft.isMaster =
+                    typeof isMaster === 'boolean' ? isMaster : draft.isMaster;
+
+                draft.receivePostNotification =
+                    typeof receivePostNotification === 'boolean'
+                        ? receivePostNotification
+                        : draft.receivePostNotification;
 
                 const isMypage =
                     draft.userPageProfile &&

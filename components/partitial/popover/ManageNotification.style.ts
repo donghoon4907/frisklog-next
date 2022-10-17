@@ -22,3 +22,15 @@ export const Footer = styled(StyledSearchFollowing.Footer)``;
 export const Button = styled(StyledSearchFollowing.Button)``;
 
 export const Empty = styled(StyledSearchFollowing.Empty)``;
+
+export const SwitchWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+export const SwitchDescription = styled.span`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+`;

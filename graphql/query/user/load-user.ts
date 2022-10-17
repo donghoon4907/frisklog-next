@@ -11,6 +11,7 @@ export const LOAD_USER = gql`
     query LoadUser {
         loadUser {
             ...CoreUserFields
+            receivePostNotification
         }
     }
 `;

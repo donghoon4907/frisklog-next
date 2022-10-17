@@ -9,8 +9,8 @@ import * as StyledManageNotification from './ManageNotification.style';
 import { deleteNotificationsRequest } from '../../../actions/notification/delete-notifications.action';
 import { getNotificationsRequest } from '../../../actions/notification/get-notifications.action';
 import { NotificationSettingButton } from '../../button/NotificationSetting';
-import { FormCheckbox } from '../../FormCheckbox';
 import { CommonState } from '../../../reducers/common';
+import { ManageNotificationFilter } from './ManageNotificationFilter';
 
 export const ManageNotification = () => {
     const { notifications } = useSelector<AppState, NotificationState>(
@@ -71,16 +71,7 @@ export const ManageNotification = () => {
                     <NotificationSettingButton />
                 </div>
             </StyledManageNotification.Header>
-            {isShowNotificationFilter && (
-                <StyledManageNotification.Filter>
-                    <FormCheckbox
-                        label="팔로우 포스트 알림 받기 여부"
-                        id="followerPostNoti"
-                        checked={true}
-                        onChange={() => {}}
-                    />
-                </StyledManageNotification.Filter>
-            )}
+            {isShowNotificationFilter && <ManageNotificationFilter />}
 
             <StyledManageNotification.Body>
                 {nodes.length === 0 && (
