@@ -21,7 +21,7 @@ interface Props {
 }
 
 const UserProfile: NextPage<Props> = ({ userId }) => {
-    const { id, userPageProfile } = useSelector<AppState, UserState>(
+    const { userPageProfile } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
 
@@ -47,7 +47,7 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
                     {...userPosts}
                     actionCreator={userPostsRequest}
                     Node={PostItem}
-                    payload={{ userId: id }}
+                    payload={{ userId }}
                 />
             </Main>
             <Aside>

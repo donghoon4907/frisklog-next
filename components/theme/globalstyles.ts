@@ -139,6 +139,12 @@ button {
 .ant-modal-header, .ant-popover-title {
     border-bottom-color: ${({ theme }) => theme.dividerColor} !important;
 }
+.ant-modal-mask {
+    z-index: 1050 !important;
+}
+.ant-modal-wrap {
+    z-index: 1060 !important;
+}
 
 .ant-modal-footer {
     border-top-color: ${({ theme }) => theme.dividerColor} !important;

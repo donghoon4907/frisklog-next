@@ -8,10 +8,17 @@ import { NewNotificationItem } from '../../NewNotificationItem';
 import * as StyledManageNotification from './ManageNotification.style';
 import { deleteNotificationsRequest } from '../../../actions/notification/delete-notifications.action';
 import { getNotificationsRequest } from '../../../actions/notification/get-notifications.action';
+import { NotificationSettingButton } from '../../button/NotificationSetting';
+import { FormCheckbox } from '../../FormCheckbox';
+import { CommonState } from '../../../reducers/common';
 
 export const ManageNotification = () => {
     const { notifications } = useSelector<AppState, NotificationState>(
         (state) => state.notification,
+    );
+
+    const { isShowNotificationFilter } = useSelector<AppState, CommonState>(
+        (state) => state.common,
     );
 
     const [getNotifications] = useMutation(getNotificationsRequest, {
@@ -51,22 +58,34 @@ export const ManageNotification = () => {
     return (
         <StyledManageNotification.Container>
             <StyledManageNotification.Header>
+                <StyledManageNotification.Button>
+                    <Button
+                        type="button"
+                        colorType="danger"
+                        onClick={handleDelete}
+                    >
+                        전체 삭제
+                    </Button>
+                </StyledManageNotification.Button>
                 <div>
-                    <StyledManageNotification.Button>
-                        <Button
-                            type="button"
-                            colorType="danger"
-                            onClick={handleDelete}
-                        >
-                            전체 삭제
-                        </Button>
-                    </StyledManageNotification.Button>
+                    <NotificationSettingButton />
                 </div>
             </StyledManageNotification.Header>
+            {isShowNotificationFilter && (
+                <StyledManageNotification.Filter>
+                    <FormCheckbox
+                        label="팔로우 포스트 알림 받기 여부"
+                        id="followerPostNoti"
+                        checked={true}
+                        onChange={() => {}}
+                    />
+                </StyledManageNotification.Filter>
+            )}
+
             <StyledManageNotification.Body>
                 {nodes.length === 0 && (
                     <StyledManageNotification.Empty>
-                        검색 결과가 없습니다.
+                        알림이 없습니다.
                     </StyledManageNotification.Empty>
                 )}
                 {nodes.map((noti, idx) => (

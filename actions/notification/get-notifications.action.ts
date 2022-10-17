@@ -1,4 +1,5 @@
 import {
+    GetNotificationsCleanUpAction,
     GetNotificationsRequestAction,
     GetNotificationsRequestPayload,
     GetNotificationsSuccessAction,
@@ -11,6 +12,7 @@ export const getNotificationsActionTypes = {
     REQUEST: `${GET_NOTIFICATIONS_KEY}_REQUEST`,
     SUCCESS: `${GET_NOTIFICATIONS_KEY}_SUCCESS`,
     FAILURE: `${GET_NOTIFICATIONS_KEY}_FAILURE`,
+    CLEANUP: `${GET_NOTIFICATIONS_KEY}_CLEANUP`,
 };
 
 export function getNotificationsRequest(
@@ -28,5 +30,11 @@ export function getNotificationsSuccess(
     return {
         type: getNotificationsActionTypes.SUCCESS,
         payload,
+    };
+}
+
+export function getNotificationsCleanUp(): GetNotificationsCleanUpAction {
+    return {
+        type: getNotificationsActionTypes.CLEANUP,
     };
 }

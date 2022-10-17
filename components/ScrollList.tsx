@@ -30,8 +30,8 @@ export const ScrollList: FC<Props> = ({
 
     return (
         <>
-            {nodes.map((node) => (
-                <Node key={`node${node.id}`} {...node} />
+            {nodes.map((node, idx) => (
+                <Node key={`node${idx}`} {...node} />
             ))}
 
             <Scroll

@@ -16,6 +16,8 @@ import { postModalActionTypes } from '../../actions/switch/post-modal.action';
 import { userModalActionTypes } from '../../actions/switch/user-modal.action';
 import { searchBarActionTypes } from '../../actions/switch/search-bar.action';
 import { themeModeActionTypes } from '../../actions/switch/theme-mode.action';
+import { NotificationFilterAction } from '../../actions/switch/notification-filter.interface';
+import { notificationFilterActionTypes } from '../../actions/switch/notification-filter.action';
 
 type CommonAction =
     | UploadImageAction
@@ -23,7 +25,8 @@ type CommonAction =
     | UserModalAction
     | PostModalAction
     | SearchBarAction
-    | ThemeModeAction;
+    | ThemeModeAction
+    | NotificationFilterAction;
 
 export interface CommonState {
     isShowLoginModal: boolean;
@@ -32,6 +35,7 @@ export interface CommonState {
     isShowSearchBar: boolean;
     mode: ModeType;
     recentUploadedImage: string | null;
+    isShowNotificationFilter: boolean;
 }
 
 const initialState: CommonState = {
@@ -41,6 +45,7 @@ const initialState: CommonState = {
     isShowSearchBar: false,
     mode: 'light',
     recentUploadedImage: null,
+    isShowNotificationFilter: false,
 };
 
 export default (state = initialState, action: CommonAction) =>
@@ -100,6 +105,15 @@ export default (state = initialState, action: CommonAction) =>
             }
             case uploadImageActionTypes.CLEANUP: {
                 draft.recentUploadedImage = null;
+                break;
+            }
+            // Notification filter
+            case notificationFilterActionTypes.SHOW: {
+                draft.isShowNotificationFilter = true;
+                break;
+            }
+            case notificationFilterActionTypes.HIDE: {
+                draft.isShowNotificationFilter = false;
                 break;
             }
             default: {

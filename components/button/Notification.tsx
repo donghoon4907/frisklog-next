@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { FaBell } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -6,10 +6,14 @@ import { Popover } from 'antd';
 import { IconWrapper } from './IconWrapper';
 import { ManageNotification } from '../partitial/popover/ManageNotification';
 import { useMutation } from '../../hooks/use-mutation';
-import { getNotificationsRequest } from '../../actions/notification/get-notifications.action';
+import {
+    getNotificationsCleanUp,
+    getNotificationsRequest,
+} from '../../actions/notification/get-notifications.action';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../reducers';
 import { NotificationState } from '../../reducers/notification';
+import { hideNotificationFilter } from '../../actions/switch/notification-filter.action';
 
 const PopoverContainer = styled.div`
     padding: ${({ theme }) => theme.padding.sm};
@@ -25,28 +29,26 @@ export const NotificationButton: FC = () => {
         useAuth: true,
     });
 
-    const [open, setOpen] = useState(false);
+    const [cleanUp] = useMutation(getNotificationsCleanUp, {
+        useAuth: false,
+    });
 
-    const handleClick = () => {
-        if (notifications.pageInfo === null) {
-            getNotifications({ limit: 3 });
-        }
-    };
+    const [hideFilter] = useMutation(hideNotificationFilter, {
+        useAuth: false,
+    });
 
     const handleVisibleChange = (newOpen: boolean) => {
-        setOpen(newOpen);
+        if (newOpen) {
+            getNotifications({ limit: 3 });
+        } else {
+            cleanUp();
+
+            hideFilter();
+        }
     };
 
-    useEffect(() => {
-        if (notifications.pageInfo) {
-            setOpen(true);
-        } else {
-            setOpen(false);
-        }
-    }, [notifications]);
-
     return (
-        <IconWrapper ariaLabel="알림" onClick={handleClick}>
+        <IconWrapper ariaLabel="알림">
             <Popover
                 placement="bottomRight"
                 title="알림"
@@ -57,7 +59,7 @@ export const NotificationButton: FC = () => {
                 }
                 trigger="click"
                 showArrow={false}
-                visible={open}
+                visible={notifications.pageInfo !== null}
                 onVisibleChange={handleVisibleChange}
             >
                 <FaBell />

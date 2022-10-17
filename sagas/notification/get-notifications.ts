@@ -17,6 +17,8 @@ function* getNotificationsSaga(action: GetNotificationsRequestAction) {
     );
 
     yield put(getNotificationsSuccess(notifications));
+
+    payload.callbackFunc?.(null);
 }
 
 export function* watchGetNotifications() {

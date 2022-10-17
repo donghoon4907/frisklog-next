@@ -9,7 +9,7 @@ import {
 
 interface Props extends DefaultProps {
     ariaLabel: string;
-    onClick?: (evt?: MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (evt: MouseEvent<HTMLButtonElement>) => void;
     text?: string;
 }
 

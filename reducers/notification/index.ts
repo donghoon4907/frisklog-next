@@ -42,6 +42,12 @@ export default (state = initialState, action: NotificationAction) =>
                 draft.notifications.pageInfo = payload.pageInfo;
                 break;
             }
+            case getNotificationsActionTypes.CLEANUP: {
+                draft.notifications.nodes = [];
+
+                draft.notifications.pageInfo = null;
+                break;
+            }
             // case readNotificationsActionTypes.SUCCESS: {
             //     const { payload } = action as ReadNotificationsSuccessAction;
 
