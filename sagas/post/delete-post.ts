@@ -6,7 +6,7 @@ import {
     deletePostActionTypes,
     deletePostSuccess,
 } from '../../actions/post/delete-post.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* deletePostSaga(action: DeletePostRequestAction) {
     const { payload } = action;
@@ -17,9 +17,12 @@ function* deletePostSaga(action: DeletePostRequestAction) {
 
     alert('포스트가 정상적으로 삭제되었습니다.');
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchDeletePost() {
-    yield takeEvery(deletePostActionTypes.REQUEST, safe(deletePostSaga));
+    yield takeEvery(
+        deletePostActionTypes.REQUEST,
+        mutationMiddleware(deletePostSaga),
+    );
 }

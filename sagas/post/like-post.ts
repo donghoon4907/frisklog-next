@@ -5,7 +5,7 @@ import {
     likePostSuccess,
 } from '../../actions/post/like-post.action';
 import { LikePostRequestAction } from '../../actions/post/like-post.interface';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import { likePost } from '../../services/postsService';
 
 function* likePostSaga(action: LikePostRequestAction) {
@@ -15,9 +15,12 @@ function* likePostSaga(action: LikePostRequestAction) {
 
     yield put(likePostSuccess());
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchLikePost() {
-    yield takeEvery(likePostActionTypes.REQUEST, safe(likePostSaga));
+    yield takeEvery(
+        likePostActionTypes.REQUEST,
+        mutationMiddleware(likePostSaga),
+    );
 }

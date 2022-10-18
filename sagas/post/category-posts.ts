@@ -21,8 +21,6 @@ function* categoryPostsSaga(action: CategoryPostsRequestAction) {
             pageInfo: categoryPosts.pageInfo,
         }),
     );
-
-    payload.callbackFunc?.(null);
 }
 
 export function* watchCategoryPosts() {

@@ -18,8 +18,6 @@ function* homePostsSaga(action: HomePostsRequestAction) {
             pageInfo: posts.pageInfo,
         }),
     );
-
-    payload.callbackFunc?.(null);
 }
 
 export function* watchHomePosts() {

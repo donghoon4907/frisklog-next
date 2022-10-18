@@ -5,7 +5,7 @@ import {
     updatePostSuccess,
 } from '../../actions/post/update-post.action';
 import { UpdatePostRequestAction } from '../../actions/post/update-post.interface';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as postsService from '../../services/postsService';
 
 function* updatePostSaga(action: UpdatePostRequestAction) {
@@ -17,9 +17,12 @@ function* updatePostSaga(action: UpdatePostRequestAction) {
 
     alert('포스트가 정상적으로 수정되었습니다.');
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchUpdatePost() {
-    yield takeEvery(updatePostActionTypes.REQUEST, safe(updatePostSaga));
+    yield takeEvery(
+        updatePostActionTypes.REQUEST,
+        mutationMiddleware(updatePostSaga),
+    );
 }

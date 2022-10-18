@@ -21,8 +21,6 @@ function* followingPostsSaga(action: FollowingPostsRequestAction) {
             pageInfo: followingPosts.pageInfo,
         }),
     );
-
-    payload.callbackFunc?.(null);
 }
 
 export function* watchFollowingPosts() {

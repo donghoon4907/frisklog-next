@@ -8,6 +8,7 @@ import {
 } from '../../actions/user/update-setting.action';
 import { UpdateSettingRequestAction } from '../../actions/user/update-setting.interface';
 import { setUser } from '../../actions/user/user.action';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* updateSettingSaga(action: UpdateSettingRequestAction) {
     const { payload } = action;
@@ -18,9 +19,12 @@ function* updateSettingSaga(action: UpdateSettingRequestAction) {
 
     yield put(setUser(updateSetting));
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchUpdateSetting() {
-    yield takeEvery(updateSettingActionTypes.REQUEST, safe(updateSettingSaga));
+    yield takeEvery(
+        updateSettingActionTypes.REQUEST,
+        mutationMiddleware(updateSettingSaga),
+    );
 }

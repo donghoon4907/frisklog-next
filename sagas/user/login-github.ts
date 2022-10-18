@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+
 import {
     loginGithubActionTypes,
     loginGithubSuccess,
@@ -6,14 +7,13 @@ import {
 import { LoginGithubRequestAction } from '../../actions/user/login-github.interface';
 import { setUser } from '../../actions/user/user.action';
 import { updateClientHeader } from '../../graphql/client';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as usersService from '../../services/usersService';
 
-function* loginGithubSaga(action: LoginGithubRequestAction): any {
-    const { githubLogIn } = yield call(
-        usersService.loginGithub,
-        action.payload,
-    );
+function* loginGithubSaga(action: LoginGithubRequestAction) {
+    const { payload } = action;
+
+    const { githubLogIn } = yield call(usersService.loginGithub, payload);
 
     yield put(loginGithubSuccess());
 
@@ -23,9 +23,12 @@ function* loginGithubSaga(action: LoginGithubRequestAction): any {
 
     updateClientHeader({ token });
 
-    action.payload.callbackFunc?.(token);
+    return token;
 }
 
 export function* watchLoginGithub() {
-    yield takeEvery(loginGithubActionTypes.REQUEST, safe(loginGithubSaga));
+    yield takeEvery(
+        loginGithubActionTypes.REQUEST,
+        mutationMiddleware(loginGithubSaga),
+    );
 }

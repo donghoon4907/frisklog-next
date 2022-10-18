@@ -6,7 +6,7 @@ import {
     createUserSuccess,
 } from '../../actions/user/create-user.action';
 import { createUser } from '../../services/usersService';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* createUserSaga({ payload }: CreateUserRequestAction) {
     yield call(createUser, payload);
@@ -15,9 +15,12 @@ function* createUserSaga({ payload }: CreateUserRequestAction) {
 
     alert('회원가입이 정상처리되었습니다.');
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchCreateUser() {
-    yield takeEvery(createUserActionTypes.REQUEST, safe(createUserSaga));
+    yield takeEvery(
+        createUserActionTypes.REQUEST,
+        mutationMiddleware(createUserSaga),
+    );
 }

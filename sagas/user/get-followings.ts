@@ -1,6 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { safe } from '../../lib/error/safe';
 import * as usersService from '../../services/usersService';
 import {
     getFollowingsActionTypes,
@@ -18,5 +17,5 @@ function* getFollowingsSaga(action: GetFollowingsRequestAction) {
 }
 
 export function* watchGetFollowings() {
-    yield takeLatest(getFollowingsActionTypes.REQUEST, safe(getFollowingsSaga));
+    yield takeLatest(getFollowingsActionTypes.REQUEST, getFollowingsSaga);
 }

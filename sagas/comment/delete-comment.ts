@@ -6,7 +6,7 @@ import {
     deleteCommentActionTypes,
     deleteCommentSuccess,
 } from '../../actions/comment/delete-comment.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* deleteCommentSaga(action: DeleteCommentRequestAction) {
     const { deleteComment } = yield call(
@@ -16,9 +16,12 @@ function* deleteCommentSaga(action: DeleteCommentRequestAction) {
 
     yield put(deleteCommentSuccess(deleteComment));
 
-    action.payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchDeleteComment() {
-    yield takeEvery(deleteCommentActionTypes.REQUEST, safe(deleteCommentSaga));
+    yield takeEvery(
+        deleteCommentActionTypes.REQUEST,
+        mutationMiddleware(deleteCommentSaga),
+    );
 }

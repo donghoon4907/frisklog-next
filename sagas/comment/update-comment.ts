@@ -5,7 +5,7 @@ import {
     updateCommentSuccess,
 } from '../../actions/comment/update-comment.action';
 import { UpdateCommentRequestAction } from '../../actions/comment/update-comment.interface';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as commentsService from '../../services/commentsService';
 
 function* updateCommentSaga(action: UpdateCommentRequestAction) {
@@ -16,9 +16,12 @@ function* updateCommentSaga(action: UpdateCommentRequestAction) {
 
     yield put(updateCommentSuccess(updateComment));
 
-    action.payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchUpdateComment() {
-    yield takeEvery(updateCommentActionTypes.REQUEST, safe(updateCommentSaga));
+    yield takeEvery(
+        updateCommentActionTypes.REQUEST,
+        mutationMiddleware(updateCommentSaga),
+    );
 }

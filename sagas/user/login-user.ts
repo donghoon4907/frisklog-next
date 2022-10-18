@@ -5,7 +5,7 @@ import {
     loginUserSuccess,
 } from '../../actions/user/login-user.action';
 import { LoginUserRequestAction } from '../../actions/user/login-user.interface';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as usersService from '../../services/usersService';
 
 function* loginUserSaga(action: LoginUserRequestAction) {
@@ -15,9 +15,12 @@ function* loginUserSaga(action: LoginUserRequestAction) {
 
     alert('이메일로 보안문자를 전송했습니다.');
 
-    action.payload.callbackFunc();
+    return null;
 }
 
 export function* watchLoginUser() {
-    yield takeEvery(loginUserActionTypes.REQUEST, safe(loginUserSaga));
+    yield takeEvery(
+        loginUserActionTypes.REQUEST,
+        mutationMiddleware(loginUserSaga),
+    );
 }

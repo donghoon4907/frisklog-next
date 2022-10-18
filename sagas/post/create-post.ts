@@ -6,7 +6,7 @@ import {
     createPostActionTypes,
     createPostSuccess,
 } from '../../actions/post/create-post.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* createPostSaga(action: CreatePostRequestAction) {
     const { payload } = action;
@@ -17,9 +17,12 @@ function* createPostSaga(action: CreatePostRequestAction) {
 
     alert('포스트가 정상적으로 작성되었습니다.');
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchCreatePost() {
-    yield takeEvery(createPostActionTypes.REQUEST, safe(createPostSaga));
+    yield takeEvery(
+        createPostActionTypes.REQUEST,
+        mutationMiddleware(createPostSaga),
+    );
 }

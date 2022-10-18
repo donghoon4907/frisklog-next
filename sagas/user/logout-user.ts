@@ -9,6 +9,7 @@ import { initUser } from '../../actions/user/user.action';
 import { updateClientHeader } from '../../graphql/client';
 import { deleteCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as usersService from '../../services/usersService';
 import { UserStatus } from '../../types/status';
 
@@ -28,9 +29,9 @@ function* logoutUserSaga(action: LogoutUserRequestAction) {
 
     updateClientHeader({ token: null });
 
-    payload.callbackFunc?.(null);
+    return null
 }
 
 export function* watchLogoutUser() {
-    yield takeEvery(logoutUserActionTypes.REQUEST, logoutUserSaga);
+    yield takeEvery(logoutUserActionTypes.REQUEST, mutationMiddleware(logoutUserSaga));
 }

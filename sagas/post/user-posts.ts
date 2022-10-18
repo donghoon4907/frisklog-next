@@ -18,8 +18,6 @@ function* userPostsSaga(action: UserPostsRequestAction) {
             pageInfo: posts.pageInfo,
         }),
     );
-
-    payload.callbackFunc?.(null);
 }
 
 export function* watchUserPosts() {

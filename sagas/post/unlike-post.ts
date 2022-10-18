@@ -6,7 +6,7 @@ import {
     unlikePostActionTypes,
     unlikePostSuccess,
 } from '../../actions/post/unlike-post.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* unlikePostSaga(action: UnlikePostRequestAction) {
     const { payload } = action;
@@ -15,9 +15,12 @@ function* unlikePostSaga(action: UnlikePostRequestAction) {
 
     yield put(unlikePostSuccess());
 
-    payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchUnlikePost() {
-    yield takeEvery(unlikePostActionTypes.REQUEST, safe(unlikePostSaga));
+    yield takeEvery(
+        unlikePostActionTypes.REQUEST,
+        mutationMiddleware(unlikePostSaga),
+    );
 }

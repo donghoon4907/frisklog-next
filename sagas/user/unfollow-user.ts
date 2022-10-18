@@ -6,14 +6,19 @@ import {
     unfollowUserActionTypes,
     unfollowUserSuccess,
 } from '../../actions/user/unfollow-user.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* unfollowUserSaga(action: UnfollowUserRequestAction) {
     const { unfollow } = yield call(usersService.unfollowUser, action.payload);
 
     yield put(unfollowUserSuccess(unfollow));
+
+    return null;
 }
 
 export function* watchUnfollowUser() {
-    yield takeEvery(unfollowUserActionTypes.REQUEST, safe(unfollowUserSaga));
+    yield takeEvery(
+        unfollowUserActionTypes.REQUEST,
+        mutationMiddleware(unfollowUserSaga),
+    );
 }

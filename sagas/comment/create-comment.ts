@@ -6,7 +6,7 @@ import {
     createCommentActionTypes,
     createCommentSuccess,
 } from '../../actions/comment/create-comment.action';
-import { safe } from '../../lib/error/safe';
+import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 
 function* createCommentSaga(action: CreateCommentRequestAction) {
     const { addComment } = yield call(createComment, action.payload);
@@ -15,9 +15,12 @@ function* createCommentSaga(action: CreateCommentRequestAction) {
 
     alert('댓글이 등록되었습니다.');
 
-    action.payload.callbackFunc?.(null);
+    return null;
 }
 
 export function* watchCreateComment() {
-    yield takeEvery(createCommentActionTypes.REQUEST, safe(createCommentSaga));
+    yield takeEvery(
+        createCommentActionTypes.REQUEST,
+        mutationMiddleware(createCommentSaga),
+    );
 }

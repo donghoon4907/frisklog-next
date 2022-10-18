@@ -18,8 +18,6 @@ function* searchPostsSaga(action: SearchPostsRequestAction) {
             pageInfo: posts.pageInfo,
         }),
     );
-
-    payload.callbackFunc?.(null);
 }
 
 export function* watchSearchPosts() {
