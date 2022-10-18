@@ -1,29 +1,26 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { Button } from '.';
 import { updateUserRequest } from '../../actions/user/update-user.action';
+import { useMutation } from '../../hooks/use-mutation';
 
 interface Props {
     avatar: string;
 }
 
 export const UpdateAvatarButton: FC<Props> = ({ avatar }) => {
-    const dispatch = useDispatch();
+    const [updateAvatar] = useMutation(updateUserRequest, { useAuth: true });
 
     // 클릭 핸들러
     const handleClick = () => {
-        const tf = window.confirm('프로필사진을 변경하시겠어요?');
+        const message = '프로필사진을 변경하시겠어요?';
+
+        const tf = window.confirm(message);
 
         if (tf) {
-            dispatch(
-                updateUserRequest({
-                    avatar,
-                    callbackFunc: () => {
-                        alert('변경되었습니다.');
-                    },
-                }),
-            );
+            updateAvatar({ avatar }, () => {
+                alert('변경되었습니다.');
+            });
         }
     };
 

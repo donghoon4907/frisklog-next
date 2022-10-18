@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hideUserModal } from '../../actions/switch/user-modal.action';
 import { updateUserRequest } from '../../actions/user/update-user.action';
 import { useInput } from '../../hooks/use-input';
+import { useMutation } from '../../hooks/use-mutation';
 import { AppState } from '../../reducers';
 import { CommonState } from '../../reducers/common';
-import { UserState } from '../../reducers/user';
 import { FormInput } from '../FormInput';
 
 export const SetUserModal: FC = () => {
@@ -17,9 +17,7 @@ export const SetUserModal: FC = () => {
         (state) => state.common,
     );
 
-    const { nickname } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
+    const [updateUser] = useMutation(updateUserRequest, { useAuth: true });
     // 별명
     const newNickname = useInput('');
     // 팝업 닫기 핸들러
@@ -34,14 +32,14 @@ export const SetUserModal: FC = () => {
             return alert('별명은 10자 미만으로 입력 해주세요.');
         }
 
-        const tf = confirm('입력한 내용으로 수정하시겠어요?');
+        const message = '입력한 내용으로 수정하시겠어요?';
+
+        const tf = confirm(message);
 
         if (tf) {
-            dispatch(
-                updateUserRequest({
-                    nickname,
-                }),
-            );
+            updateUser({
+                nickname,
+            });
         }
     };
 

@@ -18,9 +18,11 @@ export const SearchButton: FC = () => {
     );
 
     const handleClick = () => {
-        const actionCreator = isShowSearchBar ? hideSearchBar : showSearchBar;
-
-        dispatch(actionCreator());
+        if (isShowSearchBar) {
+            dispatch(hideSearchBar());
+        } else {
+            dispatch(showSearchBar());
+        }
     };
 
     return (

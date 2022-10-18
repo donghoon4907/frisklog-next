@@ -19,7 +19,7 @@ interface Props {
 export const AsideUserProfile: FC<Props> = ({ user }) => {
     const { id } = useSelector<AppState, UserState>((state) => state.user);
 
-    const [uploadedFile, setUploadedFile] = useState<string>('');
+    const [uploadedFile, setUploadedFile] = useState('');
 
     const isMe = id === user.id;
 

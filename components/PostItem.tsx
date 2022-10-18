@@ -1,5 +1,5 @@
 import React, { useRef, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BiCommentDetail } from 'react-icons/bi';
@@ -19,6 +19,7 @@ import { IconAndTextWrapper } from './button/IconWrapper';
 import { CommentList } from './CommentList';
 import { postCommentsRequest } from '../actions/comment/post-comments.action';
 import { CommentState } from '../reducers/comment';
+import { useQuery } from '../hooks/use-query';
 
 interface Props extends Post {}
 
@@ -32,8 +33,6 @@ export const PostItem: FC<Props> = ({
     likedCount,
     commentCount,
 }) => {
-    const dispatch = useDispatch();
-
     const { id: userId } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
@@ -42,6 +41,8 @@ export const PostItem: FC<Props> = ({
         (state) => state.comment,
     );
 
+    const [getComments] = useQuery(postCommentsRequest);
+
     const mdBodyEl = useRef<HTMLDivElement>(null);
 
     const activeComment = postComments.postId == id;
@@ -49,7 +50,7 @@ export const PostItem: FC<Props> = ({
     // 댓글 클릭 핸들러
     const handleShowComment = () => {
         if (postComments.postId === null || !activeComment) {
-            dispatch(postCommentsRequest({ postId: id, limit: 5 }));
+            getComments({ postId: id, limit: 5 });
         }
     };
 

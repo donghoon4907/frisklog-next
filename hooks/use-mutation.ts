@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
+
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 import { useAuthenticate } from './use-authenticate';
@@ -12,7 +13,7 @@ interface OptionProps {
 
 export const useMutation = (
     actionCreator: (payload: any) => AnyAction,
-    options: OptionProps,
+    options: OptionProps = {},
 ) => {
     const router = useRouter();
 
@@ -24,7 +25,7 @@ export const useMutation = (
         (state) => state.loading,
     );
 
-    const fireEvent = (args = {}, callback = () => {}) => {
+    const fireEvent = (args = {}, callback?: (params: any) => void) => {
         const { useAuth, useReload } = options;
 
         if (useAuth) {
@@ -42,11 +43,13 @@ export const useMutation = (
         dispatch(
             actionCreator({
                 ...args,
-                callbackFunc: () => {
+                callbackFunc: (params: any) => {
                     if (useReload) {
                         router.replace(router.asPath);
                     } else {
-                        callback();
+                        if (callback) {
+                            callback(params);
+                        }
                     }
                 },
             }),

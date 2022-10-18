@@ -15,17 +15,4 @@ const Error: NextPage = () => (
     </>
 );
 
-export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, sagaTask }) =>
-        async (ctx) => {
-            dispatch(END);
-
-            await sagaTask?.toPromise();
-
-            return {
-                props: {},
-            };
-        },
-);
-
 export default Error;

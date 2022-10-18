@@ -1,22 +1,15 @@
 import { FC } from 'react';
 import { BsFillPencilFill } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
 
 import { showPostModal } from '../../actions/switch/post-modal.action';
-import { useAuthenticate } from '../../hooks/use-authenticate';
+import { useMutation } from '../../hooks/use-mutation';
 import { IconWrapper } from './IconWrapper';
 
 export const CreatePostButton: FC = () => {
-    const dispatch = useDispatch();
-
-    const { validateToken } = useAuthenticate();
+    const [showModal] = useMutation(showPostModal, { useAuth: true });
 
     const handleClick = () => {
-        const token = validateToken();
-
-        if (token !== null) {
-            dispatch(showPostModal());
-        }
+        showModal();
     };
 
     return (

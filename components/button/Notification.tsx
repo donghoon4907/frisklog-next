@@ -1,19 +1,19 @@
 import { FC } from 'react';
-import { FaBell } from 'react-icons/fa';
-import styled from 'styled-components';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { Popover } from 'antd';
+import styled from 'styled-components';
+import { FaBell } from 'react-icons/fa';
+
 import { IconWrapper } from './IconWrapper';
 import { ManageNotification } from '../partitial/popover/ManageNotification';
-import { useMutation } from '../../hooks/use-mutation';
 import {
     getNotificationsCleanUp,
     getNotificationsRequest,
 } from '../../actions/notification/get-notifications.action';
-import { useSelector } from 'react-redux';
 import { AppState } from '../../reducers';
 import { NotificationState } from '../../reducers/notification';
 import { hideNotificationFilter } from '../../actions/switch/notification-filter.action';
+import { useQuery } from '../../hooks/use-query';
 
 const PopoverContainer = styled.div`
     padding: ${({ theme }) => theme.padding.sm};
@@ -21,29 +21,21 @@ const PopoverContainer = styled.div`
 `;
 
 export const NotificationButton: FC = () => {
+    const dispatch = useDispatch();
+
     const { notifications } = useSelector<AppState, NotificationState>(
         (state) => state.notification,
     );
 
-    const [getNotifications] = useMutation(getNotificationsRequest, {
-        useAuth: true,
-    });
-
-    const [cleanUp] = useMutation(getNotificationsCleanUp, {
-        useAuth: false,
-    });
-
-    const [hideFilter] = useMutation(hideNotificationFilter, {
-        useAuth: false,
-    });
+    const [getNotifications] = useQuery(getNotificationsRequest);
 
     const handleVisibleChange = (newOpen: boolean) => {
         if (newOpen) {
             getNotifications({ limit: 3 });
         } else {
-            cleanUp();
+            dispatch(getNotificationsCleanUp());
 
-            hideFilter();
+            dispatch(hideNotificationFilter());
         }
     };
 

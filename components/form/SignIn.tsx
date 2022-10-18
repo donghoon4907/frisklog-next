@@ -1,6 +1,5 @@
 import { useState, FC, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { useInput } from '../../hooks/use-input';
 import { AuthMode, AuthModeType } from '../../types/mode';
@@ -8,21 +7,18 @@ import { Button } from '../button';
 import { FormCheckbox } from '../FormCheckbox';
 import { FormInput } from '../FormInput';
 import { Form, FormColumn } from './form.style';
-import { AppState } from '../../reducers';
-import { LoadingState } from '../../reducers/common/loading';
 import { loginUserRequest } from '../../actions/user/login-user.action';
 import { verifyUserRequest } from '../../actions/user/verify-user.action';
+import { useMutation } from '../../hooks/use-mutation';
 
 const FormCheckboxWrapper = styled.div`
     width: 85px;
 `;
 
 export const SignInForm: FC = () => {
-    const dispatch = useDispatch();
+    const [login] = useMutation(loginUserRequest);
 
-    const { loading } = useSelector<AppState, LoadingState>(
-        (state) => state.loading,
-    );
+    const [verify] = useMutation(verifyUserRequest);
 
     const [mode, setMode] = useState<AuthModeType>(AuthMode.LOGIN);
 
@@ -39,32 +35,17 @@ export const SignInForm: FC = () => {
     const handleLogin = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading) {
-            return alert('요청 중입니다. 잠시만 기다려주세요.');
-        }
-
-        dispatch(
-            loginUserRequest({
-                email: email.value,
-                callbackFunc: () => setMode(AuthMode.AUTH),
-            }),
-        );
+        login({ email: email.value }, () => setMode(AuthMode.AUTH));
     };
     // 인증 요청 핸들러
     const handleVerify = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        if (loading) {
-            return alert('요청 중입니다. 잠시만 기다려주세요.');
-        }
-
-        dispatch(
-            verifyUserRequest({
-                email: email.value,
-                isKeep,
-                captcha: captcha.value,
-            }),
-        );
+        verify({
+            email: email.value,
+            isKeep,
+            captcha: captcha.value,
+        });
     };
 
     const isLoginMode = mode === AuthMode.LOGIN;

@@ -2,10 +2,8 @@ import { ElementType, FC } from 'react';
 
 import { Scroll } from './Scroll';
 import { OffsetPageInfo } from '../interfaces/page-info';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../reducers';
-import { LoadingState } from '../reducers/common/loading';
 import { AnyAction } from 'redux';
+import { useQuery } from '../hooks/use-query';
 
 interface Props {
     nodes: Record<string, any>[];
@@ -22,11 +20,7 @@ export const ScrollList: FC<Props> = ({
     actionCreator,
     payload = {},
 }) => {
-    const dispatch = useDispatch();
-
-    const { loading } = useSelector<AppState, LoadingState>(
-        (state) => state.loading,
-    );
+    const [getNodes] = useQuery(actionCreator);
 
     return (
         <>
@@ -39,15 +33,11 @@ export const ScrollList: FC<Props> = ({
                     const { currentPage, lastPage, pageSize } = pageInfo!;
 
                     if (currentPage < lastPage) {
-                        if (!loading) {
-                            dispatch(
-                                actionCreator({
-                                    limit: pageSize,
-                                    offset: pageSize * currentPage,
-                                    ...payload,
-                                }),
-                            );
-                        }
+                        getNodes({
+                            limit: pageSize,
+                            offset: pageSize * currentPage,
+                            ...payload,
+                        });
                     }
                 }}
             />

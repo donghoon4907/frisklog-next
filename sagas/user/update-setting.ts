@@ -16,8 +16,6 @@ function* updateSettingSaga(action: UpdateSettingRequestAction) {
 
     yield put(updateSettingSuccess());
 
-    console.log(updateSetting);
-
     yield put(setUser(updateSetting));
 
     payload.callbackFunc?.(null);

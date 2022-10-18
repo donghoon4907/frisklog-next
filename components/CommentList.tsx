@@ -1,13 +1,13 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
+import { postCommentsRequest } from '../actions/comment/post-comments.action';
+import { CreateCommentForm } from './form/CreateComment';
+import { useQuery } from '../hooks/use-query';
 import { Comment } from '../interfaces/comment';
 import { OffsetPageInfo } from '../interfaces/page-info';
 import { Button } from './button';
 import { CommentItem } from './CommentItem';
-
-import styled from 'styled-components';
-import { postCommentsRequest } from '../actions/comment/post-comments.action';
-import { CreateCommentForm } from './form/CreateComment';
 
 const CommentListPagination = styled.div`
     display: flex;
@@ -26,18 +26,14 @@ interface Props {
 }
 
 export const CommentList: FC<Props> = ({ nodes, pageInfo, postId }) => {
-    const dispatch = useDispatch();
-
-    // 댓글
+    const [getComments] = useQuery(postCommentsRequest);
 
     const handlePage = (pageNo: number) => {
-        dispatch(
-            postCommentsRequest({
-                postId,
-                offset: 5 * (pageNo - 1),
-                limit: 5,
-            }),
-        );
+        getComments({
+            postId,
+            offset: 5 * (pageNo - 1),
+            limit: 5,
+        });
     };
 
     return (

@@ -1,13 +1,12 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { CommonState } from '../reducers/common';
-import { httpRequestingAlert } from '../lib/alert';
 import { PostEditorContainer } from './Editor.style';
 import { AppState } from '../reducers';
-import { LoadingState } from '../reducers/common/loading';
 import { uploadImageRequest } from '../actions/upload/image.action';
+import { useMutation } from '../hooks/use-mutation';
 // import codeSyntaxHightlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 // import hljs from "highlight.js";
 
@@ -28,15 +27,11 @@ export const PostEditor: FC<Props> = ({
     useCommandShortcut = true,
     onChange,
 }) => {
-    const dispatch = useDispatch();
-
     const { mode } = useSelector<AppState, CommonState>(
         (state) => state.common,
     );
 
-    const { isUploadImageLoading } = useSelector<AppState, LoadingState>(
-        (state) => state.loading,
-    );
+    const [upload] = useMutation(uploadImageRequest);
 
     const $editor = useRef<EditorType>(null);
 
@@ -73,22 +68,19 @@ export const PostEditor: FC<Props> = ({
                 hideModeSwitch
                 hooks={{
                     addImageBlobHook: async (blob: any, callback: any) => {
-                        if (isUploadImageLoading) {
-                            return httpRequestingAlert();
-                        }
-
                         const formData = new FormData();
+
                         formData.append('file', blob);
 
-                        dispatch(
-                            uploadImageRequest({
+                        upload(
+                            {
                                 formData,
-                                callbackFunc: (fileName: string) => {
-                                    const path = `${process.env.BACKEND_ROOT}/${fileName}`;
+                            },
+                            (fileName: string) => {
+                                const path = `${process.env.BACKEND_ROOT}/${fileName}`;
 
-                                    callback(path, '');
-                                },
-                            }),
+                                callback(path, '');
+                            },
                         );
 
                         // return false;

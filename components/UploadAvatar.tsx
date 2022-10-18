@@ -7,9 +7,9 @@ import {
     ChangeEvent,
     useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { uploadImageRequest } from '../actions/upload/image.action';
+import { useMutation } from '../hooks/use-mutation';
 import { UploadAvatarContainer } from './Avatar.style';
 import { RectangleAvatar } from './RectangleAvatar';
 
@@ -22,7 +22,7 @@ export const UploadAvatar: FC<Props> = ({
     defaultPreview,
     setUploadedFile,
 }) => {
-    const dispatch = useDispatch();
+    const [uploadImage] = useMutation(uploadImageRequest);
 
     const $file = useRef<HTMLInputElement>(null);
     // 프로필사진 미리보기
@@ -49,24 +49,24 @@ export const UploadAvatar: FC<Props> = ({
 
         formData.append('file', file);
 
-        dispatch(
-            uploadImageRequest({
+        uploadImage(
+            {
                 formData,
-                callbackFunc: (fileName: string) => {
-                    const path = `${process.env.BACKEND_ROOT}/${fileName}`;
+            },
+            (fileName: string) => {
+                const path = `${process.env.BACKEND_ROOT}/${fileName}`;
 
-                    const reader = new FileReader();
+                const reader = new FileReader();
 
-                    reader.onloadend = () => {
-                        // 미리보기 상태 변경
-                        setPreview(reader.result as string);
-                        // 업로드된 파일 상태 변경
-                        setUploadedFile(path);
-                    };
+                reader.onloadend = () => {
+                    // 미리보기 상태 변경
+                    setPreview(reader.result as string);
+                    // 업로드된 파일 상태 변경
+                    setUploadedFile(path);
+                };
 
-                    reader.readAsDataURL(file);
-                },
-            }),
+                reader.readAsDataURL(file);
+            },
         );
     };
 

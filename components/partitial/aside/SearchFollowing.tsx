@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { getFollowingsRequest } from '../../../actions/user/get-followings.action';
 import { useInput } from '../../../hooks/use-input';
+import { useQuery } from '../../../hooks/use-query';
 import { AppState } from '../../../reducers';
 import { UserState } from '../../../reducers/user';
 import { Button } from '../../button';
@@ -14,11 +15,11 @@ import * as StyledSearchFollowing from './SearchFollowing.style';
 export const SearchFollowing = () => {
     const router = useRouter();
 
-    const dispatch = useDispatch();
-
     const { searchedFollowings } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
+
+    const [getFollowings] = useQuery(getFollowingsRequest);
 
     const search = router.asPath.split('?')[1] || '';
 
@@ -43,13 +44,11 @@ export const SearchFollowing = () => {
     const handlePage = (pageNo: number) => {
         const { search } = router.query;
 
-        dispatch(
-            getFollowingsRequest({
-                limit: 5,
-                offset: 5 * (pageNo - 1),
-                nickname: (search as string) || undefined,
-            }),
-        );
+        getFollowings({
+            limit: 5,
+            offset: 5 * (pageNo - 1),
+            nickname: (search as string) || undefined,
+        });
     };
 
     const { nodes, pageInfo } = searchedFollowings;
