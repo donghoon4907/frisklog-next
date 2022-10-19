@@ -64,7 +64,6 @@ export const NameBody = styled.span`
 
 export const Content = styled.div`
     position: relative;
-    height: 300px;
     overflow: hidden;
     height: auto;
 `;

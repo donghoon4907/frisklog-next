@@ -1,4 +1,4 @@
-import React, { useRef, FC } from 'react';
+import { useRef, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';

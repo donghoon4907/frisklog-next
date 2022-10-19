@@ -6,6 +6,7 @@ export interface Post {
     content: string;
     createdAt: string;
     updatedAt: string;
+    deletedAt: string | null;
     link: string;
     user: User;
     likedCount: number;
@@ -14,13 +15,3 @@ export interface Post {
     isLiked: boolean;
     categories: Category[];
 }
-
-export interface HomePost extends Post {}
-
-export interface SearchPost extends Post {}
-
-export interface CategoryPost extends Post {}
-
-export interface UserPost extends Post {}
-
-export interface FollowingPost extends Post {}

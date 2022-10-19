@@ -15,6 +15,10 @@ import { FollowingPostsRequestPayload } from '../actions/post/following-posts.in
 import { GET_FOLLOWING_POSTS } from '../graphql/query/post/following-posts';
 import { CategoryPostsRequestPayload } from '../actions/post/category-posts.interface';
 import { GET_CATEGORY_POSTS } from '../graphql/query/post/category-posts';
+import { RemovedPostsRequestPayload } from '../actions/post/removed-posts.interface';
+import { GET_REMOVED_POSTS } from '../graphql/query/post/removed-posts';
+import { RestorePostRequestPayload } from '../actions/post/restore-post.interface';
+import { MUTATION_RESTORE_POST } from '../graphql/mutation/post/restore-post';
 
 export function createPost(payload: CreatePostRequestPayload) {
     return client.request(MUTATION_CREATE_POST, payload);
@@ -46,4 +50,12 @@ export function getFollowingPosts(payload: FollowingPostsRequestPayload) {
 
 export function getCategoryPosts(payload: CategoryPostsRequestPayload) {
     return client.request(GET_CATEGORY_POSTS, payload);
+}
+
+export function getRemovedPosts(payload: RemovedPostsRequestPayload) {
+    return client.request(GET_REMOVED_POSTS, payload);
+}
+
+export function restorePost(payload: RestorePostRequestPayload) {
+    return client.request(MUTATION_RESTORE_POST, payload);
 }

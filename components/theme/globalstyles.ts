@@ -39,6 +39,7 @@ hr {
     background-color: ${({ theme }) => theme.dividerColor};
     border: none;
     height: 1px !important;
+    margin: 0;
 }
 
 ol,

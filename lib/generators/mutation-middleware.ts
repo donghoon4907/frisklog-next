@@ -18,6 +18,7 @@ export function mutationMiddleware(saga: any): Saga {
 
             payload.callbackFunc?.(data);
         } catch (err) {
+            console.log(err);
             const { message, statusCode } = getErrorPayload(err);
 
             yield put(sagaError({ message, statusCode }));

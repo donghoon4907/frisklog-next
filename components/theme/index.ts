@@ -115,7 +115,7 @@ export const darkTheme: DefaultTheme = {
     borderColor: colors.black_secondary,
     inputBgColor: colors.black_secondary,
     iconColor: '#909090',
-    hoverColor: '#f8f9fa',
+    hoverColor: colors.black_primary,
     textColor: colors.white_base,
     dividerColor: colors.black_secondary,
     primaryBtnColor: '#f8f9fa',

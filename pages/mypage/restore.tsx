@@ -3,34 +3,27 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
-import { userPostsRequest } from '../../actions/post/user-posts.action';
-import { getUserRequest } from '../../actions/user/get-user.action';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
-import { PostItem } from '../../components/PostItem';
 import { AppState } from '../../reducers';
 import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
-import { UserState } from '../../reducers/user';
+import { removedPostsRequest } from '../../actions/post/removed-posts.action';
+import { User } from '../../interfaces/user';
+import { RemovedPostItem } from '../../components/RemovedPostItem';
 import { MyPosts } from '../../components/partitial/aside/MyPosts';
 
 interface Props {
-    userId: string;
+    me: Pick<User, 'id' | 'nickname' | 'avatar'>;
 }
 
-const UserProfile: NextPage<Props> = ({ userId }) => {
-    const { id, userPageProfile } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
-
-    const { userPosts } = useSelector<AppState, PostState>(
+const RestorePost: NextPage<Props> = ({ me }) => {
+    const { removedPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
-
-    const isMe = id === userId;
 
     return (
         <>
@@ -44,41 +37,36 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
             </Head>
             <Main>
                 <MainTitle>
-                    <h2>모든 포스트</h2>
+                    <h2>삭제된 포스트</h2>
                 </MainTitle>
                 <ScrollList
-                    {...userPosts}
-                    actionCreator={userPostsRequest}
-                    Node={PostItem}
-                    payload={{ userId }}
+                    {...removedPosts}
+                    actionCreator={removedPostsRequest}
+                    Node={RemovedPostItem}
                 />
             </Main>
             <Aside>
                 <MainTitle>
-                    <h2>{isMe ? '내 정보' : '사용자 정보'}</h2>
+                    <h2>내 정보</h2>
                 </MainTitle>
-                {userPageProfile && <AsideUserProfile user={userPageProfile} />}
-                {isMe && <MyPosts />}
+                <AsideUserProfile
+                    user={{
+                        ...me,
+                        isFollowing: false,
+                    }}
+                />
+                <MyPosts />
             </Aside>
         </>
     );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, sagaTask }) =>
-        async ({ req, res, query, ...etc }) => {
-            const userId = query.id as string;
-
+    ({ dispatch, sagaTask, getState }) =>
+        async ({ req, res, ...etc }) => {
             dispatch(
-                getUserRequest({
-                    id: userId,
-                }),
-            );
-
-            dispatch(
-                userPostsRequest({
+                removedPostsRequest({
                     limit: 12,
-                    userId,
                 }),
             );
 
@@ -86,12 +74,26 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             await sagaTask?.toPromise();
 
+            const state = getState();
+
+            const { id, nickname, avatar } = state.user;
+
+            if (id === null) {
+                res.statusCode = 302;
+
+                res.setHeader('Location', '/');
+            }
+
             return {
                 props: {
-                    userId,
+                    me: {
+                        id,
+                        nickname,
+                        avatar,
+                    },
                 },
             };
         },
 );
 
-export default UserProfile;
+export default RestorePost;

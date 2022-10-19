@@ -8,18 +8,15 @@ import { followingPostsActionTypes } from '../../actions/post/following-posts.ac
 import { FollowingPostsSuccessAction } from '../../actions/post/following-posts.interface';
 import { homePostsActionTypes } from '../../actions/post/home-posts.action';
 import { HomePostsSuccessAction } from '../../actions/post/home-posts.interface';
+import { removedPostsActionTypes } from '../../actions/post/removed-posts.action';
+import { restorePostActionTypes } from '../../actions/post/restore-post.action';
+import { RestorePostSuccessAction } from '../../actions/post/restore-post.interface';
 import { searchPostsActionTypes } from '../../actions/post/search-posts.action';
 import { SearchPostsSuccessAction } from '../../actions/post/search-posts.interface';
 import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import {
-    CategoryPost,
-    FollowingPost,
-    HomePost,
-    SearchPost,
-    UserPost,
-} from '../../interfaces/post';
+import { Post } from '../../interfaces/post';
 
 export interface PostState {
     activePost: {
@@ -29,23 +26,27 @@ export interface PostState {
     };
     homePosts: {
         pageInfo: OffsetPageInfo | null;
-        nodes: HomePost[];
+        nodes: Post[];
     };
     searchPosts: {
         pageInfo: OffsetPageInfo | null;
-        nodes: SearchPost[];
+        nodes: Post[];
     };
     categoryPosts: {
         pageInfo: OffsetPageInfo | null;
-        nodes: CategoryPost[];
+        nodes: Post[];
     };
     userPosts: {
         pageInfo: OffsetPageInfo | null;
-        nodes: UserPost[];
+        nodes: Post[];
     };
     followingPosts: {
         pageInfo: OffsetPageInfo | null;
-        nodes: FollowingPost[];
+        nodes: Post[];
+    };
+    removedPosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: Post[];
     };
 }
 
@@ -72,6 +73,10 @@ const initialState: PostState = {
         nodes: [],
     },
     followingPosts: {
+        pageInfo: null,
+        nodes: [],
+    },
+    removedPosts: {
         pageInfo: null,
         nodes: [],
     },
@@ -171,6 +176,36 @@ export default (state = initialState, action: PostAction) =>
                 } else {
                     draft.followingPosts.nodes =
                         draft.followingPosts.nodes.concat(nodes);
+                }
+
+                break;
+            }
+            case removedPostsActionTypes.SUCCESS: {
+                const { payload } = action as FollowingPostsSuccessAction;
+
+                const { pageInfo, nodes } = payload;
+
+                draft.removedPosts.pageInfo = pageInfo;
+
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.removedPosts.nodes = payload.nodes;
+                } else {
+                    draft.removedPosts.nodes =
+                        draft.removedPosts.nodes.concat(nodes);
+                }
+
+                break;
+            }
+            case restorePostActionTypes.SUCCESS: {
+                const { payload } = action as RestorePostSuccessAction;
+
+                const findIndex = draft.removedPosts.nodes.findIndex(
+                    (post) => payload.id == post.id,
+                );
+
+                if (findIndex !== -1) {
+                    draft.removedPosts.nodes[findIndex].deletedAt = null;
                 }
 
                 break;

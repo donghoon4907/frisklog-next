@@ -1,6 +1,6 @@
 import { ErrorAction, Payload, PayloadAction } from '..';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import { HomePost } from '../../interfaces/post';
+import { Post } from '../../interfaces/post';
 import { GetPostsRequestPayload } from './get-posts.interface';
 
 export interface HomePostsRequestPayload
@@ -8,7 +8,7 @@ export interface HomePostsRequestPayload
         Payload {}
 
 export interface HomePostsSuccessPayload {
-    nodes: HomePost[];
+    nodes: Post[];
     pageInfo: OffsetPageInfo;
 }
 

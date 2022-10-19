@@ -5,7 +5,7 @@ import * as StyledPost from '../../PostItem.style';
 
 export const Container = styled.div`
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 
     ${mixinBox}
 `;

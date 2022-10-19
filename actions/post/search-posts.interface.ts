@@ -1,6 +1,6 @@
 import { ErrorAction, Payload, PayloadAction } from '..';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import { SearchPost } from '../../interfaces/post';
+import { Post } from '../../interfaces/post';
 import { GetPostsRequestPayload } from './get-posts.interface';
 
 export interface SearchPostsRequestPayload
@@ -8,7 +8,7 @@ export interface SearchPostsRequestPayload
         Payload {}
 
 export interface SearchPostsSuccessPayload {
-    nodes: SearchPost[];
+    nodes: Post[];
     pageInfo: OffsetPageInfo;
 }
 

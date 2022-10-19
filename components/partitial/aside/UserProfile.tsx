@@ -13,7 +13,7 @@ import { FollowButton } from '../../button/Follow';
 import { User } from '../../../interfaces/user';
 
 interface Props {
-    user: User;
+    user: Pick<User, 'id' | 'nickname' | 'avatar' | 'isFollowing'>;
 }
 
 export const AsideUserProfile: FC<Props> = ({ user }) => {
