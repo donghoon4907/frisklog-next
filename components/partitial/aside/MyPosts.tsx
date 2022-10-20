@@ -14,8 +14,8 @@ export const MyPosts: FC = () => {
                     삭제한 포스트 보기
                 </ActiveLink>
             </StyledMyPosts.Item>
-            <hr />
-            <StyledMyPosts.Item>좋아요 포스트 보기</StyledMyPosts.Item>
+            {/* <hr />
+            <StyledMyPosts.Item>좋아요 포스트 보기</StyledMyPosts.Item> */}
         </StyledMyPosts.Container>
     );
 };

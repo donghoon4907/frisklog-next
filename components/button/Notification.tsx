@@ -17,7 +17,6 @@ import { useQuery } from '../../hooks/use-query';
 
 const PopoverContainer = styled.div`
     padding: ${({ theme }) => theme.padding.sm};
-    width: 400px;
 `;
 
 export const NotificationButton: FC = () => {

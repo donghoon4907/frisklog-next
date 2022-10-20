@@ -1,12 +1,12 @@
 {
     "name": "frisklog-next",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "license": "MIT",
     "scripts": {
         "dev": "next dev",
         "dev:custom": "NODE_ENV=development ts-node --project tsconfig.server.json server/index.ts",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 3001",
         "build:server": "tsc --project tsconfig.server.json",
         "build:custom": "npm run build && npm run build:server",
         "start:custom": "NODE_ENV=production node dist/index.js",
