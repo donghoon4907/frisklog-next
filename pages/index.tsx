@@ -57,26 +57,39 @@ const Home: NextPage = () => {
                 />
             </Main>
             <Aside>
-                <MainTitle>
-                    <h2>추천 카테고리</h2>
-                </MainTitle>
-                <ul>
-                    {recommendCategories.map(({ id, content, postCount }) => (
-                        <LinkCategoryButton
-                            key={`recommendCategory${id}`}
-                            category={content}
-                            postCount={postCount}
-                        />
-                    ))}
-                </ul>
-                <MainTitle>
-                    <h2>추천인</h2>
-                </MainTitle>
-                <Slick>
-                    {recommendUsers.map((user) => (
-                        <UserItem key={`recommendUser${user.id}`} {...user} />
-                    ))}
-                </Slick>
+                {recommendCategories.length > 0 && (
+                    <>
+                        <MainTitle>
+                            <h2>추천 카테고리</h2>
+                        </MainTitle>
+                        <ul>
+                            {recommendCategories.map(
+                                ({ id, content, postCount }) => (
+                                    <LinkCategoryButton
+                                        key={`recommendCategory${id}`}
+                                        category={content}
+                                        postCount={postCount}
+                                    />
+                                ),
+                            )}
+                        </ul>
+                    </>
+                )}
+                {recommendUsers.length > 0 && (
+                    <>
+                        <MainTitle>
+                            <h2>추천인</h2>
+                        </MainTitle>
+                        <Slick>
+                            {recommendUsers.map((user) => (
+                                <UserItem
+                                    key={`recommendUser${user.id}`}
+                                    {...user}
+                                />
+                            ))}
+                        </Slick>
+                    </>
+                )}
             </Aside>
         </>
     );

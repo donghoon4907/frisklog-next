@@ -3,7 +3,7 @@ import produce from 'immer';
 import { UserAction } from '../../actions/user';
 import { userActionTypes } from '../../actions/user/user.action';
 import { SetUserRequestAction } from '../../actions/user/set-user.interface';
-import { RecommendUser, User } from '../../interfaces/user';
+import { User } from '../../interfaces/user';
 import { recommendUsersActionTypes } from '../../actions/user/recommend-users.action';
 import { RecommendUsersSuccessAction } from '../../actions/user/recommend-users.interface';
 import { getUserActionTypes } from '../../actions/user/get-user.action';
@@ -21,7 +21,7 @@ export interface UserState {
     avatar: string | null;
     isMaster: boolean | null;
     receivePostNotification: boolean | null;
-    recommendUsers: RecommendUser[];
+    recommendUsers: User[];
     userPageProfile: User | null;
     searchedFollowings: {
         pageInfo: OffsetPageInfo | null;

@@ -1,9 +1,12 @@
 import { ElementType, FC } from 'react';
+import styled from 'styled-components';
 
 import { Scroll } from './Scroll';
 import { OffsetPageInfo } from '../interfaces/page-info';
 import { AnyAction } from 'redux';
 import { useQuery } from '../hooks/use-query';
+import { mixinBox } from './theme/mixins';
+import { NotFoundPost } from './NotFoundPost';
 
 interface Props {
     nodes: Record<string, any>[];
@@ -24,6 +27,8 @@ export const ScrollList: FC<Props> = ({
 
     return (
         <>
+            {nodes.length === 0 && <NotFoundPost />}
+
             {nodes.map((node, idx) => (
                 <Node key={`node${idx}`} {...node} />
             ))}

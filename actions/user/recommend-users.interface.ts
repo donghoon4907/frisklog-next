@@ -1,13 +1,13 @@
 import { ErrorAction, PayloadAction } from '..';
 import { OffsetPageInfo } from '../../interfaces/page-info';
-import { RecommendUser } from '../../interfaces/user';
+import { User } from '../../interfaces/user';
 import { GetUsersRequestPayload } from './get-users.interface';
 
 export interface RecommendUsersRequestPayload
     extends Pick<GetUsersRequestPayload, 'offset' | 'limit'> {}
 
 export interface RecommendUsersSuccessPayload {
-    nodes: RecommendUser[];
+    nodes: User[];
     pageInfo: OffsetPageInfo;
 }
 

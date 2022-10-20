@@ -15,5 +15,3 @@ export interface User {
     isFollowing?: boolean;
     isMe?: boolean;
 }
-
-export interface RecommendUser extends User {}
