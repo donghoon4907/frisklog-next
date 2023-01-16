@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LayoutContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 0 8px;
+    padding: 0 8px 8px;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;

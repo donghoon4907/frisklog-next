@@ -12,7 +12,7 @@ import { verifyUserRequest } from '../../actions/user/verify-user.action';
 import { useMutation } from '../../hooks/use-mutation';
 
 const FormCheckboxWrapper = styled.div`
-    width: 85px;
+    width: 95px;
 `;
 
 export const SignInForm: FC = () => {

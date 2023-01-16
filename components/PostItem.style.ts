@@ -57,7 +57,7 @@ export const NameWrapper = styled.div`
 export const NameBody = styled.span`
     ${mixinEllipsis}
 
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: 5px;
     line-height: 1.5;
 `;

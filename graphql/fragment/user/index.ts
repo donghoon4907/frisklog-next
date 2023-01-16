@@ -5,7 +5,6 @@ export const CORE_USER_FIELDS = gql`
         id
         nickname
         avatar
-        link
         status
         statusText
         isFollowing
