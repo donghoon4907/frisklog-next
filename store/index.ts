@@ -41,5 +41,5 @@ export const makeStore = (context: Context) => {
 };
 
 export const wrapper = createWrapper<SagaStore>(makeStore, {
-    debug: false,
+    debug: true,
 });

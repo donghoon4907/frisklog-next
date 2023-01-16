@@ -6,7 +6,7 @@
         "dev": "next dev",
         "dev:custom": "NODE_ENV=development ts-node --project tsconfig.server.json server/index.ts",
         "build": "next build",
-        "start": "next start -p 3001",
+        "start": "next start -p 3000",
         "build:server": "tsc --project tsconfig.server.json",
         "build:custom": "npm run build && npm run build:server",
         "start:custom": "NODE_ENV=production node dist/index.js",

@@ -13,7 +13,7 @@ import {
 import { AppState } from '../../reducers';
 import { NotificationState } from '../../reducers/notification';
 import { hideNotificationFilter } from '../../actions/switch/notification-filter.action';
-import { useQuery } from '../../hooks/use-query';
+import { useMutation } from '../../hooks/use-mutation';
 
 const PopoverContainer = styled.div`
     padding: ${({ theme }) => theme.padding.sm};
@@ -26,7 +26,9 @@ export const NotificationButton: FC = () => {
         (state) => state.notification,
     );
 
-    const [getNotifications] = useQuery(getNotificationsRequest);
+    const [getNotifications] = useMutation(getNotificationsRequest, {
+        useAuth: true,
+    });
 
     const handleVisibleChange = (newOpen: boolean) => {
         if (newOpen) {

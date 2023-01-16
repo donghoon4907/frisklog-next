@@ -5,6 +5,7 @@ export const AnotherLoginContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 5px;
 `;
 export const StateChanger = styled.div`
     text-align: center;
