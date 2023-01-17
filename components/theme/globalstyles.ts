@@ -98,25 +98,6 @@ button {
     clip-path: polygon(0 0, 0 0, 0 0);
 }
 
-.btn-close {
-    color: var(--frisklog-icon-color) !important;
-    opacity: 1 !important;
-}
-
-.page-item.active {
-    font-weight: bold;
-}
-.page-link {
-    color: var(--frisklog-text-color) !important;
-    background-color: var(--frisklog-box-color) !important;
-    border: none !important;
-
-    &:hover {
-        background-color: var(--frisklog-hover-color) !important;
-        color: $fr-black-color !important;
-    }
-}
-
 .icon-button svg, .anticon-close svg {
     width: 20px;
     height: 20px;
@@ -127,30 +108,57 @@ button {
         fill: ${({ theme }) => theme.hoverColor};
     }
 }
+.slick-dots li button:before {
+    color: ${({ theme }) => theme.iconColor} !important;
+}
+.slick-dots li.slick-active button:before {
+    color: ${({ theme }) => theme.textColor} !important;
+}
 .ant-modal-body {
     padding: ${({ theme }) => theme.padding.sm};
 }
 .ant-popover-inner-content {
     padding: 0 !important;
 }
-.ant-modal-header, .ant-modal-title, .ant-modal-body, .ant-modal-footer, .ant-popover-title, .ant-popover-inner-content {
+.ant-modal-content, .ant-modal-header, .ant-modal-title, .ant-modal-body, .ant-modal-footer, .ant-popover-title, .ant-popover-inner-content {
     background: ${({ theme }) => theme.modalBgColor} !important;
     color: ${({ theme }) => theme.textColor} !important;
 }
 .ant-modal-header, .ant-popover-title {
-    border-bottom-color: ${({ theme }) => theme.dividerColor} !important;
+    border-bottom-color: ${({ theme }) => theme.borderColor} !important;
 }
 .ant-modal-mask {
     z-index: 1050 !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
 }
 .ant-modal-wrap {
     z-index: 1060 !important;
 }
-
+.ant-dropdown-menu {
+    background: ${({ theme }) => theme.dropdownBgColor};
+}
+.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+    color: ${({ theme }) => theme.textColor} !important;
+}
+.ant-dropdown-menu-item:hover {
+    color: ${({ theme }) => theme.colors.black_base} !important;
+}
 .ant-modal-footer {
-    border-top-color: ${({ theme }) => theme.dividerColor} !important;
+    border-top-color: ${({ theme }) => theme.borderColor} !important;
 }
 .toastui-editor-contents img {
     width: 100% !important;
+}
+
+.toastui-editor-contents p {
+    color: ${({ theme }) => theme.textColor} !important;
+}
+
+.toastui-editor-contents pre {
+    background-color: ${({ theme }) => theme.preColor} !important;
+}
+
+.toastui-editor-defaultUI {
+    border-radius: 0px !important;
 }
 `;

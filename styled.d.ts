@@ -23,6 +23,10 @@ declare module 'styled-components' {
         black_base: string;
         black_primary: string;
         black_secondary: string;
+        gray_lv0: string;
+        gray_lv1: string;
+        gray_lv2: string;
+        darkDividerColor: string;
         white_base: string;
         white_primary: string;
         white_secondary: string;
@@ -71,5 +75,7 @@ declare module 'styled-components' {
         borderRadius: string;
         readOnlyBtnColor: string;
         readOnlyBtnTextColor: string;
+        preColor: string;
+        dropdownBgColor: string;
     }
 }

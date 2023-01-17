@@ -8,6 +8,7 @@ export const CORE_USER_FIELDS = gql`
         status
         statusText
         isFollowing
+        link
     }
 `;
 

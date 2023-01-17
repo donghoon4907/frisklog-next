@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { mixinBox } from './theme/mixins';
-
 export const FormInputContainer = styled.div`
     position: relative;
     display: flex;
@@ -22,5 +20,6 @@ export const FormInputWithLeftBox = styled.ul`
     overflow-y: auto !important;
     height: 100px;
 
-    ${mixinBox}
+    border: 1px solid ${({ theme }) => theme.dividerColor};
+    background-color: ${({ theme }) => theme.inputBgColor};
 `;
