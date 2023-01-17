@@ -23,7 +23,7 @@ export const PostEditor: FC<Props> = ({
     initialValue = '',
     previewStyle = 'tab',
     height = '75vh',
-    initialEditType = 'wysiwyg',
+    initialEditType = 'markdown',
     useCommandShortcut = true,
     onChange,
 }) => {

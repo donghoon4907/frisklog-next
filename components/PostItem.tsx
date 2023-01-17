@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BiCommentDetail } from 'react-icons/bi';
+import { marked } from 'marked';
 
 import { AppState } from '../reducers';
 import { UserState } from '../reducers/user';
@@ -99,7 +100,7 @@ export const PostItem: FC<Props> = ({
                         className="toastui-editor-contents"
                         ref={mdBodyEl}
                         dangerouslySetInnerHTML={{
-                            __html: content,
+                            __html: content ? marked(content) : '',
                         }}
                     />
                 </StyledPost.Content>

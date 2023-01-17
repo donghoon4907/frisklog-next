@@ -95,7 +95,7 @@ export const SetPostModal: FC = () => {
             <PostEditor
                 height="50vh"
                 previewStyle="tab"
-                initialEditType="wysiwyg"
+                initialEditType="markdown"
                 initialValue={content}
                 onChange={(content) => setContent(content)}
             />
