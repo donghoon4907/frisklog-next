@@ -46,6 +46,9 @@ export const SetPostModal: FC = () => {
     const handleClose = () => {
         // 팝업 숨기기
         dispatch(hidePostModal());
+    };
+
+    const handleAfterClose = () => {
         // 상태 초기화
         dispatch(initActivePost());
 
@@ -90,6 +93,7 @@ export const SetPostModal: FC = () => {
             onCancel={handleClose}
             onOk={handleOk}
             destroyOnClose
+            afterClose={handleAfterClose}
             centered
         >
             <PostEditor

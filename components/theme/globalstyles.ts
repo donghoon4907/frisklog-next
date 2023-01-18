@@ -146,6 +146,9 @@ button {
 .ant-modal-footer {
     border-top-color: ${({ theme }) => theme.borderColor} !important;
 }
+.toastui-editor-main-container {
+    color: ${({ theme }) => theme.textColor} !important;
+}
 .toastui-editor-contents img {
     width: 100% !important;
 }
@@ -160,5 +163,11 @@ button {
 
 .toastui-editor-defaultUI {
     border-radius: 0px !important;
+}
+.toastui-editor-contents dir, .toastui-editor-contents menu, .toastui-editor-contents ol, .toastui-editor-contents ul {
+    color: ${({ theme }) => theme.textColor} !important;
+}
+.toastui-editor-contents ul > li::before {
+    background-color: ${({ theme }) => theme.textColor} !important;
 }
 `;

@@ -41,6 +41,9 @@ const Follow: NextPage = () => {
                 />
             </Main>
             <Aside>
+                <MainTitle>
+                    <h2>팔로잉 목록</h2>
+                </MainTitle>
                 <SearchFollowing />
             </Aside>
         </>

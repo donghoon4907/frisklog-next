@@ -40,10 +40,16 @@ export const Input = styled.div`
 
 export const Button = styled.div`
     width: 90px;
+    margin-left: 10px;
+    height: 40px;
+
+    & > button {
+        height: 100%;
+    }
 `;
 
 export const Empty = styled.li`
-    height: 70px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
