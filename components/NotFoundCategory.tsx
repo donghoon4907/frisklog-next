@@ -21,10 +21,6 @@ const Container = styled.div`
 
     & > h3 {
         line-height: 1.5;
-        font-size: 2rem;
-    }
-
-    & > p {
         font-size: 1.5rem;
     }
 `;

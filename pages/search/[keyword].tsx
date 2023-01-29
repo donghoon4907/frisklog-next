@@ -109,7 +109,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             dispatch(
                 searchCategoriesRequest({
-                    limit: 3,
+                    limit: 5,
                     searchKeyword,
                 }),
             );
