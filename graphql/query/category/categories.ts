@@ -2,16 +2,21 @@ import { gql } from 'graphql-request';
 
 import { PAGING_META_FIELDS } from '../../fragment/common/paging-meta';
 import { CORE_CATEGORY_FIELDS } from '../../fragment/category';
-
 /**
- * 추천 카테고리 검색
+ * 카테고리 검색
  *
+ * @param $order         정렬
+ * @param $searchKeyword 검색어
  */
-export const GET_RECOMMEND_CATEGORIES = gql`
-    ${PAGING_META_FIELDS}
+export const GET_CATEGORIES = gql`
     ${CORE_CATEGORY_FIELDS}
-    query GetRecommendCategories($offset: Int, $limit: Int!) {
-        recommendCategories(offset: $offset, limit: $limit) {
+    ${PAGING_META_FIELDS}
+    query GetCategories($offset: Int, $limit: Int!, $searchKeyword: String) {
+        categories(
+            offset: $offset
+            limit: $limit
+            searchKeyword: $searchKeyword
+        ) {
             nodes {
                 ...CoreCategoryFields
             }

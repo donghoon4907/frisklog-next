@@ -14,10 +14,11 @@ import { searchPostsRequest } from '../../actions/post/search-posts.action';
 import { CategoryState } from '../../reducers/category';
 import { LinkCategoryButton } from '../../components/button/LinkCategory';
 import { PostState } from '../../reducers/post';
-import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
 import { searchUsersRequest } from '../../actions/user/search-users.action';
 import { UserState } from '../../reducers/user';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
+import { searchCategoriesRequest } from '../../actions/category/search-categories.action';
+import { NotFoundCategory } from '../../components/NotFoundCategory';
 
 interface Props {
     searchKeyword: string;
@@ -32,7 +33,7 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
         (state) => state.post,
     );
 
-    const { relatedCategories } = useSelector<AppState, CategoryState>(
+    const { searchCategories } = useSelector<AppState, CategoryState>(
         (state) => state.category,
     );
 
@@ -48,7 +49,7 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
             </Head>
             <Main>
                 <MainTitle>
-                    <h2>{`"${searchKeyword}"와 관련된 포스트 목록`}</h2>
+                    <h2>{`"${searchKeyword}" 포스트 검색결과`}</h2>
                 </MainTitle>
                 <ScrollList
                     {...searchPosts}
@@ -58,30 +59,28 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                 />
             </Main>
             <Aside>
+                <>
+                    <MainTitle>
+                        <h2>{`"${searchKeyword}" 카테고리 검색결과`}</h2>
+                    </MainTitle>
+                    <ul>
+                        {searchCategories.length === 0 && <NotFoundCategory />}
+                        {searchCategories.map(({ content, postCount }, idx) => (
+                            <LinkCategoryButton
+                                key={`Category${idx}`}
+                                category={content}
+                                postCount={postCount}
+                            />
+                        ))}
+                    </ul>
+                </>
+
                 {searchUsers.nodes.length > 0 && (
                     <>
                         <MainTitle>
-                            <h2>{`"${searchKeyword}"와 유사한 사용자`}</h2>
+                            <h2>{`"${searchKeyword}" 사용자 검색결과`}</h2>
                         </MainTitle>
                         <AsideUserProfile user={searchUsers.nodes[0]} />
-                    </>
-                )}
-                {relatedCategories.length > 0 && (
-                    <>
-                        <MainTitle>
-                            <h2>{`"${searchKeyword}"와 관련된 카테고리`}</h2>
-                        </MainTitle>
-                        <ul>
-                            {relatedCategories.map(
-                                ({ content, postCount }, idx) => (
-                                    <LinkCategoryButton
-                                        key={`relatedCategory${idx}`}
-                                        category={content}
-                                        postCount={postCount}
-                                    />
-                                ),
-                            )}
-                        </ul>
                     </>
                 )}
             </Aside>
@@ -109,8 +108,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
             );
 
             dispatch(
-                relatedCategoriesRequest({
-                    content: searchKeyword,
+                searchCategoriesRequest({
+                    limit: 3,
+                    searchKeyword,
                 }),
             );
 

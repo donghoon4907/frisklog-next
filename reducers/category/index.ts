@@ -1,18 +1,22 @@
 import produce from 'immer';
 
-import { RecommendCategory, RelatedCategory } from '../../interfaces/category';
+import { Category } from '../../interfaces/category';
 import { CategoryAction } from '../../actions/category';
 import { recommendCategoriesActionTypes } from '../../actions/category/recommend-categories.action';
 import { RecommendCategoriesSuccessAction } from '../../actions/category/recommend-categories.interface';
 import { relatedCategoriesActionTypes } from '../../actions/category/related-categories.action';
 import { RelatedCategoriesSuccessAction } from '../../actions/category/related-categories.interface';
+import { searchCategoriesActionTypes } from '../../actions/category/search-categories.action';
+import { SearchCategoriesSuccessAction } from '../../actions/category/search-categories.interface';
 
 export interface CategoryState {
-    recommendCategories: RecommendCategory[];
-    relatedCategories: RelatedCategory[];
+    searchCategories: Category[];
+    recommendCategories: Category[];
+    relatedCategories: Category[];
 }
 
 const initialState: CategoryState = {
+    searchCategories: [],
     recommendCategories: [],
     relatedCategories: [],
 };
@@ -20,6 +24,15 @@ const initialState: CategoryState = {
 export default (state = initialState, action: CategoryAction) =>
     produce(state, (draft) => {
         switch (action.type) {
+            case searchCategoriesActionTypes.SUCCESS: {
+                const { payload } = action as SearchCategoriesSuccessAction;
+
+                draft.searchCategories = draft.searchCategories.concat(
+                    payload.nodes,
+                );
+                break;
+            }
+
             case recommendCategoriesActionTypes.SUCCESS: {
                 const { payload } = action as RecommendCategoriesSuccessAction;
 

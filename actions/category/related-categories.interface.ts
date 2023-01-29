@@ -1,11 +1,11 @@
 import { ErrorAction, PayloadAction } from '..';
-import { RelatedCategory } from '../../interfaces/category';
+import { Category } from '../../interfaces/category';
 
 export interface RelatedCategoriesRequestPayload {
     content: string;
 }
 
-export type RelatedCategoriesSuccessPayload = RelatedCategory[];
+export type RelatedCategoriesSuccessPayload = Category[];
 
 export interface RelatedCategoriesRequestAction
     extends PayloadAction<RelatedCategoriesRequestPayload> {}
