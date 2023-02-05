@@ -13,7 +13,7 @@ export const CreatePostButton: FC = () => {
     };
 
     return (
-        <IconWrapper ariaLabel="포스트 작성" onClick={handleClick}>
+        <IconWrapper aria-label="포스트 작성" onClick={handleClick}>
             <BsFillPencilFill />
         </IconWrapper>
     );

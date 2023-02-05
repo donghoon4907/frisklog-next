@@ -55,9 +55,9 @@ export const PostCategoriesForm: FC<Props> = ({
                         {categories.map((category, index) => (
                             <DeleteableButton
                                 key={`setPostCategory${index}`}
-                                content={category}
-                                ariaLabel="카테고리 삭제"
-                                onClick={handleRemoveCategory}
+                                text={category}
+                                aria-label="카테고리 삭제"
+                                onRemove={handleRemoveCategory}
                             />
                         ))}
                     </FormInputWithLeftBox>

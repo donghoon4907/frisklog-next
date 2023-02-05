@@ -30,15 +30,13 @@ export const FollowButton: FC<Props> = ({ userId, defaultIsFollowing }) => {
     };
 
     return (
-        <div title="팔로우 버튼">
-            <Button
-                type="button"
-                onClick={handleClick}
-                colorType={isFollowing ? 'danger' : 'info'}
-                aria-label={isFollowing ? '언팔로우' : '팔로우'}
-            >
-                {isFollowing ? '언팔로우' : '팔로우'}
-            </Button>
-        </div>
+        <Button
+            type="button"
+            onClick={handleClick}
+            colorType={isFollowing ? 'danger' : 'info'}
+            aria-label={isFollowing ? '언팔로우' : '팔로우'}
+        >
+            {isFollowing ? '언팔로우' : '팔로우'}
+        </Button>
     );
 };

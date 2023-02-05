@@ -14,7 +14,7 @@ export const SetNicknameButton: FC = () => {
     };
 
     return (
-        <IconWrapper ariaLabel="닉네임변경" onClick={handleClick}>
+        <IconWrapper aria-label="닉네임 변경" onClick={handleClick}>
             <AiTwotoneSetting />
         </IconWrapper>
     );

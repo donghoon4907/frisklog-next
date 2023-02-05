@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { BsFillStarFill } from 'react-icons/bs';
 
 import { useAuthenticate } from '../../hooks/use-authenticate';
-import { IconWrapper } from './IconWrapper';
+import { ActiveLink } from '../ActiveLink';
 
 export const FavoriteButton: FC = () => {
     const router = useRouter();
@@ -19,8 +19,13 @@ export const FavoriteButton: FC = () => {
     };
 
     return (
-        <IconWrapper ariaLabel="팔로잉" onClick={handleClick}>
+        <ActiveLink
+            href="/follow"
+            className="active-icon"
+            aria-label="팔로잉"
+            onClick={handleClick}
+        >
             <BsFillStarFill />
-        </IconWrapper>
+        </ActiveLink>
     );
 };

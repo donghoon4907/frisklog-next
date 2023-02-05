@@ -74,7 +74,7 @@ export const LikePostButton: FC<Props> = ({
     return isShowCount ? (
         <IconAndTextWrapper
             onClick={handleClick}
-            ariaLabel={isLike ? '좋아요 취소' : '좋아요'}
+            aria-label={isLike ? '좋아요 취소' : '좋아요'}
             text={likeCount.toLocaleString()}
         >
             {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
@@ -82,7 +82,7 @@ export const LikePostButton: FC<Props> = ({
     ) : (
         <IconWrapper
             onClick={handleClick}
-            ariaLabel={isLike ? '좋아요 취소' : '좋아요'}
+            aria-label={isLike ? '좋아요 취소' : '좋아요'}
         >
             {isLike ? <AiFillHeart /> : <AiOutlineHeart />}
         </IconWrapper>

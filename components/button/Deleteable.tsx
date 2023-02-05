@@ -1,21 +1,17 @@
-import { FC } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 import { IoMdClose } from 'react-icons/io';
+
 import { IconWrapper } from './IconWrapper';
 import { ReadonlyButton } from './Readonly';
 
-interface Props {
-    content: string;
-    ariaLabel: string;
-    onClick: (content: string) => void;
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+    text: string;
+    onRemove: (content: string) => void;
 }
 
-export const DeleteableButton: FC<Props> = ({
-    content,
-    ariaLabel,
-    onClick,
-}) => (
-    <ReadonlyButton content={content}>
-        <IconWrapper ariaLabel={ariaLabel} onClick={() => onClick(content)}>
+export const DeleteableButton: FC<Props> = ({ text, onRemove, ...another }) => (
+    <ReadonlyButton text={text}>
+        <IconWrapper onClick={() => onRemove(text)} {...another}>
             <IoMdClose />
         </IconWrapper>
     </ReadonlyButton>

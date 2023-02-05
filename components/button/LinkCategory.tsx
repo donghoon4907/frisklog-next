@@ -13,7 +13,7 @@ export const LinkCategoryButton: FC<Props> = ({ category, postCount }) => (
         <ReadonlyButtonBody>
             <ActiveLink
                 href={`/category/${category}`}
-                ariaLabel={`'${category}' 카테고리 검색`}
+                aria-label={`'${category}' 카테고리 검색`}
             >
                 {`${category}(${postCount})`}
             </ActiveLink>

@@ -30,7 +30,7 @@ export const NotificationSettingButton: FC = () => {
     };
 
     return (
-        <IconWrapper ariaLabel="알림설정" onClick={handleClick}>
+        <IconWrapper aria-label="알림 설정" onClick={handleClick}>
             <AiTwotoneSetting />
         </IconWrapper>
     );

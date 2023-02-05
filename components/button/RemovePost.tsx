@@ -26,7 +26,7 @@ export const RemovePostButton: FC<Props> = ({ id }) => {
     };
 
     return (
-        <IconWrapper ariaLabel="포스트 삭제" onClick={handleClick}>
+        <IconWrapper aria-label="포스트 삭제" onClick={handleClick}>
             <BsTrash />
         </IconWrapper>
     );

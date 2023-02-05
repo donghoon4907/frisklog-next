@@ -26,16 +26,16 @@ export const ProfileButton: FC = () => {
     const isLogin = id !== null && avatar !== null;
 
     return isLogin ? (
-        <AvatarWrapper title="마이페이지 링크">
+        <AvatarWrapper>
             <LinkAvatar
-                ariaLabel="마이페이지로 이동"
+                aria-label="마이페이지"
                 href={`/user/${id}`}
                 src={avatar}
                 alt="Avatar"
             />
         </AvatarWrapper>
     ) : (
-        <IconWrapper ariaLabel="로그인" onClick={handleClick}>
+        <IconWrapper aria-label="로그인" onClick={handleClick}>
             <FaUserCircle />
         </IconWrapper>
     );

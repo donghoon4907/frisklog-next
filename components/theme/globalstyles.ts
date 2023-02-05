@@ -98,7 +98,13 @@ button {
     clip-path: polygon(0 0, 0 0, 0 0);
 }
 
-.icon-button svg, .anticon-close svg {
+.active-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.active-icon svg, .anticon-close svg {
     width: 20px;
     height: 20px;
 

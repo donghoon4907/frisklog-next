@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 
 import { DefaultProps } from '../../interfaces/default';
 import {
@@ -7,21 +7,18 @@ import {
     CenteredButton,
 } from './button.style';
 
-interface Props extends DefaultProps {
-    ariaLabel: string;
-    onClick?: (evt: MouseEvent<HTMLButtonElement>) => void;
+interface Props extends DefaultProps, ButtonHTMLAttributes<HTMLButtonElement> {
     text?: string;
 }
 
-export const IconWrapper: FC<Props> = ({ children, ariaLabel, onClick }) => {
+export const IconWrapper: FC<Props> = ({
+    children,
+    type = 'button',
+    ...another
+}) => {
     return (
-        <RelativeButtonWrapper title={`${ariaLabel} 버튼`}>
-            <CenteredButton
-                type="button"
-                aria-label={ariaLabel}
-                onClick={onClick}
-                className="icon-button"
-            >
+        <RelativeButtonWrapper>
+            <CenteredButton type={type} className="active-icon" {...another}>
                 {children}
             </CenteredButton>
         </RelativeButtonWrapper>
@@ -30,21 +27,16 @@ export const IconWrapper: FC<Props> = ({ children, ariaLabel, onClick }) => {
 
 export const IconAndTextWrapper: FC<Props> = ({
     children,
-    ariaLabel,
-    onClick,
+    type = 'button',
     text,
+    ...another
 }) => {
     return (
-        <ButtonAndTextWrapper title={`${ariaLabel} 버튼`}>
-            <CenteredButton
-                type="button"
-                aria-label={ariaLabel}
-                onClick={onClick}
-                className="icon-button"
-            >
+        <ButtonAndTextWrapper>
+            <CenteredButton type={type} className="active-icon" {...another}>
                 {children}
             </CenteredButton>
-            <span>{text}</span>
+            {text && <span>{text}</span>}
         </ButtonAndTextWrapper>
     );
 };

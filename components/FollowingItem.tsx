@@ -35,7 +35,7 @@ export const FollowingItem: FC<Props> = ({
             <StyledFollowingItem.Link isActive={isActive}>
                 <ActiveLink
                     href={`/follow?${searchParams.toString()}`}
-                    ariaLabel="사용자 포스트 보기"
+                    aria-label="사용자 포스트 보기"
                 >
                     <StyledFollowingItem.Body>
                         <StyledFollowingItem.Avatar>

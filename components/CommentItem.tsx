@@ -89,9 +89,9 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
     return (
         <StyledCommentItem.Container>
             <StyledCommentItem.Body>
-                <StyledCommentItem.AvatarWrapper title="사용자 링크">
+                <StyledCommentItem.AvatarWrapper>
                     <LinkAvatar
-                        ariaLabel="사용자 페이지로 이동"
+                        aria-label="사용자 페이지"
                         href={user.link}
                         src={user.avatar}
                         alt="Avatar"

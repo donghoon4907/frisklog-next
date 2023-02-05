@@ -25,10 +25,8 @@ export const UpdateAvatarButton: FC<Props> = ({ avatar }) => {
     };
 
     return (
-        <div title="사진변경 버튼">
-            <Button type="button" colorType="primary" onClick={handleClick}>
-                <span>사진 변경</span>
-            </Button>
-        </div>
+        <Button type="button" colorType="primary" onClick={handleClick}>
+            <span>사진 변경</span>
+        </Button>
     );
 };

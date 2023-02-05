@@ -50,7 +50,7 @@ export const RemoveNotificationButton: FC<Props> = ({ id }) => {
     };
 
     return (
-        <IconWrapper ariaLabel="알림 삭제" onClick={handleClick}>
+        <IconWrapper aria-label="알림 삭제" onClick={handleClick}>
             <BsTrash />
         </IconWrapper>
     );

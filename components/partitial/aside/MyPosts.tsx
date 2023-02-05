@@ -8,8 +8,8 @@ export const MyPosts: FC = () => {
         <StyledMyPosts.Container>
             <StyledMyPosts.Item>
                 <ActiveLink
-                    href={`/mypage/restore`}
-                    ariaLabel="삭제한 포스트 보기"
+                    href="/mypage/restore"
+                    aria-label="삭제한 포스트 보기"
                 >
                     삭제한 포스트 보기
                 </ActiveLink>

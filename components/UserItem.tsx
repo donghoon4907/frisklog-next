@@ -15,11 +15,11 @@ export const UserItem: FC<Props> = ({ nickname, avatar, link, postCount }) => (
         <StyleUser.Body>
             <StyleUser.AvatarWrapper>
                 <LinkAvatar
-                    ariaLabel="사용자 페이지로 이동"
+                    aria-label="사용자 페이지"
                     href={link}
                     src={avatar}
                     alt="Avatar"
-                    tabIndex="-1"
+                    tab-index="-1"
                 />
             </StyleUser.AvatarWrapper>
         </StyleUser.Body>

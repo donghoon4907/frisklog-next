@@ -41,10 +41,9 @@ export const NotificationButton: FC = () => {
     };
 
     return (
-        <IconWrapper ariaLabel="알림">
+        <IconWrapper aria-label="알림">
             <Popover
                 placement="bottomRight"
-                title="알림"
                 content={
                     <PopoverContainer>
                         <ManageNotification />

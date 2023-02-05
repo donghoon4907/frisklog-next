@@ -17,10 +17,8 @@ export const LogoutButton: FC = () => {
     };
 
     return (
-        <div title="로그아웃 버튼">
-            <Button type="button" colorType="primary" onClick={handleClick}>
-                로그아웃
-            </Button>
-        </div>
+        <Button type="button" colorType="primary" onClick={handleClick}>
+            로그아웃
+        </Button>
     );
 };

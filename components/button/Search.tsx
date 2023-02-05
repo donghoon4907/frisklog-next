@@ -27,7 +27,7 @@ export const SearchButton: FC = () => {
 
     return (
         <IconWrapper
-            ariaLabel={isShowSearchBar ? '검색바 닫기' : '검색바 열기'}
+            aria-label={isShowSearchBar ? '검색바 닫기' : '검색바 열기'}
             onClick={handleClick}
         >
             <BsSearch />

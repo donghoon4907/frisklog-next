@@ -4,13 +4,13 @@ import { DefaultProps } from '../../interfaces/default';
 import { ReadonlyButtonBody, ReadonlyButtonContainer } from './Readonly.style';
 
 interface Props extends DefaultProps {
-    content: string;
+    text: string;
 }
 
-export const ReadonlyButton: FC<Props> = ({ children, content }) => (
+export const ReadonlyButton: FC<Props> = ({ children, text }) => (
     <ReadonlyButtonContainer>
         <ReadonlyButtonBody>
-            <span>{content}</span>
+            <span>{text}</span>
             {children}
         </ReadonlyButtonBody>
     </ReadonlyButtonContainer>

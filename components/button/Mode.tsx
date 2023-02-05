@@ -34,11 +34,9 @@ export const ModeButton: FC = () => {
 
     return (
         <IconWrapper
-            ariaLabel={
-                mode === ThemeMode.LIGHT
-                    ? '어두운 화면으로 변경'
-                    : '밝은 화면으로 변경'
-            }
+            aria-label={`${
+                mode === ThemeMode.LIGHT ? '어두운' : '밝은'
+            } 화면으로 변경`}
             onClick={handleClick}
         >
             {mode === ThemeMode.LIGHT ? <BsFillSunFill /> : <BsMoonStarsFill />}

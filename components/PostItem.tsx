@@ -64,9 +64,9 @@ export const PostItem: FC<Props> = ({
             <StyledPost.Body>
                 <StyledPost.Header>
                     <StyledPost.Writer>
-                        <StyledPost.AvatarWrapper title="사용자 링크">
+                        <StyledPost.AvatarWrapper>
                             <LinkAvatar
-                                ariaLabel="사용자 페이지로 이동"
+                                aria-label="사용자 페이지"
                                 href={user.link}
                                 src={user.avatar}
                                 alt="Avatar"
@@ -110,7 +110,7 @@ export const PostItem: FC<Props> = ({
                             <ActiveLink
                                 key={`post${id}Category${index}`}
                                 href={`/category/${category}`}
-                                ariaLabel={`'${category}' 카테고리 검색`}
+                                aria-label={`'${category}' 카테고리 검색`}
                             >
                                 #{category}
                             </ActiveLink>
@@ -129,7 +129,7 @@ export const PostItem: FC<Props> = ({
                         <div>
                             <IconAndTextWrapper
                                 onClick={handleShowComment}
-                                ariaLabel="댓글 보기"
+                                aria-label="댓글 보기"
                                 text={commentCount.toLocaleString()}
                             >
                                 <BiCommentDetail />

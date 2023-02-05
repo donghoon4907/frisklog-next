@@ -1,10 +1,10 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
 import { AiTwotoneSetting } from 'react-icons/ai';
 
 import { setActivePost } from '../../actions/post/active-post.action';
 import { showPostModal } from '../../actions/switch/post-modal.action';
 import { IconWrapper } from './IconWrapper';
-import { useDispatch } from 'react-redux';
 
 interface Props {
     postId: string;
@@ -33,7 +33,7 @@ export const ModifyPostButton: FC<Props> = ({
     };
 
     return (
-        <IconWrapper ariaLabel="포스트 수정" onClick={handleClick}>
+        <IconWrapper aria-label="포스트 수정" onClick={handleClick}>
             <AiTwotoneSetting />
         </IconWrapper>
     );
