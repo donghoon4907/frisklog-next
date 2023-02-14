@@ -158,12 +158,12 @@ button {
 .toastui-editor-contents img {
     width: 100% !important;
 }
-
 .toastui-editor-contents p {
     color: ${({ theme }) => theme.textColor} !important;
 }
-
 .toastui-editor-contents pre {
+    display: block;
+    position: relative;
     background-color: ${({ theme }) => theme.preColor} !important;
 }
 
@@ -176,4 +176,5 @@ button {
 .toastui-editor-contents ul > li::before {
     background-color: ${({ theme }) => theme.textColor} !important;
 }
+.toastui-editor-contents
 `;

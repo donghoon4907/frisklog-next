@@ -11,7 +11,7 @@ export const ActiveLink: FC<Props> = ({ children, href, ...another }) => {
     const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
 
-        router.push(href ? process.env.FRONTEND_ROOT + href : '/');
+        router.push(href ? href : '/');
     };
 
     return (
