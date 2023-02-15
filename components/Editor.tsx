@@ -1,7 +1,6 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useSelector } from 'react-redux';
-//import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import { CommonState } from '../reducers/common';
 import { PostEditorContainer } from './Editor.style';
@@ -51,7 +50,6 @@ export const PostEditor: FC<Props> = ({
     return (
         <PostEditorContainer>
             <Editor
-                //plugins={}
                 initialValue={initialValue}
                 previewStyle={previewStyle}
                 height={height}

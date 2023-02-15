@@ -214,9 +214,17 @@ button {
     justify-content: center;
     align-items: center;
     opacity: 0;
+}
+.copy-code-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 
-    & svg {
-        cursor: pointer;
-    }
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="${({ theme }) =>
+        theme.textColor}" stroke="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>')
 }
 `;

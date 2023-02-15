@@ -52,14 +52,14 @@ const breakPoints: BreakPoints = {
 };
 
 const colors: Colors = {
-    black_base: '#000',
+    black_base: 'black',
     black_primary: '#121212',
     black_secondary: '#232323',
     gray_lv0: '#1f1f1f',
     gray_lv1: '#28292a',
     gray_lv2: '#2d2f31',
     darkDividerColor: '#494c56',
-    white_base: '#fff',
+    white_base: 'white',
     white_primary: '#f7f7f8',
     white_secondary: '#e6e6e6',
     divider: '#eaecef',
