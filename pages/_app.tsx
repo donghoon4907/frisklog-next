@@ -3,8 +3,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'highlight.js/styles/atom-one-light.css';
 
 import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -41,6 +43,33 @@ function MyApp({ Component, pageProps }: AppProps) {
     const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
+
+    const handleClickGlobal = (evt: MouseEvent) => {
+        const el = evt.target as HTMLElement;
+        // 소스 보기 관련
+        if (el.classList.contains('contraction-code')) {
+            el.classList.remove('contraction-code');
+            el.classList.add('expansion-code');
+        }
+
+        // 복사 관련
+        if (el.classList.contains('copy-code-icon')) {
+            const code = el.closest('pre')?.querySelector('code')?.innerText;
+
+            navigator.clipboard
+                .writeText(code || '')
+                .then(() => alert('클립보드에 저장되었습니다.'))
+                .catch(() => alert('클립보드에 저장 중 오류가 발생했습니다.'));
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('click', handleClickGlobal);
+
+        return () => {
+            window.removeEventListener('click', handleClickGlobal);
+        };
+    }, []);
 
     return (
         <Providers>

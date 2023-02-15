@@ -1,14 +1,13 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useSelector } from 'react-redux';
+//import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import { CommonState } from '../reducers/common';
 import { PostEditorContainer } from './Editor.style';
 import { AppState } from '../reducers';
 import { uploadImageRequest } from '../actions/upload/image.action';
 import { useMutation } from '../hooks/use-mutation';
-// import codeSyntaxHightlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-// import hljs from "highlight.js";
 
 const Editor =
     typeof window !== 'undefined' && require('@toast-ui/react-editor').Editor;
@@ -52,11 +51,7 @@ export const PostEditor: FC<Props> = ({
     return (
         <PostEditorContainer>
             <Editor
-                plugins={
-                    [
-                        // [codeSyntaxHightlight, { hljs }]
-                    ]
-                }
+                //plugins={}
                 initialValue={initialValue}
                 previewStyle={previewStyle}
                 height={height}

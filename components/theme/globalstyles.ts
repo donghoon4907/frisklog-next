@@ -162,7 +162,7 @@ button {
     color: ${({ theme }) => theme.textColor} !important;
 }
 .toastui-editor-contents pre {
-    display: block;
+    display: flex;
     position: relative;
     background-color: ${({ theme }) => theme.preColor} !important;
 }
@@ -176,5 +176,47 @@ button {
 .toastui-editor-contents ul > li::before {
     background-color: ${({ theme }) => theme.textColor} !important;
 }
-.toastui-editor-contents
+// 소스 축소 및 확장 관련
+.contraction-code {
+    cursor: pointer;
+    height: 0;
+    overflow: hidden;
+}
+.contraction-code::before {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    content: "코드 보기";
+    color: #4b96e6;
+}
+.contraction-code code {
+    display: none;   
+}
+.expansion-code code {
+    display: block !important;
+}
+.expansion-code::before {
+    display: none;
+}
+// 소스 복사 관련
+.expansion-code:hover {
+    & div {
+        opacity: 1;
+    }
+}
+.copy-code {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+
+    & svg {
+        cursor: pointer;
+    }
+}
 `;

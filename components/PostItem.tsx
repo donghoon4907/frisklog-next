@@ -4,6 +4,7 @@ import { Dropdown } from 'antd';
 import { FiMoreVertical } from 'react-icons/fi';
 import { BiCommentDetail } from 'react-icons/bi';
 import { marked } from 'marked';
+import hljs from 'highlight.js';
 
 import { AppState } from '../reducers';
 import { UserState } from '../reducers/user';
@@ -21,6 +22,25 @@ import { CommentList } from './CommentList';
 import { postCommentsRequest } from '../actions/comment/post-comments.action';
 import { CommentState } from '../reducers/comment';
 import { useQuery } from '../hooks/use-query';
+
+const renderer = {
+    code(code: string, lang: string) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+
+        return `
+        <pre class="contraction-code">
+            <code>${hljs.highlight(code, { language }).value}</code>
+            <div class="copy-code">
+                <svg class="copy-code-icon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="none" d="M0 0h24v24H0z"></path><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+                </svg>
+            </div>
+        </pre>
+        `;
+    },
+};
+
+marked.use({ renderer });
 
 interface Props extends Post {}
 
