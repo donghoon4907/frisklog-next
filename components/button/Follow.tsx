@@ -21,12 +21,10 @@ export const FollowButton: FC<Props> = ({ userId, defaultIsFollowing }) => {
     // 클릭 핸들러
     const handleClick = () => {
         if (isFollowing) {
-            unfollow({ id: userId });
+            unfollow({ id: userId }, () => setIsFollowing(!isFollowing));
         } else {
-            follow({ id: userId });
+            follow({ id: userId }, () => setIsFollowing(!isFollowing));
         }
-
-        setIsFollowing(!isFollowing);
     };
 
     return (

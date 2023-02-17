@@ -51,10 +51,12 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
                     {isMe ? (
                         <SetNicknameButton />
                     ) : (
-                        <FollowButton
-                            userId={user.id}
-                            defaultIsFollowing={user.isFollowing}
-                        />
+                        <div style={{ width: 100 }}>
+                            <FollowButton
+                                userId={user.id}
+                                defaultIsFollowing={user.isFollowing}
+                            />
+                        </div>
                     )}
                 </StyledUserProfile.Meta>
             </StyledUserProfile.Body>

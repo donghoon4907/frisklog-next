@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { BsFillStarFill } from 'react-icons/bs';
 
 import { useAuthenticate } from '../../hooks/use-authenticate';
@@ -10,7 +10,8 @@ export const FavoriteButton: FC = () => {
 
     const { validateToken } = useAuthenticate();
 
-    const handleClick = () => {
+    const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+        evt.preventDefault();
         const token = validateToken();
 
         if (token !== null) {

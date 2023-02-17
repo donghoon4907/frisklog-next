@@ -5,7 +5,12 @@ import { DefaultProps } from '../interfaces/default';
 
 interface Props extends DefaultProps, AnchorHTMLAttributes<HTMLAnchorElement> {}
 
-export const ActiveLink: FC<Props> = ({ children, href, ...another }) => {
+export const ActiveLink: FC<Props> = ({
+    children,
+    href,
+    onClick,
+    ...another
+}) => {
     const router = useRouter();
 
     const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
@@ -17,7 +22,7 @@ export const ActiveLink: FC<Props> = ({ children, href, ...another }) => {
     return (
         <a
             href={href ? process.env.FRONTEND_ROOT + href : '/'}
-            onClick={handleClick}
+            onClick={onClick ? onClick : handleClick}
             {...another}
         >
             {children}
