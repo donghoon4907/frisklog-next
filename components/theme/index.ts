@@ -87,6 +87,7 @@ export const theme = {
     statusColors,
     breakPoints,
     borderRadius: '4px',
+    postWidth: '590px',
 };
 
 export const lightTheme: DefaultTheme = {

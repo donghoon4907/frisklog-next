@@ -75,14 +75,16 @@ const Home: NextPage = () => {
                         <MainTitle>
                             <h2>추천인</h2>
                         </MainTitle>
-                        <Slick>
-                            {recommendUsers.map((user) => (
-                                <UserItem
-                                    key={`recommendUser${user.id}`}
-                                    {...user}
-                                />
-                            ))}
-                        </Slick>
+                        <div style={{ marginBottom: 30 }}>
+                            <Slick>
+                                {recommendUsers.map((user) => (
+                                    <UserItem
+                                        key={`recommendUser${user.id}`}
+                                        {...user}
+                                    />
+                                ))}
+                            </Slick>
+                        </div>
                     </>
                 )}
             </Aside>

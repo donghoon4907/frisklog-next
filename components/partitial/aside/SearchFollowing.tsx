@@ -11,9 +11,12 @@ import { Button } from '../../button';
 import { FollowingItem } from '../../FollowingItem';
 import { FormInput } from '../../FormInput';
 import * as StyledSearchFollowing from './SearchFollowing.style';
+import { useRoute } from '../../../hooks/use-route';
 
 export const SearchFollowing = () => {
     const router = useRouter();
+
+    const route = useRoute();
 
     const { searchedFollowings } = useSelector<AppState, UserState>(
         (state) => state.user,
@@ -38,7 +41,7 @@ export const SearchFollowing = () => {
 
         searchParams.set('search', nickname.value);
 
-        router.push(`/follow?${searchParams.toString()}`);
+        route.move(`/follow?${searchParams.toString()}`);
     };
 
     const handlePage = (pageNo: number) => {

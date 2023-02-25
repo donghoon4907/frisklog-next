@@ -120,8 +120,14 @@ button {
 .slick-dots li.slick-active button:before {
     color: ${({ theme }) => theme.textColor} !important;
 }
+.ant-modal {
+    width: calc(${({ theme }) => theme.postWidth} + 0.5rem) !important;
+}
 .ant-modal-body {
     padding: ${({ theme }) => theme.padding.sm};
+}
+.ant-popover {
+    min-width: 300px;
 }
 .ant-popover-inner-content {
     padding: 0 !important;

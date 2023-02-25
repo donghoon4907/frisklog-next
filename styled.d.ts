@@ -77,5 +77,6 @@ declare module 'styled-components' {
         readOnlyBtnTextColor: string;
         preColor: string;
         dropdownBgColor: string;
+        postWidth: string;
     }
 }

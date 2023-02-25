@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { SquareAvatar } from './SquareAvatar';
@@ -8,6 +7,7 @@ import { timeForToday } from '../lib/date/time-for-today';
 import { useMutation } from '../hooks/use-mutation';
 import { readNotificationsRequest } from '../actions/notification/read-notifications.action';
 import { RemoveNotificationButton } from './button/RemoveNotification';
+import { useRoute } from '../hooks/use-route';
 
 interface Props extends Notification {}
 
@@ -19,7 +19,7 @@ export const NewNotificationItem: FC<Props> = ({
     createdAt,
     readedAt,
 }) => {
-    const router = useRouter();
+    const route = useRoute();
 
     const [readNotification] = useMutation(readNotificationsRequest, {
         useAuth: true,
@@ -32,11 +32,11 @@ export const NewNotificationItem: FC<Props> = ({
                     notifications: [id],
                 },
                 () => {
-                    router.push(url);
+                    route.move(url);
                 },
             );
         } else {
-            router.push(url);
+            route.move(url);
         }
     };
 

@@ -11,6 +11,10 @@ const PrevArrowWrapper = styled.button`
     z-index: 2;
 
     ${mixinAlignIconCenter('rotate(180deg)')}
+
+    ${({ theme }) => theme.breakPoints.xs} {
+        display: none;
+    }
 `;
 
 const NextArrowWrapper = styled.button`
@@ -18,6 +22,10 @@ const NextArrowWrapper = styled.button`
     z-index: 2;
 
     ${mixinAlignIconCenter()}
+
+    ${({ theme }) => theme.breakPoints.xs} {
+        display: none;
+    }
 `;
 
 const PrevArrow: FC<CustomArrowProps> = ({ onClick }) => {

@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { Notification } from '../interfaces/notification';
@@ -7,6 +6,7 @@ import { SquareAvatar } from './SquareAvatar';
 import * as StyledNoti from './NotificationItem.style';
 import { useMutation } from '../hooks/use-mutation';
 import { readNotificationsRequest } from '../actions/notification/read-notifications.action';
+import { useRoute } from '../hooks/use-route';
 
 interface Props extends Notification {}
 
@@ -18,7 +18,7 @@ export const NotificationItem: FC<Props> = ({
     createdAt,
     readedAt,
 }) => {
-    const router = useRouter();
+    const route = useRoute();
 
     const [readNotification] = useMutation(readNotificationsRequest, {
         useAuth: true,
@@ -31,11 +31,11 @@ export const NotificationItem: FC<Props> = ({
                     notifications: [id],
                 },
                 () => {
-                    router.push(url);
+                    route.move(url);
                 },
             );
         } else {
-            router.push(url);
+            route.move(url);
         }
     };
 

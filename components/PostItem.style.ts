@@ -12,7 +12,7 @@ export const Body = styled.article`
     ${mixinBox}
 
     line-height: 0;
-    max-width: 590px;
+    max-width: ${({ theme }) => theme.postWidth};
     position: relative;
     width: 100%;
 `;

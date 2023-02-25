@@ -17,7 +17,7 @@ export const LogoutButton: FC = () => {
     };
 
     return (
-        <Button type="button" colorType="primary" onClick={handleClick}>
+        <Button type="button" colorType="danger" onClick={handleClick}>
             로그아웃
         </Button>
     );

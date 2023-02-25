@@ -1,28 +1,35 @@
-import { useRouter } from 'next/router';
 import { AnchorHTMLAttributes, FC, MouseEvent } from 'react';
 
 import { DefaultProps } from '../interfaces/default';
+import { useRoute } from '../hooks/use-route';
 
-interface Props extends DefaultProps, AnchorHTMLAttributes<HTMLAnchorElement> {}
+interface Props extends DefaultProps, AnchorHTMLAttributes<HTMLAnchorElement> {
+    activeAuthRoute?: boolean;
+}
 
 export const ActiveLink: FC<Props> = ({
     children,
-    href,
+    href = '/',
     onClick,
+    activeAuthRoute = false,
     ...another
 }) => {
-    const router = useRouter();
+    const route = useRoute();
 
     const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
         evt.preventDefault();
 
-        router.push(href ? href : '/');
+        if (activeAuthRoute) {
+            route.authMove(href);
+        } else {
+            route.move(href);
+        }
     };
 
     return (
         <a
-            href={href ? process.env.FRONTEND_ROOT + href : '/'}
-            onClick={onClick ? onClick : handleClick}
+            href={href === '/' ? href : process.env.FRONTEND_ROOT + href}
+            onClick={handleClick}
             {...another}
         >
             {children}

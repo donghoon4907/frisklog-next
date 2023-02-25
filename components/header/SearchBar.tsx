@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router';
 import { useState, useEffect, useRef, FC, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { FormInput } from '../FormInput';
 import { hideSearchBar } from '../../actions/switch/search-bar.action';
 import { SearchBarContainer, SearchBarForm } from './SearchBar.style';
+import { useRoute } from '../../hooks/use-route';
 
 export const HeaderSearchBar: FC = () => {
-    const router = useRouter();
+    const route = useRoute();
 
     const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ export const HeaderSearchBar: FC = () => {
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        router.push(`/search/${searchKeyword}`);
+        route.move(`/search/${searchKeyword}`);
 
         dispatch(hideSearchBar());
     };
