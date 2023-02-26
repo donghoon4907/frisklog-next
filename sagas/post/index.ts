@@ -12,6 +12,7 @@ import { watchUserPosts } from './user-posts';
 import { watchCategoryPosts } from './category-posts';
 import { watchRemovedPosts } from './removed-posts';
 import { watchRestorePost } from './restore-post';
+import { watchLikedPosts } from './liked-posts';
 
 export function* postSaga() {
     yield all([
@@ -27,5 +28,6 @@ export function* postSaga() {
         fork(watchCategoryPosts),
         fork(watchRemovedPosts),
         fork(watchRestorePost),
+        fork(watchLikedPosts),
     ]);
 }

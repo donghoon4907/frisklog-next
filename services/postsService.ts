@@ -19,6 +19,8 @@ import { RemovedPostsRequestPayload } from '../actions/post/removed-posts.interf
 import { GET_REMOVED_POSTS } from '../graphql/query/post/removed-posts';
 import { RestorePostRequestPayload } from '../actions/post/restore-post.interface';
 import { MUTATION_RESTORE_POST } from '../graphql/mutation/post/restore-post';
+import { LikedPostsRequestPayload } from '../actions/post/liked-posts.interface';
+import { GET_LIKED_POSTS } from '../graphql/query/post/like-posts';
 
 export function createPost(payload: CreatePostRequestPayload) {
     return client.request(MUTATION_CREATE_POST, payload);
@@ -58,4 +60,8 @@ export function getRemovedPosts(payload: RemovedPostsRequestPayload) {
 
 export function restorePost(payload: RestorePostRequestPayload) {
     return client.request(MUTATION_RESTORE_POST, payload);
+}
+
+export function getLikedPosts(payload: LikedPostsRequestPayload) {
+    return client.request(GET_LIKED_POSTS, payload);
 }

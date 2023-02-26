@@ -11,32 +11,32 @@ import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
-import { removedPostsRequest } from '../../actions/post/removed-posts.action';
 import { User } from '../../interfaces/user';
-import { RemovedPostItem } from '../../components/RemovedPostItem';
+import { likedPostsRequest } from '../../actions/post/liked-posts.action';
+import { PostItem } from '../../components/PostItem';
 
 interface Props {
     me: Pick<User, 'id' | 'nickname' | 'avatar'>;
 }
 
-const RestorePost: NextPage<Props> = ({ me }) => {
-    const { removedPosts } = useSelector<AppState, PostState>(
+const LikePost: NextPage<Props> = ({ me }) => {
+    const { likedPosts } = useSelector<AppState, PostState>(
         (state) => state.post,
     );
 
     return (
         <>
             <Head>
-                <title>Frisklog - 삭제된 포스트</title>
+                <title>Frisklog - 좋아요한 포스트</title>
             </Head>
             <Main>
                 <MainTitle>
-                    <h2>삭제된 포스트</h2>
+                    <h2>좋아요한 포스트</h2>
                 </MainTitle>
                 <ScrollList
-                    {...removedPosts}
-                    actionCreator={removedPostsRequest}
-                    Node={RemovedPostItem}
+                    {...likedPosts}
+                    actionCreator={likedPostsRequest}
+                    Node={PostItem}
                 />
             </Main>
             <Aside>
@@ -58,7 +58,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask, getState }) =>
         async ({ req, res, ...etc }) => {
             dispatch(
-                removedPostsRequest({
+                likedPostsRequest({
                     limit: 12,
                 }),
             );
@@ -89,4 +89,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 );
 
-export default RestorePost;
+export default LikePost;

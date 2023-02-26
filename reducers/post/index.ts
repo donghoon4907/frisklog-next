@@ -17,6 +17,8 @@ import { userPostsActionTypes } from '../../actions/post/user-posts.action';
 import { UserPostsSuccessAction } from '../../actions/post/user-posts.interface';
 import { OffsetPageInfo } from '../../interfaces/page-info';
 import { Post } from '../../interfaces/post';
+import { likedPostsActionTypes } from '../../actions/post/liked-posts.action';
+import { LikedPostsSuccessAction } from '../../actions/post/liked-posts.interface';
 
 export interface PostState {
     activePost: {
@@ -45,6 +47,10 @@ export interface PostState {
         nodes: Post[];
     };
     removedPosts: {
+        pageInfo: OffsetPageInfo | null;
+        nodes: Post[];
+    };
+    likedPosts: {
         pageInfo: OffsetPageInfo | null;
         nodes: Post[];
     };
@@ -77,6 +83,10 @@ const initialState: PostState = {
         nodes: [],
     },
     removedPosts: {
+        pageInfo: null,
+        nodes: [],
+    },
+    likedPosts: {
         pageInfo: null,
         nodes: [],
     },
@@ -210,50 +220,23 @@ export default (state = initialState, action: PostAction) =>
 
                 break;
             }
-            // Create posts
-            // case createPostActionTypes.SUCCESS: {
-            //     const { payload } = action as CreatePostSuccessAction;
+            case likedPostsActionTypes.SUCCESS: {
+                const { payload } = action as LikedPostsSuccessAction;
 
-            //     draft.homePosts.nodes.unshift({
-            //         ...payload,
-            //         likers: [],
-            //         likeCount: 0,
-            //         commentCount: 0,
-            //     });
+                const { pageInfo, nodes } = payload;
 
-            //     break;
-            // }
-            // Update posts
-            // case updatePostActionTypes.SUCCESS: {
-            //     const { payload } = action as UpdatePostSuccessAction;
+                draft.likedPosts.pageInfo = pageInfo;
 
-            //     const findIndex = draft.homePosts.nodes.findIndex(
-            //         (post) => payload.id == post.id,
-            //     );
+                const isFirst = pageInfo.currentPage === 1;
+                if (isFirst) {
+                    draft.likedPosts.nodes = payload.nodes;
+                } else {
+                    draft.likedPosts.nodes =
+                        draft.likedPosts.nodes.concat(nodes);
+                }
 
-            //     if (findIndex !== -1) {
-            //         draft.homePosts.nodes[findIndex].content = payload.content;
-
-            //         draft.homePosts.nodes[findIndex].categories =
-            //             payload.categories;
-            //     }
-
-            //     break;
-            // }
-            // Delete posts
-            // case deletePostActionTypes.SUCCESS: {
-            //     const { payload } = action as DeletePostSuccessAction;
-
-            //     const findIndex = draft.homePosts.nodes.findIndex(
-            //         (post) => payload.id == post.id,
-            //     );
-
-            //     if (findIndex !== -1) {
-            //         draft.homePosts.nodes.splice(findIndex, 1);
-            //     }
-
-            //     break;
-            // }
+                break;
+            }
             default: {
                 return state;
             }
