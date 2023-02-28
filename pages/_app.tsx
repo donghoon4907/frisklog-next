@@ -4,11 +4,14 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'highlight.js/styles/atom-one-light.css';
+import 'nprogress/nprogress.css';
 
 import type { AppProps } from 'next/app';
+import Router from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import NProgress from 'nprogress';
 
 import { wrapper } from '../store';
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
@@ -25,6 +28,10 @@ import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
+
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 const AppContainer = styled.div`
     display: flex;
