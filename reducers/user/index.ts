@@ -20,6 +20,7 @@ export interface UserState {
     nickname: string | null;
     avatar: string | null;
     isMaster: boolean | null;
+    link: string | null;
     receivePostNotification: boolean | null;
     recommendUsers: User[];
     userPageProfile: User | null;
@@ -38,6 +39,7 @@ const initialState: UserState = {
     nickname: null,
     avatar: null,
     isMaster: null,
+    link: null,
     receivePostNotification: null,
     recommendUsers: [],
     userPageProfile: null,
@@ -66,6 +68,7 @@ export default (
                     nickname,
                     avatar,
                     isMaster,
+                    link,
                     receivePostNotification,
                 } = payload;
 
@@ -77,6 +80,8 @@ export default (
 
                 draft.isMaster =
                     typeof isMaster === 'boolean' ? isMaster : draft.isMaster;
+
+                draft.link = link ? link : draft.link;
 
                 draft.receivePostNotification =
                     typeof receivePostNotification === 'boolean'

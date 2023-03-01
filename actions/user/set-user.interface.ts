@@ -7,6 +7,7 @@ export interface SetUserRequestPayload {
     nickname?: string;
     avatar?: string;
     isMaster?: boolean;
+    link?: string;
     receivePostNotification?: boolean;
 }
 
