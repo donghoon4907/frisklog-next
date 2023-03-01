@@ -70,9 +70,7 @@ export const PostEditor: FC<Props> = ({
                                 formData,
                             },
                             (fileName: string) => {
-                                const path = `${process.env.BACKEND_ROOT}/${fileName}`;
-
-                                callback(path, '');
+                                callback(fileName, '');
                             },
                         );
 

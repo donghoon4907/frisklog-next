@@ -3,7 +3,7 @@ import { GraphQLClient } from 'graphql-request';
 import { getCookie } from '../../lib/cookie/cookie.client';
 import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
 
-const GRAPHQL_ENDPOINT = `${process.env.BACKEND_ROOT}/graphql`;
+const GRAPHQL_ENDPOINT = `${process.env.BACKEND_HOST}/graphql`;
 
 interface UpdateClientHeaderOptions {
     token?: string | null;

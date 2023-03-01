@@ -54,15 +54,13 @@ export const UploadAvatar: FC<Props> = ({
                 formData,
             },
             (fileName: string) => {
-                const path = `${process.env.BACKEND_ROOT}/${fileName}`;
-
                 const reader = new FileReader();
 
                 reader.onloadend = () => {
                     // 미리보기 상태 변경
                     setPreview(reader.result as string);
                     // 업로드된 파일 상태 변경
-                    setUploadedFile(path);
+                    setUploadedFile(fileName);
                 };
 
                 reader.readAsDataURL(file);

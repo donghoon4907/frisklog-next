@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { watchUploadImage } from './upload-image';
 
-axios.defaults.baseURL = process.env.BACKEND_ROOT + '/v1';
+axios.defaults.baseURL = process.env.BACKEND_HOST + '/v1';
 
 export function* commonSaga() {
     yield all([fork(watchUploadImage)]);

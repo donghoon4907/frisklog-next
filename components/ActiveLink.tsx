@@ -27,11 +27,7 @@ export const ActiveLink: FC<Props> = ({
     };
 
     return (
-        <a
-            href={href === '/' ? href : process.env.FRONTEND_ROOT + href}
-            onClick={handleClick}
-            {...another}
-        >
+        <a href={href} onClick={handleClick} {...another}>
             {children}
         </a>
     );
