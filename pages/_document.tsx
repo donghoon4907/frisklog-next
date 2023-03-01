@@ -109,6 +109,10 @@ export default class MyDocument extends Document {
                     <meta name="theme-color" content="#ffffff" />
                     <meta charSet="utf-8" />
                     <meta httpEquiv="cache-control" content="no-store" />
+                    <meta
+                        httpEquiv="Content-Security-Policy"
+                        content="upgrade-insecure-requests"
+                    />
                     <meta name="msapplication-TileColor" content="#ffffff" />
                     <meta
                         name="msapplication-TileImage"
