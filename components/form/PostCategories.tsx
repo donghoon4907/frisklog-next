@@ -20,6 +20,10 @@ export const PostCategoriesForm: FC<Props> = ({
     const handleAddCategory = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
+        if (category.value.match(/\s/g)) {
+            return alert('카테고리에 공백을 포함할 수 없습니다.');
+        }
+
         if (category.value.length > 10) {
             return alert('카테고리는 10자 미만으로 입력하세요.');
         }
