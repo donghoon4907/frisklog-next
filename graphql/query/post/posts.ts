@@ -9,6 +9,7 @@ import { POST_ITEM_FIELDS } from '../../fragment/post';
  * @param $order         정렬
  * @param $searchKeyword 검색어
  * @param $userId        사용자 ID
+ * @param $visibility    공개여부
  */
 export const GET_POSTS = gql`
     ${PAGING_META_FIELDS}
@@ -17,14 +18,18 @@ export const GET_POSTS = gql`
         $offset: Int
         $limit: Int!
         $searchKeyword: String
-        $userId: String # $order: [[String]]
-    ) {
+        $userId: String
+        $visibility: String
+    ) # $order: [[String]]
+    {
         posts(
             offset: $offset
             limit: $limit
             searchKeyword: $searchKeyword
-            userId: $userId # order: $order
-        ) {
+            userId: $userId
+            visibility: $visibility
+        ) # order: $order
+        {
             nodes {
                 ...PostItemFields
             }

@@ -13,6 +13,9 @@ import { PostCategoriesForm } from '../form/PostCategories';
 import { useMutation } from '../../hooks/use-mutation';
 import { createPostRequest } from '../../actions/post/create-post.action';
 import { updatePostRequest } from '../../actions/post/update-post.action';
+import { CustomSelect } from '../CustomSelect';
+import { postVisibilityOptions } from '../options/visibility';
+import { ISelectOption } from '../../interfaces/select';
 
 export const SetPostModal: FC = () => {
     const dispatch = useDispatch();
@@ -23,6 +26,10 @@ export const SetPostModal: FC = () => {
 
     const { isShowPostModal } = useSelector<AppState, CommonState>(
         (state) => state.common,
+    );
+
+    const [visibility, setVisibility] = useState<ISelectOption>(
+        postVisibilityOptions[0],
     );
 
     const [createPost] = useMutation(createPostRequest, {
@@ -69,20 +76,37 @@ export const SetPostModal: FC = () => {
 
         if (tf) {
             if (isUpdate) {
-                updatePost({ id: activePost.id!, content, categories });
+                updatePost({
+                    id: activePost.id!,
+                    content,
+                    categories,
+                    visibility: visibility.value,
+                });
             } else {
-                createPost({ content, categories });
+                createPost({
+                    content,
+                    categories,
+                    visibility: visibility.value,
+                });
             }
         }
     };
 
     useEffect(() => {
-        const { id, content, categories } = activePost;
+        const { id, content, categories, visibility } = activePost;
 
         if (id !== null) {
             setContent(content!);
 
             setCategories(categories);
+
+            const visIdx = postVisibilityOptions.findIndex(
+                ({ value }) => value === visibility,
+            );
+
+            if (visIdx !== -1) {
+                setVisibility(postVisibilityOptions[visIdx]);
+            }
         }
     }, [activePost]);
 
@@ -103,6 +127,13 @@ export const SetPostModal: FC = () => {
                 initialValue={content}
                 onChange={(content) => setContent(content)}
             />
+            <div style={{ marginTop: '0.5rem' }}>
+                <CustomSelect
+                    activeOption={visibility}
+                    setOption={setVisibility}
+                    options={postVisibilityOptions}
+                />
+            </div>
             <PostCategoriesForm
                 category={category}
                 categories={categories}

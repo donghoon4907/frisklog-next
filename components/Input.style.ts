@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const InputBody = styled.input<{ expanded: boolean }>`
     border: 0;
-    border: 1px solid ${({ theme }) => theme.borderColor};
+    border: 1px solid ${({ theme }) => theme.dividerColor};
     background-color: ${({ theme }) => theme.inputBgColor};
     color: inherit;
     height: 3rem;

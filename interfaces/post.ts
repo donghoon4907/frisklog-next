@@ -1,3 +1,4 @@
+import { PostVisibility } from '../types/visibility';
 import { Category } from './category';
 import { User } from './user';
 
@@ -14,4 +15,5 @@ export interface Post {
     likers: User[];
     isLiked: boolean;
     categories: Category[];
+    visibility: PostVisibility;
 }

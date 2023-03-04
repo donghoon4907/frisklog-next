@@ -19,12 +19,14 @@ import { OffsetPageInfo } from '../../interfaces/page-info';
 import { Post } from '../../interfaces/post';
 import { likedPostsActionTypes } from '../../actions/post/liked-posts.action';
 import { LikedPostsSuccessAction } from '../../actions/post/liked-posts.interface';
+import { PostVisibility } from '../../types/visibility';
 
 export interface PostState {
     activePost: {
         id: string | null;
         content: string | null;
         categories: string[];
+        visibility: PostVisibility | null;
     };
     homePosts: {
         pageInfo: OffsetPageInfo | null;
@@ -61,6 +63,7 @@ const initialState: PostState = {
         id: null,
         content: null,
         categories: [],
+        visibility: null,
     },
     homePosts: {
         pageInfo: null,
@@ -103,6 +106,8 @@ export default (state = initialState, action: PostAction) =>
                 draft.activePost.content = payload.content;
 
                 draft.activePost.categories = payload.categories;
+
+                draft.activePost.visibility = payload.visibility;
                 break;
             }
             case activePostActionTypes.INIT: {

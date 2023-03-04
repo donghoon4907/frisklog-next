@@ -58,6 +58,7 @@ export const PostItem: FC<Props> = ({
     isLiked,
     likedCount,
     commentCount,
+    visibility,
 }) => {
     const { id: userId } = useSelector<AppState, UserState>(
         (state) => state.user,
@@ -111,6 +112,7 @@ export const PostItem: FC<Props> = ({
                                         id={id}
                                         content={content}
                                         categories={postCategories}
+                                        visibility={visibility}
                                     />
                                 }
                                 placement="bottomRight"
@@ -167,6 +169,7 @@ export const PostItem: FC<Props> = ({
                                     postId={id}
                                     content={content}
                                     categories={postCategories}
+                                    visibility={visibility}
                                 />
                                 <RemovePostButton id={id} />
                             </>

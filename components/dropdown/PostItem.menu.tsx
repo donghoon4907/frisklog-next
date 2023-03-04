@@ -6,14 +6,21 @@ import { setActivePost } from '../../actions/post/active-post.action';
 import { deletePostRequest } from '../../actions/post/delete-post.action';
 import { showPostModal } from '../../actions/switch/post-modal.action';
 import { useMutation } from '../../hooks/use-mutation';
+import { PostVisibility } from '../../types/visibility';
 
 interface Props {
     id: string;
     content: string;
     categories: string[];
+    visibility: PostVisibility;
 }
 
-export const PostMenu: FC<Props> = ({ id, content, categories }) => {
+export const PostMenu: FC<Props> = ({
+    id,
+    content,
+    categories,
+    visibility,
+}) => {
     const dispatch = useDispatch();
 
     const [deletePost] = useMutation(deletePostRequest, {
@@ -27,6 +34,7 @@ export const PostMenu: FC<Props> = ({ id, content, categories }) => {
                 id,
                 content,
                 categories,
+                visibility,
             }),
         );
 

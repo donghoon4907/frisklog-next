@@ -22,6 +22,7 @@ import { LinkCategoryButton } from '../components/button/LinkCategory';
 import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { ScrollList } from '../components/ScrollList';
 import { ServerCookie } from '../lib/cookie/cookie.server';
+import { PostVisibility } from '../types/visibility';
 
 const Home: NextPage = () => {
     const { homePosts } = useSelector<AppState, PostState>(
@@ -49,6 +50,7 @@ const Home: NextPage = () => {
                     {...homePosts}
                     actionCreator={homePostsRequest}
                     Node={PostItem}
+                    payload={{ visibility: PostVisibility.PUBLIC }}
                 />
             </Main>
             <Aside>
@@ -116,6 +118,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
                 dispatch(
                     homePostsRequest({
                         limit: 12,
+                        visibility: PostVisibility.PUBLIC,
                     }),
                 );
 

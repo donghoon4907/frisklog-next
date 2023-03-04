@@ -1,11 +1,13 @@
 import { Action } from 'redux';
 
 import { PayloadAction } from '..';
+import { PostVisibility } from '../../types/visibility';
 
 export interface ActivePostRequestPayload {
     id: string;
     content: string;
     categories: string[];
+    visibility: PostVisibility;
 }
 
 export interface ActivePostRequestAction

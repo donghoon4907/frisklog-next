@@ -4,7 +4,7 @@ import { Post } from '../../interfaces/post';
 import { GetPostsRequestPayload } from './get-posts.interface';
 
 export interface HomePostsRequestPayload
-    extends Pick<GetPostsRequestPayload, 'offset' | 'limit'>,
+    extends Pick<GetPostsRequestPayload, 'offset' | 'limit' | 'visibility'>,
         Payload {}
 
 export interface HomePostsSuccessPayload {
