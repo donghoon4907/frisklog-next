@@ -6,7 +6,7 @@ import { GetPostsRequestPayload } from './get-posts.interface';
 export interface UserPostsRequestPayload
     extends Pick<
             GetPostsRequestPayload,
-            'offset' | 'limit' | 'userId' | 'order'
+            'offset' | 'limit' | 'userId' | 'order' | 'visibility'
         >,
         Payload {}
 

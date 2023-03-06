@@ -3,16 +3,19 @@ import { FC } from 'react';
 import { Button } from '.';
 import { logoutUserRequest } from '../../actions/user/logout-user.action';
 import { useMutation } from '../../hooks/use-mutation';
+import { useRoute } from '../../hooks/use-route';
 
 export const LogoutButton: FC = () => {
-    const [logout] = useMutation(logoutUserRequest, { useReload: true });
+    const route = useRoute();
+
+    const [logout] = useMutation(logoutUserRequest);
 
     // 클릭 핸들러
     const handleClick = () => {
         const tf = window.confirm('로그아웃 하시겠어요?');
 
         if (tf) {
-            logout();
+            logout({}, () => route.move('/'));
         }
     };
 

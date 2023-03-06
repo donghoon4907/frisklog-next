@@ -29,6 +29,8 @@ import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
 
+NProgress.configure({ showSpinner: false });
+
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());

@@ -93,7 +93,7 @@ export const PostItem: FC<Props> = ({
                         <StyledPost.AvatarWrapper>
                             <LinkAvatar
                                 aria-label="사용자 페이지"
-                                href={user.link}
+                                href={isMe ? `/mypage/${userId}` : user.link}
                                 src={user.avatar}
                                 alt="Avatar"
                             />

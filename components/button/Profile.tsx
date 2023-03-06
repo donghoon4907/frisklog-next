@@ -15,7 +15,7 @@ const AvatarWrapper = styled.div`
 `;
 
 export const ProfileButton: FC = () => {
-    const { id, avatar, link } = useSelector<AppState, UserState>(
+    const { id, avatar } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
 
@@ -23,13 +23,13 @@ export const ProfileButton: FC = () => {
 
     const handleClick = () => validateToken();
 
-    const isLogin = id !== null;
+    const isLogin = !!id;
 
     return isLogin ? (
         <AvatarWrapper>
             <LinkAvatar
                 aria-label="마이페이지"
-                href={link!}
+                href={`/mypage/${id}`}
                 src={avatar!}
                 alt="Avatar"
             />

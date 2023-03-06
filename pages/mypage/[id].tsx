@@ -15,13 +15,13 @@ import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
 import { UserState } from '../../reducers/user';
-import { PostVisibility } from '../../types/visibility';
+import { MyPosts } from '../../components/partitial/aside/MyPosts';
 
 interface Props {
     userId: string;
 }
 
-const UserProfile: NextPage<Props> = ({ userId }) => {
+const MyPage: NextPage<Props> = ({ userId }) => {
     const { userPageProfile } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
@@ -43,14 +43,15 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
                     {...userPosts}
                     actionCreator={userPostsRequest}
                     Node={PostItem}
-                    payload={{ userId, visibility: PostVisibility.PUBLIC }}
+                    payload={{ userId }}
                 />
             </Main>
             <Aside>
                 <MainTitle>
-                    <h2>사용자 정보</h2>
+                    <h2>내 정보</h2>
                 </MainTitle>
                 {userPageProfile && <AsideUserProfile user={userPageProfile} />}
+                <MyPosts />
             </Aside>
         </>
     );
@@ -71,7 +72,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
                 userPostsRequest({
                     limit: 12,
                     userId,
-                    visibility: PostVisibility.PUBLIC,
                 }),
             );
 
@@ -87,4 +87,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 );
 
-export default UserProfile;
+export default MyPage;
