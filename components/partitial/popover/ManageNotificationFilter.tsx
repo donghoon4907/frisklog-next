@@ -9,32 +9,47 @@ import { UserState } from '../../../reducers/user';
 import { updateSettingRequest } from '../../../actions/user/update-setting.action';
 
 export const ManageNotificationFilter: FC = () => {
-    const { receivePostNotification } = useSelector<AppState, UserState>(
-        (state) => state.user,
-    );
+    const { id, receivePostNotification, receiveLikeNotification } =
+        useSelector<AppState, UserState>((state) => state.user);
 
     const [updateSetting] = useMutation(updateSettingRequest, {
         useAuth: true,
     });
 
-    const handleChange = (checked: boolean) => {
+    const handleChangePostNoti = (checked: boolean) => {
         updateSetting({
             receivePostNotification: checked,
         });
     };
 
-    const isLoggedIn = typeof receivePostNotification === 'boolean';
+    const handleChangeLikeNoti = (checked: boolean) => {
+        updateSetting({
+            receiveLikeNotification: checked,
+        });
+    };
+
+    const isLoggedIn = !!id;
 
     return (
         <StyledManageNotification.Filter>
             <StyledManageNotification.SwitchWrapper>
                 <Switch
                     size="small"
-                    checked={isLoggedIn ? receivePostNotification : true}
-                    onChange={handleChange}
+                    checked={isLoggedIn ? receivePostNotification! : true}
+                    onChange={handleChangePostNoti}
                 />
                 <StyledManageNotification.SwitchDescription>
                     팔로워 포스트 알림 여부
+                </StyledManageNotification.SwitchDescription>
+            </StyledManageNotification.SwitchWrapper>
+            <StyledManageNotification.SwitchWrapper>
+                <Switch
+                    size="small"
+                    checked={isLoggedIn ? receiveLikeNotification! : true}
+                    onChange={handleChangeLikeNoti}
+                />
+                <StyledManageNotification.SwitchDescription>
+                    좋아요 알림 여부
                 </StyledManageNotification.SwitchDescription>
             </StyledManageNotification.SwitchWrapper>
         </StyledManageNotification.Filter>

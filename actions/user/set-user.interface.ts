@@ -9,6 +9,7 @@ export interface SetUserRequestPayload {
     isMaster?: boolean;
     link?: string;
     receivePostNotification?: boolean;
+    receiveLikeNotification?: boolean;
 }
 
 export interface SetUserRequestAction

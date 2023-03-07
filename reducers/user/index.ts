@@ -22,6 +22,7 @@ export interface UserState {
     isMaster: boolean | null;
     link: string | null;
     receivePostNotification: boolean | null;
+    receiveLikeNotification: boolean | null;
     recommendUsers: User[];
     userPageProfile: User | null;
     searchedFollowings: {
@@ -41,6 +42,7 @@ const initialState: UserState = {
     isMaster: null,
     link: null,
     receivePostNotification: null,
+    receiveLikeNotification: null,
     recommendUsers: [],
     userPageProfile: null,
     searchedFollowings: {
@@ -70,6 +72,7 @@ export default (
                     isMaster,
                     link,
                     receivePostNotification,
+                    receiveLikeNotification,
                 } = payload;
 
                 draft.id = id ? id : draft.id;
@@ -88,6 +91,11 @@ export default (
                         ? receivePostNotification
                         : draft.receivePostNotification;
 
+                draft.receiveLikeNotification =
+                    typeof receiveLikeNotification === 'boolean'
+                        ? receiveLikeNotification
+                        : draft.receiveLikeNotification;
+
                 const isMypage =
                     draft.userPageProfile &&
                     draft.userPageProfile.id === draft.id;
@@ -104,6 +112,12 @@ export default (
                 draft.avatar = null;
 
                 draft.isMaster = null;
+
+                draft.link = null;
+
+                draft.receivePostNotification = null;
+
+                draft.receiveLikeNotification = null;
                 break;
             }
             case recommendUsersActionTypes.SUCCESS: {

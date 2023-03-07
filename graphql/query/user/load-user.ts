@@ -12,6 +12,7 @@ export const LOAD_USER = gql`
         loadUser {
             ...CoreUserFields
             receivePostNotification
+            receiveLikeNotification
         }
     }
 `;

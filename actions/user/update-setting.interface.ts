@@ -4,6 +4,7 @@ import { ErrorAction, Payload, PayloadAction } from '..';
 
 export interface UpdateSettingRequestPayload extends Payload {
     receivePostNotification?: boolean;
+    receiveLikeNotification?: boolean;
 }
 
 export interface UpdateSettingRequestAction
