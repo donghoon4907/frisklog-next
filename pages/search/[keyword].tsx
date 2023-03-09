@@ -19,6 +19,7 @@ import { UserState } from '../../reducers/user';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { searchCategoriesRequest } from '../../actions/category/search-categories.action';
 import { NotFoundCategory } from '../../components/NotFoundCategory';
+import { PostVisibility } from '../../types/visibility';
 
 interface Props {
     searchKeyword: string;
@@ -92,6 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
                 searchPostsRequest({
                     limit: 12,
                     searchKeyword,
+                    visibility: PostVisibility.PUBLIC,
                 }),
             );
 
