@@ -10,7 +10,6 @@ import { PostItem } from '../../components/PostItem';
 import { AppState } from '../../reducers';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
-import { searchPostsRequest } from '../../actions/post/search-posts.action';
 import { CategoryState } from '../../reducers/category';
 import { LinkCategoryButton } from '../../components/button/LinkCategory';
 import { PostState } from '../../reducers/post';
@@ -41,7 +40,7 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
                 </MainTitle>
                 <ScrollList
                     {...categoryPosts}
-                    actionCreator={searchPostsRequest}
+                    actionCreator={categoryPostsRequest}
                     Node={PostItem}
                     payload={{ category }}
                 />

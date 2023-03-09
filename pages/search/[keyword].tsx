@@ -51,7 +51,10 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                     {...searchPosts}
                     actionCreator={searchPostsRequest}
                     Node={PostItem}
-                    payload={{ searchKeyword }}
+                    payload={{
+                        searchKeyword,
+                        visibility: PostVisibility.PUBLIC,
+                    }}
                 />
             </Main>
             <Aside>
