@@ -15,7 +15,7 @@ export function updateClientHeader(options: UpdateClientHeaderOptions) {
     if (token) {
         client.setHeader('authorization', `Bearer ${token}`);
     } else {
-        client.setHeader('authorization', `Non-login`);
+        client.setHeader('authorization', 'Non-login');
     }
 }
 

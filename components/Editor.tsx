@@ -7,6 +7,7 @@ import { PostEditorContainer } from './Editor.style';
 import { AppState } from '../reducers';
 import { uploadImageRequest } from '../actions/upload/image.action';
 import { useMutation } from '../hooks/use-mutation';
+import { PhotoType } from '../types/photo';
 
 const Editor =
     typeof window !== 'undefined' && require('@toast-ui/react-editor').Editor;
@@ -68,6 +69,7 @@ export const PostEditor: FC<Props> = ({
                         upload(
                             {
                                 formData,
+                                type: PhotoType.POST,
                             },
                             (fileName: string) => {
                                 callback(fileName, '');

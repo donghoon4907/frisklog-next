@@ -1,8 +1,10 @@
 import { Action } from 'redux';
 import { ErrorAction, Payload, PayloadAction } from '..';
+import { PhotoType } from '../../types/photo';
 
 export interface UploadImageRequestPayload extends Payload {
     formData: FormData;
+    type: PhotoType;
 }
 
 export interface UploadImageRequestAction

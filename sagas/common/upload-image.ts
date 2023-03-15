@@ -12,7 +12,7 @@ import {
 import { sagaError } from '../../actions/error/error.action';
 
 function uploadImageAPI(payload: UploadImageRequestPayload) {
-    return axios.post('/upload/image', payload.formData, {
+    return axios.post(`/upload/image?type=${payload.type}`, payload.formData, {
         headers: {
             'content-type': 'multipart/form-data',
         },

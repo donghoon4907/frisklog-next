@@ -12,6 +12,7 @@ import { uploadImageRequest } from '../actions/upload/image.action';
 import { useMutation } from '../hooks/use-mutation';
 import { UploadAvatarContainer } from './Avatar.style';
 import { RectangleAvatar } from './RectangleAvatar';
+import { PhotoType } from '../types/photo';
 
 interface Props {
     defaultPreview: string;
@@ -52,6 +53,7 @@ export const UploadAvatar: FC<Props> = ({
         uploadImage(
             {
                 formData,
+                type: PhotoType.PROFILE,
             },
             (fileName: string) => {
                 const reader = new FileReader();
