@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import Slider, { CustomArrowProps, Settings } from 'react-slick';
+import { CustomArrowProps } from 'react-slick';
 import { MdOutlineDoubleArrow } from 'react-icons/md';
 import styled from 'styled-components';
 
 import { mixinAlignIconCenter } from './theme/mixins';
-import { DefaultProps } from '../interfaces/default';
 
 const PrevArrowWrapper = styled.button`
     left: -20px;
@@ -28,7 +27,7 @@ const NextArrowWrapper = styled.button`
     }
 `;
 
-const PrevArrow: FC<CustomArrowProps> = ({ onClick }) => {
+export const PrevArrow: FC<CustomArrowProps> = ({ onClick }) => {
     return (
         <PrevArrowWrapper
             type="button"
@@ -40,7 +39,7 @@ const PrevArrow: FC<CustomArrowProps> = ({ onClick }) => {
     );
 };
 
-const NextArrow: FC<CustomArrowProps> = ({ onClick }) => {
+export const NextArrow: FC<CustomArrowProps> = ({ onClick }) => {
     return (
         <NextArrowWrapper
             type="button"
@@ -50,24 +49,4 @@ const NextArrow: FC<CustomArrowProps> = ({ onClick }) => {
             <MdOutlineDoubleArrow />
         </NextArrowWrapper>
     );
-};
-
-interface Props extends DefaultProps {}
-
-export const Slick: FC<Props> = ({ children }) => {
-    const settings: Settings = {
-        className: '',
-        dots: true,
-        infinite: true,
-        prevArrow: <PrevArrow />,
-        nextArrow: <NextArrow />,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        // centerMode: true,
-        autoplay: true,
-        autoplaySpeed: 5000,
-    };
-
-    return <Slider {...settings}>{children}</Slider>;
 };

@@ -6,6 +6,7 @@ import { commentSaga } from './comment';
 import { commonSaga } from './common';
 import { categorySaga } from './category';
 import { notificationSaga } from './notification';
+import { photoSaga } from './photo';
 
 export function* rootSaga() {
     yield all([
@@ -15,5 +16,6 @@ export function* rootSaga() {
         call(commonSaga),
         call(categorySaga),
         call(notificationSaga),
+        call(photoSaga),
     ]);
 }

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { mixinBox } from './theme/mixins';
 
 export const AvatarContainer = styled.div`
     position: relative;
@@ -15,6 +14,12 @@ export const SquareAvatarContainer = styled(AvatarContainer)`
 
 export const RectangleAvatarContainer = styled(AvatarContainer)`
     padding-top: 56.25%;
+`;
+
+export const CircleAvatarContainer = styled(AvatarContainer)`
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 `;
 
 export const AvatarBody = styled.img`

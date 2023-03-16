@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+import Slider from 'react-slick';
 
 import { Aside } from '../components/layout/Aside';
 import { Main } from '../components/layout/Main';
@@ -13,7 +14,7 @@ import { AppState } from '../reducers';
 import { PostState } from '../reducers/post';
 import { PostItem } from '../components/PostItem';
 import { recommendUsersRequest } from '../actions/user/recommend-users.action';
-import { Slick } from '../components/Slick';
+import { PrevArrow, NextArrow } from '../components/Slick';
 import { UserState } from '../reducers/user';
 import { UserItem } from '../components/UserItem';
 import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
@@ -78,14 +79,26 @@ const Home: NextPage = () => {
                             <h2>추천인</h2>
                         </MainTitle>
                         <div style={{ marginBottom: 30 }}>
-                            <Slick>
+                            <Slider
+                                className=""
+                                dots
+                                infinite
+                                prevArrow={<PrevArrow />}
+                                nextArrow={<NextArrow />}
+                                speed={500}
+                                slidesToShow={1}
+                                slidesToScroll={1}
+                                // centerMode: true,
+                                autoplay
+                                autoplaySpeed={5000}
+                            >
                                 {recommendUsers.map((user) => (
                                     <UserItem
                                         key={`recommendUser${user.id}`}
                                         {...user}
                                     />
                                 ))}
-                            </Slick>
+                            </Slider>
                         </div>
                     </>
                 )}

@@ -10,9 +10,10 @@ export const FormColumn = styled.div`
 export const FormUploadAvatarColumn = styled.div`
     ${mixinBox}
 
-    & > button {
-        display: block;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 `;
 
 export const FormSubmitColumn = styled.div`

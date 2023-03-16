@@ -16,7 +16,7 @@ interface Props {
 export const SignUpForm: FC<Props> = ({ setMode }) => {
     const [create] = useMutation(createUserRequest);
 
-    const [uploadedFile, setUploadedFile] = useState<string>('');
+    //const [uploadedFile, setUploadedFile] = useState<string>('');
 
     const nickname = useInput('');
 
@@ -37,7 +37,7 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
             create(
                 {
                     email: email.value,
-                    avatar: uploadedFile,
+                    //avatar: uploadedFile,
                     nickname: nickname.value,
                 },
                 () => setMode(AuthMode.LOGIN),
@@ -47,12 +47,12 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <FormUploadAvatarColumn>
+            {/* <FormUploadAvatarColumn>
                 <UploadAvatar
                     defaultPreview=""
                     setUploadedFile={setUploadedFile}
                 />
-            </FormUploadAvatarColumn>
+            </FormUploadAvatarColumn> */}
             <FormColumn>
                 <FormInput
                     id="email"

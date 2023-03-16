@@ -3,14 +3,13 @@ import { useSelector } from 'react-redux';
 
 import { AppState } from '../../../reducers';
 import { UserState } from '../../../reducers/user';
-import { RectangleAvatar } from '../../RectangleAvatar';
-import { UploadAvatar } from '../../UploadAvatar';
-import { SetNicknameButton } from '../../button/SetNickname';
+import { UserSettingButton } from '../../button/UserSetting';
 import { LogoutButton } from '../../button/Logout';
 import { UpdateAvatarButton } from '../../button/UpdateAvatar';
 import * as StyledUserProfile from './UserProfile.style';
 import { FollowButton } from '../../button/Follow';
 import { User } from '../../../interfaces/user';
+import { CircleAvatar } from '../../CircleAvatar';
 
 interface Props {
     user: Pick<User, 'id' | 'nickname' | 'avatar' | 'isFollowing'>;
@@ -32,14 +31,7 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
     return (
         <StyledUserProfile.Container>
             <StyledUserProfile.Header>
-                {isMe ? (
-                    <UploadAvatar
-                        defaultPreview={uploadedFile}
-                        setUploadedFile={setUploadedFile}
-                    />
-                ) : (
-                    <RectangleAvatar src={uploadedFile} alt="Avatar" />
-                )}
+                <CircleAvatar src={uploadedFile} alt="Avatar" />
             </StyledUserProfile.Header>
             <StyledUserProfile.Body>
                 <StyledUserProfile.Meta>
@@ -48,9 +40,7 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
                             {user.nickname}
                         </StyledUserProfile.NicknameBody>
                     </StyledUserProfile.NicknameWrapper>
-                    {isMe ? (
-                        <SetNicknameButton />
-                    ) : (
+                    {!isMe && (
                         <div style={{ width: 100 }}>
                             <FollowButton
                                 userId={user.id}
@@ -63,7 +53,7 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
             {isMe && (
                 <StyledUserProfile.Footer>
                     <LogoutButton />
-                    <UpdateAvatarButton avatar={uploadedFile} />
+                    <UserSettingButton />
                 </StyledUserProfile.Footer>
             )}
         </StyledUserProfile.Container>

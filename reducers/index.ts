@@ -7,6 +7,7 @@ import comment from './comment';
 import category from './category';
 import notification from './notification';
 import common from './common';
+import photo from './photo';
 import error from './common/error';
 import loading from './common/loading';
 
@@ -17,6 +18,7 @@ const combinedReducer = combineReducers({
     common,
     category,
     notification,
+    photo,
     error,
     loading,
 });

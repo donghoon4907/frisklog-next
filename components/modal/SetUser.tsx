@@ -9,12 +9,22 @@ import { useMutation } from '../../hooks/use-mutation';
 import { AppState } from '../../reducers';
 import { CommonState } from '../../reducers/common';
 import { FormInput } from '../FormInput';
+import { FormColumn, FormUploadAvatarColumn } from '../form/form.style';
+import { CircleAvatar } from '../CircleAvatar';
+import { UserState } from '../../reducers/user';
+import { PhotoState } from '../../reducers/photo';
 
 export const SetUserModal: FC = () => {
     const dispatch = useDispatch();
 
+    const { avatar } = useSelector<AppState, UserState>((state) => state.user);
+
     const { isShowUserModal } = useSelector<AppState, CommonState>(
         (state) => state.common,
+    );
+
+    const { profilePhotos } = useSelector<AppState, PhotoState>(
+        (state) => state.photo,
     );
 
     const [updateUser] = useMutation(updateUserRequest, { useAuth: true });
@@ -52,14 +62,27 @@ export const SetUserModal: FC = () => {
             destroyOnClose
             centered
         >
-            <FormInput
-                placeholder="닉네임을 입력하세요"
-                id="setNickname"
-                expanded
-                {...newNickname}
-                autoComplete="off"
-                label="닉네임"
-            />
+            <FormUploadAvatarColumn>
+                <CircleAvatar src={avatar!} alt="Avatar" />
+            </FormUploadAvatarColumn>
+            <FormColumn>
+                {/* <Slick> */}
+                {/* {profilePhotos.map((user) => (
+                        
+                    ))} */}
+                {/* </Slick> */}
+            </FormColumn>
+
+            <FormColumn>
+                <FormInput
+                    placeholder="닉네임을 입력하세요"
+                    id="setNickname"
+                    expanded
+                    {...newNickname}
+                    autoComplete="off"
+                    label="닉네임"
+                />
+            </FormColumn>
         </Modal>
     );
 };
