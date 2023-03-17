@@ -17,8 +17,8 @@ export const RectangleAvatarContainer = styled(AvatarContainer)`
 `;
 
 export const CircleAvatarContainer = styled(AvatarContainer)`
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
 `;
 

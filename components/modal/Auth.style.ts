@@ -11,8 +11,3 @@ export const StateChanger = styled.div`
     text-align: center;
     padding: ${({ theme }) => theme.padding.xxxlg} 0;
 `;
-
-export const StateChangerLink = styled.span`
-    color: ${({ theme }) => theme.colors.blue};
-    cursor: pointer;
-`;

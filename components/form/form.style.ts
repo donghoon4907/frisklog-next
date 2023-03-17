@@ -11,7 +11,7 @@ export const FormUploadAvatarColumn = styled.div`
     ${mixinBox}
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
 `;

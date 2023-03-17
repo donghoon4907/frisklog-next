@@ -7,13 +7,10 @@ import { SignUpForm } from '../form/SignUp';
 import { AuthMode, AuthModeType } from '../../types/mode';
 import { GithubLoginButton } from '../button/GithubLogin';
 import { SignInForm } from '../form/SignIn';
-import {
-    AnotherLoginContainer,
-    StateChanger,
-    StateChangerLink,
-} from './Auth.style';
+import { AnotherLoginContainer, StateChanger } from './Auth.style';
 import { AppState } from '../../reducers';
 import { hideLoginModal } from '../../actions/switch/login-modal.action';
+import { StateChangerLink } from '../link/link.style';
 
 export const AuthModal: FC = () => {
     const dispatch = useDispatch();
