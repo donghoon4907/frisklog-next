@@ -1,8 +1,13 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
+import { FaWindowClose } from 'react-icons/fa';
 
 import { Photo } from '../interfaces/photo';
 import { CoreSetState } from '../types/core';
+import { IconWrapper } from './button/IconWrapper';
+import { useMutation } from '../hooks/use-mutation';
+import { deletePhotoRequest } from '../actions/photo/delete-photo.action';
+import { PhotoType } from '../types/photo';
 
 const Container = styled.div`
     display: flex;
@@ -25,13 +30,31 @@ const Container = styled.div`
     }
 `;
 
+const Delete = styled.div`
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+`;
+
 interface Props extends Photo {
     setPhoto: CoreSetState<string>;
 }
 
-export const PhotoItem: FC<Props> = ({ src, setPhoto }) => {
+export const PhotoItem: FC<Props> = ({ id, src, setPhoto }) => {
+    const [deletePhoto] = useMutation(deletePhotoRequest, { useAuth: true });
+
     const handleClickPhoto = () => {
         setPhoto(src);
+    };
+
+    const handleDelete = (evt: MouseEvent) => {
+        evt.stopPropagation();
+
+        const tf = confirm('선택한 사진을 삭제하시겠습니까?');
+
+        if (tf) {
+            deletePhoto({ id, type: PhotoType.PROFILE });
+        }
     };
 
     return (
@@ -41,6 +64,11 @@ export const PhotoItem: FC<Props> = ({ src, setPhoto }) => {
             onClick={handleClickPhoto}
         >
             <img src={src} alt="이전 업로드 사진" />
+            <Delete>
+                <IconWrapper type="button" onClick={handleDelete}>
+                    <FaWindowClose />
+                </IconWrapper>
+            </Delete>
         </Container>
     );
 };

@@ -5,12 +5,12 @@ import {
     ProfilePhotosSuccessPayload,
 } from './profile-photos.interface';
 
-export const PROFILE_PHOTOS = 'PROFILE_PHOTOS';
+export const PROFILE_PHOTOS_KEY = 'PROFILE_PHOTOS';
 
 export const profilePhotosActionTypes = {
-    REQUEST: `${PROFILE_PHOTOS}_REQUEST`,
-    SUCCESS: `${PROFILE_PHOTOS}_SUCCESS`,
-    FAILURE: `${PROFILE_PHOTOS}_FAILURE`,
+    REQUEST: `${PROFILE_PHOTOS_KEY}_REQUEST`,
+    SUCCESS: `${PROFILE_PHOTOS_KEY}_SUCCESS`,
+    FAILURE: `${PROFILE_PHOTOS_KEY}_FAILURE`,
 };
 
 export function profilePhotosRequest(

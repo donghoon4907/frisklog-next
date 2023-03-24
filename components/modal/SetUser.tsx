@@ -179,6 +179,7 @@ export const SetUserModal: FC = () => {
                                 slidesToShow={4}
                                 slidesToScroll={4}
                                 initialSlide={0}
+                                rows={1}
                             >
                                 {profilePhotos.map((photos) => (
                                     <div key={`profilePhotos${photos.id}`}>

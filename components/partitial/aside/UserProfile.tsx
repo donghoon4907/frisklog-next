@@ -31,7 +31,9 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
     return (
         <StyledUserProfile.Container>
             <StyledUserProfile.Header>
-                <CircleAvatar src={uploadedFile} alt="Avatar" />
+                <div style={{ width: 180, height: 180 }}>
+                    <CircleAvatar src={uploadedFile} alt="Avatar" />
+                </div>
             </StyledUserProfile.Header>
             <StyledUserProfile.Body>
                 <StyledUserProfile.Meta>

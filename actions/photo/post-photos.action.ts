@@ -5,12 +5,12 @@ import {
     PostPhotosSuccessPayload,
 } from './post-photos.interface';
 
-export const POST_PHOTOS = 'POST_PHOTOS';
+export const POST_PHOTOS_KEY = 'POST_PHOTOS';
 
 export const postPhotosActionTypes = {
-    REQUEST: `${POST_PHOTOS}_REQUEST`,
-    SUCCESS: `${POST_PHOTOS}_SUCCESS`,
-    FAILURE: `${POST_PHOTOS}_FAILURE`,
+    REQUEST: `${POST_PHOTOS_KEY}_REQUEST`,
+    SUCCESS: `${POST_PHOTOS_KEY}_SUCCESS`,
+    FAILURE: `${POST_PHOTOS_KEY}_FAILURE`,
 };
 
 export function postPhotosRequest(
