@@ -1,12 +1,11 @@
-import { FC, Dispatch, SetStateAction, FormEvent, useState } from 'react';
+import { FC, Dispatch, SetStateAction, FormEvent } from 'react';
 
 import { useInput } from '../../hooks/use-input';
 import { AuthMode, AuthModeType } from '../../types/mode';
 import { FormInput } from '../FormInput';
 import { Button } from '../button';
-import { Form, FormColumn, FormUploadAvatarColumn } from './form.style';
+import { Form, FormColumn } from './form.style';
 import { createUserRequest } from '../../actions/user/create-user.action';
-import { UploadAvatar } from '../UploadAvatar';
 import { useMutation } from '../../hooks/use-mutation';
 
 interface Props {
@@ -47,12 +46,6 @@ export const SignUpForm: FC<Props> = ({ setMode }) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            {/* <FormUploadAvatarColumn>
-                <UploadAvatar
-                    defaultPreview=""
-                    setUploadedFile={setUploadedFile}
-                />
-            </FormUploadAvatarColumn> */}
             <FormColumn>
                 <FormInput
                     id="email"

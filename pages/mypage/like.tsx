@@ -3,17 +3,17 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
+import type { User } from '../../interfaces/user';
+import type { AppState } from '../../reducers';
+import type { PostState } from '../../reducers/post';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
-import { AppState } from '../../reducers';
-import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
-import { User } from '../../interfaces/user';
 import { likedPostsRequest } from '../../actions/post/liked-posts.action';
-import { PostItem } from '../../components/PostItem';
+import { PostItem } from '../../components/template/PostItem';
 
 interface Props {
     me: Pick<User, 'id' | 'nickname' | 'avatar'>;

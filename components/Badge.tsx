@@ -1,16 +1,34 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import styled from 'styled-components';
 
-import { UserStatusType } from '../types/status';
-import { BadgeBody, BadgeText } from './Badge.style';
+import { UserStatus } from '../types/status';
+
+const Container = styled.div`
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+`;
+
+export const Bg = styled.span<{ statusCode: UserStatus }>`
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: ${({ theme, statusCode }) => theme.statusColors[statusCode]};
+`;
+
+export const Text = styled.span`
+    line-height: 1;
+`;
 
 interface Props {
-    statusCode: UserStatusType;
+    statusCode: UserStatus;
     statusText?: string;
 }
 
 export const Badge: FC<Props> = ({ statusCode, statusText }) => (
-    <>
-        <BadgeBody statusCode={statusCode} />
-        {statusText && <BadgeText />}
-    </>
+    <Container>
+        <Bg statusCode={statusCode} />
+        {statusText && <Text />}
+    </Container>
 );

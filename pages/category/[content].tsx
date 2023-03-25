@@ -3,16 +3,16 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
+import type { AppState } from '../../reducers';
+import type { PostState } from '../../reducers/post';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
-import { PostItem } from '../../components/PostItem';
-import { AppState } from '../../reducers';
+import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
 import { CategoryState } from '../../reducers/category';
 import { LinkCategoryButton } from '../../components/button/LinkCategory';
-import { PostState } from '../../reducers/post';
 import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
 import { categoryPostsRequest } from '../../actions/post/category-posts.action';
 

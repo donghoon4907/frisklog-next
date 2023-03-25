@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { mixinBox } from '../../theme/mixins';
-import * as StyledPost from '../../PostItem.style';
+import { mixinBox, mixinEllipsis } from '../../theme/mixins';
 
 export const Container = styled.div`
     position: relative;
@@ -51,10 +50,23 @@ export const Meta = styled.div`
     }
 `;
 
-export const NicknameWrapper = styled(StyledPost.NameWrapper)`
+export const NicknameWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    line-height: 1;
+    flex-direction: row;
+    flex-grow: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    height: 100%;
+    overflow: hidden;
 `;
 
-export const NicknameBody = styled(StyledPost.NameBody)``;
+export const Nickname = styled.span`
+    margin-left: 5px;
+    margin-right: 5px;
+    line-height: 1.5;
+
+    ${mixinEllipsis}
+`;

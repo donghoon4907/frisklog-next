@@ -1,18 +1,13 @@
-import { FC } from 'react';
-import styled from 'styled-components';
+import type { FC } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
-import { useAuthenticate } from '../../hooks/use-authenticate';
-import { LinkAvatar } from '../LinkAvatar';
-import { UserState } from '../../reducers/user';
+import type { UserState } from '../../reducers/user';
+import type { AppState } from '../../reducers';
 import { IconWrapper } from './IconWrapper';
-import { AppState } from '../../reducers';
-
-const AvatarWrapper = styled.div`
-    width: 28px;
-    height: 28px;
-`;
+import { Avatar } from '../avatar';
+import { ActiveLink } from '../ActiveLink';
+import { useAuthenticate } from '../../hooks/use-authenticate';
 
 export const ProfileButton: FC = () => {
     const { id, avatar } = useSelector<AppState, UserState>(
@@ -26,14 +21,15 @@ export const ProfileButton: FC = () => {
     const isLogin = !!id;
 
     return isLogin ? (
-        <AvatarWrapper>
-            <LinkAvatar
-                aria-label="마이페이지"
-                href={`/mypage/${id}`}
+        <ActiveLink aria-label="마이페이지" href={`/mypage/${id}`}>
+            <Avatar
                 src={avatar!}
                 alt="Avatar"
+                width={28}
+                height={28}
+                borderRadius="4px"
             />
-        </AvatarWrapper>
+        </ActiveLink>
     ) : (
         <IconWrapper aria-label="로그인" onClick={handleClick}>
             <FaUserCircle />

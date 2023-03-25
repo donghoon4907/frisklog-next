@@ -1,11 +1,11 @@
+import type { FC } from 'react';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
 
-import { User } from '../interfaces/user';
+import type { User } from '../interfaces/user';
 import { FollowButton } from './button/Follow';
-import { SquareAvatar } from './SquareAvatar';
 import * as StyledFollowingItem from './FollowingItem.style';
 import { ActiveLink } from './ActiveLink';
+import { Avatar } from './avatar';
 
 interface Props extends User {}
 
@@ -39,7 +39,13 @@ export const FollowingItem: FC<Props> = ({
                 >
                     <StyledFollowingItem.Body>
                         <StyledFollowingItem.Avatar>
-                            <SquareAvatar src={avatar} alt="Avatar" />
+                            <Avatar
+                                src={avatar}
+                                alt="Avatar"
+                                width={50}
+                                height={50}
+                                borderRadius="4px"
+                            />
                         </StyledFollowingItem.Avatar>
                         <StyledFollowingItem.Meta>
                             <StyledFollowingItem.Name>

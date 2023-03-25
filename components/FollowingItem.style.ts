@@ -37,10 +37,7 @@ export const Body = styled.div`
     padding: 10px;
 `;
 
-export const Avatar = styled.div`
-    width: 50px;
-    height: 50px;
-`;
+export const Avatar = styled.div``;
 
 export const Meta = styled.div`
     display: flex;

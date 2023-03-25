@@ -10,8 +10,6 @@ import { useInput } from '../../hooks/use-input';
 import { useMutation } from '../../hooks/use-mutation';
 import { AppState } from '../../reducers';
 import { CommonState } from '../../reducers/common';
-import { FormInput } from '../FormInput';
-import { FormColumn } from '../form/form.style';
 import { UserState } from '../../reducers/user';
 import { PhotoState } from '../../reducers/photo';
 import { StateChangerLink } from '../link/link.style';
@@ -73,14 +71,14 @@ const StateChangerWrapper = styled.div`
     gap: 10px;
 `;
 
-export const SetUserModal: FC = () => {
+export const SetThumbnailModal: FC = () => {
     const dispatch = useDispatch();
 
     const $file = useRef<HTMLInputElement>(null);
 
     const { avatar } = useSelector<AppState, UserState>((state) => state.user);
 
-    const { isShowUserModal } = useSelector<AppState, CommonState>(
+    const { isShowThumbnailModal } = useSelector<AppState, CommonState>(
         (state) => state.common,
     );
 
@@ -134,8 +132,8 @@ export const SetUserModal: FC = () => {
 
     return (
         <Modal
-            title="사용자 정보 수정"
-            visible={isShowUserModal}
+            title="썸네일 변경"
+            visible={isShowThumbnailModal}
             onCancel={handleClose}
             onOk={handleOk}
             destroyOnClose
@@ -175,40 +173,13 @@ export const SetUserModal: FC = () => {
                     </AvatarMeta>
                 </UploadedAvatar>
                 <div style={{ width: '100%' }}>
-                    {profilePhotos.length > 0 && (
-                        <SliderWrapper>
-                            <Slider
-                                dots
-                                speed={500}
-                                slidesToShow={4}
-                                slidesToScroll={4}
-                                initialSlide={0}
-                                rows={1}
-                            >
-                                {profilePhotos.map((photos) => (
-                                    <div key={`profilePhotos${photos.id}`}>
-                                        <PhotoItem
-                                            {...photos}
-                                            setPhoto={setPreview}
-                                        />
-                                    </div>
-                                ))}
-                            </Slider>
-                        </SliderWrapper>
-                    )}
+                    {profilePhotos.map((photos) => (
+                        <div key={`profilePhotos${photos.id}`}>
+                            <PhotoItem {...photos} setPhoto={setPreview} />
+                        </div>
+                    ))}
                 </div>
             </UploadColumn>
-
-            <FormColumn>
-                <FormInput
-                    placeholder="닉네임을 입력하세요"
-                    id="setNickname"
-                    expanded
-                    {...newNickname}
-                    autoComplete="off"
-                    label="닉네임"
-                />
-            </FormColumn>
         </Modal>
     );
 };

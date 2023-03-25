@@ -28,6 +28,7 @@ import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
+import { SetThumbnailModal } from '../components/modal/SetThumbnail';
 
 NProgress.configure({ showSpinner: false });
 
@@ -108,6 +109,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <AuthModal />
                 <SetPostModal />
                 <SetUserModal />
+                <SetThumbnailModal />
                 {loading && <Loader />}
             </AppContainer>
         </Providers>

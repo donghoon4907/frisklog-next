@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import styled from 'styled-components';
 
+import type { Comment } from '../interfaces/comment';
+import type { OffsetPageInfo } from '../interfaces/page-info';
 import { postCommentsRequest } from '../actions/comment/post-comments.action';
 import { CreateCommentForm } from './form/CreateComment';
 import { useQuery } from '../hooks/use-query';
-import { Comment } from '../interfaces/comment';
-import { OffsetPageInfo } from '../interfaces/page-info';
 import { Button } from './button';
-import { CommentItem } from './CommentItem';
+import { CommentItem } from './template/CommentItem';
 
 const CommentListPagination = styled.div`
     display: flex;

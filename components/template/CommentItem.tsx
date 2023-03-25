@@ -1,22 +1,73 @@
 import { Dropdown } from 'antd';
-import { useState, FC, FormEvent } from 'react';
+import type { FC, FormEvent } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FiMoreVertical } from 'react-icons/fi';
+import styled from 'styled-components';
 
-import { deleteCommentRequest } from '../actions/comment/delete-comment.action';
-import { updateCommentRequest } from '../actions/comment/update-comment.action';
-import { useInput } from '../hooks/use-input';
-import { Comment } from '../interfaces/comment';
-import { timeForToday } from '../lib/date/time-for-today';
-import { AppState } from '../reducers';
-import { UserState } from '../reducers/user';
-import { LinkAvatar } from './LinkAvatar';
-import { CommentItemMenu } from './dropdown/CommentItem.menu';
-import { FormColumn, FormSubmitColumn } from './form/form.style';
-import { Button } from './button';
-import { FormTextarea } from './FormTextarea';
-import * as StyledCommentItem from './CommentItem.style';
-import { useMutation } from '../hooks/use-mutation';
+import type { Comment } from '../../interfaces/comment';
+import type { AppState } from '../../reducers';
+import type { UserState } from '../../reducers/user';
+import { deleteCommentRequest } from '../../actions/comment/delete-comment.action';
+import { updateCommentRequest } from '../../actions/comment/update-comment.action';
+import { useInput } from '../../hooks/use-input';
+import { timeForToday } from '../../lib/date/time-for-today';
+import { CommentItemMenu } from '../dropdown/CommentItem.menu';
+import { FormColumn, FormSubmitColumn } from '../form/form.style';
+import { Button } from '../button';
+import { FormTextarea } from '../FormTextarea';
+import { useMutation } from '../../hooks/use-mutation';
+import { mixinEllipsis } from '../theme/mixins';
+import { Avatar } from '../avatar';
+import { ActiveLink } from '../ActiveLink';
+
+const Container = styled.li`
+    border-top: 1px solid ${({ theme }) => theme.dividerColor};
+`;
+
+const Body = styled.div`
+    position: relative;
+    padding: 12px 23px 10px 0;
+`;
+
+const AvatarWrapper = styled.div`
+    position: absolute;
+    top: 12px;
+    left: 0;
+`;
+
+const Meta = styled.div`
+    padding-left: 46px;
+`;
+
+const Nickname = styled.div`
+    margin-bottom: 4px;
+    line-height: 1.5;
+    font-weight: 700;
+    overflow: hidden;
+`;
+
+const Content = styled.p`
+    position: relative;
+    line-height: 1.5;
+    font-size: 13px;
+
+    ${mixinEllipsis}
+`;
+
+const Date = styled.div`
+    margin-top: 7px;
+    font-size: 12px;
+    line-height: 1;
+    color: #979797;
+`;
+
+const Extension = styled.div`
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate3d(0, -50%, 0);
+`;
 
 interface Props extends Comment {}
 
@@ -87,31 +138,32 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
     };
 
     return (
-        <StyledCommentItem.Container>
-            <StyledCommentItem.Body>
-                <StyledCommentItem.AvatarWrapper>
-                    <LinkAvatar
-                        aria-label="사용자 페이지"
-                        href={user.link}
-                        src={user.avatar}
-                        alt="Avatar"
-                    />
-                </StyledCommentItem.AvatarWrapper>
-                <StyledCommentItem.Meta>
-                    <StyledCommentItem.Nickname>
+        <Container>
+            <Body>
+                <AvatarWrapper>
+                    <ActiveLink aria-label="사용자 페이지" href={user.link}>
+                        <Avatar
+                            src={user.avatar}
+                            alt="Avatar"
+                            width={36}
+                            height={36}
+                            borderRadius="4px"
+                        />
+                    </ActiveLink>
+                </AvatarWrapper>
+                <Meta>
+                    <Nickname>
                         <span>
                             <strong>{user.nickname}</strong>
                         </span>
-                    </StyledCommentItem.Nickname>
-                    <StyledCommentItem.Content>
-                        {content}
-                    </StyledCommentItem.Content>
-                    <StyledCommentItem.Date>
+                    </Nickname>
+                    <Content>{content}</Content>
+                    <Date>
                         <span>{timeForToday(createdAt)}</span>
-                    </StyledCommentItem.Date>
-                </StyledCommentItem.Meta>
+                    </Date>
+                </Meta>
                 {isMyComment && (
-                    <StyledCommentItem.Extension>
+                    <Extension>
                         {
                             <Dropdown
                                 overlay={
@@ -124,9 +176,9 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                                 <FiMoreVertical />
                             </Dropdown>
                         }
-                    </StyledCommentItem.Extension>
+                    </Extension>
                 )}
-            </StyledCommentItem.Body>
+            </Body>
 
             {activeUpdate && (
                 <form onSubmit={handleSubmit}>
@@ -153,6 +205,6 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                     </FormSubmitColumn>
                 </form>
             )}
-        </StyledCommentItem.Container>
+        </Container>
     );
 };

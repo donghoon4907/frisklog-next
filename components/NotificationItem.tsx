@@ -1,12 +1,12 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Notification } from '../interfaces/notification';
 import { timeForToday } from '../lib/date/time-for-today';
-import { SquareAvatar } from './SquareAvatar';
 import * as StyledNoti from './NotificationItem.style';
 import { useMutation } from '../hooks/use-mutation';
 import { readNotificationsRequest } from '../actions/notification/read-notifications.action';
 import { useRoute } from '../hooks/use-route';
+import { Avatar } from './avatar';
 
 interface Props extends Notification {}
 
@@ -48,7 +48,13 @@ export const NotificationItem: FC<Props> = ({
         >
             <StyledNoti.Header>
                 <StyledNoti.AvatarWrapper>
-                    <SquareAvatar src={from.avatar} alt="Avatar" />
+                    <Avatar
+                        src={from.avatar}
+                        alt="Avatar"
+                        width={50}
+                        height={50}
+                        borderRadius="4px"
+                    />
                 </StyledNoti.AvatarWrapper>
             </StyledNoti.Header>
             <StyledNoti.Body>

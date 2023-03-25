@@ -3,16 +3,16 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
+import type { AppState } from '../../reducers';
+import type { PostState } from '../../reducers/post';
 import { followingPostsRequest } from '../../actions/post/following-posts.action';
 import { getFollowingsRequest } from '../../actions/user/get-followings.action';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
 import { SearchFollowing } from '../../components/partitial/aside/SearchFollowing';
-import { PostItem } from '../../components/PostItem';
+import { PostItem } from '../../components/template/PostItem';
 import { ScrollList } from '../../components/ScrollList';
-import { AppState } from '../../reducers';
-import { PostState } from '../../reducers/post';
 import { wrapper } from '../../store';
 
 const Follow: NextPage = () => {

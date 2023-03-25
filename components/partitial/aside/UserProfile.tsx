@@ -9,7 +9,7 @@ import { UpdateAvatarButton } from '../../button/UpdateAvatar';
 import * as StyledUserProfile from './UserProfile.style';
 import { FollowButton } from '../../button/Follow';
 import { User } from '../../../interfaces/user';
-import { CircleAvatar } from '../../CircleAvatar';
+import { Avatar } from '../../avatar';
 
 interface Props {
     user: Pick<User, 'id' | 'nickname' | 'avatar' | 'isFollowing'>;
@@ -31,16 +31,20 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
     return (
         <StyledUserProfile.Container>
             <StyledUserProfile.Header>
-                <div style={{ width: 180, height: 180 }}>
-                    <CircleAvatar src={uploadedFile} alt="Avatar" />
-                </div>
+                <Avatar
+                    src={uploadedFile}
+                    alt="Avatar"
+                    width={180}
+                    height={180}
+                    borderRadius="50%"
+                />
             </StyledUserProfile.Header>
             <StyledUserProfile.Body>
                 <StyledUserProfile.Meta>
                     <StyledUserProfile.NicknameWrapper>
-                        <StyledUserProfile.NicknameBody>
+                        <StyledUserProfile.Nickname>
                             {user.nickname}
-                        </StyledUserProfile.NicknameBody>
+                        </StyledUserProfile.Nickname>
                     </StyledUserProfile.NicknameWrapper>
                     {!isMe && (
                         <div style={{ width: 100 }}>

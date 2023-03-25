@@ -3,18 +3,18 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
+import type { AppState } from '../../reducers';
+import type { PostState } from '../../reducers/post';
+import type { UserState } from '../../reducers/user';
 import { userPostsRequest } from '../../actions/post/user-posts.action';
 import { getUserRequest } from '../../actions/user/get-user.action';
 import { Aside } from '../../components/layout/Aside';
 import { Main } from '../../components/layout/Main';
 import { MainTitle } from '../../components/layout/Main.style';
-import { PostItem } from '../../components/PostItem';
-import { AppState } from '../../reducers';
-import { PostState } from '../../reducers/post';
+import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
-import { UserState } from '../../reducers/user';
 import { PostVisibility } from '../../types/visibility';
 
 interface Props {
