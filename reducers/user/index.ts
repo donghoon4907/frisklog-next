@@ -70,7 +70,7 @@ export default (
                     nickname,
                     avatar,
                     isMaster,
-                    link,
+                    //link,
                     receivePostNotification,
                     receiveLikeNotification,
                 } = payload;
@@ -84,7 +84,7 @@ export default (
                 draft.isMaster =
                     typeof isMaster === 'boolean' ? isMaster : draft.isMaster;
 
-                draft.link = link ? link : draft.link;
+                //draft.link = link ? link : draft.link;
 
                 draft.receivePostNotification =
                     typeof receivePostNotification === 'boolean'
@@ -113,7 +113,7 @@ export default (
 
                 draft.isMaster = null;
 
-                draft.link = null;
+                //draft.link = null;
 
                 draft.receivePostNotification = null;
 

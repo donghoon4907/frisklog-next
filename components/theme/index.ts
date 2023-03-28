@@ -70,6 +70,7 @@ const colors: Colors = {
     warning: '#ffc107',
     info: '#17a2b8',
     blue: '#2e6bd8',
+    naverGreen: '#60D05E',
 };
 
 const statusColors: StatusColors = {
@@ -108,6 +109,8 @@ export const lightTheme: DefaultTheme = {
     modalBgColor: colors.white_base,
     githubBgColor: colors.black_base,
     githubTextColor: colors.white_base,
+    naverBgColor: colors.naverGreen,
+    naverTextColor: colors.white_base,
     readOnlyBtnColor: colors.blue,
     readOnlyBtnTextColor: colors.white_base,
     preColor: '#f4f7f8',
@@ -132,6 +135,8 @@ export const darkTheme: DefaultTheme = {
     modalBgColor: colors.gray_lv0,
     githubBgColor: colors.white_base,
     githubTextColor: colors.black_base,
+    naverBgColor: colors.naverGreen,
+    naverTextColor: colors.white_base,
     readOnlyBtnColor: colors.white_base,
     readOnlyBtnTextColor: colors.black_base,
     preColor: colors.black_secondary,

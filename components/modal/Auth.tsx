@@ -11,6 +11,7 @@ import { AnotherLoginContainer, StateChanger } from './Auth.style';
 import { AppState } from '../../reducers';
 import { hideLoginModal } from '../../actions/switch/login-modal.action';
 import { StateChangerLink } from '../link/link.style';
+import { NaverLoginButton } from '../button/NaverLogin';
 
 export const AuthModal: FC = () => {
     const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export const AuthModal: FC = () => {
                 <AnotherLoginContainer>
                     <hr />
                     <GithubLoginButton />
+                    <NaverLoginButton />
                 </AnotherLoginContainer>
             )}
 

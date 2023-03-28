@@ -38,6 +38,7 @@ declare module 'styled-components' {
         warning: string;
         info: string;
         blue: string;
+        naverGreen: string;
     }
 
     export interface StatusColors {
@@ -72,6 +73,8 @@ declare module 'styled-components' {
         modalBgColor: string;
         githubBgColor: string;
         githubTextColor: string;
+        naverBgColor: string;
+        naverTextColor: string;
         borderRadius: string;
         readOnlyBtnColor: string;
         readOnlyBtnTextColor: string;

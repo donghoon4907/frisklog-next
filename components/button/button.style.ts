@@ -58,6 +58,21 @@ export const ButtonBody = styled.button<{ disabled: boolean }>`
             fill: ${({ theme }) => theme.githubTextColor};
         }
     }
+
+    &.naver {
+        background-color: ${({ theme }) => theme.naverBgColor};
+        border: 1px solid ${({ theme }) => theme.naverBgColor};
+        color: ${({ theme }) => theme.naverTextColor};
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+
+        & > svg {
+            fill: ${({ theme }) => theme.naverTextColor};
+        }
+    }
 `;
 
 export const CenteredButton = styled.button`

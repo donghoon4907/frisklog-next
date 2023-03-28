@@ -24,6 +24,8 @@ import { GET_USERS } from '../graphql/query/user/users';
 import { LOAD_USER } from '../graphql/query/user/load-user';
 import { UpdateSettingRequestPayload } from '../actions/user/update-setting.interface';
 import { MUTATION_UPDATE_SETTING } from '../graphql/mutation/user/update-setting';
+import { LoginNaverRequestPayload } from '../actions/user/login-naver.interface';
+import { MUTATION_NAVER_LOGIN } from '../graphql/mutation/user/login-naver';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -51,6 +53,10 @@ export function verifyUser(payload: VerifyUserRequestPayload) {
 
 export function loginGithub(payload: LoginGithubRequestPayload) {
     return client.request(MUTATION_GITHUB_LOGIN, payload);
+}
+
+export function loginNaver(payload: LoginNaverRequestPayload) {
+    return client.request(MUTATION_NAVER_LOGIN, payload);
 }
 
 export function getRecommenders(payload: RecommendUsersRequestPayload) {

@@ -14,6 +14,7 @@ import { watchUnfollowUser } from './unfollow-user';
 import { watchUpdateSetting } from './update-setting';
 import { watchUpdateUser } from './update-user';
 import { watchVerifyUser } from './verify-user';
+import { watchLoginNaver } from './login-naver';
 
 export function* userSaga() {
     yield all([
@@ -24,6 +25,7 @@ export function* userSaga() {
         fork(watchLoginUser),
         fork(watchVerifyUser),
         fork(watchLoginGithub),
+        fork(watchLoginNaver),
         fork(watchRecommendUsers),
         fork(watchGetUser),
         fork(watchLoadUser),

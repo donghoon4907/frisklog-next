@@ -17,7 +17,6 @@ export const AUTH_USER_FIELDS = gql`
         id
         nickname
         avatar
-        link
         token
     }
 `;

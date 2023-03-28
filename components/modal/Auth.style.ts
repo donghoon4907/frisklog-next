@@ -6,6 +6,7 @@ export const AnotherLoginContainer = styled.div`
     align-items: center;
     flex-direction: column;
     margin-top: 5px;
+    gap: 5px;
 `;
 export const StateChanger = styled.div`
     text-align: center;

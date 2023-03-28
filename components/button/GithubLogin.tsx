@@ -13,7 +13,7 @@ export const GithubLoginButton: FC = () => {
     return (
         <Button type="button" onClick={handleClick} colorType="github">
             <BsGithub size={20} />
-            <span>Github 로그인</span>
+            <span>깃허브 로그인</span>
         </Button>
     );
 };

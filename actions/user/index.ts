@@ -2,6 +2,7 @@ import { CreateUserAction } from './create-user.interface';
 import { FollowUserAction } from './follow-user.interface';
 import { GetUserAction } from './get-user.interface';
 import { LoginGithubAction } from './login-github.interface';
+import { LoginNaverAction } from './login-naver.interface';
 import { LoginUserAction } from './login-user.interface';
 import { LogoutUserAction } from './logout-user.interface';
 import { RecommendUsersAction } from './recommend-users.interface';
@@ -21,6 +22,7 @@ export type UserAction =
     | LoginUserAction
     | VerifyUserAction
     | LoginGithubAction
+    | LoginNaverAction
     | RecommendUsersAction
     | GetUserAction
     | LogoutUserAction

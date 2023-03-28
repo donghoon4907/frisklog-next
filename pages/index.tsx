@@ -24,6 +24,7 @@ import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { ScrollList } from '../components/ScrollList';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { PostVisibility } from '../types/visibility';
+import { loginNaverRequest } from '../actions/user/login-naver.action';
 
 const Home: NextPage = () => {
     const { homePosts } = useSelector<AppState, PostState>(
@@ -110,23 +111,40 @@ const Home: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ getState, dispatch, sagaTask }) =>
         async ({ req, res, query, ...etc }) => {
-            const { code } = query;
+            const { code, state } = query;
 
             if (typeof code === 'string') {
-                dispatch(
-                    loginGithubRequest({
-                        code,
-                        callbackFunc: (token: string) => {
-                            const cookies = new ServerCookie(req, res);
+                if (state === 'naver') {
+                    dispatch(
+                        loginNaverRequest({
+                            code,
+                            callbackFunc: (token: string) => {
+                                const cookies = new ServerCookie(req, res);
 
-                            cookies.setCookie(COOKIE_TOKEN_KEY, token);
+                                cookies.setCookie(COOKIE_TOKEN_KEY, token);
 
-                            res.statusCode = 302;
+                                res.statusCode = 302;
 
-                            res.setHeader('Location', '/');
-                        },
-                    }),
-                );
+                                res.setHeader('Location', '/');
+                            },
+                        }),
+                    );
+                } else {
+                    dispatch(
+                        loginGithubRequest({
+                            code,
+                            callbackFunc: (token: string) => {
+                                const cookies = new ServerCookie(req, res);
+
+                                cookies.setCookie(COOKIE_TOKEN_KEY, token);
+
+                                res.statusCode = 302;
+
+                                res.setHeader('Location', '/');
+                            },
+                        }),
+                    );
+                }
             } else {
                 dispatch(
                     homePostsRequest({
