@@ -42,9 +42,11 @@ export const FollowingItem: FC<Props> = ({
                             <Avatar
                                 src={avatar}
                                 alt="Avatar"
-                                width={50}
-                                height={50}
-                                borderRadius="4px"
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: 4,
+                                }}
                             />
                         </StyledFollowingItem.Avatar>
                         <StyledFollowingItem.Meta>

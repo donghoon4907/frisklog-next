@@ -51,9 +51,7 @@ export const NotificationItem: FC<Props> = ({
                     <Avatar
                         src={from.avatar}
                         alt="Avatar"
-                        width={50}
-                        height={50}
-                        borderRadius="4px"
+                        style={{ width: 50, height: 50, borderRadius: 4 }}
                     />
                 </StyledNoti.AvatarWrapper>
             </StyledNoti.Header>

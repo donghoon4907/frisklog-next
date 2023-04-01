@@ -82,9 +82,7 @@ export const UserItem: FC<Props> = ({
                         <Avatar
                             src={avatar}
                             alt="Avatar"
-                            width={80}
-                            height={80}
-                            borderRadius="4px"
+                            style={{ width: 80, height: 80, borderRadius: 4 }}
                         />
                     </ActiveLink>
                 </AvatarWrapper>

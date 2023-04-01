@@ -145,9 +145,7 @@ export const CommentItem: FC<Props> = ({ id, content, createdAt, user }) => {
                         <Avatar
                             src={user.avatar}
                             alt="Avatar"
-                            width={36}
-                            height={36}
-                            borderRadius="4px"
+                            style={{ width: 36, height: 36, borderRadius: 4 }}
                         />
                     </ActiveLink>
                 </AvatarWrapper>

@@ -25,9 +25,7 @@ export const ProfileButton: FC = () => {
             <Avatar
                 src={avatar!}
                 alt="Avatar"
-                width={28}
-                height={28}
-                borderRadius="4px"
+                style={{ width: 28, height: 28, borderRadius: 4 }}
             />
         </ActiveLink>
     ) : (

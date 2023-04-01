@@ -202,9 +202,11 @@ export const PostItem: FC<Props> = ({
                                 <Avatar
                                     src={user.avatar}
                                     alt="Avatar"
-                                    width={32}
-                                    height={32}
-                                    borderRadius="4px"
+                                    style={{
+                                        width: 32,
+                                        height: 32,
+                                        borderRadius: 4,
+                                    }}
                                 />
                             </ActiveLink>
                         </AvatarWrapper>
@@ -336,9 +338,11 @@ export const RemovedPostItem: FC<Props> = ({
                                 <Avatar
                                     src={user.avatar}
                                     alt="Avatar"
-                                    width={28}
-                                    height={28}
-                                    borderRadius="4px"
+                                    style={{
+                                        width: 28,
+                                        height: 28,
+                                        borderRadius: 4,
+                                    }}
                                 />
                             </ActiveLink>
                         </AvatarWrapper>

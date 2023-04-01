@@ -2,9 +2,7 @@ import { Modal } from 'antd';
 import { FC, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Slider from 'react-slick';
 
-import { hideUserModal } from '../../actions/switch/user-modal.action';
 import { updateUserRequest } from '../../actions/user/update-user.action';
 import { useInput } from '../../hooks/use-input';
 import { useMutation } from '../../hooks/use-mutation';
@@ -20,6 +18,7 @@ import { useQuery } from '../../hooks/use-query';
 import { PhotoItem } from '../PhotoItem';
 import { mixinBox } from '../theme/mixins';
 import { Avatar } from '../avatar';
+import { hideThumbnailModal } from '../../actions/switch/thumbnail-modal.action';
 
 const UploadColumn = styled.div`
     display: flex;
@@ -105,7 +104,7 @@ export const SetThumbnailModal: FC = () => {
     };
     // 팝업 닫기 핸들러
     const handleClose = () => {
-        dispatch(hideUserModal());
+        dispatch(hideThumbnailModal());
     };
     // 이전 업로드 불러오기 핸들러
     const handleClickPhotos = () => {
@@ -145,9 +144,11 @@ export const SetThumbnailModal: FC = () => {
                         <Avatar
                             src={preview}
                             alt="Avatar"
-                            width={180}
-                            height={180}
-                            borderRadius="50%"
+                            style={{
+                                width: 180,
+                                height: 180,
+                                borderRadius: '50%',
+                            }}
                         />
                         <input
                             type="file"

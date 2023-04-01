@@ -1,20 +1,14 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import { UserStatus } from '../../types/status';
 import { Badge } from '../Badge';
 
-const Container = styled.div<{
-    width: number;
-    height: number;
-    borderRadius: string;
-}>`
+const Container = styled.div<{ role?: string }>`
     position: relative;
     overflow: hidden;
 
-    width: ${({ width }) => width}px;
-    height: ${({ height }) => height}px;
-    border-radius: ${({ borderRadius }) => borderRadius};
+    ${({ role }) => (role == 'button' ? 'cursor: pointer;' : '')}
 `;
 
 const Image = styled.img`
@@ -33,13 +27,10 @@ const BadgeWrapper = styled.div`
     right: 0;
 `;
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     src: string; // 이미지 자원
     alt: string; // 이미지 대체자
     statusCode?: UserStatus; // 사용자 상태
-    borderRadius: string;
-    width: number;
-    height: number;
 }
 
 export const Avatar: FC<Props> = ({ src, alt, statusCode, ...cssProps }) => (
