@@ -1,24 +1,24 @@
+import type { FC } from 'react';
 import { Modal } from 'antd';
-import { FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import type { AppState } from '../../reducers';
+import type { CommonState } from '../../reducers/common';
+import type { UserState } from '../../reducers/user';
+import type { PhotoState } from '../../reducers/photo';
 import { updateUserRequest } from '../../actions/user/update-user.action';
-import { useInput } from '../../hooks/use-input';
 import { useMutation } from '../../hooks/use-mutation';
-import { AppState } from '../../reducers';
-import { CommonState } from '../../reducers/common';
-import { UserState } from '../../reducers/user';
-import { PhotoState } from '../../reducers/photo';
 import { StateChangerLink } from '../link/link.style';
 import { useUpload } from '../../hooks/use-upload';
 import { PhotoType } from '../../types/photo';
 import { profilePhotosRequest } from '../../actions/photo/profile-photos.action';
 import { useQuery } from '../../hooks/use-query';
-import { PhotoItem } from '../PhotoItem';
 import { mixinBox } from '../theme/mixins';
 import { Avatar } from '../avatar';
 import { hideThumbnailModal } from '../../actions/switch/thumbnail-modal.action';
+import { Photos } from '../Photos';
 
 const UploadColumn = styled.div`
     display: flex;
@@ -35,18 +35,6 @@ const UploadedAvatar = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-`;
-
-const SliderWrapper = styled.div`
-    padding-bottom: 30px;
-
-    & .slick-arrow {
-        display: none !important;
-    }
-
-    border: 1px solid ${({ theme }) => theme.borderColor};
-    border-radius: ${({ theme }) => theme.borderRadius};
-    background-color: ${({ theme }) => theme.boxBgColor};
 `;
 
 const AvatarBody = styled.div`
@@ -88,8 +76,6 @@ export const SetThumbnailModal: FC = () => {
     const [getPhotos] = useQuery(profilePhotosRequest);
 
     const [updateUser] = useMutation(updateUserRequest, { useAuth: true });
-    // 별명
-    const newNickname = useInput('');
 
     const [preview, setPreview] = useState(avatar!);
     // 업로드 모듈
@@ -108,23 +94,17 @@ export const SetThumbnailModal: FC = () => {
     };
     // 이전 업로드 불러오기 핸들러
     const handleClickPhotos = () => {
-        getPhotos({ limit: 5, type: PhotoType.PROFILE });
+        getPhotos({ limit: 8, type: PhotoType.PROFILE });
     };
     // 내 정보 수정 핸들러
     const handleOk = () => {
-        const nickname = newNickname.value;
-
-        if (nickname.length > 9) {
-            return alert('별명은 10자 미만으로 입력 해주세요.');
-        }
-
-        const message = '입력한 내용으로 수정하시겠어요?';
+        const message = '선택한 사진으로 썸네일을 수정하시겠어요?';
 
         const tf = confirm(message);
 
         if (tf) {
             updateUser({
-                nickname,
+                avatar: preview,
             });
         }
     };
@@ -173,13 +153,9 @@ export const SetThumbnailModal: FC = () => {
                         </StateChangerWrapper>
                     </AvatarMeta>
                 </UploadedAvatar>
-                <div style={{ width: '100%' }}>
-                    {profilePhotos.map((photos) => (
-                        <div key={`profilePhotos${photos.id}`}>
-                            <PhotoItem {...photos} setPhoto={setPreview} />
-                        </div>
-                    ))}
-                </div>
+                {profilePhotos.length > 0 && (
+                    <Photos setPhoto={setPreview} items={profilePhotos} />
+                )}
             </UploadColumn>
         </Modal>
     );
