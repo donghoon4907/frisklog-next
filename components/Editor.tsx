@@ -1,6 +1,8 @@
 import { FC, useRef } from 'react';
 import { EditorProps } from '@toast-ui/react-editor';
 import { useSelector } from 'react-redux';
+import { BsCloudDownload } from 'react-icons/bs';
+import * as ReactDOMServer from 'react-dom/server';
 
 import { CommonState } from '../reducers/common';
 import { PostEditorContainer } from './Editor.style';
@@ -16,6 +18,17 @@ type EditorType = ReturnType<typeof Editor>;
 
 interface Props extends EditorProps {
     onChange: (obj: any) => void;
+}
+
+function createPhotoButton() {
+    const button = document.createElement('button');
+
+    button.className = 'toastui-editor-toolbar-icons custom';
+    button.style.margin = '0';
+    button.style.backgroundImage = 'none';
+    button.innerHTML = ReactDOMServer.renderToString(<BsCloudDownload />);
+
+    return button;
 }
 
 export const PostEditor: FC<Props> = ({
@@ -60,6 +73,20 @@ export const PostEditor: FC<Props> = ({
                 onChange={handleChange}
                 theme={mode}
                 hideModeSwitch
+                toolbarItems={[
+                    ['heading', 'bold', 'italic', 'strike'],
+                    ['hr', 'quote'],
+                    ['ul', 'ol', 'task', 'indent', 'outdent'],
+                    ['table', 'link'],
+                    ['code', 'codeblock'],
+                    [
+                        'image',
+                        {
+                            el: createPhotoButton(),
+                            tooltip: 'photos',
+                        },
+                    ],
+                ]}
                 hooks={{
                     addImageBlobHook: async (blob: any, callback: any) => {
                         const formData = new FormData();

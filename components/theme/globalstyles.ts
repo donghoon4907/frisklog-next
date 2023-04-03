@@ -176,11 +176,22 @@ button {
 .toastui-editor-defaultUI {
     border-radius: 0px !important;
 }
-.toastui-editor-contents dir, .toastui-editor-contents menu, .toastui-editor-contents ol, .toastui-editor-contents ul {
+
+.toastui-editor-contents dir, .toastui-editor-contents menu, .toastui-editor-contents ol, .toastui-editor-contents ul, .toastui-editor-defaultUI button  {
     color: ${({ theme }) => theme.textColor} !important;
 }
 .toastui-editor-contents ul > li::before {
     background-color: ${({ theme }) => theme.textColor} !important;
+}
+// 업로드 사진 불러오기 관련
+.toastui-editor-toolbar-icons.custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toastui-editor-toolbar-icons svg {
+    width: 20px;
+    height: 20px;
 }
 // 소스 축소 및 확장 관련
 .contraction-code {
