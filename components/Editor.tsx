@@ -23,10 +23,7 @@ interface Props extends EditorProps {
 function createPhotoButton() {
     const button = document.createElement('button');
 
-    button.className = 'toastui-editor-toolbar-icons custom';
-    button.style.margin = '0';
-    button.style.backgroundImage = 'none';
-    button.innerHTML = ReactDOMServer.renderToString(<BsCloudDownload />);
+    button.className = 'toastui-editor-toolbar-icons photos-icon';
 
     return button;
 }

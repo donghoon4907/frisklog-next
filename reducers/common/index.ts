@@ -20,6 +20,8 @@ import { NotificationFilterAction } from '../../actions/switch/notification-filt
 import { notificationFilterActionTypes } from '../../actions/switch/notification-filter.action';
 import { ThumbnailModalAction } from '../../actions/switch/thumbnail-modal.interface';
 import { thumbnailModalActionTypes } from '../../actions/switch/thumbnail-modal.action';
+import { PhotoPopupAction } from '../../actions/switch/photo-popup.interface';
+import { photoPopupActionTypes } from '../../actions/switch/photo-popup.action';
 
 type CommonAction =
     | UploadImageAction
@@ -29,7 +31,8 @@ type CommonAction =
     | SearchBarAction
     | ThemeModeAction
     | NotificationFilterAction
-    | ThumbnailModalAction;
+    | ThumbnailModalAction
+    | PhotoPopupAction;
 
 export interface CommonState {
     isShowLoginModal: boolean;
@@ -40,6 +43,7 @@ export interface CommonState {
     recentUploadedImage: string | null;
     isShowNotificationFilter: boolean;
     isShowThumbnailModal: boolean;
+    isShowPhotoPopup: boolean;
 }
 
 const initialState: CommonState = {
@@ -51,6 +55,7 @@ const initialState: CommonState = {
     recentUploadedImage: null,
     isShowNotificationFilter: false,
     isShowThumbnailModal: false,
+    isShowPhotoPopup: false,
 };
 
 export default (state = initialState, action: CommonAction) =>
@@ -128,6 +133,15 @@ export default (state = initialState, action: CommonAction) =>
             }
             case thumbnailModalActionTypes.HIDE: {
                 draft.isShowThumbnailModal = false;
+                break;
+            }
+            // Photo
+            case photoPopupActionTypes.SHOW: {
+                draft.isShowPhotoPopup = true;
+                break;
+            }
+            case photoPopupActionTypes.HIDE: {
+                draft.isShowPhotoPopup = false;
                 break;
             }
             default: {

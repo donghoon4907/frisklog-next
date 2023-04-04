@@ -10,7 +10,7 @@ import type { AppProps } from 'next/app';
 import Router from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NProgress from 'nprogress';
 
 import { wrapper } from '../store';
@@ -29,6 +29,8 @@ import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
 import { SetThumbnailModal } from '../components/modal/SetThumbnail';
+import { copyToClipboard } from '../lib/copy';
+import { showPhotoPopup } from '../actions/switch/photo-popup.action';
 
 NProgress.configure({ showSpinner: false });
 
@@ -50,6 +52,8 @@ const AppContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const dispatch = useDispatch();
+
     const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
@@ -67,27 +71,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             const textarea = el.querySelector('textarea');
 
             if (textarea) {
-                if (navigator.clipboard) {
-                    navigator.clipboard
-                        .writeText(textarea.value || '')
-                        .then(() => alert('클립보드에 저장되었습니다.'))
-                        .catch(() =>
-                            alert('클립보드에 저장 중 오류가 발생했습니다.'),
-                        );
-                } else {
-                    textarea.focus();
-
-                    textarea.select();
-
-                    try {
-                        document.execCommand('copy');
-
-                        alert('클립보드에 저장되었습니다.');
-                    } catch {
-                        alert('클립보드에 저장 중 오류가 발생했습니다.');
-                    }
-                }
+                copyToClipboard(textarea);
             }
+        }
+        // photos 관련
+        if (el.classList.contains('photos-icon')) {
+            dispatch(showPhotoPopup());
         }
     };
 
