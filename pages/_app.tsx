@@ -75,9 +75,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             }
         }
         // photos 관련
-        if (el.classList.contains('photos-icon')) {
-            dispatch(showPhotoPopup());
-        }
+        // if (el.classList.contains('photos-icon')) {
+        //     dispatch(showPhotoPopup());
+        // }
     };
 
     useEffect(() => {

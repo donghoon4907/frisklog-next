@@ -39,9 +39,12 @@ export const SetUserModal: FC = () => {
         const tf = confirm(message);
 
         if (tf) {
-            updateUser({
-                nickname,
-            });
+            updateUser(
+                {
+                    nickname,
+                },
+                () => dispatch(hideUserModal()),
+            );
         }
     };
 

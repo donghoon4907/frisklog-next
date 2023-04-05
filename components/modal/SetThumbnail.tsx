@@ -103,9 +103,12 @@ export const SetThumbnailModal: FC = () => {
         const tf = confirm(message);
 
         if (tf) {
-            updateUser({
-                avatar: preview,
-            });
+            updateUser(
+                {
+                    avatar: preview,
+                },
+                () => dispatch(hideThumbnailModal()),
+            );
         }
     };
 
@@ -135,7 +138,7 @@ export const SetThumbnailModal: FC = () => {
                             onChange={handleChangeFile}
                             ref={$file}
                             hidden
-                            accept="image/jpg, image/png"
+                            accept="image/jpg, image/JPG, image/png, image/PNG, image/gif, image/GIF"
                         />
                     </AvatarBody>
                     <AvatarMeta>

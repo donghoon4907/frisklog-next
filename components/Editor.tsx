@@ -1,12 +1,11 @@
-import { FC, useRef } from 'react';
-import { EditorProps } from '@toast-ui/react-editor';
+import type { FC } from 'react';
+import type { EditorProps } from '@toast-ui/react-editor';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { BsCloudDownload } from 'react-icons/bs';
-import * as ReactDOMServer from 'react-dom/server';
+import styled from 'styled-components';
 
-import { CommonState } from '../reducers/common';
-import { PostEditorContainer } from './Editor.style';
-import { AppState } from '../reducers';
+import type { CommonState } from '../reducers/common';
+import type { AppState } from '../reducers';
 import { uploadImageRequest } from '../actions/upload/image.action';
 import { useMutation } from '../hooks/use-mutation';
 import { PhotoType } from '../types/photo';
@@ -16,17 +15,38 @@ const Editor =
 
 type EditorType = ReturnType<typeof Editor>;
 
+const Container = styled.div`
+    position: relative;
+
+    .toastui-editor-ww-container .toastui-editor-contents::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
+// const PhotoPopupContainer = styled.div`
+//     position: absolute;
+//     top: 100px;
+//     left 161px;
+//     width: 400px;
+//     height: 100px;
+//     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+//     border: 1px solid #494c56;
+//     background-color: ${({ theme }) => theme.inputBgColor};
+//     z-index: 30;
+//     padding: 30px;
+// `;
+
 interface Props extends EditorProps {
     onChange: (obj: any) => void;
 }
 
-function createPhotoButton() {
-    const button = document.createElement('button');
+// function createPhotoButton() {
+//     const button = document.createElement('button');
 
-    button.className = 'toastui-editor-toolbar-icons photos-icon';
+//     button.className = 'toastui-editor-toolbar-icons photos-icon';
 
-    return button;
-}
+//     return button;
+// }
 
 export const PostEditor: FC<Props> = ({
     initialValue = '',
@@ -36,7 +56,7 @@ export const PostEditor: FC<Props> = ({
     useCommandShortcut = true,
     onChange,
 }) => {
-    const { mode } = useSelector<AppState, CommonState>(
+    const { mode, isShowPhotoPopup } = useSelector<AppState, CommonState>(
         (state) => state.common,
     );
 
@@ -59,7 +79,7 @@ export const PostEditor: FC<Props> = ({
     };
 
     return (
-        <PostEditorContainer>
+        <Container>
             <Editor
                 initialValue={initialValue}
                 previewStyle={previewStyle}
@@ -74,14 +94,13 @@ export const PostEditor: FC<Props> = ({
                     ['heading', 'bold', 'italic', 'strike'],
                     ['hr', 'quote'],
                     ['ul', 'ol', 'task', 'indent', 'outdent'],
-                    ['table', 'link'],
+                    ['table', 'image', 'link'],
                     ['code', 'codeblock'],
                     [
-                        'image',
-                        {
-                            el: createPhotoButton(),
-                            tooltip: 'photos',
-                        },
+                        // {
+                        //     el: createPhotoButton(),
+                        //     tooltip: 'photos',
+                        // },
                     ],
                 ]}
                 hooks={{
@@ -104,6 +123,6 @@ export const PostEditor: FC<Props> = ({
                     },
                 }}
             />
-        </PostEditorContainer>
+        </Container>
     );
 };

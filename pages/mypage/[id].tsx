@@ -22,7 +22,7 @@ interface Props {
 }
 
 const MyPage: NextPage<Props> = ({ userId }) => {
-    const { userPageProfile } = useSelector<AppState, UserState>(
+    const { id, nickname, avatar } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
 
@@ -50,7 +50,14 @@ const MyPage: NextPage<Props> = ({ userId }) => {
                 <MainTitle>
                     <h2>내 정보</h2>
                 </MainTitle>
-                {userPageProfile && <AsideUserProfile user={userPageProfile} />}
+                <AsideUserProfile
+                    user={{
+                        id: id!,
+                        nickname: nickname!,
+                        avatar: avatar!,
+                        isFollowing: false,
+                    }}
+                />
                 <MyPosts />
             </Aside>
         </>
