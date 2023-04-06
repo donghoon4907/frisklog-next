@@ -10,27 +10,20 @@ import type { AppProps } from 'next/app';
 import Router from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import NProgress from 'nprogress';
 
 import { wrapper } from '../store';
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { Providers } from '../components/Provider';
-import { Layout } from '../components/layout';
 import { setDarkMode } from '../actions/switch/theme-mode.action';
-import { Header } from '../components/header';
-import { AuthModal } from '../components/modal/Auth';
-import { SetPostModal } from '../components/modal/SetPost';
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 import { Loader } from '../components/Loader';
-import { SetUserModal } from '../components/modal/SetUser';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
-import { SetThumbnailModal } from '../components/modal/SetThumbnail';
 import { copyToClipboard } from '../lib/copy';
-import { showPhotoPopup } from '../actions/switch/photo-popup.action';
 
 NProgress.configure({ showSpinner: false });
 
@@ -52,8 +45,6 @@ const AppContainer = styled.div`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const dispatch = useDispatch();
-
     const { loading } = useSelector<AppState, LoadingState>(
         (state) => state.loading,
     );
@@ -91,14 +82,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <Providers>
             <AppContainer>
-                <Header />
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-                <AuthModal />
-                <SetPostModal />
-                <SetUserModal />
-                <SetThumbnailModal />
+                <Component {...pageProps} />
                 {loading && <Loader />}
             </AppContainer>
         </Providers>

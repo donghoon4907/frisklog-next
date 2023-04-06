@@ -14,23 +14,22 @@ export const ProfileButton: FC = () => {
         (state) => state.user,
     );
 
-    const { validateToken } = useAuthenticate();
+    const isLogin = !!id && !!avatar;
 
-    const handleClick = () => validateToken();
-
-    const isLogin = !!id;
-
-    return isLogin ? (
-        <ActiveLink aria-label="마이페이지" href={`/mypage/${id}`}>
-            <Avatar
-                src={avatar!}
-                alt="Avatar"
-                style={{ width: 28, height: 28, borderRadius: 4 }}
-            />
+    return (
+        <ActiveLink
+            aria-label={isLogin ? '마이 페이지로 가기' : '로그인 페이지로 가기'}
+            href={isLogin ? `/mypage/${id}` : '/auth/login'}
+        >
+            {isLogin ? (
+                <Avatar
+                    src={avatar}
+                    alt="Avatar"
+                    style={{ width: 28, height: 28, borderRadius: 4 }}
+                />
+            ) : (
+                <FaUserCircle />
+            )}
         </ActiveLink>
-    ) : (
-        <IconWrapper aria-label="로그인" onClick={handleClick}>
-            <FaUserCircle />
-        </IconWrapper>
     );
 };

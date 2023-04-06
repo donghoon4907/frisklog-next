@@ -12,7 +12,10 @@ import { verifyUserRequest } from '../../actions/user/verify-user.action';
 import { useMutation } from '../../hooks/use-mutation';
 
 const FormCheckboxWrapper = styled.div`
-    width: 95px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
 `;
 
 export const SignInForm: FC = () => {
@@ -71,7 +74,7 @@ export const SignInForm: FC = () => {
             {isLoginMode && (
                 <FormCheckboxWrapper>
                     <FormCheckbox
-                        label="로그인 유지"
+                        label="로그인 상태 유지"
                         id="keep"
                         checked={isKeep}
                         onChange={handleChangeIsKeep}

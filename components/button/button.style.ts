@@ -5,7 +5,7 @@ import { mixinButtonAndText, mixinCentered } from '../theme/mixins';
 export const ButtonBody = styled.button<{ disabled: boolean }>`
     display: block;
     width: 100%;
-    line-height: 30px;
+    line-height: 40px;
     border: 0;
     border-radius: ${({ theme }) => theme.borderRadius};
     font-weight: 600;

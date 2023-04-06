@@ -1,7 +1,24 @@
-import { AnchorHTMLAttributes, FC, MouseEvent } from 'react';
+import type { AnchorHTMLAttributes, FC, MouseEvent } from 'react';
+import styled from 'styled-components';
 
-import { DefaultProps } from '../interfaces/default';
+import type { DefaultProps } from '../interfaces/default';
 import { useRoute } from '../hooks/use-route';
+
+const Container = styled.a`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & svg {
+        width: 20px;
+        height: 20px;
+        fill: ${({ theme }) => theme.iconColor};
+
+        &:hover {
+            fill: ${({ theme }) => theme.hoverColor};
+        }
+    }
+`;
 
 interface Props extends DefaultProps, AnchorHTMLAttributes<HTMLAnchorElement> {
     activeAuthRoute?: boolean;
@@ -27,8 +44,8 @@ export const ActiveLink: FC<Props> = ({
     };
 
     return (
-        <a href={href} onClick={handleClick} {...another}>
+        <Container href={href} onClick={handleClick} {...another}>
             {children}
-        </a>
+        </Container>
     );
 };

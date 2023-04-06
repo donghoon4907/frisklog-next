@@ -25,6 +25,9 @@ import { ScrollList } from '../components/ScrollList';
 import { ServerCookie } from '../lib/cookie/cookie.server';
 import { PostVisibility } from '../types/visibility';
 import { loginNaverRequest } from '../actions/user/login-naver.action';
+import { Layout } from '../components/layout';
+import { Header } from '../components/header';
+import { SetPostModal } from '../components/modal/SetPost';
 
 const Home: NextPage = () => {
     const { homePosts } = useSelector<AppState, PostState>(
@@ -44,66 +47,70 @@ const Home: NextPage = () => {
             <Head>
                 <title>Frisklog</title>
             </Head>
-            <Main>
-                <MainTitle>
-                    <h2>최신 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...homePosts}
-                    actionCreator={homePostsRequest}
-                    Node={PostItem}
-                    payload={{ visibility: PostVisibility.PUBLIC }}
-                />
-            </Main>
-            <Aside>
-                {recommendCategories.length > 0 && (
-                    <>
-                        <MainTitle>
-                            <h2>추천 카테고리</h2>
-                        </MainTitle>
-                        <ul>
-                            {recommendCategories.map(
-                                ({ id, content, postCount }) => (
-                                    <LinkCategoryButton
-                                        key={`recommendCategory${id}`}
-                                        category={content}
-                                        postCount={postCount}
-                                    />
-                                ),
-                            )}
-                        </ul>
-                    </>
-                )}
-                {recommendUsers.length > 0 && (
-                    <>
-                        <MainTitle>
-                            <h2>추천인</h2>
-                        </MainTitle>
-                        <div style={{ marginBottom: 30 }}>
-                            <Slider
-                                className=""
-                                dots
-                                infinite
-                                prevArrow={<PrevArrow />}
-                                nextArrow={<NextArrow />}
-                                speed={500}
-                                slidesToShow={1}
-                                slidesToScroll={1}
-                                // centerMode: true,
-                                autoplay
-                                autoplaySpeed={5000}
-                            >
-                                {recommendUsers.map((user) => (
-                                    <UserItem
-                                        key={`recommendUser${user.id}`}
-                                        {...user}
-                                    />
-                                ))}
-                            </Slider>
-                        </div>
-                    </>
-                )}
-            </Aside>
+            <Header />
+            <Layout>
+                <Main>
+                    <MainTitle>
+                        <h2>최신 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...homePosts}
+                        actionCreator={homePostsRequest}
+                        Node={PostItem}
+                        payload={{ visibility: PostVisibility.PUBLIC }}
+                    />
+                </Main>
+                <Aside>
+                    {recommendCategories.length > 0 && (
+                        <>
+                            <MainTitle>
+                                <h2>추천 카테고리</h2>
+                            </MainTitle>
+                            <ul>
+                                {recommendCategories.map(
+                                    ({ id, content, postCount }) => (
+                                        <LinkCategoryButton
+                                            key={`recommendCategory${id}`}
+                                            category={content}
+                                            postCount={postCount}
+                                        />
+                                    ),
+                                )}
+                            </ul>
+                        </>
+                    )}
+                    {recommendUsers.length > 0 && (
+                        <>
+                            <MainTitle>
+                                <h2>추천인</h2>
+                            </MainTitle>
+                            <div style={{ marginBottom: 30 }}>
+                                <Slider
+                                    className=""
+                                    dots
+                                    infinite
+                                    prevArrow={<PrevArrow />}
+                                    nextArrow={<NextArrow />}
+                                    speed={500}
+                                    slidesToShow={1}
+                                    slidesToScroll={1}
+                                    // centerMode: true,
+                                    autoplay
+                                    autoplaySpeed={5000}
+                                >
+                                    {recommendUsers.map((user) => (
+                                        <UserItem
+                                            key={`recommendUser${user.id}`}
+                                            {...user}
+                                        />
+                                    ))}
+                                </Slider>
+                            </div>
+                        </>
+                    )}
+                </Aside>
+            </Layout>
+            <SetPostModal />
         </>
     );
 };
