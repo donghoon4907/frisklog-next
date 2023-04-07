@@ -15,6 +15,14 @@ const Container = styled.div`
         vertical-align: middle;
         content: '';
     }
+
+    ${({ theme }) => theme.breakPoints.md} {
+        width: 100%;
+
+        &:before {
+            display: none !important;
+        }
+    }
 `;
 
 const InnerContainer = styled.div`
@@ -22,6 +30,21 @@ const InnerContainer = styled.div`
     overflow-x: hidden;
     width: 100%;
     vertical-align: middle;
+
+    ${({ theme }) => theme.breakPoints.md} {
+        display: flex;
+        flex-direction: column;
+        min-width: 320px;
+        height: 100%;
+    }
+`;
+
+const Main = styled.main`
+    ${({ theme }) => theme.breakPoints.md} {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
 `;
 
 const TitleWrapper = styled.div`
@@ -43,7 +66,7 @@ const Title = styled.h1`
     }
 `;
 
-const Article = styled.div`
+const Article = styled.article`
     width: 550px;
     height: 100%;
     margin: 20px auto 42px;
@@ -52,6 +75,13 @@ const Article = styled.div`
     font-size: 12px;
     border-radius: 4px;
     background: ${({ theme }) => theme.colors.white_base};
+
+    ${({ theme }) => theme.breakPoints.md} {
+        padding: 0 16px;
+        width: 100%;
+        border: none !important;
+        background: none !important;
+    }
 `;
 
 const LineOr = styled.span`
@@ -81,7 +111,7 @@ const LineOr = styled.span`
     }
 `;
 
-const AnotherLogin = styled.div`
+const LoginOr = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,7 +137,7 @@ const Login: NextPage = () => {
             </Head>
             <Container>
                 <InnerContainer>
-                    <main>
+                    <Main>
                         <TitleWrapper>
                             <Title>
                                 <span>Frisklog</span>
@@ -118,16 +148,16 @@ const Login: NextPage = () => {
                             <LineOr>
                                 <span>또는</span>
                             </LineOr>
-                            <AnotherLogin>
+                            <LoginOr>
                                 <GithubLoginButton />
                                 <NaverLoginButton />
-                            </AnotherLogin>
+                            </LoginOr>
                             <Info>
                                 계정이 없다면 &nbsp;
                                 <Link>회원가입</Link>
                             </Info>
                         </Article>
-                    </main>
+                    </Main>
                     <footer></footer>
                 </InnerContainer>
             </Container>
