@@ -6,9 +6,8 @@ import { END } from 'redux-saga';
 import type { AppState } from '../../reducers';
 import type { PostState } from '../../reducers/post';
 import type { UserState } from '../../reducers/user';
-import { Aside } from '../../components/layout/Aside';
-import { Main } from '../../components/layout/Main';
-import { MainTitle } from '../../components/layout/Main.style';
+import { AsideLayout } from '../../components/layout/Aside';
+import { MainLayout, MainTitle } from '../../components/layout/Main';
 import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
@@ -43,7 +42,7 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
             <Head>
                 <title>Frisklog - 검색 결과</title>
             </Head>
-            <Main>
+            <MainLayout>
                 <MainTitle>
                     <h2>{`"${searchKeyword}" 포스트 검색결과`}</h2>
                 </MainTitle>
@@ -56,8 +55,8 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                         visibility: PostVisibility.PUBLIC,
                     }}
                 />
-            </Main>
-            <Aside>
+            </MainLayout>
+            <AsideLayout>
                 <>
                     <MainTitle>
                         <h2>{`"${searchKeyword}" 카테고리 검색결과`}</h2>
@@ -82,7 +81,7 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                         <AsideUserProfile user={searchUsers.nodes[0]} />
                     </>
                 )}
-            </Aside>
+            </AsideLayout>
         </>
     );
 };

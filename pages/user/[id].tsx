@@ -8,9 +8,8 @@ import type { PostState } from '../../reducers/post';
 import type { UserState } from '../../reducers/user';
 import { userPostsRequest } from '../../actions/post/user-posts.action';
 import { getUserRequest } from '../../actions/user/get-user.action';
-import { Aside } from '../../components/layout/Aside';
-import { Main } from '../../components/layout/Main';
-import { MainTitle } from '../../components/layout/Main.style';
+import { AsideLayout } from '../../components/layout/Aside';
+import { MainLayout, MainTitle } from '../../components/layout/Main';
 import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
@@ -35,7 +34,7 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
             <Head>
                 <title>Frisklog</title>
             </Head>
-            <Main>
+            <MainLayout>
                 <MainTitle>
                     <h2>모든 포스트</h2>
                 </MainTitle>
@@ -45,13 +44,13 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
                     Node={PostItem}
                     payload={{ userId, visibility: PostVisibility.PUBLIC }}
                 />
-            </Main>
-            <Aside>
+            </MainLayout>
+            <AsideLayout>
                 <MainTitle>
                     <h2>사용자 정보</h2>
                 </MainTitle>
                 {userPageProfile && <AsideUserProfile user={userPageProfile} />}
-            </Aside>
+            </AsideLayout>
         </>
     );
 };

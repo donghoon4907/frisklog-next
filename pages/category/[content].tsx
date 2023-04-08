@@ -5,9 +5,8 @@ import { END } from 'redux-saga';
 
 import type { AppState } from '../../reducers';
 import type { PostState } from '../../reducers/post';
-import { Aside } from '../../components/layout/Aside';
-import { Main } from '../../components/layout/Main';
-import { MainTitle } from '../../components/layout/Main.style';
+import { AsideLayout } from '../../components/layout/Aside';
+import { MainLayout, MainTitle } from '../../components/layout/Main';
 import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
@@ -34,7 +33,7 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
             <Head>
                 <title>Frisklog - 카테고리 검색</title>
             </Head>
-            <Main>
+            <MainLayout>
                 <MainTitle>
                     <h2>{`#${category} 포스트 목록`}</h2>
                 </MainTitle>
@@ -44,8 +43,8 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
                     Node={PostItem}
                     payload={{ category }}
                 />
-            </Main>
-            <Aside>
+            </MainLayout>
+            <AsideLayout>
                 {relatedCategories.length > 0 && (
                     <>
                         <MainTitle>
@@ -64,7 +63,7 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
                         </ul>
                     </>
                 )}
-            </Aside>
+            </AsideLayout>
         </>
     );
 };

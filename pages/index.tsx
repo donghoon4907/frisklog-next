@@ -7,9 +7,8 @@ import Slider from 'react-slick';
 import type { AppState } from '../reducers';
 import type { PostState } from '../reducers/post';
 import type { UserState } from '../reducers/user';
-import { Aside } from '../components/layout/Aside';
-import { Main } from '../components/layout/Main';
-import { MainTitle } from '../components/layout/Main.style';
+import { AsideLayout } from '../components/layout/Aside';
+import { MainLayout, MainTitle } from '../components/layout/Main';
 import { wrapper } from '../store';
 import { loginGithubRequest } from '../actions/user/login-github.action';
 import { homePostsRequest } from '../actions/post/home-posts.action';
@@ -49,7 +48,7 @@ const Home: NextPage = () => {
             </Head>
             <Header />
             <Layout>
-                <Main>
+                <MainLayout>
                     <MainTitle>
                         <h2>최신 포스트</h2>
                     </MainTitle>
@@ -59,8 +58,8 @@ const Home: NextPage = () => {
                         Node={PostItem}
                         payload={{ visibility: PostVisibility.PUBLIC }}
                     />
-                </Main>
-                <Aside>
+                </MainLayout>
+                <AsideLayout>
                     {recommendCategories.length > 0 && (
                         <>
                             <MainTitle>
@@ -108,7 +107,7 @@ const Home: NextPage = () => {
                             </div>
                         </>
                     )}
-                </Aside>
+                </AsideLayout>
             </Layout>
             <SetPostModal />
         </>

@@ -6,9 +6,8 @@ import { END } from 'redux-saga';
 import type { User } from '../../interfaces/user';
 import type { AppState } from '../../reducers';
 import type { PostState } from '../../reducers/post';
-import { Aside } from '../../components/layout/Aside';
-import { Main } from '../../components/layout/Main';
-import { MainTitle } from '../../components/layout/Main.style';
+import { AsideLayout } from '../../components/layout/Aside';
+import { MainLayout, MainTitle } from '../../components/layout/Main';
 import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
@@ -29,7 +28,7 @@ const RestorePost: NextPage<Props> = ({ me }) => {
             <Head>
                 <title>Frisklog - 삭제된 포스트</title>
             </Head>
-            <Main>
+            <MainLayout>
                 <MainTitle>
                     <h2>삭제된 포스트</h2>
                 </MainTitle>
@@ -38,8 +37,8 @@ const RestorePost: NextPage<Props> = ({ me }) => {
                     actionCreator={removedPostsRequest}
                     Node={RemovedPostItem}
                 />
-            </Main>
-            <Aside>
+            </MainLayout>
+            <AsideLayout>
                 <MainTitle>
                     <h2>내 정보</h2>
                 </MainTitle>
@@ -49,7 +48,7 @@ const RestorePost: NextPage<Props> = ({ me }) => {
                         isFollowing: false,
                     }}
                 />
-            </Aside>
+            </AsideLayout>
         </>
     );
 };

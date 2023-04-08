@@ -7,9 +7,8 @@ import type { AppState } from '../../reducers';
 import type { PostState } from '../../reducers/post';
 import { followingPostsRequest } from '../../actions/post/following-posts.action';
 import { getFollowingsRequest } from '../../actions/user/get-followings.action';
-import { Aside } from '../../components/layout/Aside';
-import { Main } from '../../components/layout/Main';
-import { MainTitle } from '../../components/layout/Main.style';
+import { AsideLayout } from '../../components/layout/Aside';
+import { MainLayout, MainTitle } from '../../components/layout/Main';
 import { SearchFollowing } from '../../components/partitial/aside/SearchFollowing';
 import { PostItem } from '../../components/template/PostItem';
 import { ScrollList } from '../../components/ScrollList';
@@ -25,7 +24,7 @@ const Follow: NextPage = () => {
             <Head>
                 <title>Frisklog - 팔로잉</title>
             </Head>
-            <Main>
+            <MainLayout>
                 <MainTitle>
                     <h2>팔로잉 최신 포스트</h2>
                 </MainTitle>
@@ -34,13 +33,13 @@ const Follow: NextPage = () => {
                     actionCreator={followingPostsRequest}
                     Node={PostItem}
                 />
-            </Main>
-            <Aside>
+            </MainLayout>
+            <AsideLayout>
                 <MainTitle>
                     <h2>팔로잉 목록</h2>
                 </MainTitle>
                 <SearchFollowing />
-            </Aside>
+            </AsideLayout>
         </>
     );
 };
