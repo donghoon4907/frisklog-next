@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { AuthLayout } from '../../components/layout/Auth';
 import { Button } from '../../components/button';
 import { useRoute } from '../../hooks/use-route';
+import Link from 'next/link';
 
 const Title = styled.h2`
     display: block;
@@ -53,10 +54,22 @@ const CheckAllHelp = styled.p`
 
 const CheckList = styled.ul`
     padding: 22px 0;
+`;
 
-    & li {
-        position: relative;
-    }
+const CheckItem = styled.li`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const CheckItemBody = styled.div`
+    flex: 1;
+`;
+
+const CheckItemMore = styled.div`
+    color: ${({ theme }) => theme.colors.blue};
+    cursor: pointer;
 `;
 
 const Terms: NextPage = () => {
@@ -114,17 +127,29 @@ const Terms: NextPage = () => {
                         </CheckAllHelp>
                     </CheckAllWrapper>
                     <CheckList>
-                        <li>
-                            <Checkbox
-                                type="checkbox"
-                                id="privacy"
-                                checked={checkPrivacy}
-                                onChange={handleChangeCheckPrivacy}
-                            />
-                            <Label htmlFor="privacy">
-                                [필수] 개인정보 수집 및 이용 동의
-                            </Label>
-                        </li>
+                        <CheckItem>
+                            <CheckItemBody>
+                                <Checkbox
+                                    type="checkbox"
+                                    id="privacy"
+                                    checked={checkPrivacy}
+                                    onChange={handleChangeCheckPrivacy}
+                                />
+                                <Label htmlFor="privacy">
+                                    [필수] 개인정보 수집 및 이용 동의
+                                </Label>
+                            </CheckItemBody>
+                            <CheckItemMore>
+                                <Link href="/terms/privacy_specialty" passHref>
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        자세히 보기
+                                    </a>
+                                </Link>
+                            </CheckItemMore>
+                        </CheckItem>
                     </CheckList>
                     <Button
                         type="submit"
