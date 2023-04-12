@@ -3,11 +3,11 @@ import type { ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import { AuthLayout } from '../../components/layout/Auth';
 import { Button } from '../../components/button';
 import { useRoute } from '../../hooks/use-route';
-import Link from 'next/link';
 
 const Title = styled.h2`
     display: block;
@@ -97,7 +97,7 @@ const Terms: NextPage = () => {
             return;
         }
 
-        move('/auth/email');
+        move('/auth/create_account');
     };
 
     return (
