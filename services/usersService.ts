@@ -26,6 +26,8 @@ import { UpdateSettingRequestPayload } from '../actions/user/update-setting.inte
 import { MUTATION_UPDATE_SETTING } from '../graphql/mutation/user/update-setting';
 import { LoginNaverRequestPayload } from '../actions/user/login-naver.interface';
 import { MUTATION_NAVER_LOGIN } from '../graphql/mutation/user/login-naver';
+import { SendEmailRequestPayload } from '../actions/user/send-email.interface';
+import { MUTATION_SEND_EMAIL } from '../graphql/mutation/user/send-email';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -81,4 +83,8 @@ export function getFollowings(payload: GetFollowingsRequestPayload) {
 
 export function updateSetting(payload: UpdateSettingRequestPayload) {
     return client.request(MUTATION_UPDATE_SETTING, payload);
+}
+
+export function sendEmail(payload: SendEmailRequestPayload) {
+    return client.request(MUTATION_SEND_EMAIL, payload);
 }

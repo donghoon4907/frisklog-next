@@ -1,13 +1,16 @@
 import type { NextPage } from 'next';
-import { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { IoIosCloseCircle } from 'react-icons/io';
+import CryptoJS from 'crypto-js';
 
 import { AuthLayout } from '../../components/layout/Auth';
 import { Button } from '../../components/button';
 import { useRoute } from '../../hooks/use-route';
+import { useMutation } from '../../hooks/use-mutation';
+import { sendEmailRequest } from '../../actions/user/send-email.action';
 
 const Title = styled.h2`
     display: block;
@@ -114,18 +117,24 @@ const CreateAccount: NextPage = () => {
 
     const $email = useRef<HTMLInputElement>(null);
 
+    const $passCode = useRef<HTMLInputElement>(null);
+
     // 이메일
     const [email, setEmail] = useState('');
     // 인증 코드
+    const [token, setToken] = useState('');
+    // 인증 코드 확인
     const [passCode, setPassCode] = useState('');
-    // 피드백 활성화 여부
+    // 피드백
     const [feedback, setFeedback] = useState('');
     // 이메일 입력창 포커싱 여부
     const [activeFocusEmail, setActiveFocusEmail] = useState(true);
     // 인증 코드 입력창 포커싱 여부
     const [activeFocusPassCode, setActiveFocusPassCode] = useState(false);
     // 이메일 인증 요청 여부
-    const [isSendPassCode, setIsSendPassCode] = useState(false);
+    const [isSendEmail, setIsSendEmail] = useState(false);
+    // 인증 요청
+    const [sendEmail] = useMutation(sendEmailRequest);
 
     const validateEmail = (value: string) => {
         let output = '';
@@ -146,8 +155,13 @@ const CreateAccount: NextPage = () => {
 
     const validatePassCode = (value: string) => {
         let output = '';
-        if (value.length != 4) {
+
+        if (value === '') {
+            output = '인증번호를 입력해 주세요.';
+        } else if (value.length != 4) {
             output = '이메일로 발송된 4자리 인증번호를 입력해 주세요.';
+        } else if (value !== token) {
+            output = '입력하신 인증번호가 올바르지 않습니다.';
         }
 
         return output;
@@ -157,31 +171,31 @@ const CreateAccount: NextPage = () => {
         const { value } = evt.target;
 
         setEmail(value);
+        // 입력 중에는 피드백 비활성화
+        if (feedback !== '') {
+            setFeedback('');
+        }
     };
 
     const handleChangePassCode = (evt: ChangeEvent<HTMLInputElement>) => {
         const { value } = evt.target;
 
         setPassCode(value);
-
-        setFeedback(validatePassCode(value));
+        // 입력 중에는 피드백 비활성화
+        if (feedback !== '') {
+            setFeedback('');
+        }
     };
 
     const handleFocusEmail = () => {
         setActiveFocusEmail(true);
     };
 
-    const handleFocusPassCode = (evt: FocusEvent<HTMLInputElement>) => {
-        const { value } = evt.target;
-
-        setFeedback(validatePassCode(value));
-
-        setActiveFocusEmail(true);
+    const handleFocusPassCode = () => {
+        setActiveFocusPassCode(true);
     };
 
-    const handleClearEmail = (evt: MouseEvent<HTMLButtonElement>) => {
-        evt.preventDefault();
-
+    const handleClearEmail = () => {
         setEmail('');
 
         setFeedback('');
@@ -195,6 +209,10 @@ const CreateAccount: NextPage = () => {
         setPassCode('');
 
         setFeedback('');
+
+        if ($passCode.current) {
+            $passCode.current.focus();
+        }
     };
 
     const handleBlurEmail = () => {
@@ -209,6 +227,58 @@ const CreateAccount: NextPage = () => {
         setActiveFocusPassCode(false);
     };
 
+    const handleSendEmail = () => {
+        const comment = validateEmail(email);
+        // 이메일 검증 실패 시 피드백 업데이트
+        if (comment !== '') {
+            setFeedback(comment);
+
+            return;
+        }
+        // 네 자리 숫자 토큰 발급
+        const token = Math.floor(Math.random() * 9000 + 1000).toString();
+
+        // 복호화 키 정보가 있는 경우
+        if (process.env.CRYPTO_SECRET) {
+            // 토큰 암호화
+            const captcha = CryptoJS.AES.encrypt(
+                token,
+                process.env.CRYPTO_SECRET,
+            ).toString();
+
+            sendEmail({ email, captcha }, () => {
+                // 인증 요청 상태 업데이트
+                setIsSendEmail(true);
+                // 토큰 상태 업데이트
+                setToken(token);
+                // 이메일 입력창 포커싱 여부 상태 업데이트
+                setActiveFocusEmail(false);
+            });
+        } else {
+            alert('인증 요청 중 오류가 발생했습니다. 잠시 후 시도해 주세요.');
+        }
+    };
+
+    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+        // 인증 요청을 하지 않은 경우
+        if (!isSendEmail) {
+            handleSendEmail();
+
+            return;
+        }
+
+        const comment = validatePassCode(passCode);
+        // 인증번호 검증 실패 시 피드백 업데이트
+        if (comment !== '') {
+            setFeedback(comment);
+
+            return;
+        }
+
+        move('/auth/set_nickname');
+    };
+
     return (
         <>
             <Head>
@@ -220,9 +290,11 @@ const CreateAccount: NextPage = () => {
                     <br />
                     이메일 주소를 입력해 주세요.
                 </Title>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <Verifiy
-                        className={`first ${!!feedback ? 'error' : ''}`}
+                        className={`first ${
+                            !!feedback && !isSendEmail ? 'error' : ''
+                        }`}
                         activeFocus={activeFocusEmail}
                     >
                         <label className="a11y-hidden" htmlFor="email">
@@ -239,20 +311,27 @@ const CreateAccount: NextPage = () => {
                             onBlur={handleBlurEmail}
                             autoFocus
                             ref={$email}
-                            disabled={isSendPassCode}
+                            disabled={isSendEmail}
                         />
 
                         <More>
-                            {email.length > 0 && (
+                            {email.length > 0 && !isSendEmail && (
                                 <Clear type="button" onClick={handleClearEmail}>
                                     <IoIosCloseCircle />
                                 </Clear>
                             )}
 
-                            <Request type="button">인증요청</Request>
+                            {!isSendEmail && (
+                                <Request
+                                    type="button"
+                                    onClick={handleSendEmail}
+                                >
+                                    인증요청
+                                </Request>
+                            )}
                         </More>
                     </Verifiy>
-                    {isSendPassCode && (
+                    {isSendEmail && (
                         <Verifiy
                             className={`${!!feedback ? 'error' : ''}`}
                             activeFocus={activeFocusPassCode}
@@ -267,8 +346,9 @@ const CreateAccount: NextPage = () => {
                                 autoComplete="off"
                                 value={passCode}
                                 onChange={handleChangePassCode}
-                                onFocus={handleChangePassCode}
+                                onFocus={handleFocusPassCode}
                                 onBlur={handleBlurPassCode}
+                                ref={$passCode}
                             />
                             <More>
                                 <Clear
@@ -296,7 +376,7 @@ const CreateAccount: NextPage = () => {
                         <Button
                             type="submit"
                             colorType="primary"
-                            disabled={false}
+                            disabled={passCode.length !== 4}
                         >
                             다음
                         </Button>

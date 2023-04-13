@@ -7,6 +7,7 @@ import { LoginUserAction } from './login-user.interface';
 import { LogoutUserAction } from './logout-user.interface';
 import { RecommendUsersAction } from './recommend-users.interface';
 import { SearchUserssAction } from './search-users.interface';
+import { SendEmailAction } from './send-email.interface';
 import { SetUserAction } from './set-user.interface';
 import { UnfollowUserAction } from './unfollow-user.interface';
 import { UpdateSettingAction } from './update-setting.interface';
@@ -27,4 +28,5 @@ export type UserAction =
     | GetUserAction
     | LogoutUserAction
     | SearchUserssAction
-    | UpdateSettingAction;
+    | UpdateSettingAction
+    | SendEmailAction;
