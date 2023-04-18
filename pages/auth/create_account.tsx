@@ -200,9 +200,7 @@ const CreateAccount: NextPage = () => {
 
         setFeedback('');
 
-        if ($email.current) {
-            $email.current.focus();
-        }
+        $email.current?.focus();
     };
 
     const handleClearPassCode = () => {
@@ -210,9 +208,7 @@ const CreateAccount: NextPage = () => {
 
         setFeedback('');
 
-        if ($passCode.current) {
-            $passCode.current.focus();
-        }
+        $passCode.current?.focus();
     };
 
     const handleBlurEmail = () => {
@@ -233,6 +229,8 @@ const CreateAccount: NextPage = () => {
         if (comment !== '') {
             setFeedback(comment);
 
+            $email.current?.focus();
+
             return;
         }
         // 네 자리 숫자 토큰 발급
@@ -246,13 +244,17 @@ const CreateAccount: NextPage = () => {
                 process.env.CRYPTO_SECRET,
             ).toString();
 
-            sendEmail({ email, captcha }, () => {
-                // 인증 요청 상태 업데이트
-                setIsSendEmail(true);
-                // 토큰 상태 업데이트
-                setToken(token);
-                // 이메일 입력창 포커싱 여부 상태 업데이트
-                setActiveFocusEmail(false);
+            sendEmail({ email, captcha }, (errMsg) => {
+                if (errMsg === '') {
+                    // 인증 요청 상태 업데이트
+                    setIsSendEmail(true);
+                    // 토큰 상태 업데이트
+                    setToken(token);
+                    // 이메일 입력창 포커싱 여부 상태 업데이트
+                    setActiveFocusEmail(false);
+                } else {
+                    setFeedback(errMsg);
+                }
             });
         } else {
             alert('인증 요청 중 오류가 발생했습니다. 잠시 후 시도해 주세요.');
@@ -261,6 +263,7 @@ const CreateAccount: NextPage = () => {
 
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
+
         // 인증 요청을 하지 않은 경우
         if (!isSendEmail) {
             handleSendEmail();
@@ -282,7 +285,7 @@ const CreateAccount: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Frisklog - 서비스 약관 동의</title>
+                <title>Frisklog - 계정 만들기</title>
             </Head>
             <AuthLayout>
                 <Title>

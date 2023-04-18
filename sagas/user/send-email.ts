@@ -5,18 +5,27 @@ import {
     sendEmailSuccess,
 } from '../../actions/user/send-email.action';
 import { SendEmailRequestAction } from '../../actions/user/send-email.interface';
-import { mutationMiddleware } from '../../lib/generators/mutation-middleware';
 import * as usersService from '../../services/usersService';
+import { getErrorPayload } from '../../lib/error/graphql-request';
 
 function* sendEmailSaga(action: SendEmailRequestAction) {
-    yield call(usersService.sendEmail, action.payload);
+    let msg = '';
+
+    try {
+        yield call(usersService.sendEmail, action.payload);
+    } catch (err) {
+        const { message, statusCode } = getErrorPayload(err);
+
+        if (statusCode === 403) {
+            msg = message;
+        }
+    }
 
     yield put(sendEmailSuccess());
+
+    action.payload.callbackFunc?.(msg);
 }
 
 export function* watchSendEmail() {
-    yield takeEvery(
-        sendEmailActionTypes.REQUEST,
-        mutationMiddleware(sendEmailSaga),
-    );
+    yield takeEvery(sendEmailActionTypes.REQUEST, sendEmailSaga);
 }
