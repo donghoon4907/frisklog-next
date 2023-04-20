@@ -13,8 +13,6 @@ function* createUserSaga({ payload }: CreateUserRequestAction) {
 
     yield put(createUserSuccess());
 
-    alert('회원가입이 정상처리되었습니다.');
-
     return null;
 }
 
