@@ -13,6 +13,10 @@ import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
 import { likedPostsRequest } from '../../actions/post/liked-posts.action';
 import { PostItem } from '../../components/template/PostItem';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { SetUserModal } from '../../components/modal/SetUser';
+import { SetThumbnailModal } from '../../components/modal/SetThumbnail';
 
 interface Props {
     me: Pick<User, 'id' | 'nickname' | 'avatar'>;
@@ -28,27 +32,32 @@ const LikePost: NextPage<Props> = ({ me }) => {
             <Head>
                 <title>Frisklog - 좋아요한 포스트</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>좋아요한 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...likedPosts}
-                    actionCreator={likedPostsRequest}
-                    Node={PostItem}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <MainTitle>
-                    <h2>내 정보</h2>
-                </MainTitle>
-                <AsideUserProfile
-                    user={{
-                        ...me,
-                        isFollowing: false,
-                    }}
-                />
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>좋아요한 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...likedPosts}
+                        actionCreator={likedPostsRequest}
+                        Node={PostItem}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    <MainTitle>
+                        <h2>내 정보</h2>
+                    </MainTitle>
+                    <AsideUserProfile
+                        user={{
+                            ...me,
+                            isFollowing: false,
+                        }}
+                    />
+                </AsideLayout>
+                <SetUserModal />
+                <SetThumbnailModal />
+            </Layout>
         </>
     );
 };

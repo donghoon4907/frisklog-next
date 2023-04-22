@@ -13,6 +13,8 @@ import { SearchFollowing } from '../../components/partitial/aside/SearchFollowin
 import { PostItem } from '../../components/template/PostItem';
 import { ScrollList } from '../../components/ScrollList';
 import { wrapper } from '../../store';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
 
 const Follow: NextPage = () => {
     const { followingPosts } = useSelector<AppState, PostState>(
@@ -24,22 +26,25 @@ const Follow: NextPage = () => {
             <Head>
                 <title>Frisklog - 팔로잉</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>팔로잉 최신 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...followingPosts}
-                    actionCreator={followingPostsRequest}
-                    Node={PostItem}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <MainTitle>
-                    <h2>팔로잉 목록</h2>
-                </MainTitle>
-                <SearchFollowing />
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>팔로잉 최신 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...followingPosts}
+                        actionCreator={followingPostsRequest}
+                        Node={PostItem}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    <MainTitle>
+                        <h2>팔로잉 목록</h2>
+                    </MainTitle>
+                    <SearchFollowing />
+                </AsideLayout>
+            </Layout>
         </>
     );
 };

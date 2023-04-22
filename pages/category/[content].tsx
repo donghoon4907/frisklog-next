@@ -14,6 +14,8 @@ import { CategoryState } from '../../reducers/category';
 import { LinkCategoryButton } from '../../components/button/LinkCategory';
 import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
 import { categoryPostsRequest } from '../../actions/post/category-posts.action';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
 
 interface Props {
     category: string;
@@ -33,37 +35,40 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
             <Head>
                 <title>Frisklog - 카테고리 검색</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>{`#${category} 포스트 목록`}</h2>
-                </MainTitle>
-                <ScrollList
-                    {...categoryPosts}
-                    actionCreator={categoryPostsRequest}
-                    Node={PostItem}
-                    payload={{ category }}
-                />
-            </MainLayout>
-            <AsideLayout>
-                {relatedCategories.length > 0 && (
-                    <>
-                        <MainTitle>
-                            <h2>{`#${category} 관련 카테고리`}</h2>
-                        </MainTitle>
-                        <ul>
-                            {relatedCategories.map(
-                                ({ content, postCount }, idx) => (
-                                    <LinkCategoryButton
-                                        key={`relatedCategory${idx}`}
-                                        category={content}
-                                        postCount={postCount}
-                                    />
-                                ),
-                            )}
-                        </ul>
-                    </>
-                )}
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>{`#${category} 포스트 목록`}</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...categoryPosts}
+                        actionCreator={categoryPostsRequest}
+                        Node={PostItem}
+                        payload={{ category }}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    {relatedCategories.length > 0 && (
+                        <>
+                            <MainTitle>
+                                <h2>{`#${category} 관련 카테고리`}</h2>
+                            </MainTitle>
+                            <ul>
+                                {relatedCategories.map(
+                                    ({ content, postCount }, idx) => (
+                                        <LinkCategoryButton
+                                            key={`relatedCategory${idx}`}
+                                            category={content}
+                                            postCount={postCount}
+                                        />
+                                    ),
+                                )}
+                            </ul>
+                        </>
+                    )}
+                </AsideLayout>
+            </Layout>
         </>
     );
 };
@@ -88,7 +93,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             dispatch(END);
 
-            await sagaTask?.toPromise();
+            try {
+                await sagaTask?.toPromise();
+            } catch (e) {
+                res.statusCode = 302;
+
+                res.setHeader('Location', '/404');
+            }
 
             return {
                 props: {

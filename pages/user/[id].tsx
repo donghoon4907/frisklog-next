@@ -15,6 +15,8 @@ import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
 import { PostVisibility } from '../../types/visibility';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
 
 interface Props {
     userId: string;
@@ -34,23 +36,28 @@ const UserProfile: NextPage<Props> = ({ userId }) => {
             <Head>
                 <title>Frisklog</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>모든 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...userPosts}
-                    actionCreator={userPostsRequest}
-                    Node={PostItem}
-                    payload={{ userId, visibility: PostVisibility.PUBLIC }}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <MainTitle>
-                    <h2>사용자 정보</h2>
-                </MainTitle>
-                {userPageProfile && <AsideUserProfile user={userPageProfile} />}
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>모든 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...userPosts}
+                        actionCreator={userPostsRequest}
+                        Node={PostItem}
+                        payload={{ userId, visibility: PostVisibility.PUBLIC }}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    <MainTitle>
+                        <h2>사용자 정보</h2>
+                    </MainTitle>
+                    {userPageProfile && (
+                        <AsideUserProfile user={userPageProfile} />
+                    )}
+                </AsideLayout>
+            </Layout>
         </>
     );
 };
@@ -76,7 +83,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             dispatch(END);
 
-            await sagaTask?.toPromise();
+            try {
+                await sagaTask?.toPromise();
+            } catch (e) {
+                res.statusCode = 302;
+
+                res.setHeader('Location', '/404');
+            }
 
             return {
                 props: {

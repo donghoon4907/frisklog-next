@@ -15,6 +15,10 @@ import { wrapper } from '../../store';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
 import { MyPosts } from '../../components/partitial/aside/MyPosts';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { SetUserModal } from '../../components/modal/SetUser';
+import { SetThumbnailModal } from '../../components/modal/SetThumbnail';
 
 interface Props {
     userId: string;
@@ -34,31 +38,36 @@ const MyPage: NextPage<Props> = ({ userId }) => {
             <Head>
                 <title>Frisklog</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>모든 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...userPosts}
-                    actionCreator={userPostsRequest}
-                    Node={PostItem}
-                    payload={{ userId }}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <MainTitle>
-                    <h2>내 정보</h2>
-                </MainTitle>
-                <AsideUserProfile
-                    user={{
-                        id: id!,
-                        nickname: nickname!,
-                        avatar: avatar!,
-                        isFollowing: false,
-                    }}
-                />
-                <MyPosts />
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>모든 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...userPosts}
+                        actionCreator={userPostsRequest}
+                        Node={PostItem}
+                        payload={{ userId }}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    <MainTitle>
+                        <h2>내 정보</h2>
+                    </MainTitle>
+                    <AsideUserProfile
+                        user={{
+                            id: id!,
+                            nickname: nickname!,
+                            avatar: avatar!,
+                            isFollowing: false,
+                        }}
+                    />
+                    <MyPosts />
+                </AsideLayout>
+            </Layout>
+            <SetUserModal />
+            <SetThumbnailModal />
         </>
     );
 };
@@ -83,7 +92,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
             dispatch(END);
 
-            await sagaTask?.toPromise();
+            try {
+                await sagaTask?.toPromise();
+            } catch (e) {
+                res.statusCode = 302;
+
+                res.setHeader('Location', '/404');
+            }
 
             return {
                 props: {

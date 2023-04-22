@@ -19,6 +19,8 @@ import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { searchCategoriesRequest } from '../../actions/category/search-categories.action';
 import { NotFoundCategory } from '../../components/NotFoundCategory';
 import { PostVisibility } from '../../types/visibility';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
 
 interface Props {
     searchKeyword: string;
@@ -42,46 +44,53 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
             <Head>
                 <title>Frisklog - 검색 결과</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>{`"${searchKeyword}" 포스트 검색결과`}</h2>
-                </MainTitle>
-                <ScrollList
-                    {...searchPosts}
-                    actionCreator={searchPostsRequest}
-                    Node={PostItem}
-                    payload={{
-                        searchKeyword,
-                        visibility: PostVisibility.PUBLIC,
-                    }}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <>
+            <Header />
+            <Layout>
+                <MainLayout>
                     <MainTitle>
-                        <h2>{`"${searchKeyword}" 카테고리 검색결과`}</h2>
+                        <h2>{`"${searchKeyword}" 포스트 검색결과`}</h2>
                     </MainTitle>
-                    <ul>
-                        {searchCategories.length === 0 && <NotFoundCategory />}
-                        {searchCategories.map(({ content, postCount }, idx) => (
-                            <LinkCategoryButton
-                                key={`Category${idx}`}
-                                category={content}
-                                postCount={postCount}
-                            />
-                        ))}
-                    </ul>
-                </>
-
-                {searchUsers.nodes.length > 0 && (
+                    <ScrollList
+                        {...searchPosts}
+                        actionCreator={searchPostsRequest}
+                        Node={PostItem}
+                        payload={{
+                            searchKeyword,
+                            visibility: PostVisibility.PUBLIC,
+                        }}
+                    />
+                </MainLayout>
+                <AsideLayout>
                     <>
                         <MainTitle>
-                            <h2>{`"${searchKeyword}" 사용자 검색결과`}</h2>
+                            <h2>{`"${searchKeyword}" 카테고리 검색결과`}</h2>
                         </MainTitle>
-                        <AsideUserProfile user={searchUsers.nodes[0]} />
+                        <ul>
+                            {searchCategories.length === 0 && (
+                                <NotFoundCategory />
+                            )}
+                            {searchCategories.map(
+                                ({ content, postCount }, idx) => (
+                                    <LinkCategoryButton
+                                        key={`Category${idx}`}
+                                        category={content}
+                                        postCount={postCount}
+                                    />
+                                ),
+                            )}
+                        </ul>
                     </>
-                )}
-            </AsideLayout>
+
+                    {searchUsers.nodes.length > 0 && (
+                        <>
+                            <MainTitle>
+                                <h2>{`"${searchKeyword}" 사용자 검색결과`}</h2>
+                            </MainTitle>
+                            <AsideUserProfile user={searchUsers.nodes[0]} />
+                        </>
+                    )}
+                </AsideLayout>
+            </Layout>
         </>
     );
 };

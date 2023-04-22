@@ -13,6 +13,10 @@ import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { ScrollList } from '../../components/ScrollList';
 import { removedPostsRequest } from '../../actions/post/removed-posts.action';
 import { RemovedPostItem } from '../../components/template/PostItem';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { SetUserModal } from '../../components/modal/SetUser';
+import { SetThumbnailModal } from '../../components/modal/SetThumbnail';
 
 interface Props {
     me: Pick<User, 'id' | 'nickname' | 'avatar'>;
@@ -28,27 +32,32 @@ const RestorePost: NextPage<Props> = ({ me }) => {
             <Head>
                 <title>Frisklog - 삭제된 포스트</title>
             </Head>
-            <MainLayout>
-                <MainTitle>
-                    <h2>삭제된 포스트</h2>
-                </MainTitle>
-                <ScrollList
-                    {...removedPosts}
-                    actionCreator={removedPostsRequest}
-                    Node={RemovedPostItem}
-                />
-            </MainLayout>
-            <AsideLayout>
-                <MainTitle>
-                    <h2>내 정보</h2>
-                </MainTitle>
-                <AsideUserProfile
-                    user={{
-                        ...me,
-                        isFollowing: false,
-                    }}
-                />
-            </AsideLayout>
+            <Header />
+            <Layout>
+                <MainLayout>
+                    <MainTitle>
+                        <h2>삭제된 포스트</h2>
+                    </MainTitle>
+                    <ScrollList
+                        {...removedPosts}
+                        actionCreator={removedPostsRequest}
+                        Node={RemovedPostItem}
+                    />
+                </MainLayout>
+                <AsideLayout>
+                    <MainTitle>
+                        <h2>내 정보</h2>
+                    </MainTitle>
+                    <AsideUserProfile
+                        user={{
+                            ...me,
+                            isFollowing: false,
+                        }}
+                    />
+                </AsideLayout>
+            </Layout>
+            <SetUserModal />
+            <SetThumbnailModal />
         </>
     );
 };

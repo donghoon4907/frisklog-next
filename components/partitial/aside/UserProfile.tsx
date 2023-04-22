@@ -6,7 +6,6 @@ import { AppState } from '../../../reducers';
 import { UserState } from '../../../reducers/user';
 import { UserSettingButton } from '../../button/UserSetting';
 import { LogoutButton } from '../../button/Logout';
-import { UpdateAvatarButton } from '../../button/UpdateAvatar';
 import { FollowButton } from '../../button/Follow';
 import { User } from '../../../interfaces/user';
 import { Avatar } from '../../avatar';
@@ -113,7 +112,7 @@ export const AsideUserProfile: FC<Props> = ({ user }) => {
                     src={uploadedFile}
                     alt="Avatar"
                     style={{ width: 180, height: 180, borderRadius: '50%' }}
-                    role="button"
+                    role={isMe ? 'button' : ''}
                     onClick={handleClickAvatar}
                 />
             </Header>

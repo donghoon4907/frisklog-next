@@ -8,7 +8,7 @@ const Container = styled.div<{ role?: string }>`
     position: relative;
     overflow: hidden;
 
-    ${({ role }) => (role == 'button' ? 'cursor: pointer;' : '')}
+    ${({ role }) => (role === 'button' ? 'cursor: pointer;' : '')}
 `;
 
 const Image = styled.img`

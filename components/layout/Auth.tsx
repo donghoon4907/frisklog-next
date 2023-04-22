@@ -71,7 +71,7 @@ const Article = styled.article`
     border: 1px solid ${({ theme }) => theme.dividerColor};
     font-size: 12px;
     border-radius: 4px;
-    background: ${({ theme }) => theme.colors.white_base};
+    background: ${({ theme }) => theme.boxBgColor};
 
     ${({ theme }) => theme.breakPoints.sm} {
         padding: 0 16px;

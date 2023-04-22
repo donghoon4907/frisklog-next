@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import NProgress from 'nprogress';
+import { END } from 'redux-saga';
 
 import { wrapper } from '../store';
 import { COOKIE_THEME_KEY, COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
@@ -31,10 +32,11 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const AppContainer = styled.div`
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    height: 100%;
 
     position: absolute;
     top: 0;
@@ -81,17 +83,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <Providers>
-            <AppContainer>
+            <Container>
                 <Component {...pageProps} />
                 {loading && <Loader />}
-            </AppContainer>
+            </Container>
         </Providers>
     );
 }
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(
-    ({ dispatch, getState }) =>
-        async ({ Component, ctx }) => {
+    ({ dispatch, getState, sagaTask }) =>
+        async ({ Component, ctx, router }) => {
             const { req, res } = ctx;
 
             const isServer = !!req && !!res;
@@ -122,6 +124,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
                 if (token) {
                     dispatch(loadUserRequest());
                 }
+            }
+
+            if (router.route === '/404') {
+                dispatch(END);
+
+                await sagaTask?.toPromise();
             }
 
             let pageProps = {};
