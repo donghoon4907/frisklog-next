@@ -73,6 +73,17 @@ export const ButtonBody = styled.button<{ disabled: boolean }>`
             fill: ${({ theme }) => theme.naverTextColor};
         }
     }
+
+    &.google {
+        background-color: ${({ theme }) => theme.colors.white_base};
+        border: 1px solid #eaecef;
+        color: ${({ theme }) => theme.colors.black_base};
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+    }
 `;
 
 export const CenteredButton = styled.button`

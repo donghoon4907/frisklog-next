@@ -123,13 +123,13 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                 if (token) {
                     dispatch(loadUserRequest());
+
+                    if (router.route === '/404') {
+                        dispatch(END);
+
+                        await sagaTask?.toPromise();
+                    }
                 }
-            }
-
-            if (router.route === '/404') {
-                dispatch(END);
-
-                await sagaTask?.toPromise();
             }
 
             let pageProps = {};

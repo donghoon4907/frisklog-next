@@ -10,7 +10,6 @@ import type { UserState } from '../reducers/user';
 import { AsideLayout } from '../components/layout/Aside';
 import { MainLayout, MainTitle } from '../components/layout/Main';
 import { wrapper } from '../store';
-import { loginGithubRequest } from '../actions/user/login-github.action';
 import { homePostsRequest } from '../actions/post/home-posts.action';
 import { PostItem } from '../components/template/PostItem';
 import { recommendUsersRequest } from '../actions/user/recommend-users.action';
@@ -19,11 +18,8 @@ import { UserItem } from '../components/template/UserItem';
 import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
 import { CategoryState } from '../reducers/category';
 import { LinkCategoryButton } from '../components/button/LinkCategory';
-import { COOKIE_TOKEN_KEY } from '../lib/cookie/cookie.key';
 import { ScrollList } from '../components/ScrollList';
-import { ServerCookie } from '../lib/cookie/cookie.server';
 import { PostVisibility } from '../types/visibility';
-import { loginNaverRequest } from '../actions/user/login-naver.action';
 import { Layout } from '../components/layout';
 import { Header } from '../components/header';
 import { SetPostModal } from '../components/modal/SetPost';
@@ -115,62 +111,26 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-    ({ getState, dispatch, sagaTask }) =>
-        async ({ req, res, query, ...etc }) => {
-            const { code, state } = query;
+    ({ dispatch, sagaTask }) =>
+        async (_) => {
+            dispatch(
+                homePostsRequest({
+                    limit: 12,
+                    visibility: PostVisibility.PUBLIC,
+                }),
+            );
 
-            if (typeof code === 'string') {
-                if (state === 'naver') {
-                    dispatch(
-                        loginNaverRequest({
-                            code,
-                            callbackFunc: (token: string) => {
-                                const cookies = new ServerCookie(req, res);
+            dispatch(
+                recommendUsersRequest({
+                    limit: 5,
+                }),
+            );
 
-                                cookies.setCookie(COOKIE_TOKEN_KEY, token);
-
-                                res.statusCode = 302;
-
-                                res.setHeader('Location', '/');
-                            },
-                        }),
-                    );
-                } else {
-                    dispatch(
-                        loginGithubRequest({
-                            code,
-                            callbackFunc: (token: string) => {
-                                const cookies = new ServerCookie(req, res);
-
-                                cookies.setCookie(COOKIE_TOKEN_KEY, token);
-
-                                res.statusCode = 302;
-
-                                res.setHeader('Location', '/');
-                            },
-                        }),
-                    );
-                }
-            } else {
-                dispatch(
-                    homePostsRequest({
-                        limit: 12,
-                        visibility: PostVisibility.PUBLIC,
-                    }),
-                );
-
-                dispatch(
-                    recommendUsersRequest({
-                        limit: 5,
-                    }),
-                );
-
-                dispatch(
-                    recommendCategoriesRequest({
-                        limit: 5,
-                    }),
-                );
-            }
+            dispatch(
+                recommendCategoriesRequest({
+                    limit: 5,
+                }),
+            );
 
             dispatch(END);
 

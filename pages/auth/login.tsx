@@ -7,6 +7,7 @@ import { SignInForm } from '../../components/form/SignIn';
 import { GithubLoginButton } from '../../components/button/GithubLogin';
 import { NaverLoginButton } from '../../components/button/NaverLogin';
 import { ActiveLink } from '../../components/ActiveLink';
+import { GoogleLoginButton } from '../../components/button/GoogleLogin';
 
 const LineOr = styled.span`
     position: relative;
@@ -69,6 +70,7 @@ const Login: NextPage = () => {
                 <LoginOr>
                     <GithubLoginButton />
                     <NaverLoginButton />
+                    <GoogleLoginButton />
                 </LoginOr>
                 <Helper>
                     <span>계정이 없다면 &nbsp;</span>

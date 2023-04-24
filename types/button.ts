@@ -7,4 +7,5 @@ export type ButtonColorType =
     | 'danger'
     | 'warning'
     | 'github'
-    | 'naver';
+    | 'naver'
+    | 'google';

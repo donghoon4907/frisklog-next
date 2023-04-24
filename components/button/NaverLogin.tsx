@@ -8,7 +8,7 @@ export const NaverLoginButton: FC = () => {
         const url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
             process.env.NAVER_CLIENTID
         }&redirect_uri=${encodeURIComponent(
-            'http://127.0.0.1:3000/',
+            `${process.env.REDIRECT_URI}` || '',
         )}&state=naver`;
 
         window.location.assign(url);

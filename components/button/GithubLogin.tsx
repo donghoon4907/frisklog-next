@@ -5,7 +5,7 @@ import { Button } from '.';
 
 export const GithubLoginButton: FC = () => {
     const handleClick = async () => {
-        const url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENTID}`;
+        const url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENTID}&redirect_uri=${process.env.REDIRECT_URI}`;
 
         window.location.assign(url);
     };
