@@ -8,6 +8,7 @@ import { COOKIE_TOKEN_KEY } from '../../lib/cookie/cookie.key';
 import { setCookie } from '../../lib/cookie/cookie.client';
 import { loginNaverRequest } from '../../actions/user/login-naver.action';
 import { loginGithubRequest } from '../../actions/user/login-github.action';
+import { loginGoogleRequest } from '../../actions/user/login-google.action';
 
 const ReceiveCode: NextPage = () => {
     const router = useRouter();
@@ -32,8 +33,7 @@ const ReceiveCode: NextPage = () => {
                     }),
                 );
                 // Github
-            } else {
-                console.log(code);
+            } else if (state === 'github') {
                 dispatch(
                     loginGithubRequest({
                         code,
@@ -45,15 +45,26 @@ const ReceiveCode: NextPage = () => {
                     }),
                 );
             }
-            // Google
         } else {
             const parsedHash = new URLSearchParams(
                 window.location.hash.substring(1),
             );
 
-            const accessToken = parsedHash.get('access_token');
+            const token = parsedHash.get('access_token');
 
-            console.log(accessToken);
+            // Google
+            if (token) {
+                dispatch(
+                    loginGoogleRequest({
+                        token,
+                        callbackFunc: (token: string) => {
+                            setCookie(COOKIE_TOKEN_KEY, token);
+
+                            router.replace('/');
+                        },
+                    }),
+                );
+            }
         }
     }, []);
 

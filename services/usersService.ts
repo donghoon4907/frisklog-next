@@ -28,6 +28,8 @@ import { LoginNaverRequestPayload } from '../actions/user/login-naver.interface'
 import { MUTATION_NAVER_LOGIN } from '../graphql/mutation/user/login-naver';
 import { SendEmailRequestPayload } from '../actions/user/send-email.interface';
 import { MUTATION_SEND_EMAIL } from '../graphql/mutation/user/send-email';
+import { LoginGoogleRequestPayload } from '../actions/user/login-google.interface';
+import { MUTATION_GOOGLE_LOGIN } from '../graphql/mutation/user/login-google';
 
 export function createUser(payload: CreateUserRequestPayload) {
     return client.request(MUTATION_CREATE_USER, payload);
@@ -59,6 +61,10 @@ export function loginGithub(payload: LoginGithubRequestPayload) {
 
 export function loginNaver(payload: LoginNaverRequestPayload) {
     return client.request(MUTATION_NAVER_LOGIN, payload);
+}
+
+export function loginGoogle(payload: LoginGoogleRequestPayload) {
+    return client.request(MUTATION_GOOGLE_LOGIN, payload);
 }
 
 export function getRecommenders(payload: RecommendUsersRequestPayload) {

@@ -16,6 +16,7 @@ import { watchUpdateUser } from './update-user';
 import { watchVerifyUser } from './verify-user';
 import { watchLoginNaver } from './login-naver';
 import { watchSendEmail } from './send-email';
+import { watchLoginGoogle } from './login-google';
 
 export function* userSaga() {
     yield all([
@@ -35,5 +36,6 @@ export function* userSaga() {
         fork(watchSearchUsers),
         fork(watchUpdateSetting),
         fork(watchSendEmail),
+        fork(watchLoginGoogle),
     ]);
 }
