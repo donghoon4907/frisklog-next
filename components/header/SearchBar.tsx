@@ -1,10 +1,16 @@
-import { useState, useEffect, useRef, FC, ChangeEvent, FormEvent } from 'react';
+import type { FC, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { FormInput } from '../FormInput';
 import { hideSearchBar } from '../../actions/switch/search-bar.action';
-import { SearchBarContainer, SearchBarForm } from './SearchBar.style';
+import {
+    SearchBarContainer,
+    SearchBarForm,
+    SearchKeyword,
+} from './SearchBar.style';
 import { useRoute } from '../../hooks/use-route';
+import { MainTitle } from '../layout/Main.style';
 
 export const HeaderSearchBar: FC = () => {
     const route = useRoute();
@@ -46,6 +52,9 @@ export const HeaderSearchBar: FC = () => {
                     value={searchKeyword}
                 />
             </SearchBarForm>
+            <SearchKeyword>
+                <MainTitle>인기 검색어</MainTitle>
+            </SearchKeyword>
         </SearchBarContainer>
     );
 };

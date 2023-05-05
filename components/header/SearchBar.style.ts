@@ -17,3 +17,9 @@ export const SearchBarForm = styled.form`
     margin: 0 auto;
     width: 33rem;
 `;
+
+export const SearchKeyword = styled.div`
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 33rem;
+`;
