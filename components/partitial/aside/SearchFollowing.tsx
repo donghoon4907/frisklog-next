@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getFollowingsRequest } from '../../../actions/user/get-followings.action';
 import { useInput } from '../../../hooks/use-input';
-import { useQuery } from '../../../hooks/use-query';
+import { useLazyQuery } from '../../../hooks/use-query';
 import { AppState } from '../../../reducers';
 import { UserState } from '../../../reducers/user';
 import { Button } from '../../button';
@@ -22,7 +22,7 @@ export const SearchFollowing = () => {
         (state) => state.user,
     );
 
-    const [getFollowings] = useQuery(getFollowingsRequest);
+    const [getFollowings] = useLazyQuery(getFollowingsRequest);
 
     const search = router.asPath.split('?')[1] || '';
 

@@ -21,7 +21,7 @@ import { PostMenu } from '../dropdown/PostItem.menu';
 import { IconAndTextWrapper } from '../button/IconWrapper';
 import { CommentList } from '../CommentList';
 import { postCommentsRequest } from '../../actions/comment/post-comments.action';
-import { useQuery } from '../../hooks/use-query';
+import { useLazyQuery } from '../../hooks/use-query';
 import { mixinBox, mixinEllipsis } from '../theme/mixins';
 import { Avatar } from '../avatar';
 import { useMutation } from '../../hooks/use-mutation';
@@ -172,7 +172,7 @@ export const PostItem: FC<Props> = ({
         (state) => state.comment,
     );
 
-    const [getComments] = useQuery(postCommentsRequest);
+    const [getComments] = useLazyQuery(postCommentsRequest);
 
     const mdBodyEl = useRef<HTMLDivElement>(null);
 

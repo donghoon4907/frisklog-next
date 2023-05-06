@@ -14,7 +14,7 @@ import { StateChangerLink } from '../link/link.style';
 import { useUpload } from '../../hooks/use-upload';
 import { PhotoType } from '../../types/photo';
 import { profilePhotosRequest } from '../../actions/photo/profile-photos.action';
-import { useQuery } from '../../hooks/use-query';
+import { useLazyQuery } from '../../hooks/use-query';
 import { mixinBox } from '../theme/mixins';
 import { Avatar } from '../avatar';
 import { hideThumbnailModal } from '../../actions/switch/thumbnail-modal.action';
@@ -73,7 +73,7 @@ export const SetThumbnailModal: FC = () => {
         (state) => state.photo,
     );
 
-    const [getPhotos] = useQuery(profilePhotosRequest);
+    const [getPhotos] = useLazyQuery(profilePhotosRequest);
 
     const [updateUser] = useMutation(updateUserRequest, { useAuth: true });
 

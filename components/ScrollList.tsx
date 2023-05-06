@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Scroll } from './Scroll';
 import { OffsetPageInfo } from '../interfaces/page-info';
 import { AnyAction } from 'redux';
-import { useQuery } from '../hooks/use-query';
+import { useLazyQuery } from '../hooks/use-query';
 import { mixinBox } from './theme/mixins';
 import { NotFoundPost } from './NotFoundPost';
 
@@ -23,7 +23,7 @@ export const ScrollList: FC<Props> = ({
     actionCreator,
     payload = {},
 }) => {
-    const [getNodes] = useQuery(actionCreator);
+    const [getNodes] = useLazyQuery(actionCreator);
 
     return (
         <>

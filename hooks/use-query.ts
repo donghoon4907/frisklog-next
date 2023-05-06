@@ -4,7 +4,7 @@ import { AnyAction } from 'redux';
 import { AppState } from '../reducers';
 import { LoadingState } from '../reducers/common/loading';
 
-export const useQuery = (actionCreator: (payload: any) => AnyAction) => {
+export const useLazyQuery = (actionCreator: (payload: any) => AnyAction) => {
     const dispatch = useDispatch();
 
     const { loading } = useSelector<AppState, LoadingState>(

@@ -5,7 +5,7 @@ import type { Comment } from '../interfaces/comment';
 import type { OffsetPageInfo } from '../interfaces/page-info';
 import { postCommentsRequest } from '../actions/comment/post-comments.action';
 import { CreateCommentForm } from './form/CreateComment';
-import { useQuery } from '../hooks/use-query';
+import { useLazyQuery } from '../hooks/use-query';
 import { Button } from './button';
 import { CommentItem } from './template/CommentItem';
 
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const CommentList: FC<Props> = ({ nodes, pageInfo, postId }) => {
-    const [getComments] = useQuery(postCommentsRequest);
+    const [getComments] = useLazyQuery(postCommentsRequest);
 
     const handlePage = (pageNo: number) => {
         getComments({

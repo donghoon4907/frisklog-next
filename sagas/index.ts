@@ -7,6 +7,7 @@ import { commonSaga } from './common';
 import { categorySaga } from './category';
 import { notificationSaga } from './notification';
 import { photoSaga } from './photo';
+import { searchKeywordSaga } from './search-keyword';
 
 export function* rootSaga() {
     yield all([
@@ -17,5 +18,6 @@ export function* rootSaga() {
         call(categorySaga),
         call(notificationSaga),
         call(photoSaga),
+        call(searchKeywordSaga),
     ]);
 }

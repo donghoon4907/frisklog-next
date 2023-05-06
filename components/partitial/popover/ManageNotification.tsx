@@ -11,7 +11,7 @@ import { getNotificationsRequest } from '../../../actions/notification/get-notif
 import { NotificationSettingButton } from '../../button/NotificationSetting';
 import { CommonState } from '../../../reducers/common';
 import { ManageNotificationFilter } from './ManageNotificationFilter';
-import { useQuery } from '../../../hooks/use-query';
+import { useLazyQuery } from '../../../hooks/use-query';
 
 export const ManageNotification = () => {
     const { notifications } = useSelector<AppState, NotificationState>(
@@ -22,7 +22,7 @@ export const ManageNotification = () => {
         (state) => state.common,
     );
 
-    const [getNotifications] = useQuery(getNotificationsRequest);
+    const [getNotifications] = useLazyQuery(getNotificationsRequest);
 
     const [deleteNotifications] = useMutation(deleteNotificationsRequest, {
         useAuth: true,

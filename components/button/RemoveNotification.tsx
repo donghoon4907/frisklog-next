@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../reducers';
 import { NotificationState } from '../../reducers/notification';
 import { getNotificationsRequest } from '../../actions/notification/get-notifications.action';
-import { useQuery } from '../../hooks/use-query';
+import { useLazyQuery } from '../../hooks/use-query';
 
 interface Props {
     id: string;
@@ -19,7 +19,7 @@ export const RemoveNotificationButton: FC<Props> = ({ id }) => {
         (state) => state.notification,
     );
 
-    const [getNotifications] = useQuery(getNotificationsRequest);
+    const [getNotifications] = useLazyQuery(getNotificationsRequest);
 
     const [deleteNotification] = useMutation(deleteNotificationsRequest, {
         useAuth: true,
