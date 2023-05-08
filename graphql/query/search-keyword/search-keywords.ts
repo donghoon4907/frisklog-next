@@ -7,6 +7,7 @@ import { gql } from 'graphql-request';
 export const GET_SEARCH_KEYWORDS = gql`
     query GetSearchKeywords($offset: Int, $limit: Int!) {
         searchKeywords(offset: $offset, limit: $limit) {
+            id
             keyword
             searchCount
         }

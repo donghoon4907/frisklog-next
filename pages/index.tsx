@@ -17,7 +17,7 @@ import { PrevArrow, NextArrow } from '../components/Slick';
 import { UserItem } from '../components/template/UserItem';
 import { recommendCategoriesRequest } from '../actions/category/recommend-categories.action';
 import { CategoryState } from '../reducers/category';
-import { LinkCategoryButton } from '../components/button/LinkCategory';
+import { LinkButton } from '../components/button/Link';
 import { ScrollList } from '../components/ScrollList';
 import { PostVisibility } from '../types/visibility';
 import { Layout } from '../components/layout';
@@ -64,10 +64,11 @@ const Home: NextPage = () => {
                             <ul>
                                 {recommendCategories.map(
                                     ({ id, content, postCount }) => (
-                                        <LinkCategoryButton
+                                        <LinkButton
                                             key={`recommendCategory${id}`}
-                                            category={content}
-                                            postCount={postCount}
+                                            text={`${content}(${postCount})`}
+                                            href={`/category/${content}`}
+                                            aria-label={`'${content}' 카테고리 검색`}
                                         />
                                     ),
                                 )}

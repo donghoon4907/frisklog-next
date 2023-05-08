@@ -13,7 +13,7 @@ import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
 import { searchPostsRequest } from '../../actions/post/search-posts.action';
 import { CategoryState } from '../../reducers/category';
-import { LinkCategoryButton } from '../../components/button/LinkCategory';
+import { LinkButton } from '../../components/button/Link';
 import { searchUsersRequest } from '../../actions/user/search-users.action';
 import { AsideUserProfile } from '../../components/partitial/aside/UserProfile';
 import { searchCategoriesRequest } from '../../actions/category/search-categories.action';
@@ -65,16 +65,17 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                         <MainTitle>
                             <h2>{`"${searchKeyword}" 카테고리 검색결과`}</h2>
                         </MainTitle>
-                        <ul>
+                        <ul style={{ marginBottom: 20 }}>
                             {searchCategories.length === 0 && (
                                 <NotFoundCategory />
                             )}
                             {searchCategories.map(
                                 ({ content, postCount }, idx) => (
-                                    <LinkCategoryButton
-                                        key={`Category${idx}`}
-                                        category={content}
-                                        postCount={postCount}
+                                    <LinkButton
+                                        key={`category${idx}`}
+                                        text={`${content}(${postCount})`}
+                                        href={`/category/${content}`}
+                                        aria-label={`'${content}' 카테고리 검색`}
                                     />
                                 ),
                             )}

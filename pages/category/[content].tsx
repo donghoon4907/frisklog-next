@@ -11,7 +11,7 @@ import { PostItem } from '../../components/template/PostItem';
 import { wrapper } from '../../store';
 import { ScrollList } from '../../components/ScrollList';
 import { CategoryState } from '../../reducers/category';
-import { LinkCategoryButton } from '../../components/button/LinkCategory';
+import { LinkButton } from '../../components/button/Link';
 import { relatedCategoriesRequest } from '../../actions/category/related-categories.action';
 import { categoryPostsRequest } from '../../actions/post/category-posts.action';
 import { Header } from '../../components/header';
@@ -57,10 +57,11 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
                             <ul>
                                 {relatedCategories.map(
                                     ({ content, postCount }, idx) => (
-                                        <LinkCategoryButton
+                                        <LinkButton
                                             key={`relatedCategory${idx}`}
-                                            category={content}
-                                            postCount={postCount}
+                                            text={`${content}(${postCount})`}
+                                            href={`/category/${content}`}
+                                            aria-label={`'${content}' 카테고리 검색`}
                                         />
                                     ),
                                 )}

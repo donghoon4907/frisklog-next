@@ -1,7 +1,9 @@
 import type { FC, ChangeEvent, FormEvent } from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import type { AppState } from '../../reducers';
+import type { SearchKeywordState } from '../../reducers/search-keyword';
 import { FormInput } from '../FormInput';
 import { hideSearchBar } from '../../actions/switch/search-bar.action';
 import {
@@ -11,11 +13,16 @@ import {
 } from './SearchBar.style';
 import { useRoute } from '../../hooks/use-route';
 import { MainTitle } from '../layout/Main.style';
+import { LinkButton } from '../button/Link';
 
 export const HeaderSearchBar: FC = () => {
     const route = useRoute();
 
     const dispatch = useDispatch();
+
+    const { searchKeywords } = useSelector<AppState, SearchKeywordState>(
+        (state) => state.searchKeyword,
+    );
 
     const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -54,6 +61,16 @@ export const HeaderSearchBar: FC = () => {
             </SearchBarForm>
             <SearchKeyword>
                 <MainTitle>인기 검색어</MainTitle>
+                <ul>
+                    {searchKeywords.map(({ id, keyword }) => (
+                        <LinkButton
+                            key={`searchKeyword${id}`}
+                            text={keyword}
+                            href={`/search/${keyword}`}
+                            aria-label={`'${keyword}' 검색`}
+                        />
+                    ))}
+                </ul>
             </SearchKeyword>
         </SearchBarContainer>
     );
