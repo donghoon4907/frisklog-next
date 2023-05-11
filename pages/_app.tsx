@@ -26,6 +26,7 @@ import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
 import { copyToClipboard } from '../lib/copy';
 import { searchKeywordsRequest } from '../actions/search-keyword/search-keywords.action';
+import { searchLogsRequest } from '../actions/search-keyword/search-logs.action';
 
 NProgress.configure({ showSpinner: false });
 
@@ -126,6 +127,9 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                 if (token) {
                     dispatch(loadUserRequest());
+
+                    // 검색 이력 요청
+                    dispatch(searchLogsRequest({ limit: 5 }));
 
                     if (router.route === '/404') {
                         dispatch(END);
