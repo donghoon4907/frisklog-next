@@ -249,4 +249,9 @@ button {
 #nprogress .bar {
     background: ${({ theme }) => theme.iconColor} !important;
 }
+// 검색 하이라이팅 관련 
+.highlight {
+    display: inline;
+    box-shadow: inset 0 -10px 0 #D9FCDB;
+}
 `;

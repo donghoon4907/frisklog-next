@@ -21,6 +21,7 @@ import { NotFoundCategory } from '../../components/NotFoundCategory';
 import { PostVisibility } from '../../types/visibility';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
+import { SetPostModal } from '../../components/modal/SetPost';
 
 interface Props {
     searchKeyword: string;
@@ -92,6 +93,7 @@ const Search: NextPage<Props> = ({ searchKeyword }) => {
                     )}
                 </AsideLayout>
             </Layout>
+            <SetPostModal />
         </>
     );
 };
