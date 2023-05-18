@@ -16,4 +16,6 @@ export interface Post {
     isLiked: boolean;
     categories: Category[];
     visibility: PostVisibility;
+    // 하이라이팅 작업이 추가된 content
+    highlightedContent?: string;
 }

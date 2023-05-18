@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -27,6 +28,7 @@ import { Avatar } from '../avatar';
 import { useMutation } from '../../hooks/use-mutation';
 import { restorePostRequest } from '../../actions/post/restore-post.action';
 import { Button } from '../button';
+import { convertAllToLike } from '../../lib/text/highlight';
 
 const renderer = {
     code(code: string, lang: string) {
@@ -164,6 +166,8 @@ export const PostItem: FC<Props> = ({
     commentCount,
     visibility,
 }) => {
+    const router = useRouter();
+
     const { id: userId } = useSelector<AppState, UserState>(
         (state) => state.user,
     );
@@ -188,6 +192,14 @@ export const PostItem: FC<Props> = ({
     const isMe = userId == user.id;
 
     const postCategories = categories.map((category) => category.content);
+    // 검색 키워드 - 검색 페이지에서만 활성
+    const searchKeyword = router.query.keyword as string;
+    // 실제 렌더링될 내용
+    let renderContent = content;
+    // 검색 키워드가 있는 경우 하이라이팅 처리
+    if (searchKeyword) {
+        renderContent = convertAllToLike(searchKeyword, renderContent);
+    }
 
     return (
         <Container>
@@ -237,7 +249,7 @@ export const PostItem: FC<Props> = ({
                         className="toastui-editor-contents"
                         ref={mdBodyEl}
                         dangerouslySetInnerHTML={{
-                            __html: content ? marked(content) : '',
+                            __html: renderContent ? marked(renderContent) : '',
                         }}
                     />
                 </Content>
@@ -249,7 +261,18 @@ export const PostItem: FC<Props> = ({
                                 href={`/category/${category}`}
                                 aria-label={`'${category}' 카테고리 검색`}
                             >
-                                #{category}
+                                #
+                                <span
+                                    className={
+                                        category
+                                            .toLowerCase()
+                                            .includes(searchKeyword)
+                                            ? 'highlight'
+                                            : ''
+                                    }
+                                >
+                                    {category}
+                                </span>
                             </ActiveLink>
                         ))}
                     </Tag>
