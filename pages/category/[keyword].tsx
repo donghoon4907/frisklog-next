@@ -77,7 +77,7 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
 export const getServerSideProps = wrapper.getServerSideProps(
     ({ dispatch, sagaTask }) =>
         async ({ req, res, query, ...etc }) => {
-            const category = query.content as string;
+            const category = query.keyword as string;
 
             dispatch(
                 categoryPostsRequest({

@@ -19,6 +19,7 @@ import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
 import { SetUserModal } from '../../components/modal/SetUser';
 import { SetThumbnailModal } from '../../components/modal/SetThumbnail';
+import { SetPostModal } from '../../components/modal/SetPost';
 
 interface Props {
     userId: string;
@@ -66,6 +67,7 @@ const MyPage: NextPage<Props> = ({ userId }) => {
                     <MyPosts />
                 </AsideLayout>
             </Layout>
+            <SetPostModal />
             <SetUserModal />
             <SetThumbnailModal />
         </>

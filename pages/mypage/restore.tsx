@@ -17,6 +17,7 @@ import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
 import { SetUserModal } from '../../components/modal/SetUser';
 import { SetThumbnailModal } from '../../components/modal/SetThumbnail';
+import { SetPostModal } from '../../components/modal/SetPost';
 
 interface Props {
     me: Pick<User, 'id' | 'nickname' | 'avatar'>;
@@ -56,6 +57,7 @@ const RestorePost: NextPage<Props> = ({ me }) => {
                     />
                 </AsideLayout>
             </Layout>
+            <SetPostModal />
             <SetUserModal />
             <SetThumbnailModal />
         </>

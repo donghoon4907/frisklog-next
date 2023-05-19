@@ -261,18 +261,7 @@ export const PostItem: FC<Props> = ({
                                 href={`/category/${category}`}
                                 aria-label={`'${category}' 카테고리 검색`}
                             >
-                                #
-                                <span
-                                    className={
-                                        category
-                                            .toLowerCase()
-                                            .includes(searchKeyword)
-                                            ? 'highlight'
-                                            : ''
-                                    }
-                                >
-                                    {category}
-                                </span>
+                                {`#${category}`}
                             </ActiveLink>
                         ))}
                     </Tag>

@@ -28,6 +28,10 @@ export const PostCategoriesForm: FC<Props> = ({
             return alert('카테고리는 10자 미만으로 입력하세요.');
         }
 
+        if (category.value !== category.value.toLowerCase()) {
+            return alert('카테고리는 대문자를 사용할 수 없습니다.');
+        }
+
         const findIndex = categories.findIndex((cat) => cat === category.value);
 
         if (findIndex !== -1) {

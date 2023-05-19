@@ -15,6 +15,7 @@ import { ScrollList } from '../../components/ScrollList';
 import { wrapper } from '../../store';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
+import { SetPostModal } from '../../components/modal/SetPost';
 
 const Follow: NextPage = () => {
     const { followingPosts } = useSelector<AppState, PostState>(
@@ -45,6 +46,7 @@ const Follow: NextPage = () => {
                     <SearchFollowing />
                 </AsideLayout>
             </Layout>
+            <SetPostModal />
         </>
     );
 };
