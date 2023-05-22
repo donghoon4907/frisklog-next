@@ -16,6 +16,7 @@ import { relatedCategoriesRequest } from '../../actions/category/related-categor
 import { categoryPostsRequest } from '../../actions/post/category-posts.action';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
+import { SetPostModal } from '../../components/modal/SetPost';
 
 interface Props {
     category: string;
@@ -70,6 +71,7 @@ const CategorySearch: NextPage<Props> = ({ category }) => {
                     )}
                 </AsideLayout>
             </Layout>
+            <SetPostModal />
         </>
     );
 };
