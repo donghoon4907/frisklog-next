@@ -25,7 +25,6 @@ import { ServerCookie } from '../lib/cookie/cookie.server';
 import { loadUserRequest } from '../actions/user/load-user.action';
 import { updateClientHeader } from '../graphql/client';
 import { copyToClipboard } from '../lib/copy';
-import { searchKeywordsRequest } from '../actions/search-keyword/search-keywords.action';
 import { searchLogsRequest } from '../actions/search-keyword/search-logs.action';
 
 NProgress.configure({ showSpinner: false });
@@ -122,8 +121,6 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
                 // graphql-request client header update
                 updateClientHeader({ token });
-                // 인기 키워드 요청
-                dispatch(searchKeywordsRequest({ limit: 5 }));
 
                 if (token) {
                     dispatch(loadUserRequest());

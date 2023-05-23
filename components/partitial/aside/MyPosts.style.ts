@@ -12,8 +12,7 @@ export const Item = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 0;
-    line-height: 1.5;
+    line-height: 40px;
     font-weight: 500;
     cursor: pointer;
 

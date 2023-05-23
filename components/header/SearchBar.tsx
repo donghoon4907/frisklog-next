@@ -59,19 +59,21 @@ export const HeaderSearchBar: FC = () => {
                     value={searchKeyword}
                 />
             </SearchBarForm>
-            <SearchKeyword>
-                <MainTitle>인기 검색어</MainTitle>
-                <ul>
-                    {searchKeywords.map(({ id, keyword }) => (
-                        <LinkButton
-                            key={`searchKeyword${id}`}
-                            text={keyword}
-                            href={`/search/${keyword}`}
-                            aria-label={`'${keyword}' 검색`}
-                        />
-                    ))}
-                </ul>
-            </SearchKeyword>
+            {searchKeywords.length > 0 && (
+                <SearchKeyword>
+                    <MainTitle>인기 검색어</MainTitle>
+                    <ul>
+                        {searchKeywords.map(({ id, keyword }) => (
+                            <LinkButton
+                                key={`searchKeyword${id}`}
+                                text={keyword}
+                                href={`/search/${keyword}`}
+                                aria-label={`'${keyword}' 검색`}
+                            />
+                        ))}
+                    </ul>
+                </SearchKeyword>
+            )}
         </SearchBarContainer>
     );
 };

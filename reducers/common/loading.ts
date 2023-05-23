@@ -23,6 +23,7 @@ const loadingReducer = (state: LoadingState = {}, action: Action) => {
     return {
         ...state,
         loading: requestStatus === 'REQUEST',
+        lastRequestName: requestName,
     };
 };
 
