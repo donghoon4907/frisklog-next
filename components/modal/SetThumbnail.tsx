@@ -58,6 +58,21 @@ const StateChangerWrapper = styled.div`
     gap: 10px;
 `;
 
+const PhotosMessage = styled.p`
+    position: relative;
+    width: 100%;
+    text-align: left;
+    padding-left: 10px;
+
+    &:before {
+        content: '*';
+        position: absolute;
+        top: 3px;
+        left: 0;
+        height: 100%;
+    }
+`;
+
 export const SetThumbnailModal: FC = () => {
     const dispatch = useDispatch();
 
@@ -157,7 +172,12 @@ export const SetThumbnailModal: FC = () => {
                     </AvatarMeta>
                 </UploadedAvatar>
                 {profilePhotos.length > 0 && (
-                    <Photos setPhoto={setPreview} items={profilePhotos} />
+                    <>
+                        <Photos setPhoto={setPreview} items={profilePhotos} />
+                        <PhotosMessage>
+                            최근 업로드된 사진 중 최대 8개까지 제공됩니다.
+                        </PhotosMessage>
+                    </>
                 )}
             </UploadColumn>
         </Modal>

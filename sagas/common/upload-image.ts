@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import {
     UploadImageRequestAction,
@@ -26,13 +26,14 @@ function* uploadImageSaga({ payload }: UploadImageRequestAction): any {
         yield put(uploadImageSuccess(data));
 
         payload.callbackFunc?.(data);
-    } catch (e) {
-        yield put(
-            sagaError({
-                message: (e as AxiosError).response?.data as string,
-                statusCode: -1,
-            }),
-        );
+    } catch (err: any) {
+        const { data, status } = err?.response;
+
+        if (status === 403) {
+            yield put(sagaError({ message: data, statusCode: status }));
+
+            alert(data);
+        }
     }
 }
 

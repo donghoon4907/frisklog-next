@@ -1,5 +1,6 @@
+import { ErrorPayload } from '../../interfaces/error';
 import {
-    UploadImageCleanUpAction,
+    UploadImageFailureAction,
     UploadImageRequestAction,
     UploadImageRequestPayload,
     UploadImageSuccessAction,
@@ -12,7 +13,6 @@ export const uploadImageActionTypes = {
     REQUEST: `${UPLOAD_IMAGE_KEY}_REQUEST`,
     SUCCESS: `${UPLOAD_IMAGE_KEY}_SUCCESS`,
     FAILURE: `${UPLOAD_IMAGE_KEY}_FAILURE`,
-    CLEANUP: `${UPLOAD_IMAGE_KEY}_CLEANUP`,
 };
 
 export function uploadImageRequest(
@@ -30,11 +30,5 @@ export function uploadImageSuccess(
     return {
         type: uploadImageActionTypes.SUCCESS,
         payload,
-    };
-}
-
-export function uploadImageCleanUp(): UploadImageCleanUpAction {
-    return {
-        type: uploadImageActionTypes.CLEANUP,
     };
 }

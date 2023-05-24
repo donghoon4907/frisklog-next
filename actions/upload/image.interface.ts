@@ -19,10 +19,7 @@ export interface UploadImageSuccessAction
 
 export interface UploadImageFailureAction extends ErrorAction {}
 
-export interface UploadImageCleanUpAction extends Action<string> {}
-
 export type UploadImageAction =
     | UploadImageRequestAction
     | UploadImageSuccessAction
-    | UploadImageFailureAction
-    | UploadImageCleanUpAction;
+    | UploadImageFailureAction;
