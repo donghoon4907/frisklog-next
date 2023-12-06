@@ -10,12 +10,25 @@ import {
 function* searchLogsSaga(action: SearchLogsRequestAction) {
     const { payload } = action;
 
-    const { searchLogs } = yield call(
-        searchKeywordsService.getSearchLogs,
-        payload,
-    );
+    // const { searchLogs } = yield call(
+    //     searchKeywordsService.getSearchLogs,
+    //     payload,
+    // );
 
-    yield put(searchLogsSuccess(searchLogs));
+    // yield put(searchLogsSuccess(searchLogs));
+
+    yield put(
+        searchLogsSuccess({
+            nodes: [],
+            pageInfo: {
+                pageSize: 0,
+                lastPage: 0,
+                nodeCount: 0,
+                totalCount: 0,
+                currentPage: 0,
+            },
+        }),
+    );
 }
 
 export function* watchSearchLogs() {
